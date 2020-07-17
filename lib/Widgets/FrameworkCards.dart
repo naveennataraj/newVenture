@@ -23,8 +23,8 @@ class FrameworkCards extends StatelessWidget {
         color: Colors.white,
         elevation: 5,
         child: Container(
-          height: 310,
-          width: 310,
+          height: 150,
+          width: 150,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
