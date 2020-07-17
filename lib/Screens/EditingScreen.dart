@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Widgets/FrameworkCards.dart';
 import 'ProblemStudy.dart';
-import 'Widgets/FrameworkCards.dart';
 
 class Editingscreen extends StatefulWidget {
   @override
@@ -173,6 +173,7 @@ class _EditingscreenState extends State<Editingscreen> {
                     buttonText: 'Explore Other Pain Points',
                     frameworkicon: Icons.people,
                     frameworkStep: 'Customer Pain Point',
+                    navigateTo: null,
                   ),
                 ),
                 SizedBox(

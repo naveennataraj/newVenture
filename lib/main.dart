@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:iventure001/BlitzInnovationFramework.dart';
-import 'package:iventure001/EditingScreen.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework.dart';
+import 'package:iventure001/Screens/EditingScreen.dart';
+import 'package:iventure001/Screens/addpainpoints.dart';
 import 'package:iventure001/bifdashboard.dart';
 
 import 'Homepage.dart';
-import 'ProblemStudy.dart';
+import 'Screens/ProblemStudy.dart';
 
 void main() {
   runApp(Vueapp());
@@ -22,6 +23,7 @@ class Vueapp extends StatelessWidget {
         '/Problemstudy': (context) => ProblemStudy(),
         '/bifdashboard': (context) => bifdashboard(),
         '/editingScreen': (context) => Editingscreen(),
+        '/addpainpoints': (context) => AddPainPoints(),
       },
     );
   }

@@ -6,12 +6,14 @@ class FrameworkCards extends StatelessWidget {
       {@required this.frameworkicon,
       @required this.frameworkStep,
       @required this.frameworkdescrip,
-      @required this.buttonText});
+      @required this.buttonText,
+      @required this.navigateTo});
 
   final IconData frameworkicon;
   final String frameworkStep;
   final String frameworkdescrip;
   final String buttonText;
+  final String navigateTo;
 
   @override
   Widget build(BuildContext context) {

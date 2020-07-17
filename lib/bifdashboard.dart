@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/ProblemStudy.dart';
+import 'package:iventure001/Screens/ProblemStudy.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
 
 class bifdashboard extends StatelessWidget {
@@ -42,6 +42,7 @@ class bifdashboard extends StatelessWidget {
                   buttonText: 'Explore Other Pain Points',
                   frameworkicon: Icons.people,
                   frameworkStep: 'Customer Pain Point',
+                  navigateTo: null,
                 ),
               ),
               SizedBox(

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'Widgets/FrameworkCards.dart';
+import '../Widgets/FrameworkCards.dart';
 
 class BlitzInnovationFramework extends StatelessWidget {
   @override
@@ -112,6 +112,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                       frameworkdescrip:
                           'Studying the problem space and understanding the pain points involved.',
                       buttonText: "Let's Get Started",
+                      navigateTo: '/Problemstudy',
                     ),
                     FrameworkCards(
                       frameworkStep: 'Step 2 - Studying the user',
@@ -119,6 +120,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                       frameworkdescrip:
                           'Studying the user, who they are, their environment and what they want.',
                       buttonText: 'Begin Step 2',
+                      navigateTo: '/Problemstudy',
                     ),
                     FrameworkCards(
                       frameworkStep: 'Step 3 - Ideate and Conceptualize',
@@ -126,6 +128,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                       frameworkdescrip:
                           'Brainstorming possible solutions and selecting the best option.',
                       buttonText: 'Begin Step 3',
+                      navigateTo: '/Problemstudy',
                     ),
                     FrameworkCards(
                       frameworkStep: 'Step 4 - Solution formulation',
@@ -133,6 +136,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                       frameworkdescrip:
                           'Defining product goals, the features of the product and Creating a solution outline.',
                       buttonText: 'Begin Step 4',
+                      navigateTo: '/Problemstudy',
                     ),
                     FrameworkCards(
                       frameworkStep: 'Step 5 - Pre-Validation',
@@ -140,6 +144,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                       frameworkdescrip:
                           "Preparing for the collection of user's initial feedback on the solution concept.",
                       buttonText: 'Begin Step 5',
+                      navigateTo: '/Problemstudy',
                     ),
                     FrameworkCards(
                       frameworkStep: 'Step 6 - Solution Validation',
@@ -147,6 +152,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                       frameworkdescrip:
                           "Capturing the user's thoughts after they have tried out the solution and next steps.",
                       buttonText: 'Begin Step 6',
+                      navigateTo: '/Problemstudy',
                     ),
                     FrameworkCards(
                       frameworkStep: 'Step 7 - Managing growth',
@@ -154,6 +160,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                       frameworkdescrip:
                           'Outlining how the product plans to scale and planning for new parallel products.',
                       buttonText: 'Begin Step 7',
+                      navigateTo: '/Problemstudy',
                     ),
                     FrameworkCards(
                       frameworkStep: 'Step 8 - Metrics',
@@ -161,6 +168,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                       frameworkdescrip:
                           'List out the metrics which will be used to keep track of the product.',
                       buttonText: 'Begin Step 8',
+                      navigateTo: '/Problemstudy',
                     ),
                   ],
                 ),

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Widgets/GoNextButton.dart';
+import '../Widgets/HeadBackButton.dart';
+
 String customerProblems = '';
 
 class ProblemStudy extends StatefulWidget {
@@ -39,8 +42,11 @@ class _ProblemStudyState extends State<ProblemStudy> {
                     style: TextStyle(fontSize: 30),
                     textAlign: TextAlign.right,
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
-                    margin: EdgeInsets.all(30),
+                    margin: EdgeInsets.all(20),
                     child: TextField(
                       controller: titleController,
                       decoration: InputDecoration(
@@ -56,7 +62,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(30),
+                    margin: EdgeInsets.all(20),
                     child: TextField(
                       controller: customerProblemController,
                       maxLines: 3,
@@ -77,7 +83,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(30),
+                    margin: EdgeInsets.all(20),
                     child: TextField(
                       controller: problemImportanceController,
                       maxLines: 3,
@@ -100,30 +106,12 @@ class _ProblemStudyState extends State<ProblemStudy> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'HEAD BACK',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                        headBackButtton(),
                         SizedBox(
                           width: 50,
                         ),
-                        GestureDetector(
-                          onTap: () {
-//                            ProblemStudy().customerProblem =
-//                                customerProblemController.text;
-                            Navigator.pushNamed(context, '/bifdashboard');
-                          },
-                          child: Text(
-                            'GO NEXT',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0XFFE95420)),
-                          ),
+                        goNextButton(
+                          routeName: '/addpainpoints',
                         ),
                       ],
                     ),
