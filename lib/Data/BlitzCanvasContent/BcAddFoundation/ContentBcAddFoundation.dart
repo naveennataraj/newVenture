@@ -1,16 +1,18 @@
 class ContentBcAddFoundation {
+  final String generalTitle;
   final String title;
   final String description;
 
 
   ContentBcAddFoundation(
-      {this.title,
+      {this.generalTitle, this.title,
         this.description,
       });
 }
 
 List<ContentBcAddFoundation> foundationContent = [
   ContentBcAddFoundation(
+    generalTitle: 'Add details of the foundational aspects of the business',
     title: 'core competence',
     description: "Developing models for prediction based on relevant data",
   ),

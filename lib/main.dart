@@ -6,7 +6,7 @@ import 'package:iventure001/bifdashboard.dart';
 import 'package:iventure001/Screens/BIFHomeScreen.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
-
+import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'Homepage.dart';
 import 'Screens/ProblemStudy.dart';
 
@@ -34,7 +34,9 @@ class Vueapp extends StatelessWidget {
 
         // BC- BlitzCanvas
         '/BCHomeView': (context) => BCScreen(),
-        '/AddCard': (context) => Step1AddFoundation(),
+        //Step1
+        '/BCStep1CollectAspects': (context) => BcStep1CollectionAspects(), //Mission and Vision statements
+        '/BCStep1AddDetails': (context) => Step1AddFoundation(), //OrangeCards
       },
     );
   }
