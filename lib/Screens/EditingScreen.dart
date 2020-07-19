@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../Widgets/FrameworkCards.dart';
-import 'ProblemStudy.dart';
+import 'BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 
 class Editingscreen extends StatefulWidget {
   @override

@@ -3,11 +3,11 @@ class ContentBcAddFoundation {
   final String title;
   final String description;
 
-
-  ContentBcAddFoundation(
-      {this.generalTitle, this.title,
-        this.description,
-      });
+  ContentBcAddFoundation({
+    this.generalTitle,
+    this.title,
+    this.description,
+  });
 }
 
 List<ContentBcAddFoundation> foundationContent = [
@@ -27,5 +27,12 @@ List<ContentBcAddFoundation> foundationContent = [
   ContentBcAddFoundation(
     title: 'goal',
     description: "Onboard additional 10,000 active users per quarter",
+  ),
+];
+
+List<ContentBcAddFoundation> addPainPointsContent = [
+  ContentBcAddFoundation(
+    title: '',
+    description: '"The user in unable to work on shared assignments or tasks"',
   ),
 ];

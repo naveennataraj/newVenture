@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/FloatingButton.dart';
+import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCard.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
-import 'package:iventure001/Widgets/FloatingButton.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
-
 
 class Step1AddFoundation extends StatelessWidget {
   @override
@@ -33,45 +32,52 @@ class Step1AddFoundation extends StatelessWidget {
             ],
           ),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text('Add details of the foundational aspects of the business', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),  textAlign: TextAlign.center,)),
-                ListView.builder(
-                  itemCount: foundationContent.length,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(top: 10.0),
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: <Widget>[
-                        //CardRectangleLarge(subjects[index]),
-                        SmallOrangeCard(foundationContent[index]),
-
-                      ],
-                    );
-                  },),
-                Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Icon(Icons.add, size: 20.0,),),
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      headBackButtton(),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      CompleteStepButton(),
-                    ],
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        'Add details of the foundational aspects of the business',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )),
+                  ListView.builder(
+                    itemCount: foundationContent.length,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(top: 10.0),
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: <Widget>[
+                          //CardRectangleLarge(subjects[index]),
+                          SmallOrangeCard(foundationContent[index]),
+                        ],
+                      );
+                    },
                   ),
-                )
-              ],
-            )
-
-          ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    child: Icon(
+                      Icons.add,
+                      size: 20.0,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        headBackButtton(),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CompleteStepButton(),
+                      ],
+                    ),
+                  )
+                ],
+              )),
         ),
       ),
       floatingActionButton: FloatingButton(),

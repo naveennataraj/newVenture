@@ -3,9 +3,9 @@ import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAdd
 
 const cardColor = Color(0xFFF7C3B1);
 
-class SmallOrangeCard extends StatelessWidget {
+class SmallOrangeCardWithoutTitle extends StatelessWidget {
   final ContentBcAddFoundation addFoundationContent;
-  SmallOrangeCard(this.addFoundationContent);
+  SmallOrangeCardWithoutTitle(this.addFoundationContent);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,8 @@ class SmallOrangeCard extends StatelessWidget {
         print('working');
       },
       child: Container(
-        height: 180.0,
-        width: 370,
+        height: MediaQuery.of(context).size.height * 0.17,
+        width: MediaQuery.of(context).size.width * 0.20,
         margin: EdgeInsets.symmetric(horizontal: 46.0, vertical: 10.0),
         decoration: BoxDecoration(
           color: cardColor,
@@ -30,36 +30,28 @@ class SmallOrangeCard extends StatelessWidget {
           ],
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20.0, left: 20.0),
-              child: Text(
-                addFoundationContent.title,
-                //textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 18,
-                  //fontFamily: 'Raleway',
-                  //fontWeight: FontWeight.bold,
-                  //color: Colors.black,
-                ),
-              ),
-            ),
             //SizedBox(height: 30.0),
-            Flexible(
-              flex: 2,
+            Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01,
+                    horizontal: MediaQuery.of(context).size.width * 0.01),
                 child: Text(
                   addFoundationContent.description,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 23,
                   ),
                 ),
               ),
             ),
-            //SizedBox(height: 20.0),
+            Flexible(
+                child: SizedBox(
+              height: 30,
+            )),
             Padding(
               padding: EdgeInsets.only(bottom: 15, right: 15),
               child: Row(

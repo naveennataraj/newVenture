@@ -63,7 +63,7 @@ class FrameworkCards extends StatelessWidget {
                         hoverElevation: 10,
                         color: Color(0XFFE95420),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/Problemstudy');
+                          Navigator.pushNamed(context, navigateTo);
                         },
                         child: Text(
                           buttonText,
