@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
 class AddDetailButton extends StatelessWidget {
-  AddDetailButton({@required this.routeName});
+  AddDetailButton({@required this.routeName, @required this.onTap});
   final String routeName;
+  final Function onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
-      },
+      onTap: onTap,
       child: Text(
         'ADD DETAIL',
         style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),

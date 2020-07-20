@@ -1,7 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
+
+String Challenge;
+String MoreDetails;
+String Consequence;
+String addresspp;
+String expectations;
 
 class painpointDialogue extends StatefulWidget {
   @override
@@ -33,10 +41,6 @@ bool validexpectations = true;
 final expectationsTextController = TextEditingController();
 final expectationsFocusNode = new FocusNode();
 
-bool validTitle = true;
-final TitleTextController = TextEditingController();
-final TitleFocusNode = new FocusNode();
-
 class _painpointDialogueState extends State<painpointDialogue> {
   void requestFocus(FocusNode myFocusNode) {
     setState(() {
@@ -48,7 +52,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0)), //this right here
+          borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
         height: MediaQuery.of(context).size.height * 0.90,
         width: MediaQuery.of(context).size.width * 0.4,
@@ -73,7 +77,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                 controller: ChallengeTextController,
                 maxLines: 3,
 //                      maxLength: maxLength,
-                decoration: InputDecoration(
+                decoration: dialogueTextFields.copyWith(
                   labelText:
                       'Mention in one Sentence the Challenge faced by the User',
                   helperText: ChallengeFocusNode.hasFocus
@@ -84,19 +88,6 @@ class _painpointDialogueState extends State<painpointDialogue> {
                           ? Color(0XFFE95420)
                           : ChallengelabelColor),
                   errorText: validChallenge ? null : 'This field is required',
-                  errorStyle: TextStyle(
-                    color: Color(0XFFF53E70),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    borderSide: BorderSide(
-                      width: 1.5,
-                      color: Color(0XFFE95420),
-                    ),
-                  ),
                 ),
                 onChanged: (text) {
                   if (ChallengeTextController.text == "") {
@@ -106,6 +97,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      Challenge = text;
                       validChallenge = true;
                       ChallengelabelColor = Colors.grey;
                     });
@@ -119,6 +111,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      Challenge = text;
                       validChallenge = true;
                       ChallengelabelColor = Colors.grey;
                     });
@@ -136,7 +129,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                 controller: MoreDetailsTextController,
                 maxLines: 3,
 //                      maxLength: maxLength,
-                decoration: InputDecoration(
+                decoration: dialogueTextFields.copyWith(
                   labelText: 'Provide more details',
                   helperText: MoreDetailsFocusNode.hasFocus
                       ? 'Provide additional details of the briefly described pain point in this section'
@@ -146,19 +139,6 @@ class _painpointDialogueState extends State<painpointDialogue> {
                           ? Color(0XFFE95420)
                           : MoreDetailslabelColor),
                   errorText: validMoreDetails ? null : 'This field is required',
-                  errorStyle: TextStyle(
-                    color: Color(0XFFF53E70),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    borderSide: BorderSide(
-                      width: 1.5,
-                      color: Color(0XFFE95420),
-                    ),
-                  ),
                 ),
                 onChanged: (text) {
                   if (MoreDetailsTextController.text == "") {
@@ -168,6 +148,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      MoreDetails = text;
                       validMoreDetails = true;
                       MoreDetailslabelColor = Colors.grey;
                     });
@@ -181,6 +162,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      MoreDetails = text;
                       validMoreDetails = true;
                       MoreDetailslabelColor = Colors.grey;
                     });
@@ -198,7 +180,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                 controller: ConsequenceTextController,
                 maxLines: 3,
 //                      maxLength: maxLength,
-                decoration: InputDecoration(
+                decoration: dialogueTextFields.copyWith(
                   labelText:
                       'What are the consequence of the pain point not being assressed?',
                   helperText: ConsequenceFocusNode.hasFocus
@@ -209,19 +191,6 @@ class _painpointDialogueState extends State<painpointDialogue> {
                           ? Color(0XFFE95420)
                           : ConsequencelabelColor),
                   errorText: validConsequence ? null : 'This field is required',
-                  errorStyle: TextStyle(
-                    color: Color(0XFFF53E70),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    borderSide: BorderSide(
-                      width: 1.5,
-                      color: Color(0XFFE95420),
-                    ),
-                  ),
                 ),
                 onChanged: (text) {
                   if (ConsequenceTextController.text == "") {
@@ -231,6 +200,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      Consequence = text;
                       validConsequence = true;
                       ConsequencelabelColor = Colors.grey;
                     });
@@ -244,6 +214,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      Consequence = text;
                       validConsequence = true;
                       ConsequencelabelColor = Colors.grey;
                     });
@@ -261,7 +232,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                 controller: addressppTextController,
                 maxLines: 3,
 //                      maxLength: maxLength,
-                decoration: InputDecoration(
+                decoration: dialogueTextFields.copyWith(
                   labelText:
                       'How do the users currently address the pain point?',
                   helperText: addressppFocusNode.hasFocus
@@ -272,21 +243,8 @@ class _painpointDialogueState extends State<painpointDialogue> {
                           ? Color(0XFFE95420)
                           : addresspplabelColor),
                   errorText: validaddresspp ? null : 'This field is required',
-                  errorStyle: TextStyle(
-                    color: Color(0XFFF53E70),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    borderSide: BorderSide(
-                      width: 1.5,
-                      color: Color(0XFFE95420),
-                    ),
-                  ),
                 ),
-                onChanged: (value) {
+                onChanged: (text) {
                   if (addressppTextController.text == "") {
                     setState(() {
                       validaddresspp = false;
@@ -294,6 +252,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      addresspp = text;
                       validaddresspp = true;
                       addresspplabelColor = Colors.grey;
                     });
@@ -307,6 +266,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      addresspp = text;
                       validaddresspp = true;
                       addresspplabelColor = Colors.grey;
                     });
@@ -324,11 +284,11 @@ class _painpointDialogueState extends State<painpointDialogue> {
                 controller: expectationsTextController,
                 maxLines: 3,
 //                      maxLength: maxLength,
-                decoration: InputDecoration(
+                decoration: dialogueTextFields.copyWith(
                   labelText:
-                      'Mention in one Sentence the Challenge faced by the User',
+                      'How do the users currently address the pain point?',
                   helperText: expectationsFocusNode.hasFocus
-                      ? 'Ensure to be Brief in this box. In the following box, more details will be collected about this pain point'
+                      ? 'In the absence of a solution, What do users currently use as a workaround for this pain point?'
                       : null,
                   labelStyle: TextStyle(
                       color: expectationsFocusNode.hasFocus
@@ -336,19 +296,6 @@ class _painpointDialogueState extends State<painpointDialogue> {
                           : expectationslabelColor),
                   errorText:
                       validexpectations ? null : 'This field is required',
-                  errorStyle: TextStyle(
-                    color: Color(0XFFF53E70),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    borderSide: BorderSide(
-                      width: 1.5,
-                      color: Color(0XFFE95420),
-                    ),
-                  ),
                 ),
                 onChanged: (text) {
                   if (expectationsTextController.text == "") {
@@ -358,6 +305,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      expectations = text;
                       validexpectations = true;
                       expectationslabelColor = Colors.grey;
                     });
@@ -371,6 +319,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     });
                   } else {
                     setState(() {
+                      expectations = text;
                       validexpectations = true;
                       expectationslabelColor = Colors.grey;
                     });
@@ -385,6 +334,15 @@ class _painpointDialogueState extends State<painpointDialogue> {
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: AddDetailButton(
                     routeName: '/addpainpoints',
+                    onTap: () {
+                      setState(() {
+                        final NewPainpoint = ContentBcAddFoundation(
+                          description: Challenge,
+                        );
+                        addPainPointsContent.add(NewPainpoint);
+                        Navigator.pop(context);
+                      });
+                    },
                   ),
                 ),
                 Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 import '../../../Widgets/GoNextButton.dart';
 import '../../../Widgets/HeadBackButton.dart';
@@ -24,7 +25,7 @@ final ImportanceTextController = TextEditingController();
 final ImportanceFocusNode = new FocusNode();
 
 class _ProblemStudyState extends State<ProblemStudy> {
-  void requestFocus(FocusNode myFocusNode) {
+  requestFocus(FocusNode myFocusNode) {
     setState(() {
       FocusScope.of(context).requestFocus(myFocusNode);
     });
@@ -43,7 +44,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
           color: Colors.white,
           elevation: 5,
           child: Container(
-            height: MediaQuery.of(context).size.height * .62,
+            height: MediaQuery.of(context).size.height * .64,
             width: MediaQuery.of(context).size.width * .50,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -67,30 +68,16 @@ class _ProblemStudyState extends State<ProblemStudy> {
                       },
                       controller: TitleTextController,
                       maxLines: 1,
-//                      maxLength: maxLength,
-                      decoration: InputDecoration(
+                      decoration: StepPageTextFields.copyWith(
                         labelText: 'Provide a title for your project',
-//                        hintText: hintText,
-//                        helperText:
-//                            TitleFocusNode.hasFocus ? 'helperText' : null,
                         labelStyle: TextStyle(
                             color: TitleFocusNode.hasFocus
                                 ? Color(0XFFE95420)
                                 : null),
                         errorText: validTitle ? null : 'This field is required',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(
-                            width: 1.5,
-                            color: Color(0XFFE95420),
-                          ),
-                        ),
                       ),
                       onChanged: (text) {
-                        if (TitleTextController.text == "") {
+                        if (text == "") {
                           setState(() {
                             validTitle = false;
                           });
@@ -101,7 +88,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                         }
                       },
                       onSubmitted: (text) {
-                        if (TitleTextController.text == "") {
+                        if (text == "") {
                           setState(() {
                             validTitle = false;
                           });
@@ -122,31 +109,18 @@ class _ProblemStudyState extends State<ProblemStudy> {
                       },
                       controller: ProblemTextController,
                       maxLines: 3,
-//                      maxLength: maxLength,
-                      decoration: InputDecoration(
+                      decoration: StepPageTextFields.copyWith(
                         labelText:
                             'Describe the problem that the customer is facing',
-//                        hintText: hintText,
-//                        helperText: myFocusNode.hasFocus ? helperText : null,
                         labelStyle: TextStyle(
                             color: ProblemFocusNode.hasFocus
                                 ? Color(0XFFE95420)
                                 : null),
                         errorText:
                             validProblem ? null : 'This field is required',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(
-                            width: 1.5,
-                            color: Color(0XFFE95420),
-                          ),
-                        ),
                       ),
                       onChanged: (text) {
-                        if (ProblemTextController.text == "") {
+                        if (text == "") {
                           setState(() {
                             validProblem = false;
                           });
@@ -157,7 +131,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                         }
                       },
                       onSubmitted: (text) {
-                        if (ProblemTextController.text == "") {
+                        if (text == "") {
                           setState(() {
                             validProblem = false;
                           });
@@ -178,31 +152,18 @@ class _ProblemStudyState extends State<ProblemStudy> {
                       },
                       controller: ImportanceTextController,
                       maxLines: 3,
-//                      maxLength: maxLength,
-                      decoration: InputDecoration(
+                      decoration: StepPageTextFields.copyWith(
                         labelText:
                             'Why is the problem important to the customer?',
-//                        hintText: hintText,
-//                        helperText: myFocusNode.hasFocus ? helperText : null,
                         labelStyle: TextStyle(
                             color: ImportanceFocusNode.hasFocus
                                 ? Color(0XFFE95420)
                                 : null),
                         errorText:
                             validImportance ? null : 'This field is required',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(
-                            width: 1.5,
-                            color: Color(0XFFE95420),
-                          ),
-                        ),
                       ),
                       onChanged: (text) {
-                        if (ImportanceTextController.text == "") {
+                        if (text == "") {
                           setState(() {
                             validImportance = false;
                           });
@@ -213,7 +174,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                         }
                       },
                       onSubmitted: (text) {
-                        if (ImportanceTextController.text == "") {
+                        if (text == "") {
                           setState(() {
                             validImportance = false;
                           });

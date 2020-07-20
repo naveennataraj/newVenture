@@ -32,7 +32,6 @@ List<ContentBcAddFoundation> foundationContent = [
 
 List<ContentBcAddFoundation> addPainPointsContent = [
   ContentBcAddFoundation(
-    title: '',
     description: '"The user in unable to work on shared assignments or tasks"',
   ),
 ];

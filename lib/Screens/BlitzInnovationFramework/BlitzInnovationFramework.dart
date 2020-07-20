@@ -102,7 +102,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 300, right: 300),
                 child: GridView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+//                  physics: NeverScrollableScrollPhysics(),
                   itemCount: bcpData.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       mainAxisSpacing: 1,

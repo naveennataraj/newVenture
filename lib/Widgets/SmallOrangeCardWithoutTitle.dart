@@ -5,7 +5,8 @@ const cardColor = Color(0xFFF7C3B1);
 
 class SmallOrangeCardWithoutTitle extends StatelessWidget {
   final ContentBcAddFoundation addFoundationContent;
-  SmallOrangeCardWithoutTitle(this.addFoundationContent);
+  final int index;
+  SmallOrangeCardWithoutTitle(this.addFoundationContent, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,11 @@ class SmallOrangeCardWithoutTitle extends StatelessWidget {
                   SizedBox(
                     width: 15.0,
                   ),
-                  Icon(Icons.delete),
+                  GestureDetector(
+                      onTap: () {
+                        addPainPointsContent.removeAt(index);
+                      },
+                      child: Icon(Icons.delete)),
                 ],
               ),
             ),
