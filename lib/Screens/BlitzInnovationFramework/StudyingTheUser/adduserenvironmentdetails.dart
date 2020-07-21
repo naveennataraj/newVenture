@@ -250,7 +250,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: null,
+                          routeName: '/addstoriespainpoints',
                         ),
                       ],
                     ),

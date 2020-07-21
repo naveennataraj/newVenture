@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/StudyTheProblem/addPainPointsData.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/StudyTheProblem/painPointDialogue.dart';
 
 const cardColor = Color(0xFFF7C3B1);
 
 class SmallOrangeCardWithoutTitle extends StatelessWidget {
   final String description;
   final int index;
-  SmallOrangeCardWithoutTitle(this.description, this.index);
+  final List removingat;
+  Widget Dialogue;
+  SmallOrangeCardWithoutTitle(
+      {this.description, this.index, this.removingat, this.Dialogue});
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +64,7 @@ class SmallOrangeCardWithoutTitle extends StatelessWidget {
                     onTap: () {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => painpointDialogue(
-                          index: index,
-                        ),
+                        builder: (BuildContext context) => Dialogue,
                       );
                     },
                     child: Icon(Icons.edit),
@@ -75,7 +74,7 @@ class SmallOrangeCardWithoutTitle extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      AddingNewPainPoint.removeAt(index);
+                      removingat.removeAt(index);
                     },
                     child: Icon(Icons.delete),
                   ),

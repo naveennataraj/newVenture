@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/addstoriespainpoints.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/adduserenvironmentdetails.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
 import 'package:iventure001/bifdashboard.dart';
@@ -30,7 +31,7 @@ class Vueapp extends StatelessWidget {
         // BIF- BlitzInnovationFramework
         '/BIFHomeView': (context) => BIFHomeScreen(),
         '/BlitzInnovationFramework': (context) => BlitzInnovationFramework(),
-        //Study The User
+        //Study The Problem
         '/Problemstudy': (context) => ProblemStudy(),
         '/addpainpoints': (context) => AddPainPoints(),
         //BIF Dashboard
@@ -39,6 +40,7 @@ class Vueapp extends StatelessWidget {
         //Studying the User
         '/Adduserpersona': (context) => AddUserPersona(),
         '/adduserenvironmentdetails': (context) => AddUserEnvironmentDetails(),
+        '/addstoriespainpoints': (context) => AddStoriesPainPoints(),
 
         // BC- BlitzCanvas
         '/BCHomeView': (context) => BCScreen(),

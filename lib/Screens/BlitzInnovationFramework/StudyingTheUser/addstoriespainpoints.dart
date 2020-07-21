@@ -1,18 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/StudyTheProblem/addPainPointsData.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/StudyTheProblem/painPointDialogue.dart';
+import 'package:iventure001/Data/StudyTheUser/addUserStoriesData.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/UserStoryDialogue.dart';
 import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 
-class AddPainPoints extends StatefulWidget {
+class AddStoriesPainPoints extends StatefulWidget {
   @override
-  _AddPainPointsState createState() => _AddPainPointsState();
+  _AddStoriesPainPointsState createState() => _AddStoriesPainPointsState();
 }
 
-class _AddPainPointsState extends State<AddPainPoints> {
+class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
+  UserStory(int index) {
+    String A = AddingNewUserStory[index].Asa;
+    String B = AddingNewUserStory[index].IWantTo;
+    String C = AddingNewUserStory[index].SoThat;
+
+    return 'As a $A, I want to $B so that $C';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,23 +52,25 @@ class _AddPainPointsState extends State<AddPainPoints> {
                   Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: Text(
-                        'Add details of the foundational aspects of the business',
+                        "Let's capture some user stories",
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       )),
                   ListView.builder(
-                    itemCount: AddingNewPainPoint.length,
+                    itemCount: AddingNewUserStory.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
                         children: <Widget>[
                           SmallOrangeCardWithoutTitle(
-                            description: AddingNewPainPoint[index].Challenge,
+                            description: UserStory(index),
                             index: index,
-                            removingat: AddingNewPainPoint,
-                            Dialogue: painpointDialogue(index: index),
+                            removingat: AddingNewUserStory,
+                            Dialogue: userStoryDialogue(
+                              index: index,
+                            ),
                           )
                         ],
                       );
@@ -78,7 +88,7 @@ class _AddPainPointsState extends State<AddPainPoints> {
                         CompleteStepButton(),
                       ],
                     ),
-                  )
+                  ),
                 ],
               )),
         ),
@@ -91,7 +101,7 @@ class _AddPainPointsState extends State<AddPainPoints> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => painpointDialogue(),
+              builder: (BuildContext context) => userStoryDialogue(),
             );
           },
           child: Icon(Icons.add),
