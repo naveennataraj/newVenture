@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Widgets/MainTextField.dart';
 
 import '../../../Widgets/GoNextButton.dart';
 import '../../../Widgets/HeadBackButton.dart';
@@ -54,137 +54,32 @@ class _ProblemStudyState extends State<ProblemStudy> {
                   Text(
                     "Let's collect some details on the Customer's Problem",
                     style: TextStyle(fontSize: 30),
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.left,
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: TextField(
-                      focusNode: TitleFocusNode,
-                      onTap: () {
-                        requestFocus(TitleFocusNode);
-                      },
-                      controller: TitleTextController,
-                      maxLines: 1,
-                      decoration: StepPageTextFields.copyWith(
-                        labelText: 'Provide a title for your project',
-                        labelStyle: TextStyle(
-                            color: TitleFocusNode.hasFocus
-                                ? Color(0XFFE95420)
-                                : null),
-                        errorText: validTitle ? null : 'This field is required',
-                      ),
-                      onChanged: (text) {
-                        if (text == "") {
-                          setState(() {
-                            validTitle = false;
-                          });
-                        } else {
-                          setState(() {
-                            validTitle = true;
-                          });
-                        }
-                      },
-                      onSubmitted: (text) {
-                        if (text == "") {
-                          setState(() {
-                            validTitle = false;
-                          });
-                        } else {
-                          setState(() {
-                            validTitle = true;
-                          });
-                        }
-                      },
-                    ),
+                  MainTextFields(
+                    labelText: 'Provide a title for your project',
+                    myTextController: TitleTextController,
+                    myFocusNode: TitleFocusNode,
+                    validText: validTitle,
+                    maxLines: 1,
                   ),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: TextField(
-                      focusNode: ProblemFocusNode,
-                      onTap: () {
-                        requestFocus(ProblemFocusNode);
-                      },
-                      controller: ProblemTextController,
-                      maxLines: 3,
-                      decoration: StepPageTextFields.copyWith(
-                        labelText:
-                            'Describe the problem that the customer is facing',
-                        labelStyle: TextStyle(
-                            color: ProblemFocusNode.hasFocus
-                                ? Color(0XFFE95420)
-                                : null),
-                        errorText:
-                            validProblem ? null : 'This field is required',
-                      ),
-                      onChanged: (text) {
-                        if (text == "") {
-                          setState(() {
-                            validProblem = false;
-                          });
-                        } else {
-                          setState(() {
-                            validProblem = true;
-                          });
-                        }
-                      },
-                      onSubmitted: (text) {
-                        if (text == "") {
-                          setState(() {
-                            validProblem = false;
-                          });
-                        } else {
-                          setState(() {
-                            validProblem = true;
-                          });
-                        }
-                      },
-                    ),
+                  MainTextFields(
+                    labelText:
+                        'Describe the problem that the customer is facing',
+                    myTextController: ProblemTextController,
+                    myFocusNode: ProblemFocusNode,
+                    validText: validProblem,
+                    maxLines: 3,
                   ),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: TextField(
-                      focusNode: ImportanceFocusNode,
-                      onTap: () {
-                        requestFocus(ImportanceFocusNode);
-                      },
-                      controller: ImportanceTextController,
-                      maxLines: 3,
-                      decoration: StepPageTextFields.copyWith(
-                        labelText:
-                            'Why is the problem important to the customer?',
-                        labelStyle: TextStyle(
-                            color: ImportanceFocusNode.hasFocus
-                                ? Color(0XFFE95420)
-                                : null),
-                        errorText:
-                            validImportance ? null : 'This field is required',
-                      ),
-                      onChanged: (text) {
-                        if (text == "") {
-                          setState(() {
-                            validImportance = false;
-                          });
-                        } else {
-                          setState(() {
-                            validImportance = true;
-                          });
-                        }
-                      },
-                      onSubmitted: (text) {
-                        if (text == "") {
-                          setState(() {
-                            validImportance = false;
-                          });
-                        } else {
-                          setState(() {
-                            validImportance = true;
-                          });
-                        }
-                      },
-                    ),
+                  MainTextFields(
+                    labelText: 'Why is the problem important to the customer?',
+                    myTextController: ImportanceTextController,
+                    myFocusNode: ImportanceFocusNode,
+                    validText: validImportance,
+                    maxLines: 3,
                   ),
                   Spacer(),
                   Padding(

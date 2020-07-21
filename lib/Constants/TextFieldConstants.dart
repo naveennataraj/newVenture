@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const dialogueTextFields = InputDecoration(
+const dialogueTextFieldsdecoration = InputDecoration(
   labelText: 'Label Text goes Here',
   errorStyle: TextStyle(
     color: Color(0XFFF53E70),

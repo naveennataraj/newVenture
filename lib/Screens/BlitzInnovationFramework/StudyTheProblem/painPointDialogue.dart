@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
+import 'package:iventure001/Widgets/DialogueTextField.dart';
 
 String Challenge;
 String MoreDetails;
@@ -42,12 +42,6 @@ final expectationsTextController = TextEditingController();
 final expectationsFocusNode = new FocusNode();
 
 class _painpointDialogueState extends State<painpointDialogue> {
-  void requestFocus(FocusNode myFocusNode) {
-    setState(() {
-      FocusScope.of(context).requestFocus(myFocusNode);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -67,265 +61,62 @@ class _painpointDialogueState extends State<painpointDialogue> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(15),
-              child: TextField(
-                focusNode: ChallengeFocusNode,
-                onTap: () {
-                  requestFocus(ChallengeFocusNode);
-                },
-                controller: ChallengeTextController,
-                maxLines: 3,
-//                      maxLength: maxLength,
-                decoration: dialogueTextFields.copyWith(
-                  labelText:
-                      'Mention in one Sentence the Challenge faced by the User',
-                  helperText: ChallengeFocusNode.hasFocus
-                      ? 'Ensure to be Brief in this box. In the following box, more details will be collected about this pain point'
-                      : null,
-                  labelStyle: TextStyle(
-                      color: ChallengeFocusNode.hasFocus
-                          ? Color(0XFFE95420)
-                          : ChallengelabelColor),
-                  errorText: validChallenge ? null : 'This field is required',
-                ),
-                onChanged: (text) {
-                  if (ChallengeTextController.text == "") {
-                    setState(() {
-                      validChallenge = false;
-                      ChallengelabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      Challenge = text;
-                      validChallenge = true;
-                      ChallengelabelColor = Colors.grey;
-                    });
-                  }
-                },
-                onSubmitted: (text) {
-                  if (ChallengeTextController.text == "") {
-                    setState(() {
-                      validChallenge = false;
-                      ChallengelabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      Challenge = text;
-                      validChallenge = true;
-                      ChallengelabelColor = Colors.grey;
-                    });
-                  }
-                },
-              ),
+            DialogueTextFields(
+              textCollecter: Challenge,
+              validText: validChallenge,
+              myTextController: ChallengeTextController,
+              labelText:
+                  'Mention in one Sentence the Challenge faced by the User',
+              helperText:
+                  'Ensure to be Brief in this box. In the following box, more details will be collected about this pain point',
+              labelcolour: ChallengelabelColor,
+              maxLines: 3,
+              myFocusNode: ChallengeFocusNode,
             ),
-            Container(
-              margin: EdgeInsets.all(15),
-              child: TextField(
-                focusNode: MoreDetailsFocusNode,
-                onTap: () {
-                  requestFocus(MoreDetailsFocusNode);
-                },
-                controller: MoreDetailsTextController,
-                maxLines: 3,
-//                      maxLength: maxLength,
-                decoration: dialogueTextFields.copyWith(
-                  labelText: 'Provide more details',
-                  helperText: MoreDetailsFocusNode.hasFocus
-                      ? 'Provide additional details of the briefly described pain point in this section'
-                      : null,
-                  labelStyle: TextStyle(
-                      color: MoreDetailsFocusNode.hasFocus
-                          ? Color(0XFFE95420)
-                          : MoreDetailslabelColor),
-                  errorText: validMoreDetails ? null : 'This field is required',
-                ),
-                onChanged: (text) {
-                  if (MoreDetailsTextController.text == "") {
-                    setState(() {
-                      validMoreDetails = false;
-                      MoreDetailslabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      MoreDetails = text;
-                      validMoreDetails = true;
-                      MoreDetailslabelColor = Colors.grey;
-                    });
-                  }
-                },
-                onSubmitted: (text) {
-                  if (MoreDetailsTextController.text == "") {
-                    setState(() {
-                      validMoreDetails = false;
-                      MoreDetailslabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      MoreDetails = text;
-                      validMoreDetails = true;
-                      MoreDetailslabelColor = Colors.grey;
-                    });
-                  }
-                },
-              ),
+            DialogueTextFields(
+              textCollecter: MoreDetails,
+              validText: validMoreDetails,
+              myTextController: MoreDetailsTextController,
+              labelText: 'Provide more details',
+              helperText:
+                  'Provide additional details of the briefly described pain point in this section',
+              labelcolour: MoreDetailslabelColor,
+              maxLines: 3,
+              myFocusNode: MoreDetailsFocusNode,
             ),
-            Container(
-              margin: EdgeInsets.all(15),
-              child: TextField(
-                focusNode: ConsequenceFocusNode,
-                onTap: () {
-                  requestFocus(ConsequenceFocusNode);
-                },
-                controller: ConsequenceTextController,
-                maxLines: 3,
-//                      maxLength: maxLength,
-                decoration: dialogueTextFields.copyWith(
-                  labelText:
-                      'What are the consequence of the pain point not being assressed?',
-                  helperText: ConsequenceFocusNode.hasFocus
-                      ? 'If the challenged faced by the customer is left unchecked, what will happen as a result?'
-                      : null,
-                  labelStyle: TextStyle(
-                      color: ConsequenceFocusNode.hasFocus
-                          ? Color(0XFFE95420)
-                          : ConsequencelabelColor),
-                  errorText: validConsequence ? null : 'This field is required',
-                ),
-                onChanged: (text) {
-                  if (ConsequenceTextController.text == "") {
-                    setState(() {
-                      validConsequence = false;
-                      ConsequencelabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      Consequence = text;
-                      validConsequence = true;
-                      ConsequencelabelColor = Colors.grey;
-                    });
-                  }
-                },
-                onSubmitted: (text) {
-                  if (ConsequenceTextController.text == "") {
-                    setState(() {
-                      validConsequence = false;
-                      ConsequencelabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      Consequence = text;
-                      validConsequence = true;
-                      ConsequencelabelColor = Colors.grey;
-                    });
-                  }
-                },
-              ),
+            DialogueTextFields(
+              textCollecter: Consequence,
+              validText: validConsequence,
+              myTextController: ConsequenceTextController,
+              labelText:
+                  'What are the consequence of the pain point not being assressed?',
+              helperText:
+                  'If the challenged faced by the customer is left unchecked, what will happen as a result?',
+              labelcolour: ConsequencelabelColor,
+              maxLines: 3,
+              myFocusNode: ConsequenceFocusNode,
             ),
-            Container(
-              margin: EdgeInsets.all(15),
-              child: TextField(
-                focusNode: addressppFocusNode,
-                onTap: () {
-                  requestFocus(addressppFocusNode);
-                },
-                controller: addressppTextController,
-                maxLines: 3,
-//                      maxLength: maxLength,
-                decoration: dialogueTextFields.copyWith(
-                  labelText:
-                      'How do the users currently address the pain point?',
-                  helperText: addressppFocusNode.hasFocus
-                      ? 'In the absence of a solution, What do users currently use as a workaround for this pain point?'
-                      : null,
-                  labelStyle: TextStyle(
-                      color: addressppFocusNode.hasFocus
-                          ? Color(0XFFE95420)
-                          : addresspplabelColor),
-                  errorText: validaddresspp ? null : 'This field is required',
-                ),
-                onChanged: (text) {
-                  if (addressppTextController.text == "") {
-                    setState(() {
-                      validaddresspp = false;
-                      addresspplabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      addresspp = text;
-                      validaddresspp = true;
-                      addresspplabelColor = Colors.grey;
-                    });
-                  }
-                },
-                onSubmitted: (text) {
-                  if (addressppTextController.text == "") {
-                    setState(() {
-                      validaddresspp = false;
-                      addresspplabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      addresspp = text;
-                      validaddresspp = true;
-                      addresspplabelColor = Colors.grey;
-                    });
-                  }
-                },
-              ),
+            DialogueTextFields(
+              textCollecter: addresspp,
+              validText: validaddresspp,
+              myTextController: addressppTextController,
+              labelText: 'How do the users currently address the pain point?',
+              helperText:
+                  'In the absence of a solution, What do users currently use as a workaround for this pain point?',
+              labelcolour: addresspplabelColor,
+              maxLines: 3,
+              myFocusNode: addressppFocusNode,
             ),
-            Container(
-              margin: EdgeInsets.all(15),
-              child: TextField(
-                focusNode: expectationsFocusNode,
-                onTap: () {
-                  requestFocus(expectationsFocusNode);
-                },
-                controller: expectationsTextController,
-                maxLines: 3,
-//                      maxLength: maxLength,
-                decoration: dialogueTextFields.copyWith(
-                  labelText:
-                      'How do the users currently address the pain point?',
-                  helperText: expectationsFocusNode.hasFocus
-                      ? 'In the absence of a solution, What do users currently use as a workaround for this pain point?'
-                      : null,
-                  labelStyle: TextStyle(
-                      color: expectationsFocusNode.hasFocus
-                          ? Color(0XFFE95420)
-                          : expectationslabelColor),
-                  errorText:
-                      validexpectations ? null : 'This field is required',
-                ),
-                onChanged: (text) {
-                  if (expectationsTextController.text == "") {
-                    setState(() {
-                      validexpectations = false;
-                      expectationslabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      expectations = text;
-                      validexpectations = true;
-                      expectationslabelColor = Colors.grey;
-                    });
-                  }
-                },
-                onSubmitted: (text) {
-                  if (expectationsTextController.text == "") {
-                    setState(() {
-                      validexpectations = false;
-                      expectationslabelColor = Color(0XFFF53E70);
-                    });
-                  } else {
-                    setState(() {
-                      expectations = text;
-                      validexpectations = true;
-                      expectationslabelColor = Colors.grey;
-                    });
-                  }
-                },
-              ),
+            DialogueTextFields(
+              textCollecter: expectations,
+              validText: validexpectations,
+              myTextController: expectationsTextController,
+              labelText: 'How do the users currently address the pain point?',
+              helperText:
+                  'In the absence of a solution, What do users currently use as a workaround for this pain point?',
+              labelcolour: expectationslabelColor,
+              maxLines: 3,
+              myFocusNode: expectationsFocusNode,
             ),
             Row(
               children: [
@@ -337,7 +128,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     onTap: () {
                       setState(() {
                         final NewPainpoint = ContentBcAddFoundation(
-                          description: Challenge,
+                          description: ChallengeTextController.text,
                         );
                         addPainPointsContent.add(NewPainpoint);
                         Navigator.pop(context);
