@@ -7,11 +7,10 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 String customerProblems = '';
 
 const activeOrangeColour = Color(0XFFE95420);
-const unActiveBlackColour = Color(0xFF274C4B);
+const inactiveBlackColour = Color(0xFF274C4B);
 
 class BcStep1CollectionAspects extends StatefulWidget {
-//  final ContentBcStep1CollectionFoundation collectionFoundationContent;
-//  BcStep1CollectionAspects(this.collectionFoundationContent);
+
 
   @override
   _BcStep1CollectionAspectsState createState() =>
@@ -26,35 +25,37 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
   TextEditingController missionController = TextEditingController();
   TextEditingController visionController = TextEditingController();
 
-  //final problemImportanceController = TextEditingController();
-  //final problemImportanceController = TextEditingController();
 
   bool _isEditingText = false;
+  bool _isVisionText = false;
+
   TextEditingController _editingController;
+  TextEditingController _visionController;
   String initialText = "To empower people to become more productive with the help of IT enabled capabilities";
-  Color missionStatementColour = unActiveBlackColour;
-//  TextStyle _decorationStyleOf(BuildContext context) {
-//    final theme = Theme.of(context);
-//    return theme.textTheme.subtitle1
-//        .copyWith(color: Colors.black);
-//  }
+  String initialVisionStatement = "To achieve an average of 20% efficiency improvement per customer by 2022.";
+
+  Color missionStatementColour = inactiveBlackColour;
+  Color visionStatementColour = inactiveBlackColour;
+
 
   @override
   void initState() {
     super.initState();
     _editingController = TextEditingController(text: initialText,);
+    _visionController = TextEditingController(text: initialVisionStatement,);
   }
 
   @override
   void dispose() {
     _editingController.dispose();
+    _visionController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     Widget _editTitleTextField() {
-      if (_isEditingText) // when editing the text field
+      if (_isEditingText) // Editing the mission statement
         return TextField(
           style: TextStyle(
             //color: Colors.black,
@@ -71,19 +72,23 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
             setState(() {
               initialText = newValue;
               _isEditingText = false;
-              missionStatementColour = unActiveBlackColour;
+              visionStatementColour = inactiveBlackColour;
+              //activeStatementColour = unActiveBlackColour;
 
             });
           },
 
-          autofocus: false,
+          autofocus: true,
           controller: _editingController,
         );
+
       return GestureDetector(
         onTap: () {
           setState(() {
+
             _isEditingText = true;
             missionStatementColour = activeOrangeColour;
+            visionStatementColour = inactiveBlackColour;
           });
         },
         child: Text(
@@ -96,6 +101,57 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
         ),
       );
     }
+
+    Widget _editVisionTextField() {
+      if (_isVisionText) // Editing vision statement
+        return TextField(
+          style: TextStyle(
+            //color: Colors.black,
+            fontSize: 17.0,
+          ),
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(0),
+            isDense: true,
+          ),
+
+          onSubmitted: (newValue) {
+            setState(() {
+              initialVisionStatement = newValue;
+              _isVisionText = false;
+              missionStatementColour = inactiveBlackColour;
+              //activeStatementColour = unActiveBlackColour;
+            });
+          },
+
+          autofocus: true,
+          controller: _visionController,
+        );
+
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+
+            _isVisionText = true;
+            visionStatementColour = activeOrangeColour;
+            missionStatementColour = inactiveBlackColour;
+          });
+        },
+        child: Text(
+          initialVisionStatement,
+          style: TextStyle(
+            //color: Colors.black,
+            fontSize: 16.0,
+          ),
+
+        ),
+      );
+    }
+
+
+
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -124,19 +180,19 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                     height: 20,
                   ),
                   Container(
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Container(
                       height: MediaQuery.of(context).size.height * .120,
                       width: MediaQuery.of(context).size.width * .50,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black, width: 2.0),
-                        borderRadius: BorderRadius.all(Radius.circular(10),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0),
 
                   ),
                         shape: BoxShape.rectangle,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 10, top:  10),
+                        padding: EdgeInsets.only(left: 10.0, top:  10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -149,31 +205,36 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-
-//                  Container(
-//                    margin: EdgeInsets.all(20),
-//                    child: TextField(
-//                      controller: customerProblemController,
-//                      maxLines: 3,
-//                      decoration: InputDecoration(
-//                        labelText:
-//                            'Describe the problem that the customer is facing',
-//                        errorText: validTitle ? null : 'This field is required',
-//                        border: OutlineInputBorder(
-//                          borderRadius: BorderRadius.all(Radius.circular(10)),
-//                        ),
-//                      ),
-//                      onSubmitted: (customerProblem) {
-//                        customerProblems = customerProblem;
-//                        print(customerProblemController.text);
-//                        print(customerProblem);
-//                        print(customerProblems);
-//                      },
-//                    ),
+//                  SizedBox(
+//                    height: 10,
 //                  ),
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * .120,
+                      width: MediaQuery.of(context).size.width * .50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0),
+
+                        ),
+                        shape: BoxShape.rectangle,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10, top:  10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text('Provide a vision for the business venture to work towards', style: TextStyle(color: visionStatementColour),),
+
+                            SizedBox(height: 10.0,),
+                            _editVisionTextField(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+//
                   Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(10.0),

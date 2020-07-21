@@ -6,6 +6,8 @@ import 'package:iventure001/Widgets/BCStepCard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 class BCScreen extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +52,7 @@ class BCScreen extends StatelessWidget {
                       frameWorkIcon: bcStepsContent[index].frameWorkIcon,
                       frameworkStep: bcStepsContent[index].frameworkStep,
                       frameWorkDescription: bcStepsContent[index].frameWorkDescription,
+
                       buttonText: bcStepsContent[index].buttonText,
                       navigateTo: bcStepsContent[index].navigateTo);
                 },

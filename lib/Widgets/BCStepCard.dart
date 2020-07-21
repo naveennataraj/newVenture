@@ -2,22 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:iventure001/Widgets/SpaceHeight30.dart';
 
+const activeOrangeColour = Color(0XFFE95420);
+const inactiveBlackColour = Color(0xFF274C4B);
 
 class BcStepCard extends StatelessWidget {
+
+//  final String text;
+//  BcStepCard({Key key, @required this.text}) : super(key: key);
+//
 
   BcStepCard(
       {this.frameWorkIcon,
         this.frameworkStep,
         this.frameWorkDescription,
         this.buttonText,
-        this.navigateTo});
+        this.navigateTo,
+        //this.text
+      });
 
   final IconData frameWorkIcon;
   final String frameworkStep;
   final String frameWorkDescription;
   final String buttonText;
   final String navigateTo;
+  //final String text;
 
+//  Widget _review() {
+//    if (text != null)
+//      return Text('Done');
+//  }
 
 
   @override
@@ -37,13 +50,18 @@ class BcStepCard extends StatelessWidget {
               //mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(frameWorkIcon, size: 30.0,),
+
+                //if (text != null)
+                  Icon(frameWorkIcon, size: 30.0, color: activeOrangeColour,),
+                  //Icon(frameWorkIcon, size: 30.0, color: inactiveBlackColour,)
                 SizedBox(height: 5.0,),
                 Text(
                   frameworkStep,
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
                 Space30(),
+
+
                 Text(frameWorkDescription, style: TextStyle(fontSize: 18, color: Colors.black54),),
                 Space30(),
                 Row(

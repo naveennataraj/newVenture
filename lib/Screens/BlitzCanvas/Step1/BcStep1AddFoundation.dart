@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/FloatingButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCard.dart';
+
 
 class Step1AddFoundation extends StatelessWidget {
   @override
@@ -81,6 +81,31 @@ class Step1AddFoundation extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingButton(),
+    );
+  }
+}
+
+class CompleteStepButton extends StatelessWidget {
+  const CompleteStepButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/BCHomeView');
+//        Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//              builder: (context) => BcStepCard(text: 'Hello',),
+//            ),);
+
+      },
+      child: Text(
+        'COMPLETE STEP',
+        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
+      ),
     );
   }
 }
