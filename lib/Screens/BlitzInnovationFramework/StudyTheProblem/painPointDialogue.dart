@@ -1,54 +1,77 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
+import 'package:iventure001/Data/StudyTheProblem/addPainPointsData.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
-import 'package:iventure001/Widgets/DialogueTextField.dart';
-
-String Challenge;
-String MoreDetails;
-String Consequence;
-String addresspp;
-String expectations;
+import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 class painpointDialogue extends StatefulWidget {
+  final int index;
+
+  const painpointDialogue({this.index});
   @override
-  _painpointDialogueState createState() => _painpointDialogueState();
+  _painpointDialogueState createState() => _painpointDialogueState(index);
 }
 
 var ChallengelabelColor = Color(0XFF919191);
 bool validChallenge = true;
-final ChallengeTextController = TextEditingController();
+var ChallengeTextController = TextEditingController();
 final ChallengeFocusNode = new FocusNode();
+String Challenge;
 
 var MoreDetailslabelColor = Color(0XFF919191);
 bool validMoreDetails = true;
-final MoreDetailsTextController = TextEditingController();
+var MoreDetailsTextController = TextEditingController();
 final MoreDetailsFocusNode = new FocusNode();
+String MoreDetails;
 
 var ConsequencelabelColor = Color(0XFF919191);
 bool validConsequence = true;
-final ConsequenceTextController = TextEditingController();
+var ConsequenceTextController = TextEditingController();
 final ConsequenceFocusNode = new FocusNode();
+String Consequence;
 
 var addresspplabelColor = Color(0XFF919191);
 bool validaddresspp = true;
-final addressppTextController = TextEditingController();
+var addressppTextController = TextEditingController();
 final addressppFocusNode = new FocusNode();
+String addresspp;
 
 var expectationslabelColor = Color(0XFF919191);
 bool validexpectations = true;
-final expectationsTextController = TextEditingController();
+var expectationsTextController = TextEditingController();
 final expectationsFocusNode = new FocusNode();
+String expectations;
 
 class _painpointDialogueState extends State<painpointDialogue> {
+  int index;
+
+  _painpointDialogueState(this.index);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (index != null) {
+      ChallengeTextController =
+          TextEditingController(text: AddingNewPainPoint[index].Challenge);
+      MoreDetailsTextController =
+          TextEditingController(text: AddingNewPainPoint[index].MoreDetails);
+      ConsequenceTextController =
+          TextEditingController(text: AddingNewPainPoint[index].Consequence);
+      addressppTextController =
+          TextEditingController(text: AddingNewPainPoint[index].Addresspp);
+      expectationsTextController =
+          TextEditingController(text: AddingNewPainPoint[index].Expectations);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.90,
+        height: MediaQuery.of(context).size.height * 0.85,
         width: MediaQuery.of(context).size.width * 0.4,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +84,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
             ),
-            DialogueTextFields(
+            TextFieldWidget(
               textCollecter: Challenge,
               validText: validChallenge,
               myTextController: ChallengeTextController,
@@ -73,7 +96,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
               maxLines: 3,
               myFocusNode: ChallengeFocusNode,
             ),
-            DialogueTextFields(
+            TextFieldWidget(
               textCollecter: MoreDetails,
               validText: validMoreDetails,
               myTextController: MoreDetailsTextController,
@@ -84,7 +107,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
               maxLines: 3,
               myFocusNode: MoreDetailsFocusNode,
             ),
-            DialogueTextFields(
+            TextFieldWidget(
               textCollecter: Consequence,
               validText: validConsequence,
               myTextController: ConsequenceTextController,
@@ -96,7 +119,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
               maxLines: 3,
               myFocusNode: ConsequenceFocusNode,
             ),
-            DialogueTextFields(
+            TextFieldWidget(
               textCollecter: addresspp,
               validText: validaddresspp,
               myTextController: addressppTextController,
@@ -107,7 +130,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
               maxLines: 3,
               myFocusNode: addressppFocusNode,
             ),
-            DialogueTextFields(
+            TextFieldWidget(
               textCollecter: expectations,
               validText: validexpectations,
               myTextController: expectationsTextController,
@@ -127,10 +150,24 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     routeName: '/addpainpoints',
                     onTap: () {
                       setState(() {
-                        final NewPainpoint = ContentBcAddFoundation(
-                          description: ChallengeTextController.text,
+                        final NewPainpoint = addPainPoints(
+                          Challenge: ChallengeTextController.text,
+                          MoreDetails: MoreDetailsTextController.text,
+                          Consequence: ConsequenceTextController.text,
+                          Addresspp: addressppTextController.text,
+                          Expectations: expectationsTextController.text,
                         );
-                        addPainPointsContent.add(NewPainpoint);
+                        if (index == null) {
+                          AddingNewPainPoint.add(NewPainpoint);
+                        } else {
+                          AddingNewPainPoint.removeAt(index);
+                          AddingNewPainPoint.insert(index, NewPainpoint);
+                        }
+                        ChallengeTextController.clear();
+                        MoreDetailsTextController.clear();
+                        ConsequenceTextController.clear();
+                        addressppTextController.clear();
+                        expectationsTextController.clear();
                         Navigator.pop(context);
                       });
                     },

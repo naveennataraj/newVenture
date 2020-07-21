@@ -1,18 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/StudyTheProblem/addPainPointsData.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/StudyTheProblem/painPointDialogue.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
+import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
-class AddPainPoints extends StatefulWidget {
+class AddUserPersona extends StatefulWidget {
   @override
-  _AddPainPointsState createState() => _AddPainPointsState();
+  _AddUserPersonaState createState() => _AddUserPersonaState();
 }
 
-class _AddPainPointsState extends State<AddPainPoints> {
+class _AddUserPersonaState extends State<AddUserPersona> {
+  bool validUserPersona = true;
+  var UserPersonalabelColor = Color(0XFF919191);
+  var UserPersonaTextController = TextEditingController();
+  final UserPersonaFocusNode = new FocusNode();
+  String UserPersona;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,18 +53,15 @@ class _AddPainPointsState extends State<AddPainPoints> {
                             fontSize: 22, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       )),
-                  ListView.builder(
-                    itemCount: AddingNewPainPoint.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: <Widget>[
-                          SmallOrangeCardWithoutTitle(
-                              AddingNewPainPoint[index].Challenge, index)
-                        ],
-                      );
-                    },
+                  TextFieldWidget(
+                    labelText: "Please provide a link to the User's Persona",
+                    maxLines: 1,
+                    validText: validUserPersona,
+                    myFocusNode: UserPersonaFocusNode,
+                    myTextController: UserPersonaTextController,
+                    textCollecter: UserPersona,
+                    helperText: '',
+                    labelcolour: UserPersonalabelColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -71,26 +72,14 @@ class _AddPainPointsState extends State<AddPainPoints> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(),
+                        goNextButton(
+                          routeName: '/adduserenvironmentdetails',
+                        ),
                       ],
                     ),
                   )
                 ],
               )),
-        ),
-      ),
-      floatingActionButton: Container(
-        margin: EdgeInsets.all(100),
-        child: FloatingActionButton(
-          tooltip: "Add's New Card",
-          backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => painpointDialogue(),
-            );
-          },
-          child: Icon(Icons.add),
         ),
       ),
     );

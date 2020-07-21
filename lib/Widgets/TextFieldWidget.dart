@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 
-class DialogueTextFields extends StatefulWidget {
+class TextFieldWidget extends StatefulWidget {
   final String textCollecter;
   final bool validText;
   final TextEditingController myTextController;
@@ -12,18 +12,19 @@ class DialogueTextFields extends StatefulWidget {
   final Color labelcolour;
   final String helperText;
 
-  const DialogueTextFields(
-      {this.textCollecter,
-      this.validText,
-      this.myTextController,
-      this.labelText,
-      this.labelcolour,
-      this.myFocusNode,
-      this.maxLines,
-      this.helperText});
+  const TextFieldWidget({
+    this.textCollecter,
+    this.validText,
+    this.myTextController,
+    this.labelText,
+    this.labelcolour,
+    this.myFocusNode,
+    this.maxLines,
+    this.helperText,
+  });
 
   @override
-  _DialogueTextFieldsState createState() => _DialogueTextFieldsState(
+  _TextFieldWidgetState createState() => _TextFieldWidgetState(
       textCollecter,
       validText,
       myTextController,
@@ -34,7 +35,7 @@ class DialogueTextFields extends StatefulWidget {
       helperText);
 }
 
-class _DialogueTextFieldsState extends State<DialogueTextFields> {
+class _TextFieldWidgetState extends State<TextFieldWidget> {
   String textCollecter;
   bool validText;
   TextEditingController myTextController;
@@ -44,7 +45,7 @@ class _DialogueTextFieldsState extends State<DialogueTextFields> {
   Color labelcolour;
   String helperText;
 
-  _DialogueTextFieldsState(
+  _TextFieldWidgetState(
       this.textCollecter,
       this.validText,
       this.myTextController,
@@ -53,7 +54,7 @@ class _DialogueTextFieldsState extends State<DialogueTextFields> {
       this.maxLines,
       this.myFocusNode,
       this.helperText);
-  void requestFocus(FocusNode myFocusNode) {
+  requestFocus(FocusNode myFocusNode) {
     setState(() {
       FocusScope.of(context).requestFocus(myFocusNode);
     });
@@ -70,12 +71,9 @@ class _DialogueTextFieldsState extends State<DialogueTextFields> {
         },
         controller: myTextController,
         maxLines: maxLines,
-//                      maxLength: maxLength,
-        decoration: dialogueTextFieldsdecoration.copyWith(
+        decoration: TextFieldsDecoration.copyWith(
           labelText: labelText,
-          helperText: myFocusNode.hasFocus
-              ? 'Ensure to be Brief in this box. In the following box, more details will be collected about this pain point'
-              : null,
+          helperText: myFocusNode.hasFocus ? helperText : null,
           labelStyle: TextStyle(
               color: myFocusNode.hasFocus ? Color(0XFFE95420) : labelcolour),
           errorText: validText ? null : 'This field is required',
@@ -90,7 +88,6 @@ class _DialogueTextFieldsState extends State<DialogueTextFields> {
             setState(() {
               validText = true;
               labelcolour = Colors.grey;
-              return textCollecter = myTextController.text;
             });
           }
         },
@@ -104,7 +101,6 @@ class _DialogueTextFieldsState extends State<DialogueTextFields> {
             setState(() {
               validText = true;
               labelcolour = Colors.grey;
-              return textCollecter = myTextController.text;
             });
           }
         },

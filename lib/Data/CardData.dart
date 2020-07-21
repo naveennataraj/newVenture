@@ -31,7 +31,7 @@ List<bifCardData> bcpData = [
     frameworkdescrip:
         'Studying the user, who they are, their environment and what they want.',
     buttonText: 'Begin Step 2',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/Adduserpersona',
   ),
   bifCardData(
     frameworkStep: 'Step 3 - Ideate and Conceptualize',

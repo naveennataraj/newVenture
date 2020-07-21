@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
+import 'package:iventure001/Data/StudyTheProblem/addPainPointsData.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/StudyTheProblem/painPointDialogue.dart';
 
 const cardColor = Color(0xFFF7C3B1);
 
 class SmallOrangeCardWithoutTitle extends StatelessWidget {
-  final ContentBcAddFoundation addFoundationContent;
+  final String description;
   final int index;
-  SmallOrangeCardWithoutTitle(this.addFoundationContent, this.index);
+  SmallOrangeCardWithoutTitle(this.description, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class SmallOrangeCardWithoutTitle extends StatelessWidget {
                     vertical: MediaQuery.of(context).size.height * 0.01,
                     horizontal: MediaQuery.of(context).size.width * 0.01),
                 child: Text(
-                  addFoundationContent.description,
+                  description,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 23,
@@ -58,15 +59,26 @@ class SmallOrangeCardWithoutTitle extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Icon(Icons.edit),
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => painpointDialogue(
+                          index: index,
+                        ),
+                      );
+                    },
+                    child: Icon(Icons.edit),
+                  ),
                   SizedBox(
                     width: 15.0,
                   ),
                   GestureDetector(
-                      onTap: () {
-                        addPainPointsContent.removeAt(index);
-                      },
-                      child: Icon(Icons.delete)),
+                    onTap: () {
+                      AddingNewPainPoint.removeAt(index);
+                    },
+                    child: Icon(Icons.delete),
+                  ),
                 ],
               ),
             ),
