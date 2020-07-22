@@ -22,7 +22,8 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkIcon: Icons.build,
     frameWorkDescription:
     'Defining the organization\'s mission, vision and other foudational elements.',
-    buttonText: "Let\'s Get Started",
+    buttonText: "LET'S GET STARTED",
+    //buttonDone: "Done",
     navigateTo: '/BCStep1CollectAspects',
   ),
   BcFrameworkContent(

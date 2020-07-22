@@ -89,7 +89,7 @@ class _EditingscreenState extends State<Editingscreen> {
                             maxLines: 3,
                             decoration: InputDecoration(
                               labelText:
-                                  'Why is the problem importatnt to the customer?',
+                                  'Why is the problem important to the customer?',
                               border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),

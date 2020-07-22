@@ -2,11 +2,18 @@ class ContentBcAddFoundation {
   final String generalTitle;
   final String title;
   final String description;
+  final String goal;
+  final String coreCompetence;
+  final String coreCulturalAspect;
+
 
   ContentBcAddFoundation({
     this.generalTitle,
     this.title,
     this.description,
+    this.goal,
+    this.coreCompetence,
+    this.coreCulturalAspect,
   });
 }
 
@@ -20,14 +27,7 @@ List<ContentBcAddFoundation> foundationContent = [
     title: 'core cultural aspect',
     description: "Attention to detail when crafting user experiences",
   ),
-  ContentBcAddFoundation(
-    title: 'core cultural aspect',
-    description: "A focus on documentation and quality in written code",
-  ),
-  ContentBcAddFoundation(
-    title: 'goal',
-    description: "Onboard additional 10,000 active users per quarter",
-  ),
+
 ];
 
 List<ContentBcAddFoundation> addPainPointsContent = [

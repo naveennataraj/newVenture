@@ -17,6 +17,7 @@ class BcStepCard extends StatelessWidget {
         this.frameWorkDescription,
         this.buttonText,
         this.navigateTo,
+        this.completeStep1,
         //this.text
       });
 
@@ -25,12 +26,10 @@ class BcStepCard extends StatelessWidget {
   final String frameWorkDescription;
   final String buttonText;
   final String navigateTo;
+  final bool completeStep1;
   //final String text;
 
-//  Widget _review() {
-//    if (text != null)
-//      return Text('Done');
-//  }
+
 
 
   @override
@@ -51,8 +50,9 @@ class BcStepCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                //if (text != null)
-                  Icon(frameWorkIcon, size: 30.0, color: activeOrangeColour,),
+                //completeStep1 == true ? Icon(frameWorkIcon, size: 30.0, color: inactiveBlackColour,) : Icon(frameWorkIcon, size: 30.0, color: activeOrangeColour,),
+                Icon(frameWorkIcon, size: 30.0, color: activeOrangeColour,),
+
                   //Icon(frameWorkIcon, size: 30.0, color: inactiveBlackColour,)
                 SizedBox(height: 5.0,),
                 Text(
@@ -78,8 +78,11 @@ class BcStepCard extends StatelessWidget {
                           //CHANGE IT
                           Navigator.pushNamed(context, navigateTo);
                         },
+
+
                         child: Text(
-                          buttonText,
+                          completeStep1 == true ? 'DONE' : buttonText,
+
                           style: TextStyle(
                               letterSpacing: 1,
                               fontWeight: FontWeight.bold, color: Colors.white),

@@ -5,7 +5,18 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/BCStepCard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-class BCScreen extends StatelessWidget {
+
+class BCScreen extends StatefulWidget {
+  final bool completeStep1;
+  BCScreen({Key key, @required this.completeStep1});
+  @override
+  _BCScreenState createState() => _BCScreenState(completeStep1);
+}
+
+class _BCScreenState extends State<BCScreen> {
+  bool completeStep1;
+  _BCScreenState(this.completeStep1);
+  String stepText;
 
 
   @override
@@ -35,7 +46,7 @@ class BCScreen extends StatelessWidget {
               height: 20,
             ),
             BCanvasIntroCard(menuContents[1]),
-        SizedBox(height:50.0),
+            SizedBox(height:50.0),
             Padding(
               padding: const EdgeInsets.only(left: 300, right: 300),
               child: GridView.builder(
@@ -49,11 +60,13 @@ class BCScreen extends StatelessWidget {
                     crossAxisCount: 3),
                 itemBuilder: (BuildContext context, int index) {
                   return BcStepCard(
+                      completeStep1: completeStep1,
                       frameWorkIcon: bcStepsContent[index].frameWorkIcon,
                       frameworkStep: bcStepsContent[index].frameworkStep,
                       frameWorkDescription: bcStepsContent[index].frameWorkDescription,
 
                       buttonText: bcStepsContent[index].buttonText,
+                      //buttonText: _validateCompletion(),
                       navigateTo: bcStepsContent[index].navigateTo);
                 },
               ),
@@ -72,3 +85,4 @@ class BCScreen extends StatelessWidget {
     );
   }
 }
+
