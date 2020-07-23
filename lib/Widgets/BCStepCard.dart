@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:iventure001/Widgets/SpaceHeight30.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 const activeOrangeColour = Color(0XFFE95420);
 const inactiveBlackColour = Color(0xFF274C4B);
@@ -12,7 +13,7 @@ class BcStepCard extends StatelessWidget {
 //
 
   BcStepCard(
-      {this.frameWorkIcon,
+      {this.id, this.frameWorkIcon,
         this.frameworkStep,
         this.frameWorkDescription,
         this.buttonText,
@@ -21,6 +22,7 @@ class BcStepCard extends StatelessWidget {
         //this.text
       });
 
+  final int id;
   final IconData frameWorkIcon;
   final String frameworkStep;
   final String frameWorkDescription;
@@ -29,7 +31,7 @@ class BcStepCard extends StatelessWidget {
   final bool completeStep1;
   //final String text;
 
-
+  //str3.lastIndexOf('completeStep1');
 
 
   @override
@@ -62,6 +64,7 @@ class BcStepCard extends StatelessWidget {
                 Space30(),
 
 
+
                 Text(frameWorkDescription, style: TextStyle(fontSize: 18, color: Colors.black54),),
                 Space30(),
                 Row(
@@ -70,24 +73,11 @@ class BcStepCard extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(right: 25.0),
-                      child: RaisedButton(
-                        elevation: 5,
-                        hoverElevation: 10,
-                        color: Color(0XFFE95420),
-                        onPressed: () {
-                          //CHANGE IT
-                          Navigator.pushNamed(context, navigateTo);
-                        },
 
+//completeStep1 == true ? DoneRaisedButton() : ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
 
-                        child: Text(
-                          completeStep1 == true ? 'DONE' : buttonText,
-
-                          style: TextStyle(
-                              letterSpacing: 1,
-                              fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                      ),
+                      // ignore: unrelated_type_equality_checks
+                      child: completeStep1 == true ? DoneRaisedButton() : ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
                     ),
                   ],
                 ),
@@ -96,6 +86,56 @@ class BcStepCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+class ReusableRaisedButton extends StatelessWidget {
+  ReusableRaisedButton({@required this.routeTo, this.textButton});
+  final String routeTo;
+  final String textButton;
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      elevation: 5,
+      hoverElevation: 10,
+      color: activeOrangeColour,
+      onPressed: () {
+        //CHANGE IT
+        Navigator.pushNamed(context, routeTo);
+      },
+
+      child: Text(
+        textButton,
+        //completeStep1 == true ? null : buttonText,
+
+        style: TextStyle(
+            letterSpacing: 1,
+            fontWeight: FontWeight.bold,
+            color: Colors.white),
+      ),
+    );
+  }
+}
+
+class DoneRaisedButton extends StatelessWidget {
+//  ReusableRaisedButton({@required this.routeTo, this.textButton});
+//  final String routeTo;
+//  final String textButton;
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      elevation: 5,
+      //hoverElevation: 10,
+      color: inactiveBlackColour,
+      onPressed: () {
+        //CHANGE IT
+        //Navigator.pushNamed(context, routeTo);
+      },
+      child: Icon(Icons.check, color: Colors.grey,),
     );
   }
 }

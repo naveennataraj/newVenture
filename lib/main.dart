@@ -43,7 +43,7 @@ class Vueapp extends StatelessWidget {
         '/addstoriespainpoints': (context) => AddStoriesPainPoints(),
 
         // BC- BlitzCanvas
-        '/BCHomeView': (context) => BCScreen(),
+        '/BCHomeView': (context) => BCScreen(completeStep1: false,),
         //Step1
         '/BCStep1CollectAspects': (context) =>
             BcStep1CollectionAspects(), //Mission and Vision statements

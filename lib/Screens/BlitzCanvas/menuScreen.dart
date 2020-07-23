@@ -17,7 +17,7 @@ class _BCScreenState extends State<BCScreen> {
   bool completeStep1;
   _BCScreenState(this.completeStep1);
   String stepText;
-
+  List<int> selectedIndexList = new List<int>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +59,23 @@ class _BCScreenState extends State<BCScreen> {
                     childAspectRatio: 1.5,
                     crossAxisCount: 3),
                 itemBuilder: (BuildContext context, int index) {
+
+//                  if (completeStep1 == 1) {
+//
+//                  } else {
+//                    selectedIndexList.remove(index);
+//                  }
+
                   return BcStepCard(
+
+
                       completeStep1: completeStep1,
                       frameWorkIcon: bcStepsContent[index].frameWorkIcon,
                       frameworkStep: bcStepsContent[index].frameworkStep,
                       frameWorkDescription: bcStepsContent[index].frameWorkDescription,
 
-                      buttonText: bcStepsContent[index].buttonText,
+                      buttonText:
+                      bcStepsContent[index].buttonText,
                       //buttonText: _validateCompletion(),
                       navigateTo: bcStepsContent[index].navigateTo);
                 },
@@ -86,3 +96,22 @@ class _BCScreenState extends State<BCScreen> {
   }
 }
 
+class DoneRaisedButton extends StatelessWidget {
+//  ReusableRaisedButton({@required this.routeTo, this.textButton});
+//  final String routeTo;
+//  final String textButton;
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      elevation: 5,
+      //hoverElevation: 10,
+      color: inactiveBlackColour,
+      onPressed: () {
+        //CHANGE IT
+        //Navigator.pushNamed(context, routeTo);
+      },
+      child: Icon(Icons.check, color: Colors.grey,),
+    );
+  }
+}
