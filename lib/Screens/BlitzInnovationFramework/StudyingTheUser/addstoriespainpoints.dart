@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/StudyTheUser/addUserStoriesData.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/UserStoryDialogue.dart';
 import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -63,16 +63,18 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: <Widget>[
-                          SmallOrangeCardWithoutTitle(
-                            description: UserStory(index),
-                            index: index,
-                            removingat: AddingNewUserStory,
-                            Dialogue: userStoryDialogue(
-                              index: index,
-                            ),
-                          )
-                        ],
+                        children: AddingNewUserStory != null
+                            ? <Widget>[
+                                SmallOrangeCardWithoutTitle(
+                                  description: UserStory(index),
+                                  index: index,
+                                  removingat: AddingNewUserStory,
+                                  Dialogue: userStoryDialogue(
+                                    index: index,
+                                  ),
+                                )
+                              ]
+                            : null,
                       );
                     },
                   ),

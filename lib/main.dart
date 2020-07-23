@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideation.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/addstoriespainpoints.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/adduserenvironmentdetails.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
@@ -41,9 +43,14 @@ class Vueapp extends StatelessWidget {
         '/Adduserpersona': (context) => AddUserPersona(),
         '/adduserenvironmentdetails': (context) => AddUserEnvironmentDetails(),
         '/addstoriespainpoints': (context) => AddStoriesPainPoints(),
+        //Ideate and Conceptuallize
+        '/solutionideation': (context) => SolutionIdeation(),
+        '/ranksolutions': (context) => RankSolutions(),
 
         // BC- BlitzCanvas
-        '/BCHomeView': (context) => BCScreen(completeStep1: false,),
+        '/BCHomeView': (context) => BCScreen(
+              completeStep1: false,
+            ),
         //Step1
         '/BCStep1CollectAspects': (context) =>
             BcStep1CollectionAspects(), //Mission and Vision statements

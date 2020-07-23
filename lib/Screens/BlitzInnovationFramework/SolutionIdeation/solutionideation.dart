@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/StudyTheProblem/painPointDialogue.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideationDialogue.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
+import 'package:iventure001/Widgets/NoteCard.dart';
+import 'package:iventure001/Widgets/RankSolutionsButton.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 
-class AddPainPoints extends StatefulWidget {
+class SolutionIdeation extends StatefulWidget {
   @override
-  _AddPainPointsState createState() => _AddPainPointsState();
+  _SolutionIdeationState createState() => _SolutionIdeationState();
 }
 
-class _AddPainPointsState extends State<AddPainPoints> {
+class _SolutionIdeationState extends State<SolutionIdeation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,27 +43,36 @@ class _AddPainPointsState extends State<AddPainPoints> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        'Add details of the foundational aspects of the business',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )),
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "How do you plan to resolve the customer pain points? Let's add possible solutions:",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  NoteCard(
+                    Note:
+                        'Tip: To start with, it is ideal to add as many solutions as possible. The relevant solutions can then be shortlisted and the ideal solution option can be selected at the end.',
+                  ),
                   ListView.builder(
-                    itemCount: AddingNewPainPoint.length,
+                    itemCount: AddingNewSolutions.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: <Widget>[
-                          SmallOrangeCardWithoutTitle(
-                            description: AddingNewPainPoint[index].Challenge,
-                            index: index,
-                            removingat: AddingNewPainPoint,
-                            Dialogue: painpointDialogue(index: index),
-                          )
-                        ],
+                        children: AddingNewSolutions != null
+                            ? <Widget>[
+                                SmallOrangeCardWithoutTitle(
+                                  description: AddingNewSolutions[index].Name,
+                                  index: index,
+                                  removingat: AddingNewSolutions,
+                                  Dialogue: solutionIdeationDialogue(
+                                    index: index,
+                                  ),
+                                )
+                              ]
+                            : null,
                       );
                     },
                   ),
@@ -75,10 +85,12 @@ class _AddPainPointsState extends State<AddPainPoints> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(),
+                        RankSolutionsButton(
+                          routeName: '/ranksolutions',
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               )),
         ),
@@ -91,7 +103,7 @@ class _AddPainPointsState extends State<AddPainPoints> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => painpointDialogue(),
+              builder: (BuildContext context) => solutionIdeationDialogue(),
             );
           },
           child: Icon(Icons.add),

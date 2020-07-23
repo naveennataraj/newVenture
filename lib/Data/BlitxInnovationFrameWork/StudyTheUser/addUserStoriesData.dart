@@ -6,6 +6,4 @@ class addUserStories {
   addUserStories({this.Asa, this.IWantTo, this.SoThat});
 }
 
-List<addUserStories> AddingNewUserStory = [
-  addUserStories(),
-];
+List<addUserStories> AddingNewUserStory = [];

@@ -39,7 +39,7 @@ List<bifCardData> bcpData = [
     frameworkdescrip:
         'Brainstorming possible solutions and selecting the best option.',
     buttonText: 'Begin Step 3',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/solutionideation',
   ),
   bifCardData(
     frameworkStep: 'Step 4 - Solution formulation',
