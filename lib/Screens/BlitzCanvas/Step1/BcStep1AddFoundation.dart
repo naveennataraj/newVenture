@@ -109,7 +109,7 @@ class CompleteStepButton extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => BCScreen(completeStep1: true,),
+              builder: (context) => BCScreen(completeStep1: 1,),
             ),);
 
       },

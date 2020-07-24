@@ -18,7 +18,7 @@ class BcStepCard extends StatelessWidget {
         this.frameWorkDescription,
         this.buttonText,
         this.navigateTo,
-        this.completeStep1,
+        //this.completeStep1,
         //this.text
       });
 
@@ -28,7 +28,7 @@ class BcStepCard extends StatelessWidget {
   final String frameWorkDescription;
   final String buttonText;
   final String navigateTo;
-  final bool completeStep1;
+  //final bool completeStep1;
   //final String text;
 
   //str3.lastIndexOf('completeStep1');
@@ -77,7 +77,8 @@ class BcStepCard extends StatelessWidget {
 //completeStep1 == true ? DoneRaisedButton() : ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
 
                       // ignore: unrelated_type_equality_checks
-                      child: completeStep1 == true ? DoneRaisedButton() : ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
+                      child: ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
+                      //completeStep1 == true ? DoneRaisedButton() : ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
                     ),
                   ],
                 ),

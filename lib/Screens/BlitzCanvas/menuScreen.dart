@@ -7,14 +7,14 @@ import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 
 class BCScreen extends StatefulWidget {
-  final bool completeStep1;
+  final int completeStep1;
   BCScreen({Key key, @required this.completeStep1});
   @override
   _BCScreenState createState() => _BCScreenState(completeStep1);
 }
 
 class _BCScreenState extends State<BCScreen> {
-  bool completeStep1;
+  int completeStep1;
   _BCScreenState(this.completeStep1);
   String stepText;
   List<int> selectedIndexList = new List<int>();
@@ -59,9 +59,8 @@ class _BCScreenState extends State<BCScreen> {
                     childAspectRatio: 1.5,
                     crossAxisCount: 3),
                 itemBuilder: (BuildContext context, int index) {
-
-//                  if (completeStep1 == 1) {
-//
+//                  if (!completeStep1.contains(bcStepsContent[index])) {
+//                    selectedIndexList.add(index);
 //                  } else {
 //                    selectedIndexList.remove(index);
 //                  }
@@ -69,13 +68,12 @@ class _BCScreenState extends State<BCScreen> {
                   return BcStepCard(
 
 
-                      completeStep1: completeStep1,
+                      //completeStep1: completeStep1,
                       frameWorkIcon: bcStepsContent[index].frameWorkIcon,
                       frameworkStep: bcStepsContent[index].frameworkStep,
                       frameWorkDescription: bcStepsContent[index].frameWorkDescription,
 
-                      buttonText:
-                      bcStepsContent[index].buttonText,
+                      buttonText: index +1 == completeStep1? 'Done': bcStepsContent[index].buttonText,
                       //buttonText: _validateCompletion(),
                       navigateTo: bcStepsContent[index].navigateTo);
                 },
