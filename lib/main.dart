@@ -58,7 +58,7 @@ class Vueapp extends StatelessWidget {
 
         // BC- BlitzCanvas
         '/BCHomeView': (context) => BCScreen(
-              completeStep1: false,
+              completeStep1: 11,
             ),
         //Step1
         '/BCStep1CollectAspects': (context) =>
