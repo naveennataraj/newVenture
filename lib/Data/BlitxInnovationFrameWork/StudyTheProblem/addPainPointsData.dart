@@ -13,7 +13,4 @@ class addPainPoints {
       this.Expectations});
 }
 
-List<addPainPoints> AddingNewPainPoint = [
-  addPainPoints(
-      Challenge: 'The user in unable to work on shared assignments or task'),
-];
+List<addPainPoints> AddingNewPainPoint = [];

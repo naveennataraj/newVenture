@@ -18,10 +18,7 @@ List<DropDownItem> UserEnvironmentList = [
   DropDownItem(1, 'Urban'),
   DropDownItem(2, 'Rural'),
 ];
-List<DropDownItem> SolutionRankingList = [
-  DropDownItem(1, 'Urban'),
-  DropDownItem(2, 'Rural'),
-];
+List<DropDownItem> SolutionRankingList = [];
 
 List<DropdownMenuItem<DropDownItem>> ProblemDomaindropdown;
 List<DropdownMenuItem<DropDownItem>> UserEnvironmentdropdown;

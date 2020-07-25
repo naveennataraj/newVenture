@@ -67,6 +67,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -145,7 +146,6 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                       onChanged: (bool value) {
                         setState(() {
                           checked = value;
-                          print(checked);
                         });
                       },
                       activeColor: Color(0XFFE95420),

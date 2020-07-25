@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 
 const cardColor = Color(0xFFF7C3B1);
 
-class SmallOrangeCardWithoutTitle extends StatelessWidget {
+class SmallOrangeCardWithTitle extends StatelessWidget {
+  final String title;
   final String description;
   final int index;
   final List removingat;
   Widget Dialogue;
-  SmallOrangeCardWithoutTitle(
-      {this.description, this.index, this.removingat, this.Dialogue});
+
+  SmallOrangeCardWithTitle(
+      {this.description,
+      this.index,
+      this.removingat,
+      this.Dialogue,
+      this.title});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        //Navigator.pushNamed(context, subject.pushView);
-        print('working');
-      },
+      onTap: () {},
       child: Container(
         height: 180,
         width: 370,
@@ -34,9 +37,17 @@ class SmallOrangeCardWithoutTitle extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             //SizedBox(height: 30.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(

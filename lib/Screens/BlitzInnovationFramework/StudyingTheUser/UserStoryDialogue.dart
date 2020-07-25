@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -38,15 +37,14 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
   _userStoryDialogueState(this.index);
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (index != null) {
       AsaTextController =
-          TextEditingController(text: AddingNewPainPoint[index].Challenge);
+          TextEditingController(text: AddingNewUserStory[index].Asa);
       IWantToTextController =
-          TextEditingController(text: AddingNewPainPoint[index].MoreDetails);
+          TextEditingController(text: AddingNewUserStory[index].IWantTo);
       SoThatTextController =
-          TextEditingController(text: AddingNewPainPoint[index].Consequence);
+          TextEditingController(text: AddingNewUserStory[index].SoThat);
     }
   }
 
@@ -63,6 +61,7 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),

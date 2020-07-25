@@ -60,6 +60,7 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),

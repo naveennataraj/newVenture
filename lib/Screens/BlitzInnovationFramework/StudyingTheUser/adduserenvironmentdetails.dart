@@ -46,7 +46,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
         child: Container(
           //height: MediaQuery.of(context).size.height * .40,
           margin: EdgeInsets.only(top: 40.0),
-          width: MediaQuery.of(context).size.width * .40,
+          width: MediaQuery.of(context).size.width * .50,
           decoration: BoxDecoration(
             color: Colors.white,
             //shape: BoxShape.rectangle,
@@ -169,15 +169,23 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                               width: 100,
                             ),
                           ),
-                          DropdownButton(
-                            hint: Text('Choose'),
-                            onChanged: (newValue) {
-                              setState(() {
-                                SelectedProblemDomain = newValue;
-                              });
-                            },
-                            items: ProblemDomaindropdown,
-                            value: SelectedProblemDomain,
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: DropdownButton(
+                              hint: Text(
+                                'Choose',
+                                style: TextStyle(
+                                  color: Color(0XFFE95420),
+                                ),
+                              ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  SelectedProblemDomain = newValue;
+                                });
+                              },
+                              items: ProblemDomaindropdown,
+                              value: SelectedProblemDomain,
+                            ),
                           ),
                         ],
                       ),
@@ -199,20 +207,24 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                             style: TextStyle(
                                 color: Colors.grey.shade600, fontSize: 16),
                           ),
-                          Flexible(
-                            child: SizedBox(
-                              width: 100,
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: DropdownButton(
+                              hint: Text(
+                                'Choose',
+                                style: TextStyle(
+                                  color: Color(0XFFE95420),
+                                ),
+                              ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  SelectedUserEnvironment = newValue;
+                                });
+                              },
+                              items: UserEnvironmentdropdown,
+                              value: SelectedUserEnvironment,
                             ),
-                          ),
-                          DropdownButton(
-                            hint: Text('Choose'),
-                            onChanged: (newValue) {
-                              setState(() {
-                                SelectedUserEnvironment = newValue;
-                              });
-                            },
-                            items: UserEnvironmentdropdown,
-                            value: SelectedUserEnvironment,
                           ),
                         ],
                       ),

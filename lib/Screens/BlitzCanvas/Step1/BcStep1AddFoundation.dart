@@ -1,16 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step1/AddFoudationalDeatil.dart';
+import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
 import 'package:iventure001/Widgets/FloatingButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCard.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step1/AddFoudationalDeatil.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
-
 
 class Step1AddFoundation extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +97,7 @@ class Step1AddFoundation extends StatelessWidget {
 class CompleteStepButton extends StatelessWidget {
   const CompleteStepButton({
     Key key,
+    String routeName,
   }) : super(key: key);
 
   @override
@@ -107,11 +106,13 @@ class CompleteStepButton extends StatelessWidget {
       onTap: () {
         //Navigator.pushNamed(context, '/BCHomeView');
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BCScreen(completeStep1: true,),
-            ),);
-
+          context,
+          MaterialPageRoute(
+            builder: (context) => BCScreen(
+              completeStep1: true,
+            ),
+          ),
+        );
       },
       child: Text(
         'COMPLETE STEP',

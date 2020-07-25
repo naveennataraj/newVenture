@@ -47,7 +47,7 @@ List<bifCardData> bcpData = [
     frameworkdescrip:
         'Defining product goals, the features of the product and Creating a solution outline.',
     buttonText: 'Begin Step 4',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/addproductgoals',
   ),
   bifCardData(
     frameworkStep: 'Step 5 - Pre-Validation',

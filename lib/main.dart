@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addcompetingproducts.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addproductfeatures.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addproductgoals.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addwireframelink.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideation.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/addstoriespainpoints.dart';
@@ -46,6 +50,11 @@ class Vueapp extends StatelessWidget {
         //Ideate and Conceptuallize
         '/solutionideation': (context) => SolutionIdeation(),
         '/ranksolutions': (context) => RankSolutions(),
+        //Solution Formulation
+        '/addproductgoals': (context) => AddProductGoals(),
+        '/addproductfeatures': (context) => AddProductFeatures(),
+        '/currentmarketplayers': (context) => AddCompetingProducts(),
+        '/addwireframelink': (context) => AddWireframeLink(),
 
         // BC- BlitzCanvas
         '/BCHomeView': (context) => BCScreen(

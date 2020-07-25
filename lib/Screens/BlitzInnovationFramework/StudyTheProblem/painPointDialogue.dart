@@ -71,7 +71,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.85,
+        height: MediaQuery.of(context).size.height * 0.90,
         width: MediaQuery.of(context).size.width * 0.4,
         child: SingleChildScrollView(
           child: Column(
@@ -143,12 +143,12 @@ class _painpointDialogueState extends State<painpointDialogue> {
                 maxLines: 3,
                 myFocusNode: expectationsFocusNode,
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
-                    child: AddDetailButton(
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AddDetailButton(
                       routeName: '/addpainpoints',
                       onTap: () {
                         setState(() {
@@ -174,13 +174,12 @@ class _painpointDialogueState extends State<painpointDialogue> {
                         });
                       },
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
-                    child: CancelButtton(),
-                  ),
-                ],
+                    SizedBox(
+                      width: 50,
+                    ),
+                    CancelButtton(),
+                  ],
+                ),
               )
             ],
           ),
