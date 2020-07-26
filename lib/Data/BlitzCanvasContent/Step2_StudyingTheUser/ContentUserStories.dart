@@ -1,15 +1,9 @@
-class ContentBcUserStories{
-  final String userStory;
+class BcContentUserStories {
+  final String Asa;
+  final String IWantTo;
+  final String SoThat;
 
-  ContentBcUserStories({
-    this.userStory,
-  });
+  BcContentUserStories({this.Asa, this.IWantTo, this.SoThat});
 }
 
-List<ContentBcUserStories> userStoriesContent = [
-  ContentBcUserStories(
-    userStory: 'As a casual user, I want to add a task in the least amount of steps possible so that I can collect all tasks to be managed in a single location',
-  ),
-
-
-];
+List<BcContentUserStories> userStoriesContent = [];

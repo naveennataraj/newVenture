@@ -10,7 +10,7 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 
-
+BcContentUserStories contentBcUserStories = BcContentUserStories();
 
 class BcStep2CapturingUserStories extends StatefulWidget {
   @override
@@ -26,6 +26,12 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
 
     return 'As a $A, I want to $B so that $C';
   }
+
+  TextEditingController asAController = TextEditingController();
+  TextEditingController iWantToController = TextEditingController();
+  TextEditingController soThatController = TextEditingController();
+
+
 
 
   @override
