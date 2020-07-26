@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BcFrameworkContent {
-  final int id;
   final IconData frameWorkIcon;
   final String frameworkStep;
   final String frameWorkDescription;
@@ -11,7 +10,7 @@ class BcFrameworkContent {
 
 
   BcFrameworkContent(
-      { this.id, this.frameWorkIcon,
+      { this.frameWorkIcon,
         this.frameworkStep,
         this.frameWorkDescription,
         this.buttonText,
@@ -20,7 +19,6 @@ class BcFrameworkContent {
 
 List<BcFrameworkContent> bcStepsContent = [
   BcFrameworkContent(
-    id: 1,
     frameworkStep: 'Step 1 - Build the Foundation',
     frameWorkIcon: Icons.build,
     frameWorkDescription:
@@ -29,16 +27,14 @@ List<BcFrameworkContent> bcStepsContent = [
     navigateTo: '/BCStep1CollectAspects',
   ),
   BcFrameworkContent(
-    id: 2,
     frameworkStep: 'Step 2 - Studying the user',
     frameWorkIcon: Icons.person,
     frameWorkDescription:
     'Studying the user, who they are and understanding their pain points.',
     buttonText: 'Begin Step 2',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/BCStep2UserProfile',
   ),
   BcFrameworkContent(
-    id: 3,
     frameworkStep: 'Step 3 - Defining the solution',
     frameWorkIcon: Icons.mouse,
     frameWorkDescription:

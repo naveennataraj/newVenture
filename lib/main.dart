@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addcompetingproducts.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addproductfeatures.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addproductgoals.dart';
@@ -19,6 +16,15 @@ import 'Screens/BlitzInnovationFramework/BlitzInnovationFramework.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/ProblemStudy.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
+
+// Canvas
+//Step1
+import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
+import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+//Step2
+import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
+import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
 
 void main() {
   runApp(Vueapp());
@@ -61,9 +67,12 @@ class Vueapp extends StatelessWidget {
               completeStep1: 11,
             ),
         //Step1
-        '/BCStep1CollectAspects': (context) =>
-            BcStep1CollectionAspects(), //Mission and Vision statements
+        '/BCStep1CollectAspects': (context) => BcStep1CollectionAspects(), //Mission and Vision statements
         '/BCStep1AddDetails': (context) => Step1AddFoundation(), //OrangeCards
+        //Step2
+        '/BCStep2UserProfile': (context) => BcStep2CollectUserProfile(),
+        '/BCStep2CaptureUserStories': (context) => BcStep2CapturingUserStories(),
+
       },
     );
   }
