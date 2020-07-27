@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
 
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
+import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
 
 import 'package:iventure001/Widgets/AddStoryButton.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
@@ -113,9 +115,26 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddStoryButton(
+
                             routeName: '/BCStep2CaptureUserStories',
-                            onTap: () {
+                            onTap: ()
+//                      async {
+//                    await Navigator.push(
+//                    context,
+//                    MaterialPageRoute(
+//                    builder: (BuildContext context) => BcStep2CapturingUserStories(),
+//                    fullscreenDialog: true,
+//                    )
+//                    );
+//                    setState(() {});
+//                    },
+                             {
+
+
                               setState(() {
+
+
+                                //setState(() {});
                                 final NewUserStory = BcContentUserStories(
                                   Asa: AsaTextController.text,
                                   IWantTo: SoThatTextController.text,

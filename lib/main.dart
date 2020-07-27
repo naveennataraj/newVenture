@@ -25,6 +25,8 @@ import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
 //Step2
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
+//Step3
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
 
 void main() {
   runApp(Vueapp());
@@ -66,13 +68,14 @@ class Vueapp extends StatelessWidget {
         '/BCHomeView': (context) => BCScreen(
               completeStep1: 11,
             ),
-        //Step1
+        //Step1 Build the Foundation
         '/BCStep1CollectAspects': (context) => BcStep1CollectionAspects(), //Mission and Vision statements
         '/BCStep1AddDetails': (context) => Step1AddFoundation(), //OrangeCards
-        //Step2
+        //Step2 Studying the user
         '/BCStep2UserProfile': (context) => BcStep2CollectUserProfile(),
         '/BCStep2CaptureUserStories': (context) => BcStep2CapturingUserStories(),
-
+        //Step3 Defining the solution
+        '/BCStep3Goals': (context) => Step3GoalsTheSolution(),
       },
     );
   }

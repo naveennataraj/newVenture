@@ -5,22 +5,46 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/BCStepCard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
+const activeOrangeColour = Color(0XFFE95420);
+const inactiveBlackColour = Color(0xFF274C4B);
+
+BcFrameworkContent _frameworkContent = BcFrameworkContent();
 
 class BCScreen extends StatefulWidget {
+  final List<int> stepsList;
   final int completeStep1;
-  BCScreen({Key key, @required this.completeStep1});
+  BCScreen({Key key, this.stepsList, @required this.completeStep1, });
   @override
-  _BCScreenState createState() => _BCScreenState(completeStep1);
+  _BCScreenState createState() => _BCScreenState(completeStep1, stepsList);
 }
 
 class _BCScreenState extends State<BCScreen> {
+  List stepsList;
   int completeStep1;
-  _BCScreenState(this.completeStep1);
-  String stepText;
-  List<int> selectedIndexList = new List<int>();
+  _BCScreenState(this.completeStep1, this.stepsList);
+
+  List<int> selectedIndexList = [];
+
+//  @override
+//  void initState() {
+//    selectedIndexList.add(completeStep1);
+//    print(selectedIndexList);
+//    super.initState();
+//  }
+
+  List<int> numbers = new List<int>();
+
+  void addItem(int completeStep1) {
+
+    int i = completeStep1;
+    selectedIndexList.insert(i, completeStep1);
+    print(selectedIndexList);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
@@ -65,14 +89,19 @@ class _BCScreenState extends State<BCScreen> {
 //                    selectedIndexList.remove(index);
 //                  }
 
-                  return BcStepCard(
+//                  if (completeStep1 != null) {
+//                    selectedIndexList.insert(index, completeStep1);
+//                  }
 
+                  return BcStepCard(
 
                       //completeStep1: completeStep1,
                       frameWorkIcon: bcStepsContent[index].frameWorkIcon,
                       frameworkStep: bcStepsContent[index].frameworkStep,
                       frameWorkDescription: bcStepsContent[index].frameWorkDescription,
+                      //cardColour: index+1 == completeStep1? inactiveBlackColour: activeOrangeColour,
 
+                      cardColour: selectedIndexList.contains(index+1) ? inactiveBlackColour : activeOrangeColour,
                       buttonText: index +1 == completeStep1? 'Done': bcStepsContent[index].buttonText,
                       //buttonText: _validateCompletion(),
                       navigateTo: bcStepsContent[index].navigateTo);

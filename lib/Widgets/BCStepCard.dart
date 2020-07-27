@@ -13,21 +13,22 @@ class BcStepCard extends StatelessWidget {
 //
 
   BcStepCard(
-      {this.id, this.frameWorkIcon,
+      {this.frameWorkIcon,
         this.frameworkStep,
         this.frameWorkDescription,
         this.buttonText,
         this.navigateTo,
+        this.cardColour
         //this.completeStep1,
         //this.text
       });
 
-  final int id;
   final IconData frameWorkIcon;
   final String frameworkStep;
   final String frameWorkDescription;
   final String buttonText;
   final String navigateTo;
+  final Color cardColour;
   //final bool completeStep1;
   //final String text;
 
@@ -77,7 +78,25 @@ class BcStepCard extends StatelessWidget {
 //completeStep1 == true ? DoneRaisedButton() : ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
 
                       // ignore: unrelated_type_equality_checks
-                      child: ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
+                      child: RaisedButton(
+                        elevation: 5,
+                        hoverElevation: 10,
+                        color: cardColour,
+                        onPressed: () {
+                          //CHANGE IT
+                          Navigator.pushNamed(context, navigateTo);
+                        },
+
+                        child: Text(
+                          buttonText,
+                          //completeStep1 == true ? null : buttonText,
+
+                          style: TextStyle(
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      )
                       //completeStep1 == true ? DoneRaisedButton() : ReusableRaisedButton( routeTo: navigateTo, textButton: buttonText,),
                     ),
                   ],
@@ -92,51 +111,32 @@ class BcStepCard extends StatelessWidget {
 }
 
 
-class ReusableRaisedButton extends StatelessWidget {
-  ReusableRaisedButton({@required this.routeTo, this.textButton});
-  final String routeTo;
-  final String textButton;
-
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      elevation: 5,
-      hoverElevation: 10,
-      color: activeOrangeColour,
-      onPressed: () {
-        //CHANGE IT
-        Navigator.pushNamed(context, routeTo);
-      },
-
-      child: Text(
-        textButton,
-        //completeStep1 == true ? null : buttonText,
-
-        style: TextStyle(
-            letterSpacing: 1,
-            fontWeight: FontWeight.bold,
-            color: Colors.white),
-      ),
-    );
-  }
-}
-
-class DoneRaisedButton extends StatelessWidget {
+//class ReusableRaisedButton extends StatelessWidget {
 //  ReusableRaisedButton({@required this.routeTo, this.textButton});
 //  final String routeTo;
 //  final String textButton;
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return RaisedButton(
+//      elevation: 5,
+//      hoverElevation: 10,
+//      color: activeOrangeColour,
+//      onPressed: () {
+//        //CHANGE IT
+//        Navigator.pushNamed(context, routeTo);
+//      },
+//
+//      child: Text(
+//        textButton,
+//        //completeStep1 == true ? null : buttonText,
+//
+//        style: TextStyle(
+//            letterSpacing: 1,
+//            fontWeight: FontWeight.bold,
+//            color: Colors.white),
+//      ),
+//    );
+//  }
+//}
 
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      elevation: 5,
-      //hoverElevation: 10,
-      color: inactiveBlackColour,
-      onPressed: () {
-        //CHANGE IT
-        //Navigator.pushNamed(context, routeTo);
-      },
-      child: Icon(Icons.check, color: Colors.grey,),
-    );
-  }
-}

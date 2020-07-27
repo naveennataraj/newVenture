@@ -109,6 +109,7 @@ class CompleteStepButton extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => BCScreen(
               completeStep1: 1,
+              stepsList: [1],
             ),
           ),
         );

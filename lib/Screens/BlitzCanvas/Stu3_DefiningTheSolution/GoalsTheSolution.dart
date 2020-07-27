@@ -1,35 +1,15 @@
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
-//import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
-import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStoryDialogue.dart';
-//import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/UserStoryDialogue.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step1/AddFoudationalDeatil.dart';
+import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Widgets/FloatingButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Widgets/SmallOrangeCard.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcProductGoals.dart';
 
-//BcContentUserStories contentBcUserStories = BcContentUserStories();
-
-class BcStep2CapturingUserStories extends StatefulWidget {
-  @override
-  _BcStep2CapturingUserStoriesState createState() => _BcStep2CapturingUserStoriesState();
-}
-
-class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStories> {
-
-  UserStory(int index) {
-    String A = userStoriesContent[index].Asa;
-    String B = userStoriesContent[index].IWantTo;
-    String C = userStoriesContent[index].SoThat;
-
-    return 'As a $A, I want to $B so that $C';
-  }
-
-
-
-
+class Step3GoalsTheSolution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +20,12 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
       ),
       body: Center(
         child: Container(
-          //height: MediaQuery.of(context).size.height * .40,
+//height: MediaQuery.of(context).size.height * .40,
           margin: EdgeInsets.only(top: 40.0),
           width: MediaQuery.of(context).size.width * .40,
           decoration: BoxDecoration(
             color: Colors.white,
-            //shape: BoxShape.rectangle,
+//shape: BoxShape.rectangle,
             boxShadow: [
               BoxShadow(
                 color: Colors.grey,
@@ -61,31 +41,30 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
                   Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: Text(
-                        "Capturing User stories",
+                        'List of the product goals for the solution concept',
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       )),
                   ListView.builder(
-                    itemCount: userStoriesContent.length,
+                    itemCount: foundationContent.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: userStoriesContent != null
-                            ? <Widget>[
-                          SmallOrangeCardWithoutTitle(
-                            description: UserStory(index),
-                            index: index,
-                            removingat: userStoriesContent,
-                            Dialogue: BcUserStoryDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
+                        children: <Widget>[
+//CardRectangleLarge(subjects[index]),
+                          SmallOrangeCard(foundationContent[index]),
+                        ],
                       );
                     },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    child: Icon(
+                      Icons.add,
+                      size: 20.0,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -99,30 +78,22 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
                         CompleteStepButton(),
                       ],
                     ),
-                  ),
+                  )
                 ],
               )),
         ),
       ),
-      floatingActionButton: Container(
-        margin: EdgeInsets.all(100),
-        child: FloatingActionButton(
-          tooltip: "Add's New Card",
-          backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => BcUserStoryDialogue(),
-            );
-          },
-          child: Icon(Icons.add),
-        ),
+      floatingActionButton: FloatingButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AddFoundationalDetail(),
+          );
+        },
       ),
     );
   }
 }
-
-
 
 class CompleteStepButton extends StatelessWidget {
   const CompleteStepButton({
@@ -133,13 +104,12 @@ class CompleteStepButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //Navigator.pushNamed(context, '/BCHomeView');
+//Navigator.pushNamed(context, '/BCHomeView');
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => BCScreen(
-              completeStep1: 2,
-              stepsList: [],
+              completeStep1: 1,
             ),
           ),
         );
@@ -151,7 +121,3 @@ class CompleteStepButton extends StatelessWidget {
     );
   }
 }
-
-
-
-
