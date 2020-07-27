@@ -4,6 +4,10 @@ import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
 
 class BlitzInnovationFramework extends StatelessWidget {
+  final bool StudyTheProblem;
+
+  BlitzInnovationFramework({this.StudyTheProblem});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,12 +109,14 @@ class BlitzInnovationFramework extends StatelessWidget {
 //                  physics: NeverScrollableScrollPhysics(),
                   itemCount: bcpData.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 1,
-                      crossAxisSpacing: 1,
-                      childAspectRatio: 1.5,
+                      mainAxisSpacing: 1.5,
+                      crossAxisSpacing: 1.5,
+                      childAspectRatio: 2.5,
                       crossAxisCount: 3),
                   itemBuilder: (BuildContext context, int index) {
                     return FrameworkCards(
+                        stepCompleteValidator:
+                            bcpData[index].CompletionValidator,
                         frameworkicon: bcpData[index].frameworkicon,
                         frameworkStep: bcpData[index].frameworkStep,
                         frameworkdescrip: bcpData[index].frameworkdescrip,

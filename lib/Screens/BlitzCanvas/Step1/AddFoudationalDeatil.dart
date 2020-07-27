@@ -149,7 +149,13 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                       SizedBox(
                         width: 50,
                       ),
-                      CancelButtton(),
+                      CancelButtton(
+                        OnTap: () {
+                          AsaTextController.clear();
+
+                          Navigator.pop(context);
+                        },
+                      ),
                     ],
                   ),
                 ),

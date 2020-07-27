@@ -7,9 +7,11 @@ class bifCardData {
   final String frameworkdescrip;
   final String buttonText;
   final String navigateTo;
+  bool CompletionValidator;
 
   bifCardData(
-      {this.frameworkicon,
+      {this.CompletionValidator,
+      this.frameworkicon,
       this.frameworkStep,
       this.frameworkdescrip,
       this.buttonText,
@@ -55,7 +57,7 @@ List<bifCardData> bcpData = [
     frameworkdescrip:
         "Preparing for the collection of user's initial feedback on the solution concept.",
     buttonText: 'Begin Step 5',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/addevangelistsandearlyadopters',
   ),
   bifCardData(
     frameworkStep: 'Step 6 - Solution Validation',
@@ -63,7 +65,7 @@ List<bifCardData> bcpData = [
     frameworkdescrip:
         "Capturing the user's thoughts after they have tried out the solution and next steps.",
     buttonText: 'Begin Step 6',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/addquotes',
   ),
   bifCardData(
     frameworkStep: 'Step 7 - Managing growth',
@@ -71,7 +73,7 @@ List<bifCardData> bcpData = [
     frameworkdescrip:
         'Outlining how the product plans to scale and planning for new parallel products.',
     buttonText: 'Begin Step 7',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/handlingscale',
   ),
   bifCardData(
     frameworkStep: 'Step 8 - Metrics',

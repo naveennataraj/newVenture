@@ -1,20 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addCompetingProductsDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
+import 'package:iventure001/Data/CardData.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/addParallelInnovationsDialogue.dart';
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 
-class AddCompetingProducts extends StatefulWidget {
+class AddParallelInnovations extends StatefulWidget {
   @override
-  _AddCompetingProductsState createState() => _AddCompetingProductsState();
+  _AddParallelInnovationsState createState() => _AddParallelInnovationsState();
 }
 
-class _AddCompetingProductsState extends State<AddCompetingProducts> {
+class _AddParallelInnovationsState extends State<AddParallelInnovations> {
+  NotifyProgress() {
+    setState(() {
+      bcpData[6].CompletionValidator = true;
+      print(bcpData[6].CompletionValidator);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +53,7 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "Let's list out the competing products currently in the market",
+                      "Let's add possible parallel innovation concepts",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
@@ -54,38 +61,40 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                   ),
                   NoteCard(
                     Note:
-                        "Tip: This section is a list of products in the market which currently cater to the customer's pain points",
+                        'Tip: Based on your solution concept which has been designed until this point, is there any parallel solution concept(s) which you can think of which would provide value to the customer?\nOne example of this is Uber Eats which was derived from the Original Uber solution. Another example is the Apple watch which was designed as a complementary offering to the iPhone/iPad line of products.',
                   ),
-                  (AddingNewCompetingProduct.length == 0)
+                  (AddingNewParallelInnovations.length == 0)
                       ? Padding(
                           padding: const EdgeInsets.all(25.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Click on '+' to add the Competing Products",
+                                "Click on '+' to add the solution concept",
                                 style: TextStyle(color: Colors.grey),
                               )
                             ],
                           ),
                         )
                       : ListView.builder(
-                          itemCount: AddingNewCompetingProduct.length,
+                          itemCount: AddingNewParallelInnovations.length,
                           shrinkWrap: true,
                           padding: EdgeInsets.only(top: 10.0),
                           itemBuilder: (context, index) {
                             return Column(
-                              children: AddingNewCompetingProduct != null
+                              children: AddingNewParallelInnovations != null
                                   ? <Widget>[
                                       SmallOrangeCardWithTitle(
-                                        title: AddingNewCompetingProduct[index]
-                                            .ProductName,
+                                        title:
+                                            AddingNewParallelInnovations[index]
+                                                .Name,
                                         description:
-                                            AddingNewCompetingProduct[index]
-                                                .Features,
+                                            AddingNewParallelInnovations[index]
+                                                .Description,
                                         index: index,
-                                        removingat: AddingNewProductFeature,
-                                        Dialogue: addCompetingProductsDialogue(
+                                        removingat:
+                                            AddingNewParallelInnovations,
+                                        Dialogue: addParallelInnovationDialogue(
                                           index: index,
                                         ),
                                       )
@@ -103,8 +112,8 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          routeName: '/addwireframelink',
+                        CompleteStepButton(
+                          statusValidator: NotifyProgress(),
                         ),
                       ],
                     ),
@@ -121,7 +130,8 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => addCompetingProductsDialogue(),
+              builder: (BuildContext context) =>
+                  addParallelInnovationDialogue(),
             );
           },
           child: Icon(Icons.add),

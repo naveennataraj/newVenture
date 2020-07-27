@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
@@ -52,6 +53,13 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
   @override
   void initState() {
     super.initState();
+  }
+
+  NotifyProgress() {
+    setState(() {
+      bcpData[2].CompletionValidator = true;
+      print(bcpData[2].CompletionValidator);
+    });
   }
 
   @override
@@ -155,11 +163,23 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CancelButtton(),
+                          CancelButtton(
+                            OnTap: () {
+                              TopPickTextController.clear();
+                              PVPTextController.clear();
+                              TraitsTextController.clear();
+                              MonetizeTextController.clear();
+                              EventTextController.clear();
+                              checked = false;
+                              Navigator.pop(context);
+                            },
+                          ),
                           SizedBox(
                             width: 50,
                           ),
-                          CompleteStepButton(),
+                          CompleteStepButton(
+                            statusValidator: NotifyProgress(),
+                          ),
                         ],
                       ),
                     ),

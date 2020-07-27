@@ -74,7 +74,6 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddProductGoalButton(
-                            routeName: '/addproductgoals',
                             onTap: () {
                               setState(() {
                                 final NewProductGoals = addProductGoal(
@@ -98,7 +97,13 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
                           SizedBox(
                             width: 50,
                           ),
-                          CancelButtton(),
+                          CancelButtton(
+                            OnTap: () {
+                              ProductGoalTextController.clear();
+
+                              Navigator.pop(context);
+                            },
+                          ),
                         ],
                       ),
                     ),

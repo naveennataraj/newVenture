@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductGoal.dart';
+import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addProductGoalsDialogue.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -13,6 +14,13 @@ class AddProductGoals extends StatefulWidget {
 }
 
 class _AddProductGoalsState extends State<AddProductGoals> {
+  NotifyProgress() {
+    setState(() {
+      bcpData[3].CompletionValidator = false;
+      print(bcpData[3].CompletionValidator);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,28 +58,41 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  ListView.builder(
-                    itemCount: AddingNewProductGoals.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: AddingNewProductGoals != null
-                            ? <Widget>[
-                                SmallOrangeCardWithoutTitle(
-                                  description:
-                                      AddingNewProductGoals[index].goal,
-                                  index: index,
-                                  removingat: AddingNewProductGoals,
-                                  Dialogue: addProductGoalsDialogue(
-                                    index: index,
-                                  ),
-                                )
-                              ]
-                            : null,
-                      );
-                    },
-                  ),
+                  (AddingNewProductGoals.length == 0)
+                      ? Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Click on '+' to add the Product Goals",
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: AddingNewProductGoals.length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.only(top: 10.0),
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: AddingNewProductGoals != null
+                                  ? <Widget>[
+                                      SmallOrangeCardWithoutTitle(
+                                        description:
+                                            AddingNewProductGoals[index].goal,
+                                        index: index,
+                                        removingat: AddingNewProductGoals,
+                                        Dialogue: addProductGoalsDialogue(
+                                          index: index,
+                                        ),
+                                      )
+                                    ]
+                                  : null,
+                            );
+                          },
+                        ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -82,6 +103,7 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                           width: 50,
                         ),
                         goNextButton(
+                          StepValidator: NotifyProgress(),
                           routeName: '/addproductfeatures',
                         ),
                       ],

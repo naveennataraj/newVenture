@@ -61,6 +61,18 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(15),
@@ -104,6 +116,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             });
           }
         },
+        textInputAction: TextInputAction.next,
       ),
     );
   }

@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
+import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
+import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
+import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/addParallelInnovations.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/handlingscale.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addDistributionMedium.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdopters.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addcompetingproducts.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addproductfeatures.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addproductgoals.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addwireframelink.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideation.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionValidation/addQuotes.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/addstoriespainpoints.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/adduserenvironmentdetails.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
@@ -16,17 +28,6 @@ import 'Screens/BlitzInnovationFramework/BlitzInnovationFramework.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/ProblemStudy.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
-
-// Canvas
-//Step1
-import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
-//Step2
-import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
-import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
-//Step3
-import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
 
 void main() {
   runApp(Vueapp());
@@ -63,17 +64,35 @@ class Vueapp extends StatelessWidget {
         '/addproductfeatures': (context) => AddProductFeatures(),
         '/currentmarketplayers': (context) => AddCompetingProducts(),
         '/addwireframelink': (context) => AddWireframeLink(),
+        //Pre-Validation
+        '/addevangelistsandearlyadopters': (context) =>
+            AddEvangelistsAndEarlyAdopters(),
+        '/adddistributionmedium': (context) => AddDistributionMedium(),
+        //Solution Validation
+        '/addquotes': (context) => AddQuotes(),
+        '/reviewcustomerrequirements': (context) =>
+            ReviewCustomerRequirements(),
+        //Managing Growth
+        '/handlingscale': (context) => handlingScale(),
+        '/addparallelinnovations': (context) => AddParallelInnovations(),
 
         // BC- BlitzCanvas
         '/BCHomeView': (context) => BCScreen(
               completeStep1: 11,
             ),
         //Step1 Build the Foundation
-        '/BCStep1CollectAspects': (context) => BcStep1CollectionAspects(), //Mission and Vision statements
+        '/BCStep1CollectAspects': (context) =>
+            BcStep1CollectionAspects(), //Mission and Vision statements
+        '/BCStep1CollectAspects': (context) =>
+            BcStep1CollectionAspects(), //Mission and Vision statements
         '/BCStep1AddDetails': (context) => Step1AddFoundation(), //OrangeCards
-        //Step2 Studying the user
+        //Step2
         '/BCStep2UserProfile': (context) => BcStep2CollectUserProfile(),
-        '/BCStep2CaptureUserStories': (context) => BcStep2CapturingUserStories(),
+        '/BCStep2CaptureUserStories': (context) =>
+            BcStep2CapturingUserStories(),
+        //Step2 Studying the user
+        '/BCStep2CaptureUserStories': (context) =>
+            BcStep2CapturingUserStories(),
         //Step3 Defining the solution
         '/BCStep3Goals': (context) => Step3GoalsTheSolution(),
       },

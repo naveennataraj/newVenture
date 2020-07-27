@@ -1,27 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Widgets/NoteCard.dart';
 
-class AddUserPersona extends StatefulWidget {
+class ReviewCustomerRequirements extends StatefulWidget {
   @override
-  _AddUserPersonaState createState() => _AddUserPersonaState();
+  _ReviewCustomerRequirementsState createState() =>
+      _ReviewCustomerRequirementsState();
 }
 
-class _AddUserPersonaState extends State<AddUserPersona> {
-  bool validUserPersona = true;
-  var UserPersonalabelColor = Color(0XFF919191);
-  var UserPersonaTextController = TextEditingController();
-  final UserPersonaFocusNode = new FocusNode();
-  String UserPersona;
-
+class _ReviewCustomerRequirementsState
+    extends State<ReviewCustomerRequirements> {
   NotifyProgress() {
     setState(() {
-      bcpData[1].CompletionValidator = false;
-      print(bcpData[1].CompletionValidator);
+      bcpData[5].CompletionValidator = true;
+      print(bcpData[5].CompletionValidator);
     });
   }
 
@@ -54,22 +50,17 @@ class _AddUserPersonaState extends State<AddUserPersona> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        'Add details of the foundational aspects of the business',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )),
-                  TextFieldWidget(
-                    labelText: "Please provide a link to the User's Persona",
-                    maxLines: 1,
-                    validText: validUserPersona,
-                    myFocusNode: UserPersonaFocusNode,
-                    myTextController: UserPersonaTextController,
-                    textCollecter: UserPersona,
-                    helperText: '',
-                    labelcolour: UserPersonalabelColor,
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Schedule a Review of Problem-Solution fit",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  NoteCard(
+                    Note:
+                        'Tip: Customer pain points can change over time and the solution will need to evolve accordingly to stay relevant. Additionally, It might be a good idea to have a review of the problem-solution fit after some time, to see if the current solution concept is still the best option to resolve the customer pain points. These can be done after a 3 month, 6 month or 1 year window.',
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -80,13 +71,12 @@ class _AddUserPersonaState extends State<AddUserPersona> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          StepValidator: NotifyProgress(),
-                          routeName: '/adduserenvironmentdetails',
+                        CompleteStepButton(
+                          statusValidator: NotifyProgress(),
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               )),
         ),

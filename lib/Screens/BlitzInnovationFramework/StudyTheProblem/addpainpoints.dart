@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
+import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyTheProblem/painPointDialogue.dart';
 import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -13,6 +14,13 @@ class AddPainPoints extends StatefulWidget {
 }
 
 class _AddPainPointsState extends State<AddPainPoints> {
+  NotifyProgress() {
+    setState(() {
+      bcpData[0].CompletionValidator = true;
+      print(bcpData[0].CompletionValidator);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,23 +57,37 @@ class _AddPainPointsState extends State<AddPainPoints> {
                             fontSize: 22, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       )),
-                  ListView.builder(
-                    itemCount: AddingNewPainPoint.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: <Widget>[
-                          SmallOrangeCardWithoutTitle(
-                            description: AddingNewPainPoint[index].Challenge,
-                            index: index,
-                            removingat: AddingNewPainPoint,
-                            Dialogue: painpointDialogue(index: index),
-                          )
-                        ],
-                      );
-                    },
-                  ),
+                  (AddingNewPainPoint.length == 0)
+                      ? Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Click on '+' to add the Pain Points",
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: AddingNewPainPoint.length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.only(top: 10.0),
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: <Widget>[
+                                SmallOrangeCardWithoutTitle(
+                                  description:
+                                      AddingNewPainPoint[index].Challenge,
+                                  index: index,
+                                  removingat: AddingNewPainPoint,
+                                  Dialogue: painpointDialogue(index: index),
+                                )
+                              ],
+                            );
+                          },
+                        ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -75,7 +97,9 @@ class _AddPainPointsState extends State<AddPainPoints> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(),
+                        CompleteStepButton(
+                          statusValidator: NotifyProgress(),
+                        ),
                       ],
                     ),
                   )

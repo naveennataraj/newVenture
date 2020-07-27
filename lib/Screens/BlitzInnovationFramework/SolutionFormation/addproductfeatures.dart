@@ -50,30 +50,44 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  ListView.builder(
-                    itemCount: AddingNewProductFeature.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: AddingNewProductFeature != null
-                            ? <Widget>[
-                                SmallOrangeCardWithTitle(
-                                  title: AddingNewProductFeature[index]
-                                      .FeatureTitle,
-                                  description: AddingNewProductFeature[index]
-                                      .FeatureDescription,
-                                  index: index,
-                                  removingat: AddingNewProductFeature,
-                                  Dialogue: addProductFeaturesDialogue(
-                                    index: index,
-                                  ),
-                                )
-                              ]
-                            : null,
-                      );
-                    },
-                  ),
+                  (AddingNewProductFeature.length == 0)
+                      ? Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Click on '+' to add the Product Features",
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: AddingNewProductFeature.length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.only(top: 10.0),
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: AddingNewProductFeature != null
+                                  ? <Widget>[
+                                      SmallOrangeCardWithTitle(
+                                        title: AddingNewProductFeature[index]
+                                            .FeatureTitle,
+                                        description:
+                                            AddingNewProductFeature[index]
+                                                .FeatureDescription,
+                                        index: index,
+                                        removingat: AddingNewProductFeature,
+                                        Dialogue: addProductFeaturesDialogue(
+                                          index: index,
+                                        ),
+                                      )
+                                    ]
+                                  : null,
+                            );
+                          },
+                        ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

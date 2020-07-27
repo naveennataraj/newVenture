@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class AddProductGoalButton extends StatelessWidget {
-  AddProductGoalButton({@required this.onTap});
+class AddSolutionConceptButton extends StatelessWidget {
+  AddSolutionConceptButton({@required this.onTap});
 
   final Function onTap;
   @override
@@ -9,7 +9,7 @@ class AddProductGoalButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Text(
-        'ADD PRODUCT GOAL',
+        'ADD SOLUTION CONCEPT',
         style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
       ),
     );

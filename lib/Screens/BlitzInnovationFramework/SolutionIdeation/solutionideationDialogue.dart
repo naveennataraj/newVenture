@@ -134,7 +134,13 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                           SizedBox(
                             width: 50,
                           ),
-                          CancelButtton(),
+                          CancelButtton(
+                            OnTap: () {
+                              NameTextController.clear();
+                              BriefTextController.clear();
+                              Navigator.pop(context);
+                            },
+                          ),
                         ],
                       ),
                     ),

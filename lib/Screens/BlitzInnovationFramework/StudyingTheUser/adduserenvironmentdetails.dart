@@ -164,11 +164,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                             style: TextStyle(
                                 color: Colors.grey.shade600, fontSize: 16),
                           ),
-                          Flexible(
-                            child: SizedBox(
-                              width: 100,
-                            ),
-                          ),
+                          Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(right: 20),
                             child: DropdownButton(

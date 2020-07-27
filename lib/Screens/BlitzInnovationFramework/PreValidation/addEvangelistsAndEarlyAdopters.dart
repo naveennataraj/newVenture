@@ -1,20 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addCompetingProductsDialogue.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addContact.dart';
+import 'package:iventure001/Data/CardData.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 
-class AddCompetingProducts extends StatefulWidget {
+class AddEvangelistsAndEarlyAdopters extends StatefulWidget {
   @override
-  _AddCompetingProductsState createState() => _AddCompetingProductsState();
+  _AddEvangelistsAndEarlyAdoptersState createState() =>
+      _AddEvangelistsAndEarlyAdoptersState();
 }
 
-class _AddCompetingProductsState extends State<AddCompetingProducts> {
+class _AddEvangelistsAndEarlyAdoptersState
+    extends State<AddEvangelistsAndEarlyAdopters> {
+  NotifyProgress() {
+    setState(() {
+      bcpData[4].CompletionValidator = false;
+      print(bcpData[4].CompletionValidator);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +55,7 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "Let's list out the competing products currently in the market",
+                      "Add the contact list, with whom the product wireframe will need to be shared (for validation)",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
@@ -54,38 +63,37 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                   ),
                   NoteCard(
                     Note:
-                        "Tip: This section is a list of products in the market which currently cater to the customer's pain points",
+                        'Tip: Add the contact details of the evangelists and early adopters with whom the wireframe will be shared.',
                   ),
-                  (AddingNewCompetingProduct.length == 0)
+                  (AddingNewContacts.length == 0)
                       ? Padding(
                           padding: const EdgeInsets.all(25.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Click on '+' to add the Competing Products",
+                                "Click on '+' to add the Quote",
                                 style: TextStyle(color: Colors.grey),
                               )
                             ],
                           ),
                         )
                       : ListView.builder(
-                          itemCount: AddingNewCompetingProduct.length,
+                          itemCount: AddingNewContacts.length,
                           shrinkWrap: true,
                           padding: EdgeInsets.only(top: 10.0),
                           itemBuilder: (context, index) {
                             return Column(
-                              children: AddingNewCompetingProduct != null
+                              children: AddingNewContacts != null
                                   ? <Widget>[
                                       SmallOrangeCardWithTitle(
-                                        title: AddingNewCompetingProduct[index]
-                                            .ProductName,
+                                        title: AddingNewContacts[index].Name,
                                         description:
-                                            AddingNewCompetingProduct[index]
-                                                .Features,
+                                            AddingNewContacts[index].Email,
                                         index: index,
-                                        removingat: AddingNewProductFeature,
-                                        Dialogue: addCompetingProductsDialogue(
+                                        removingat: AddingNewContacts,
+                                        Dialogue:
+                                            addEvangelistsAndEarlyAdoptersDialogue(
                                           index: index,
                                         ),
                                       )
@@ -104,7 +112,8 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: '/addwireframelink',
+                          StepValidator: NotifyProgress(),
+                          routeName: '/adddistributionmedium',
                         ),
                       ],
                     ),
@@ -121,7 +130,8 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => addCompetingProductsDialogue(),
+              builder: (BuildContext context) =>
+                  addEvangelistsAndEarlyAdoptersDialogue(),
             );
           },
           child: Icon(Icons.add),

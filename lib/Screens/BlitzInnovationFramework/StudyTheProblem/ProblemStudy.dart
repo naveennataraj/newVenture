@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -7,6 +8,7 @@ import '../../../Widgets/GoNextButton.dart';
 import '../../../Widgets/HeadBackButton.dart';
 
 String customerProblems = '';
+bool StepValidator;
 
 class ProblemStudy extends StatefulWidget {
   @override
@@ -32,6 +34,13 @@ final ImportanceFocusNode = new FocusNode();
 String Importance;
 
 class _ProblemStudyState extends State<ProblemStudy> {
+  NotifyProgress() {
+    setState(() {
+      bcpData[0].CompletionValidator = false;
+      print(bcpData[0].CompletionValidator);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,6 +119,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                         ),
                         goNextButton(
                           routeName: '/addpainpoints',
+                          StepValidator: NotifyProgress(),
                         ),
                       ],
                     ),

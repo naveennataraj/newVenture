@@ -165,7 +165,16 @@ class _addCompetingProductsDialogueState
                           SizedBox(
                             width: 50,
                           ),
-                          CancelButtton(),
+                          CancelButtton(
+                            OnTap: () {
+                              ProductNameTextController.clear();
+                              OrgNameTextController.clear();
+                              CompetingOfferingTextController.clear();
+                              SolutionOfferingTextController.clear();
+
+                              Navigator.pop(context);
+                            },
+                          ),
                         ],
                       ),
                     ),

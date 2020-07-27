@@ -1,31 +1,27 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
+import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
-class AddWireframeLink extends StatefulWidget {
+class handlingScale extends StatefulWidget {
   @override
-  _AddWireframeLinkState createState() => _AddWireframeLinkState();
+  _handlingScaleState createState() => _handlingScaleState();
 }
 
-var WireFrameLinklabelColor = Color(0XFF919191);
-bool validWireFrameLink = true;
-var WireFrameLinkTextController = TextEditingController();
-final WireFrameLinkFocusNode = new FocusNode();
-String WireFrameLink;
+var MediumlabelColor = Color(0XFF919191);
+bool validMedium = true;
+var MediumTextController = TextEditingController();
+final PersonMedium = new FocusNode();
+String Medium;
 
-class _AddWireframeLinkState extends State<AddWireframeLink> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[3].CompletionValidator = true;
-      print(bcpData[3].CompletionValidator);
-    });
-  }
-
+class _handlingScaleState extends State<handlingScale> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,30 +53,24 @@ class _AddWireframeLinkState extends State<AddWireframeLink> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "Add the link to the Product Wireframe, if we have one handy:",
+                      "How would we handle scale (as the product grows)",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   NoteCard(
-                    Note:
-                        "Tip: For the prefered solution concept, a wireframe can be developed using a service such as AdobeXD or Marvel App. The purpose of this is to have the End user(s) interact with it, with the goal of eventually collecting feedback from them.",
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text('Learn More About Wireframes'),
-                  ),
+                      Note:
+                          'Tip: If the product sells well, How would you handle scale?\nA few typical responses include:\n"I intend to use a cloud service provider such as AWS, Firebase or Azure."\n"I intend to hire a team dedicated to handle server infrastructure."\n"I intend to outsource all tasks concerning this matter."'),
                   TextFieldWidget(
-                    labelText:
-                        "If the wireframe is already created, please enter the",
-                    maxLines: 1,
-                    validText: validWireFrameLink,
-                    myFocusNode: WireFrameLinkFocusNode,
-                    myTextController: WireFrameLinkTextController,
-                    textCollecter: WireFrameLink,
+                    labelText: "How would you handle scale?",
+                    maxLines: 2,
+                    validText: validPersonName,
+                    myFocusNode: PersonNameFocusNode,
+                    myTextController: PersonNameTextController,
+                    textCollecter: PersonName,
                     helperText: '',
-                    labelcolour: WireFrameLinklabelColor,
+                    labelcolour: PersonNamelabelColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -91,9 +81,15 @@ class _AddWireframeLinkState extends State<AddWireframeLink> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                          statusValidator: NotifyProgress(),
-                        )
+                        goNextButton(
+                          StepValidator: () {
+                            setState(() {
+                              bcpData[6].CompletionValidator = false;
+                              print(bcpData[6].CompletionValidator);
+                            });
+                          },
+                          routeName: '/addparallelinnovations',
+                        ),
                       ],
                     ),
                   ),

@@ -1,28 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/CardData.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
 import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
-class AddWireframeLink extends StatefulWidget {
+class AddDistributionMedium extends StatefulWidget {
   @override
-  _AddWireframeLinkState createState() => _AddWireframeLinkState();
+  _AddDistributionMediumState createState() => _AddDistributionMediumState();
 }
 
-var WireFrameLinklabelColor = Color(0XFF919191);
-bool validWireFrameLink = true;
-var WireFrameLinkTextController = TextEditingController();
-final WireFrameLinkFocusNode = new FocusNode();
-String WireFrameLink;
+var MediumlabelColor = Color(0XFF919191);
+bool validMedium = true;
+var MediumTextController = TextEditingController();
+final PersonMedium = new FocusNode();
+String Medium;
 
-class _AddWireframeLinkState extends State<AddWireframeLink> {
+class _AddDistributionMediumState extends State<AddDistributionMedium> {
   NotifyProgress() {
     setState(() {
-      bcpData[3].CompletionValidator = true;
-      print(bcpData[3].CompletionValidator);
+      bcpData[4].CompletionValidator = true;
+      print(bcpData[4].CompletionValidator);
     });
   }
 
@@ -57,30 +57,23 @@ class _AddWireframeLinkState extends State<AddWireframeLink> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "Add the link to the Product Wireframe, if we have one handy:",
+                      "What medium will we be using to share the product concept?",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  NoteCard(
-                    Note:
-                        "Tip: For the prefered solution concept, a wireframe can be developed using a service such as AdobeXD or Marvel App. The purpose of this is to have the End user(s) interact with it, with the goal of eventually collecting feedback from them.",
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text('Learn More About Wireframes'),
-                  ),
                   TextFieldWidget(
                     labelText:
-                        "If the wireframe is already created, please enter the",
+                        "What medium would you choose to share the wireframes with users?",
                     maxLines: 1,
-                    validText: validWireFrameLink,
-                    myFocusNode: WireFrameLinkFocusNode,
-                    myTextController: WireFrameLinkTextController,
-                    textCollecter: WireFrameLink,
-                    helperText: '',
-                    labelcolour: WireFrameLinklabelColor,
+                    validText: validPersonName,
+                    myFocusNode: PersonNameFocusNode,
+                    myTextController: PersonNameTextController,
+                    textCollecter: PersonName,
+                    helperText:
+                        ' *An appropriate medium, if selected will help the early adopters and other users with quicker access to the solution concept\nand subsequently provide feedback more quickly',
+                    labelcolour: PersonNamelabelColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -93,12 +86,27 @@ class _AddWireframeLinkState extends State<AddWireframeLink> {
                         ),
                         CompleteStepButton(
                           statusValidator: NotifyProgress(),
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ],
               )),
+        ),
+      ),
+      floatingActionButton: Container(
+        margin: EdgeInsets.all(100),
+        child: FloatingActionButton(
+          tooltip: "Add's New Card",
+          backgroundColor: Color(0XFFE95420),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) =>
+                  addEvangelistsAndEarlyAdoptersDialogue(),
+            );
+          },
+          child: Icon(Icons.add),
         ),
       ),
     );

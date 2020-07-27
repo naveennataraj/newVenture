@@ -1,16 +1,22 @@
 import 'package:flutter/cupertino.dart';
 
-class CompleteStepButton extends StatelessWidget {
-  const CompleteStepButton({
-    Key key,
-  }) : super(key: key);
+class CompleteStepButton extends StatefulWidget {
+  const CompleteStepButton({this.statusValidator});
+  final Function statusValidator;
 
+  @override
+  _CompleteStepButtonState createState() => _CompleteStepButtonState();
+}
+
+class _CompleteStepButtonState extends State<CompleteStepButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
-        Navigator.pushNamed(context, '/BlitzInnovationFramework');
+        setState(() {
+          widget.statusValidator;
+          Navigator.pushNamed(context, '/BlitzInnovationFramework');
+        });
       },
       child: Text(
         'COMPLETE STEP',

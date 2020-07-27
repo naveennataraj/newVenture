@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 
 class CancelButtton extends StatelessWidget {
-  const CancelButtton({
-    Key key,
-  }) : super(key: key);
+  final Function OnTap;
+
+  const CancelButtton({@required this.OnTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
-      },
+      onTap: OnTap,
       child: Text(
         'CANCEL',
         style: TextStyle(fontWeight: FontWeight.bold),

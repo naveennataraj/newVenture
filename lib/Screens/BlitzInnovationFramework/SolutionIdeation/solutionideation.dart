@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
+import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideationDialogue.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
@@ -14,6 +15,13 @@ class SolutionIdeation extends StatefulWidget {
 }
 
 class _SolutionIdeationState extends State<SolutionIdeation> {
+  NotifyProgress() {
+    setState(() {
+      bcpData[2].CompletionValidator = false;
+      print(bcpData[2].CompletionValidator);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,27 +63,41 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                     Note:
                         'Tip: To start with, it is ideal to add as many solutions as possible. The relevant solutions can then be shortlisted and the ideal solution option can be selected at the end.',
                   ),
-                  ListView.builder(
-                    itemCount: AddingNewSolutions.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: AddingNewSolutions != null
-                            ? <Widget>[
-                                SmallOrangeCardWithoutTitle(
-                                  description: AddingNewSolutions[index].Name,
-                                  index: index,
-                                  removingat: AddingNewSolutions,
-                                  Dialogue: solutionIdeationDialogue(
-                                    index: index,
-                                  ),
-                                )
-                              ]
-                            : null,
-                      );
-                    },
-                  ),
+                  (AddingNewSolutions.length == 0)
+                      ? Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Click on '+' to add the solutions",
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: AddingNewSolutions.length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.only(top: 10.0),
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: AddingNewSolutions != null
+                                  ? <Widget>[
+                                      SmallOrangeCardWithoutTitle(
+                                        description:
+                                            AddingNewSolutions[index].Name,
+                                        index: index,
+                                        removingat: AddingNewSolutions,
+                                        Dialogue: solutionIdeationDialogue(
+                                          index: index,
+                                        ),
+                                      )
+                                    ]
+                                  : null,
+                            );
+                          },
+                        ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -86,6 +108,7 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                           width: 50,
                         ),
                         RankSolutionsButton(
+                          StepValidator: NotifyProgress(),
                           routeName: '/ranksolutions',
                         ),
                       ],

@@ -1,19 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FrameworkCards extends StatelessWidget {
+class FrameworkCards extends StatefulWidget {
   FrameworkCards(
-      {@required this.frameworkicon,
-      @required this.frameworkStep,
-      @required this.frameworkdescrip,
-      @required this.buttonText,
-      @required this.navigateTo});
+      {this.frameworkicon,
+      this.frameworkStep,
+      this.frameworkdescrip,
+      this.buttonText,
+      this.navigateTo,
+      this.stepCompleteValidator});
 
   final IconData frameworkicon;
   final String frameworkStep;
   final String frameworkdescrip;
   final String buttonText;
   final String navigateTo;
+  bool stepCompleteValidator;
+  @override
+  _FrameworkCardsState createState() => _FrameworkCardsState();
+}
+
+class _FrameworkCardsState extends State<FrameworkCards> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +34,6 @@ class FrameworkCards extends StatelessWidget {
         color: Colors.white,
         elevation: 5,
         child: Container(
-          height: 150,
-          width: 150,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -32,12 +41,12 @@ class FrameworkCards extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(frameworkicon),
+                    Icon(widget.frameworkicon),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
-                      frameworkStep,
+                      widget.frameworkStep,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
@@ -49,31 +58,73 @@ class FrameworkCards extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  frameworkdescrip,
-                  style: TextStyle(fontSize: 25),
+                  widget.frameworkdescrip,
+                  style: TextStyle(fontSize: 18),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: RaisedButton(
-                        elevation: 5,
-                        hoverElevation: 10,
-                        color: Color(0XFFE95420),
-                        onPressed: () {
-                          Navigator.pushNamed(context, navigateTo);
-                        },
-                        child: Text(
-                          buttonText,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
+                Flexible(
+                  child: SizedBox(
+                    height: 30,
+                  ),
+                ),
+                (widget.stepCompleteValidator == null)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: RaisedButton(
+                              elevation: 5,
+                              hoverElevation: 10,
+                              color: Color(0XFFE95420),
+                              onPressed: () {
+                                Navigator.pushNamed(context, widget.navigateTo);
+                              },
+                              child: Text(
+                                widget.buttonText,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: RaisedButton(
+                              elevation: 5,
+                              hoverElevation: 10,
+                              color: Colors.white,
+                              onPressed: () {
+                                Navigator.pushNamed(context, widget.navigateTo);
+                              },
+                              child: Text(
+                                'Review Step',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: SizedBox(
+                              width: 50,
+                            ),
+                          ),
+                          (widget.stepCompleteValidator == false)
+                              ? Icon(
+                                  Icons.access_time,
+                                  color: Colors.orange,
+                                )
+                              : Icon(
+                                  Icons.beenhere,
+                                  color: Colors.green,
+                                ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),

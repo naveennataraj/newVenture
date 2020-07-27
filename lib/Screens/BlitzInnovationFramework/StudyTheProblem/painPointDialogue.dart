@@ -177,7 +177,16 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     SizedBox(
                       width: 50,
                     ),
-                    CancelButtton(),
+                    CancelButtton(
+                      OnTap: () {
+                        ChallengeTextController.clear();
+                        MoreDetailsTextController.clear();
+                        ConsequenceTextController.clear();
+                        addressppTextController.clear();
+                        expectationsTextController.clear();
+                        Navigator.pop(context);
+                      },
+                    ),
                   ],
                 ),
               )

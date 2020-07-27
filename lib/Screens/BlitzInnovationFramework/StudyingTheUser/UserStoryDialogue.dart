@@ -136,7 +136,14 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
                           SizedBox(
                             width: 50,
                           ),
-                          CancelButtton(),
+                          CancelButtton(
+                            OnTap: () {
+                              AsaTextController.clear();
+                              SoThatTextController.clear();
+                              IWantToTextController.clear();
+                              Navigator.pop(context);
+                            },
+                          ),
                         ],
                       ),
                     ),
