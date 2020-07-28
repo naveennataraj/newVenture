@@ -108,6 +108,7 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
                       children: [
                         AddStoryButton(
                           routeName: '/BCStep2CaptureUserStories',
+                          buttonName: 'ADD STORY',
                           onTap: ()
 //                      async {
 //                    await Navigator.push(

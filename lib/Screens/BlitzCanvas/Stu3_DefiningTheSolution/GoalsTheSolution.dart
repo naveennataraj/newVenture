@@ -1,15 +1,24 @@
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step1/AddFoudationalDeatil.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
-import 'package:iventure001/Widgets/FloatingButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
-import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcProductGoals.dart';
 
-class Step3GoalsTheSolution extends StatelessWidget {
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalDialogue.dart';
+import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/NavigationBar.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithoutTittleDynamic.dart';
+//import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
+import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+
+class Step3GoalsTheSolution extends StatefulWidget {
+  @override
+  _Step3GoalsTheSolutionState createState() => _Step3GoalsTheSolutionState();
+}
+
+class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,12 +29,12 @@ class Step3GoalsTheSolution extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-//height: MediaQuery.of(context).size.height * .40,
+          //height: MediaQuery.of(context).size.height * .40,
           margin: EdgeInsets.only(top: 40.0),
           width: MediaQuery.of(context).size.width * .40,
           decoration: BoxDecoration(
             color: Colors.white,
-//shape: BoxShape.rectangle,
+            //shape: BoxShape.rectangle,
             boxShadow: [
               BoxShadow(
                 color: Colors.grey,
@@ -41,30 +50,31 @@ class Step3GoalsTheSolution extends StatelessWidget {
                   Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: Text(
-                        'List of the product goals for the solution concept',
+                        "List of the product goals for the solution concept",
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       )),
                   ListView.builder(
-                    itemCount: foundationContent.length,
+                    itemCount: productGoals.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: <Widget>[
-//CardRectangleLarge(subjects[index]),
-                          SmallOrangeCard(foundationContent[index]),
-                        ],
+                        children: productGoals != null
+                            ? <Widget>[
+                          SmallOrangeCardWithoutTitleDynamic(
+                            description: productGoals[index].goals,
+                            index: index,
+                            removingat: productGoals,
+                            Dialogue: GoalDialogue(
+                              index: index,
+                            ),
+                          )
+                        ]
+                            : null,
                       );
                     },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Icon(
-                      Icons.add,
-                      size: 20.0,
-                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -75,25 +85,35 @@ class Step3GoalsTheSolution extends StatelessWidget {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(),
+                        goNextButton(
+                          // write here
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               )),
         ),
       ),
-      floatingActionButton: FloatingButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => AddFoundationalDetail(),
-          );
-        },
+      floatingActionButton: Container(
+        margin: EdgeInsets.all(100),
+        child: FloatingActionButton(
+          tooltip: "Add's New Card",
+          backgroundColor: Color(0XFFE95420),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => GoalDialogue(),
+            );
+          },
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }
 }
+
+
 
 class CompleteStepButton extends StatelessWidget {
   const CompleteStepButton({
@@ -121,3 +141,4 @@ class CompleteStepButton extends StatelessWidget {
     );
   }
 }
+

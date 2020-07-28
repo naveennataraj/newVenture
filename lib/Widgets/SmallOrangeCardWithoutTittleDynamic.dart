@@ -2,17 +2,37 @@ import 'package:flutter/material.dart';
 
 const cardColor = Color(0xFFF7C3B1);
 
-class SmallOrangeCardWithoutTitle extends StatelessWidget {
-  final String description;
+class SmallOrangeCardWithoutTitleDynamic extends StatefulWidget {
+ final String description;
   final int index;
-  final List removingat;
+ final List removingat;
+ Widget Dialogue;
+   SmallOrangeCardWithoutTitleDynamic({this.index, this.description, this.removingat, this.Dialogue});
+
+  @override
+  _SmallOrangeCardWithoutTitleDynamicState createState() => _SmallOrangeCardWithoutTitleDynamicState(index, description, removingat, Dialogue);
+}
+
+class _SmallOrangeCardWithoutTitleDynamicState extends State<SmallOrangeCardWithoutTitleDynamic> {
+
+  int index;
+  String description;
+  List removingat;
   Widget Dialogue;
-  SmallOrangeCardWithoutTitle(
-      {this.description, this.index, this.removingat, this.Dialogue});
+  _SmallOrangeCardWithoutTitleDynamicState(this.index, this.description, this.removingat, this.Dialogue);
+
+  bool erased;
+
+  @override
+  void initState() {
+    erased = false;
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return erased ? Container (): GestureDetector(
       onTap: () {
         //Navigator.pushNamed(context, subject.pushView);
         print('working');
@@ -71,8 +91,10 @@ class SmallOrangeCardWithoutTitle extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      //removingat[index], onDelete: () => removeItem(index)
-                      removingat.removeAt(index);
+                      setState(() {
+                        erased = true;
+                        removingat.removeAt(index);
+                      });
                     },
                     child: Icon(Icons.delete),
                   ),
@@ -84,4 +106,6 @@ class SmallOrangeCardWithoutTitle extends StatelessWidget {
       ),
     );
   }
+
 }
+
