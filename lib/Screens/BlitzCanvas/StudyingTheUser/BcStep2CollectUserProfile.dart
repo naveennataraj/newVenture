@@ -74,6 +74,17 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                     helperText: '',
                     labelcolour: missionLabelColor,
                   ),
+                  TextFieldWidget(
+                    labelText:
+                    'Please provide a link to the User\'s (updated) Persona',
+                    myTextController: missionTextController,
+                    myFocusNode: missionFocusNode,
+                    validText: validMission,
+                    maxLines: 1,
+                    textCollecter: missionText,
+                    helperText: '',
+                    labelcolour: missionLabelColor,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

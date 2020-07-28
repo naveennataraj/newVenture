@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcFeatureProduct.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/DialogueCompetingProduct.dart';
+import 'package:iventure001/Widgets/CanvasCompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
+import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
 
-class BcProductFeature extends StatefulWidget {
+class BcStep6CompetingProducts extends StatefulWidget {
   @override
-  _BcProductFeatureState createState() => _BcProductFeatureState();
+  _BcStep6CompetingProductsState createState() => _BcStep6CompetingProductsState();
 }
 
-
-class _BcProductFeatureState extends State<BcProductFeature> {
+class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +38,6 @@ class _BcProductFeatureState extends State<BcProductFeature> {
               ),
             ],
           ),
-
           child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
@@ -46,43 +45,46 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "List of the Product Features for the solution concept",
-                      style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
+                      "List of current competing players in the market",
+                      style:
+                      TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
-                    ),),
-
-                  (addingNewProductFeature.length == 0)
+                    ),
+                  ),
+                  NoteCard(
+                    Note:
+                    "Tip: This section contains a list of solutions available in the market, which can cater to the customer's pain points.",
+                  ),
+                  (AddingNewCompetingProduct.length == 0)
                       ? Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Click on '+' to add the Product Goals",
+                          "Click on '+' to add the Competing Products",
                           style: TextStyle(color: Colors.grey),
                         )
                       ],
                     ),
                   )
-                      :
-                  ListView.builder(
-                    itemCount: addingNewProductFeature.length,
+                      : ListView.builder(
+                    itemCount: AddingNewCompetingProduct.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: addingNewProductFeature != null
+                        children: AddingNewCompetingProduct != null
                             ? <Widget>[
                           SmallOrangeCardWithTitleDynamic(
-                            title: addingNewProductFeature[index]
-                                .FeatureTitle,
+                            title: AddingNewCompetingProduct[index]
+                                .ProductName,
                             description:
-                            addingNewProductFeature[index]
-                                .FeatureDescription,
+                            AddingNewCompetingProduct[index]
+                                .Features,
                             index: index,
-                            removingat: addingNewProductFeature,
-                            Dialogue: Step3BCProductFeatureDialogue(
+                            removingat: AddingNewCompetingProduct,
+                            Dialogue: BcCompetingProductDialogue(
                               index: index,
                             ),
                           )
@@ -100,15 +102,15 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
-//                            bcpData[0].CompletionValidator = false;
-//                            print(bcpData[0].CompletionValidator);
-                            Navigator.pushNamed(context, '/BCStep3WireFrameLink');
-                          },
-                          //routeName: '/BCStep3WireFrameLink',
-                          // write here
-                        ),
+                        CompleteStepButton(),
+//                        goNextButton(
+////                          routeName: '/addwireframelink',
+//                          OnTap: () {
+////                            bcpData[3].CompletionValidator = false;
+////                            print(bcpData[3].CompletionValidator);
+//                            Navigator.pushNamed(context, '/addwireframelink');
+//                          },
+//                        ),
                       ],
                     ),
                   ),
@@ -124,7 +126,7 @@ class _BcProductFeatureState extends State<BcProductFeature> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => Step3BCProductFeatureDialogue(),
+              builder: (BuildContext context) => BcCompetingProductDialogue(),
             );
           },
           child: Icon(Icons.add),
@@ -133,6 +135,3 @@ class _BcProductFeatureState extends State<BcProductFeature> {
     );
   }
 }
-
-
-

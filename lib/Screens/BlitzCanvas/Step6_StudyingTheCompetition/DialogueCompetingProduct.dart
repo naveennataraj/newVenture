@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/BcCompetingProducts.dart';
 import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
-class addCompetingProductsDialogue extends StatefulWidget {
+class BcCompetingProductDialogue extends StatefulWidget {
   final int index;
 
-  const addCompetingProductsDialogue({this.index});
+  const BcCompetingProductDialogue({this.index});
   @override
-  _addCompetingProductsDialogueState createState() =>
-      _addCompetingProductsDialogueState(index);
+  _BcCompetingProductDialogueState createState() => _BcCompetingProductDialogueState(index);
 }
+
 
 var ProductNamelabelColor = Color(0XFF919191);
 bool validPProductName = true;
@@ -38,11 +39,10 @@ var SolutionOfferingTextController = TextEditingController();
 final SolutionOfferingFocusNode = new FocusNode();
 String SolutionOffering;
 
-class _addCompetingProductsDialogueState
-    extends State<addCompetingProductsDialogue> {
+class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue> {
   int index;
+  _BcCompetingProductDialogueState(this.index);
 
-  _addCompetingProductsDialogueState(this.index);
   @override
   void initState() {
     super.initState();
@@ -57,7 +57,6 @@ class _addCompetingProductsDialogueState
           text: AddingNewCompetingProduct[index].CurrentOffering);
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -69,7 +68,7 @@ class _addCompetingProductsDialogueState
           child: Center(
             child: SingleChildScrollView(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -90,24 +89,24 @@ class _addCompetingProductsDialogueState
                       myTextController: ProductNameTextController,
                       textCollecter: ProductName,
                       helperText:
-                          'Enter the name of the comepting product here',
+                      'Enter the name of the comepting product here',
                       labelcolour: ProductNamelabelColor,
                     ),
                     TextFieldWidget(
                       labelText:
-                          "Which organisation dies this product belong to?",
+                      "Which organisation dies this product belong to?",
                       maxLines: 1,
                       validText: validOrgName,
                       myFocusNode: OrgNameFocusNode,
                       myTextController: OrgNameTextController,
                       textCollecter: OrgName,
                       helperText:
-                          'Enter the name of the parent company of the product here',
+                      'Enter the name of the parent company of the product here',
                       labelcolour: OrgNamelabelColor,
                     ),
                     TextFieldWidget(
                       labelText:
-                          "What are the features of the competing offering?",
+                      "What are the features of the competing offering?",
                       maxLines: 1,
                       validText: validCompetingOffering,
                       myFocusNode: CompetingOfferingFocusNode,
@@ -118,7 +117,7 @@ class _addCompetingProductsDialogueState
                     ),
                     TextFieldWidget(
                       labelText:
-                          "Which of these features are to be included in your current solution offering?",
+                      "Which of these features are to be included in your current solution offering?",
                       maxLines: 1,
                       validText: validSolutionOffering,
                       myFocusNode: SolutionOfferingFocusNode,
@@ -136,13 +135,13 @@ class _addCompetingProductsDialogueState
                             routeName: '/addproductgoals',
                             onTap: () {
                               setState(() {
-                                final NewComponentProduct = addCompetingProduct(
+                                final NewComponentProduct = BcCompetingProduct(
                                     ProductName: ProductNameTextController.text,
                                     OrgName: OrgNameTextController.text,
                                     Features:
-                                        CompetingOfferingTextController.text,
+                                    CompetingOfferingTextController.text,
                                     CurrentOffering:
-                                        SolutionOfferingTextController.text);
+                                    SolutionOfferingTextController.text);
 
                                 if (index == null) {
                                   AddingNewCompetingProduct.add(
@@ -158,7 +157,11 @@ class _addCompetingProductsDialogueState
                                 CompetingOfferingTextController.clear();
                                 SolutionOfferingTextController.clear();
 
-                                Navigator.pop(context);
+                                //Navigator.pop(context);
+                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep6CompetingProducts()),
+                                )
+                                    .then((value) => setState(() {}),);
+
                               });
                             },
                           ),

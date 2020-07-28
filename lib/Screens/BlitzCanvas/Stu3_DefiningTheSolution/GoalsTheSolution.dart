@@ -100,7 +100,12 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: '/BCStep3FeatureProduct',
+                          OnTap: () {
+//                            bcpData[0].CompletionValidator = false;
+//                            print(bcpData[0].CompletionValidator);
+                            Navigator.pushNamed(context, '/BCStep3FeatureProduct');
+                          },
+                          //routeName: '/BCStep3FeatureProduct',
                           // write here
                         ),
                       ],

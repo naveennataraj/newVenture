@@ -81,8 +81,14 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
                           width: 50,
                         ),
                         goNextButton(
+                          OnTap: () {
+//                            bcpData[0].CompletionValidator = false;
+//                            print(bcpData[0].CompletionValidator);
+                            Navigator.pushNamed(context, '/BCStep4ConsumerTouchPoints');
+                          },
                           //StepValidator: NotifyProgress(),
-                          routeName: '/BCStep4ConsumerTouchPoints',
+
+                          //routeName: '/BCStep4ConsumerTouchPoints',
                         ),
                       ],
                     ),

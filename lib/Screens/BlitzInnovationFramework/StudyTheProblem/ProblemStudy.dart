@@ -114,7 +114,8 @@ class _ProblemStudyState extends State<ProblemStudy> {
                           bcpData[0].CompletionValidator = false;
                           print(bcpData[0].CompletionValidator);
                           Navigator.pushNamed(context, '/addpainpoints');
-                        }),
+                        },
+                        ),
                       ],
                     ),
                   )

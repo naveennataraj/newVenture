@@ -60,7 +60,7 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkDescription:
     "Capturing the user's initial thoughts after they have tried out the solution.",
     buttonText: 'Begin Step 5',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/BCStep5CustomersQuotes',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 6 - Studying the competition',
@@ -68,7 +68,7 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkDescription:
     "Studying the current market players and the solutions/features they offer.",
     buttonText: 'Begin Step 6',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/BCStep6CompetingProduct',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 7 - Business model elements',
@@ -76,7 +76,7 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkDescription:
     'Define the business model elements, the IP and the services used.',
     buttonText: 'Begin Step 7',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/BCStep7BusinessModelElements',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 8 - Synergies',
@@ -84,7 +84,7 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkDescription:
     'Spot potential synergies between different parts of the business model.',
     buttonText: 'Begin Step 8',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/BCStep8Synergies',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 9 - Managing Growth',

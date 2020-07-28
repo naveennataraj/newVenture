@@ -6,6 +6,12 @@ import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/Feature
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/BcAddFidelityWireframes.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/SolutionStandOut.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/CustomerTouchPoint.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step5_CustomerQuotes/CustomerQuotes.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/BcCompetingProducts.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcAddBusinessElements.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcIntellectualProperties.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcAsAServiceOfferings.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step8_Synergies/BcAddSynergies.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
@@ -104,6 +110,19 @@ class Vueapp extends StatelessWidget {
         //step4 Unique selling proposition
         '/BCStep4SellingProposition': (context) => UniqueSellingProposition(),
         '/BCStep4ConsumerTouchPoints': (context) => BcConsumerTouchPoints(),
+        //Step5 The User's feedback
+        '/BCStep5CustomersQuotes': (context) => BcStep5CustomerQuotes(),
+        //Step6 The User's feedback
+        '/BCStep6CompetingProduct': (context) => BcStep6CompetingProducts(),
+        //Step7 The User's feedback
+        '/BCStep7BusinessModelElements': (context) => BcBusinessElements(),
+        '/BCStep7IntellectualAssets': (context) => BcIntellectualPropertyAssets(),
+        '/BCStep7ServiceOffering': (context) => BcAsaServiceOffering(),
+        //Step8 Synergies
+        '/BCStep8Synergies': (context) => BcAddSynergies(),
+//        '/BCStep7IntellectualAssets': (context) => BcIntellectualPropertyAssets(),
+//        '/BCStep7ServiceOffering': (context) => BcAsaServiceOffering(),
+
 
       },
     );

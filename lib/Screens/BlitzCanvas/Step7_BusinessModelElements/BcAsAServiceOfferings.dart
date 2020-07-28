@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcFeatureProduct.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesDialogue.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentAsAService.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/AsAServiceDialogue.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
+import 'package:iventure001/Widgets/CanvasCompleteStepButton.dart';
 
-class BcProductFeature extends StatefulWidget {
+class BcAsaServiceOffering extends StatefulWidget {
   @override
-  _BcProductFeatureState createState() => _BcProductFeatureState();
+  _BcAsaServiceOfferingState createState() => _BcAsaServiceOfferingState();
 }
 
-
-class _BcProductFeatureState extends State<BcProductFeature> {
+class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,13 +46,13 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "List of the Product Features for the solution concept",
+                      "List of 'As a service' offerings",
                       style: TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),),
 
-                  (addingNewProductFeature.length == 0)
+                  (addingAsaService.length == 0)
                       ? Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: Row(
@@ -67,22 +67,22 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                   )
                       :
                   ListView.builder(
-                    itemCount: addingNewProductFeature.length,
+                    itemCount: addingAsaService.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: addingNewProductFeature != null
+                        children: addingAsaService != null
                             ? <Widget>[
                           SmallOrangeCardWithTitleDynamic(
-                            title: addingNewProductFeature[index]
-                                .FeatureTitle,
+                            title: addingAsaService[index]
+                                .serviceName,
                             description:
-                            addingNewProductFeature[index]
-                                .FeatureDescription,
+                            addingAsaService[index]
+                                .serviceTaskDescription,
                             index: index,
-                            removingat: addingNewProductFeature,
-                            Dialogue: Step3BCProductFeatureDialogue(
+                            removingat: addingAsaService,
+                            Dialogue: BcAsaServiceDialogue(
                               index: index,
                             ),
                           )
@@ -100,15 +100,16 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
-//                            bcpData[0].CompletionValidator = false;
-//                            print(bcpData[0].CompletionValidator);
-                            Navigator.pushNamed(context, '/BCStep3WireFrameLink');
-                          },
-                          //routeName: '/BCStep3WireFrameLink',
-                          // write here
-                        ),
+                        CompleteStepButton(),
+//                        goNextButton(
+//                          OnTap: () {
+////                            bcpData[0].CompletionValidator = false;
+////                            print(bcpData[0].CompletionValidator);
+//                            Navigator.pushNamed(context, '/BCStep7IntellectualAssets');
+//                          },
+//                          //routeName: '/BCStep3WireFrameLink',
+//                          // write here
+//                        ),
                       ],
                     ),
                   ),
@@ -124,7 +125,7 @@ class _BcProductFeatureState extends State<BcProductFeature> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => Step3BCProductFeatureDialogue(),
+              builder: (BuildContext context) => BcAsaServiceDialogue(),
             );
           },
           child: Icon(Icons.add),
@@ -133,6 +134,3 @@ class _BcProductFeatureState extends State<BcProductFeature> {
     );
   }
 }
-
-
-
