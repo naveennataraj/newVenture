@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
-import 'package:iventure001/Widgets/AddSolutionButton.dart';
+import 'package:iventure001/Widgets/AddMetricButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -31,7 +31,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
     if (index != null) {
       MetricsNameTextController =
           TextEditingController(text: AddingNewMetrics[index].Description);
-//      SelectedMetrics = AddingNewMetrics[index].Name;
+      SelectedMetrics = AddingNewMetrics[index].SelectedOption;
     }
   }
 
@@ -114,12 +114,13 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AddSolutionButton(
+                          AddMetricButton(
                             onTap: () {
                               setState(() {
                                 final NewMetrics = addMetrics(
                                   Name: SelectedMetrics.name,
                                   Description: MetricsNameTextController.text,
+                                  SelectedOption: SelectedMetrics,
                                 );
 
                                 if (index == null) {

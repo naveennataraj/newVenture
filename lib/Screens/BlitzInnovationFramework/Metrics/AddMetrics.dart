@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/Metrics/addMetricsDialogue.dart';
@@ -16,6 +15,16 @@ class AddMetrics extends StatefulWidget {
 }
 
 class _AddMetricsState extends State<AddMetrics> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      AddingNewMetrics;
+      print(AddingNewMetrics);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +66,7 @@ class _AddMetricsState extends State<AddMetrics> {
                     Note:
                         'Tip: Metrics help measure and keep track of what is important in the solution concept and business model.\nThe framework for capture of metrics used by this application is based on the MESOPS Framework. To study this further, please refer to this link.',
                   ),
-                  (AddingNewParallelInnovations.length == 0)
+                  (AddingNewMetrics.length == 0)
                       ? Padding(
                           padding: const EdgeInsets.all(25.0),
                           child: Row(

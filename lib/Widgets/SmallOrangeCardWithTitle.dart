@@ -91,7 +91,7 @@ class _SmallOrangeCardWithTitleState extends State<SmallOrangeCardWithTitle> {
                               context: context,
                               builder: (BuildContext context) =>
                                   widget.Dialogue,
-                            );
+                            ).then((_) => setState(() {}));
                           },
                           child: Icon(Icons.edit),
                         ),

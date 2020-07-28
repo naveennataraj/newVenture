@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
-import 'package:iventure001/Widgets/AddSolutionButton.dart';
+import 'package:iventure001/Widgets/AddMetricButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -113,7 +113,7 @@ class _addParallelInnovationDialogueState
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AddSolutionButton(
+                          AddMetricButton(
                             onTap: () {
                               setState(() {
                                 final NewParallelInnovation =

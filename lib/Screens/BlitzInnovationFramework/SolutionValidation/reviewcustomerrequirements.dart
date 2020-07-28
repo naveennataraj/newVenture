@@ -12,7 +12,8 @@ class ReviewCustomerRequirements extends StatefulWidget {
       _ReviewCustomerRequirementsState();
 }
 
-DateTime selectedDate = DateTime.now();
+DateTime selectDate = DateTime.now();
+DateTime selectedDate;
 
 class _ReviewCustomerRequirementsState
     extends State<ReviewCustomerRequirements> {
@@ -39,6 +40,7 @@ class _ReviewCustomerRequirementsState
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        selectDate = selectedDate;
       });
   }
 
@@ -84,7 +86,7 @@ class _ReviewCustomerRequirementsState
                         'Tip: Customer pain points can change over time and the solution will need to evolve accordingly to stay relevant. Additionally, It might be a good idea to have a review of the problem-solution fit after some time, to see if the current solution concept is still the best option to resolve the customer pain points. These can be done after a 3 month, 6 month or 1 year window.',
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: GestureDetector(
                       onTap: () => _selectDate(context),
                       child: Container(
@@ -99,27 +101,26 @@ class _ReviewCustomerRequirementsState
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Icon(Icons.calendar_today),
                               SizedBox(width: 20),
-                              Text(
-                                "${selectedDate.toLocal()}".split(' ')[0],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
-                              ),
+                              (selectedDate != null)
+                                  ? Text(
+                                      "${selectDate.toLocal()}".split(' ')[0],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    )
+                                  : Text('Pick a date'),
                             ],
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Text(
-                    'Date set to minimum 30 days from current data',
-                    style: TextStyle(color: Colors.grey),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),

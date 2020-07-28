@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
@@ -165,43 +166,60 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                           OnTap: () {
                             bcpData[7].CompletionValidator = false;
 
-                            final NewMetic1 = addMetrics(
+                            final NewMetric1 = addMetrics(
                                 Name: 'Problem Space',
-                                Description:
-                                    CustomerProblemTextController.text);
-                            final NewMetic2 = addMetrics(
+                                Description: CustomerProblemTextController.text,
+                                SelectedOption: MetricsList[0]);
+                            final NewMetric2 = addMetrics(
                                 Name: 'Solution Space',
-                                Description: SolutionTextController.text);
+                                Description: SolutionTextController.text,
+                                SelectedOption: MetricsList[1]);
                             final NewMetic3 = addMetrics(
                                 Name: 'Evangelism',
-                                Description: EvangelismTextController.text);
+                                Description: EvangelismTextController.text,
+                                SelectedOption: MetricsList[2]);
                             final NewMetic4 = addMetrics(
                                 Name: 'Scale',
-                                Description: ScaleTextController.text);
+                                Description: ScaleTextController.text,
+                                SelectedOption: MetricsList[3]);
                             final NewMetic5 = addMetrics(
                                 Name: 'Evolution',
-                                Description: EvolutionTextController.text);
+                                Description: EvolutionTextController.text,
+                                SelectedOption: MetricsList[4]);
                             final NewMetic6 = addMetrics(
                                 Name: 'Ecosystem',
                                 Description:
-                                    ParallelSolutionTextController.text);
+                                    ParallelSolutionTextController.text,
+                                SelectedOption: MetricsList[5]);
 
                             setState(() {
-                              AddingNewMetrics.add(NewMetic1);
+                              if (CustomerProblemTextController.text != null) {
+                                AddingNewMetrics.removeAt(0);
+                                AddingNewMetrics.insert(0, NewMetric1);
+                              }
+                              if (SolutionTextController.text != null) {
+                                AddingNewMetrics.removeAt(1);
+                                AddingNewMetrics.insert(1, NewMetric2);
+                              }
+                              if (EvangelismTextController.text != null) {
+                                AddingNewMetrics.removeAt(2);
+                                AddingNewMetrics.insert(2, NewMetic3);
+                              }
+                              if (ScaleTextController.text != null) {
+                                AddingNewMetrics.removeAt(3);
+                                AddingNewMetrics.insert(3, NewMetic4);
+                              }
+                              if (EvolutionTextController.text != null) {
+                                AddingNewMetrics.removeAt(4);
+                                AddingNewMetrics.insert(4, NewMetic5);
+                              }
+                              if (ParallelSolutionTextController.text != null) {
+                                AddingNewMetrics.removeAt(5);
+                                AddingNewMetrics.insert(5, NewMetic6);
+                              }
 
-                              AddingNewMetrics.add(NewMetic2);
-
-                              AddingNewMetrics.add(NewMetic3);
-
-                              AddingNewMetrics.add(NewMetic4);
-
-                              AddingNewMetrics.add(NewMetic5);
-
-                              AddingNewMetrics.add(NewMetic6);
+                              Navigator.pushNamed(context, '/addmetrics');
                             });
-
-                            Navigator.pushNamed(context, '/addmetrics')
-                                .then((value) => setState(() {}));
                           },
                         ),
                       ],

@@ -81,7 +81,7 @@ class _SmallOrangeCardWithoutTitleState
                               context: context,
                               builder: (BuildContext context) =>
                                   widget.Dialogue,
-                            );
+                            ).then((_) => setState(() {}));
                           },
                           child: Icon(Icons.edit),
                         ),
