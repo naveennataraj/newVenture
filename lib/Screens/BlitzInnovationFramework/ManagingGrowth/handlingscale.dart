@@ -82,13 +82,12 @@ class _handlingScaleState extends State<handlingScale> {
                           width: 50,
                         ),
                         goNextButton(
-                          StepValidator: () {
-                            setState(() {
-                              bcpData[6].CompletionValidator = false;
-                              print(bcpData[6].CompletionValidator);
-                            });
+                          OnTap: () {
+                            bcpData[6].CompletionValidator = false;
+                            print(bcpData[6].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/addparallelinnovations');
                           },
-                          routeName: '/addparallelinnovations',
                         ),
                       ],
                     ),

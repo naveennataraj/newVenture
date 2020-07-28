@@ -34,13 +34,6 @@ final ImportanceFocusNode = new FocusNode();
 String Importance;
 
 class _ProblemStudyState extends State<ProblemStudy> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[0].CompletionValidator = false;
-      print(bcpData[0].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,10 +110,11 @@ class _ProblemStudyState extends State<ProblemStudy> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          routeName: '/addpainpoints',
-                          StepValidator: NotifyProgress(),
-                        ),
+                        goNextButton(OnTap: () {
+                          bcpData[0].CompletionValidator = false;
+                          print(bcpData[0].CompletionValidator);
+                          Navigator.pushNamed(context, '/addpainpoints');
+                        }),
                       ],
                     ),
                   )

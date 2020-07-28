@@ -19,13 +19,6 @@ final PersonMedium = new FocusNode();
 String Medium;
 
 class _AddDistributionMediumState extends State<AddDistributionMedium> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[4].CompletionValidator = true;
-      print(bcpData[4].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +78,12 @@ class _AddDistributionMediumState extends State<AddDistributionMedium> {
                           width: 50,
                         ),
                         CompleteStepButton(
-                          statusValidator: NotifyProgress(),
+                          OnTap: () {
+                            bcpData[4].CompletionValidator = true;
+                            print(bcpData[4].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/BlitzInnovationFramework');
+                          },
                         ),
                       ],
                     ),

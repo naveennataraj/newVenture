@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
+import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addProductFeaturesDialogue.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -98,7 +99,13 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: '/currentmarketplayers',
+//                          routeName: '/currentmarketplayers',
+                          OnTap: () {
+                            bcpData[3].CompletionValidator = false;
+                            print(bcpData[3].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/currentmarketplayers');
+                          },
                         ),
                       ],
                     ),

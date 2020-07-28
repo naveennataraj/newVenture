@@ -14,13 +14,6 @@ class AddProductGoals extends StatefulWidget {
 }
 
 class _AddProductGoalsState extends State<AddProductGoals> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[3].CompletionValidator = false;
-      print(bcpData[3].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,8 +96,11 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                           width: 50,
                         ),
                         goNextButton(
-                          StepValidator: NotifyProgress(),
-                          routeName: '/addproductfeatures',
+                          OnTap: () {
+                            bcpData[3].CompletionValidator = false;
+                            print(bcpData[3].CompletionValidator);
+                            Navigator.pushNamed(context, '/addproductfeatures');
+                          },
                         ),
                       ],
                     ),

@@ -15,10 +15,7 @@ class AddPainPoints extends StatefulWidget {
 
 class _AddPainPointsState extends State<AddPainPoints> {
   NotifyProgress() {
-    setState(() {
-      bcpData[0].CompletionValidator = true;
-      print(bcpData[0].CompletionValidator);
-    });
+    setState(() {});
   }
 
   @override
@@ -98,7 +95,12 @@ class _AddPainPointsState extends State<AddPainPoints> {
                           width: 50,
                         ),
                         CompleteStepButton(
-                          statusValidator: NotifyProgress(),
+                          OnTap: () {
+                            bcpData[0].CompletionValidator = true;
+                            print(bcpData[0].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/BlitzInnovationFramework');
+                          },
                         ),
                       ],
                     ),

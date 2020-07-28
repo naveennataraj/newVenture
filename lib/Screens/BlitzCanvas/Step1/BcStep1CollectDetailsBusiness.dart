@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/TextFieldWidget.dart';
-
-//Import button widgets
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/NavigationBar.dart';
+import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 String customerProblems = '';
 
@@ -21,7 +18,6 @@ bool validVision = true;
 final visionTextController = TextEditingController();
 final visionFocusNode = new FocusNode();
 String visionText;
-
 
 class BcStep1CollectionAspects extends StatefulWidget {
   @override
@@ -51,8 +47,6 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
 //
 //  //Color missionStatementColour = inactiveBlackColour;
 //  //Color visionStatementColour = inactiveBlackColour;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +85,8 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                         textAlign: TextAlign.center,
                       )),
                   TextFieldWidget(
-                    labelText: 'Provide a mission statement for the business adventure',
+                    labelText:
+                        'Provide a mission statement for the business adventure',
                     myTextController: missionTextController,
                     myFocusNode: missionFocusNode,
                     validText: validMission,
@@ -102,7 +97,7 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                   ),
                   TextFieldWidget(
                     labelText:
-                    'Provide a vision for the business venture to work towards',
+                        'Provide a vision for the business venture to work towards',
                     myTextController: visionTextController,
                     myFocusNode: visionFocusNode,
                     validText: validVision,
@@ -111,7 +106,6 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                     helperText: '',
                     labelcolour: visionLabelColor,
                   ),
-
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -122,7 +116,10 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: '/BCStep1AddDetails',
+                          OnTap: () {
+//                            bcpData[6].CompletionValidator = false;
+                            Navigator.pushNamed(context, '/BCStep1AddDetails');
+                          },
                         ),
                       ],
                     ),

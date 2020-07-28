@@ -17,13 +17,6 @@ class AddEvangelistsAndEarlyAdopters extends StatefulWidget {
 
 class _AddEvangelistsAndEarlyAdoptersState
     extends State<AddEvangelistsAndEarlyAdopters> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[4].CompletionValidator = false;
-      print(bcpData[4].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,8 +105,12 @@ class _AddEvangelistsAndEarlyAdoptersState
                           width: 50,
                         ),
                         goNextButton(
-                          StepValidator: NotifyProgress(),
-                          routeName: '/adddistributionmedium',
+                          OnTap: () {
+                            bcpData[4].CompletionValidator = false;
+                            print(bcpData[4].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/adddistributionmedium');
+                          },
                         ),
                       ],
                     ),

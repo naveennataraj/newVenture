@@ -22,13 +22,6 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
     return 'As a $A, I want to $B so that $C';
   }
 
-  NotifyProgress() {
-    setState(() {
-      bcpData[1].CompletionValidator = true;
-      print(bcpData[1].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +102,12 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                           width: 50,
                         ),
                         CompleteStepButton(
-                          statusValidator: NotifyProgress(),
+                          OnTap: () {
+                            bcpData[1].CompletionValidator = true;
+                            print(bcpData[1].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/BlitzInnovationFramework');
+                          },
                         ),
                       ],
                     ),

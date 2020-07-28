@@ -15,13 +15,6 @@ class AddParallelInnovations extends StatefulWidget {
 }
 
 class _AddParallelInnovationsState extends State<AddParallelInnovations> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[6].CompletionValidator = true;
-      print(bcpData[6].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +106,12 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                           width: 50,
                         ),
                         CompleteStepButton(
-                          statusValidator: NotifyProgress(),
+                          OnTap: () {
+                            bcpData[6].CompletionValidator = true;
+                            print(bcpData[6].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/BlitzInnovationFramework');
+                          },
                         ),
                       ],
                     ),
