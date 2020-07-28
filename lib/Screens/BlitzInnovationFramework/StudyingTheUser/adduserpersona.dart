@@ -11,13 +11,13 @@ class AddUserPersona extends StatefulWidget {
   _AddUserPersonaState createState() => _AddUserPersonaState();
 }
 
-class _AddUserPersonaState extends State<AddUserPersona> {
-  bool validUserPersona = true;
-  var UserPersonalabelColor = Color(0XFF919191);
-  var UserPersonaTextController = TextEditingController();
-  final UserPersonaFocusNode = new FocusNode();
-  String UserPersona;
+bool validUserPersona = true;
+var UserPersonalabelColor = Color(0XFF919191);
+var UserPersonaTextController = TextEditingController();
+final UserPersonaFocusNode = new FocusNode();
+String UserPersona;
 
+class _AddUserPersonaState extends State<AddUserPersona> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +76,7 @@ class _AddUserPersonaState extends State<AddUserPersona> {
                         goNextButton(
                           OnTap: () {
                             bcpData[1].CompletionValidator = false;
-                            print(bcpData[1].CompletionValidator);
+
                             Navigator.pushNamed(
                                 context, '/adduserenvironmentdetails');
                           },

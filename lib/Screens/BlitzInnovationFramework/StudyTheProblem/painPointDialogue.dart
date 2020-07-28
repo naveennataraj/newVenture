@@ -80,7 +80,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
             children: <Widget>[
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                 child: Text(
                   'Add a Pain Point:',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),

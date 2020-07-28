@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/DropDown.dart';
 
 const cardColor = Color(0xFFF7C3B1);
 
-class SmallOrangeCardWithoutTitle extends StatefulWidget {
+class SmallOrangeCardWithoutTitleForDropDown extends StatefulWidget {
   final String description;
   final int index;
   final List removingat;
   Widget Dialogue;
 
-  SmallOrangeCardWithoutTitle(
+  SmallOrangeCardWithoutTitleForDropDown(
       {this.description, this.index, this.removingat, this.Dialogue});
 
   @override
-  _SmallOrangeCardWithoutTitleState createState() =>
-      _SmallOrangeCardWithoutTitleState();
+  _SmallOrangeCardWithoutTitleForDropDownState createState() =>
+      _SmallOrangeCardWithoutTitleForDropDownState();
 }
 
 bool erased;
 
-class _SmallOrangeCardWithoutTitleState
-    extends State<SmallOrangeCardWithoutTitle> {
+class _SmallOrangeCardWithoutTitleForDropDownState
+    extends State<SmallOrangeCardWithoutTitleForDropDown> {
   @override
   void initState() {
     erased = false;
@@ -93,6 +94,7 @@ class _SmallOrangeCardWithoutTitleState
                             setState(() {
                               erased = true;
                               widget.removingat.removeAt(widget.index);
+                              SolutionRankingList.removeAt(widget.index);
                             });
                           },
                           child: Icon(Icons.delete),

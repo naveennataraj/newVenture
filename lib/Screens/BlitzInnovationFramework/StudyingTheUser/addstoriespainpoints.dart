@@ -125,7 +125,7 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
             showDialog(
               context: context,
               builder: (BuildContext context) => userStoryDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

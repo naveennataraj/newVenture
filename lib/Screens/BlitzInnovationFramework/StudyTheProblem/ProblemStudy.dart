@@ -63,13 +63,14 @@ class _ProblemStudyState extends State<ProblemStudy> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Let's collect some details on the Customer's Problem",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )),
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Let's collect some details on the Customer's Problem",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   TextFieldWidget(
                     labelText: 'Provide a title for your project',
                     myTextController: TitleTextController,
@@ -110,11 +111,12 @@ class _ProblemStudyState extends State<ProblemStudy> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(OnTap: () {
-                          bcpData[0].CompletionValidator = false;
-                          print(bcpData[0].CompletionValidator);
-                          Navigator.pushNamed(context, '/addpainpoints');
-                        },
+                        goNextButton(
+                          OnTap: () {
+                            bcpData[0].CompletionValidator = false;
+                            print(bcpData[0].CompletionValidator);
+                            Navigator.pushNamed(context, '/addpainpoints');
+                          },
                         ),
                       ],
                     ),

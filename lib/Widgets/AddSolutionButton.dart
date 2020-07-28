@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class AddSolutionButton extends StatelessWidget {
-  AddSolutionButton({@required this.routeName, @required this.onTap});
-  final String routeName;
+  AddSolutionButton({@required this.onTap});
+
   final Function onTap;
   @override
   Widget build(BuildContext context) {

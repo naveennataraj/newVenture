@@ -129,7 +129,7 @@ class _AddEvangelistsAndEarlyAdoptersState
               context: context,
               builder: (BuildContext context) =>
                   addEvangelistsAndEarlyAdoptersDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

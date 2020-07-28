@@ -42,12 +42,13 @@ bool validMonetize = true;
 var MonetizeTextController = TextEditingController();
 final MonetizeFocusNode = new FocusNode();
 String Monetize;
+bool checked = false;
+
+Color CheckTextActive = Colors.black;
+Color CheckTextInActive = Color(0XFFABABAB);
 
 class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
   int index;
-  bool checked = false;
-  Color CheckTextActive = Colors.black;
-  Color CheckTextInActive = Color(0XFFABABAB);
 
   _pickDetailsDialogueState(this.index);
   @override
@@ -173,7 +174,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                           CompleteStepButton(
                             OnTap: () {
                               bcpData[2].CompletionValidator = true;
-                              print(bcpData[2].CompletionValidator);
+
                               Navigator.pushNamed(
                                   context, '/BlitzInnovationFramework');
                             },

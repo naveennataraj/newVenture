@@ -72,7 +72,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                         children: [
                           Spacer(),
                           Padding(
-                            padding: const EdgeInsets.only(right: 5.0),
+                            padding: const EdgeInsets.only(right: 15.0),
                             child: RaisedButton(
                               elevation: 5,
                               hoverElevation: 10,

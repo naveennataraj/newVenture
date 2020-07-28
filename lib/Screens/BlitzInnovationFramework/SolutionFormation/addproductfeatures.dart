@@ -123,7 +123,7 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
             showDialog(
               context: context,
               builder: (BuildContext context) => addProductFeaturesDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

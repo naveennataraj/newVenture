@@ -128,7 +128,7 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
             showDialog(
               context: context,
               builder: (BuildContext context) => addCompetingProductsDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

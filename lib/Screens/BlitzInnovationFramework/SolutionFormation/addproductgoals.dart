@@ -118,7 +118,7 @@ class _AddProductGoalsState extends State<AddProductGoals> {
             showDialog(
               context: context,
               builder: (BuildContext context) => addProductGoalsDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

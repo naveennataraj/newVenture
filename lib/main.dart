@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesProduct.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/BcAddFidelityWireframes.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/SolutionStandOut.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/CustomerTouchPoint.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/SolutionStandOut.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step5_CustomerQuotes/CustomerQuotes.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/BcCompetingProducts.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcAddBusinessElements.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcIntellectualProperties.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcAsAServiceOfferings.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcIntellectualProperties.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step8_Synergies/BcAddSynergies.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/BcAddFidelityWireframes.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesProduct.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/addParallelInnovations.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/handlingscale.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/Metrics/AddProductMetrics.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addDistributionMedium.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdopters.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addcompetingproducts.dart';
@@ -35,6 +36,7 @@ import 'package:iventure001/bifdashboard.dart';
 import 'Homepage.dart';
 import 'Screens/BlitzInnovationFramework/BIFHomeScreen.dart';
 import 'Screens/BlitzInnovationFramework/BlitzInnovationFramework.dart';
+import 'Screens/BlitzInnovationFramework/Metrics/AddMetrics.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/ProblemStudy.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
@@ -85,6 +87,9 @@ class Vueapp extends StatelessWidget {
         //Managing Growth
         '/handlingscale': (context) => handlingScale(),
         '/addparallelinnovations': (context) => AddParallelInnovations(),
+        //Metrics
+        '/addproductmetrics': (context) => AddProductMetrics(),
+        '/addmetrics': (context) => AddMetrics(),
 
         // BC- BlitzCanvas
         '/BCHomeView': (context) => BCScreen(
@@ -116,14 +121,13 @@ class Vueapp extends StatelessWidget {
         '/BCStep6CompetingProduct': (context) => BcStep6CompetingProducts(),
         //Step7 The User's feedback
         '/BCStep7BusinessModelElements': (context) => BcBusinessElements(),
-        '/BCStep7IntellectualAssets': (context) => BcIntellectualPropertyAssets(),
+        '/BCStep7IntellectualAssets': (context) =>
+            BcIntellectualPropertyAssets(),
         '/BCStep7ServiceOffering': (context) => BcAsaServiceOffering(),
         //Step8 Synergies
         '/BCStep8Synergies': (context) => BcAddSynergies(),
 //        '/BCStep7IntellectualAssets': (context) => BcIntellectualPropertyAssets(),
 //        '/BCStep7ServiceOffering': (context) => BcAsaServiceOffering(),
-
-
       },
     );
   }

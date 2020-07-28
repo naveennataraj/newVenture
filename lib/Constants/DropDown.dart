@@ -19,6 +19,15 @@ List<DropDownItem> UserEnvironmentList = [
   DropDownItem(2, 'Rural'),
 ];
 
+List<DropDownItem> MetricsList = [
+  DropDownItem(1, 'Problem Space'),
+  DropDownItem(2, 'Solution Space'),
+  DropDownItem(3, 'Evangelism'),
+  DropDownItem(4, 'Scale'),
+  DropDownItem(5, 'Evolution'),
+  DropDownItem(6, 'Ecosystem')
+];
+
 List<DropDownItem> SolutionRankingList = [];
 
 List<DropDownItem> BMCElements = [
@@ -77,9 +86,12 @@ List<DropdownMenuItem<DropDownItem>> bmcElementDropDown;
 List<DropdownMenuItem<DropDownItem>> intellectualAssetsDropDown;
 List<DropdownMenuItem<DropDownItem>> serviceTypeDropDown;
 List<DropdownMenuItem<DropDownItem>> serviceUsageDropDown;
+List<DropdownMenuItem<DropDownItem>> Metricsdropdown;
 
 DropDownItem SelectedProblemDomain;
+
 DropDownItem SelectedUserEnvironment;
+
 DropDownItem SelectedFirstSolution;
 DropDownItem SelectedSecondSolution;
 DropDownItem SelectedThirdSolution;
@@ -87,6 +99,8 @@ DropDownItem SelectedBcmElement;
 DropDownItem SelectedIntellectualAsset;
 DropDownItem SelectedServiceType;
 DropDownItem SelectedServiceUsage;
+
+DropDownItem SelectedMetrics;
 
 List<DropdownMenuItem<DropDownItem>> buildDropDownMenuItems(
     List DropDownItems) {

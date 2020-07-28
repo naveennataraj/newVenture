@@ -13,21 +13,25 @@ class AddUserEnvironmentDetails extends StatefulWidget {
       _AddUserEnvironmentDetailsState();
 }
 
+bool validUserIssues = true;
+var UserIssueslabelColor = Color(0XFF919191);
+var UserIssuesTextController = TextEditingController();
+final UserIssuesFocusNode = new FocusNode();
+String UserIssues;
+
+bool validUserDetails = true;
+var UserDetailslabelColor = Color(0XFF919191);
+var UserDetailsTextController = TextEditingController();
+final UserDetailsFocusNode = new FocusNode();
+String UserDetails;
+
+RangeValues ageValues = RangeValues(ageValuesStart, ageValuesEnd);
+RangeLabels ageLabels = RangeLabels(
+    ageValuesStart.toInt().toString(), ageValuesEnd.toInt().toString());
+double ageValuesStart = 18;
+double ageValuesEnd = 35;
+
 class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
-  bool validUserIssues = true;
-  var UserIssueslabelColor = Color(0XFF919191);
-  var UserIssuesTextController = TextEditingController();
-  final UserIssuesFocusNode = new FocusNode();
-  String UserIssues;
-
-  bool validUserDetails = true;
-  var UserDetailslabelColor = Color(0XFF919191);
-  var UserDetailsTextController = TextEditingController();
-  final UserDetailsFocusNode = new FocusNode();
-  String UserDetails;
-
-  RangeValues ageValues = RangeValues(18, 35);
-  RangeLabels ageLabels = RangeLabels('18', '35');
   @override
   void initState() {
     super.initState();

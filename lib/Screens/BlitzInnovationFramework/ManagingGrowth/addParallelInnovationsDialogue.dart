@@ -114,7 +114,6 @@ class _addParallelInnovationDialogueState
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddSolutionButton(
-                            routeName: '/addproductgoals',
                             onTap: () {
                               setState(() {
                                 final NewParallelInnovation =

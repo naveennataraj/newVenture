@@ -81,6 +81,6 @@ List<bifCardData> bcpData = [
     frameworkdescrip:
         'List out the metrics which will be used to keep track of the product.',
     buttonText: 'Begin Step 8',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/addproductmetrics',
   ),
 ];

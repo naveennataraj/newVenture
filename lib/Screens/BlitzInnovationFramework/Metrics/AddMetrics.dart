@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/addParallelInnovationsDialogue.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/Metrics/addMetricsDialogue.dart';
 import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 
-class AddParallelInnovations extends StatefulWidget {
+class AddMetrics extends StatefulWidget {
   @override
-  _AddParallelInnovationsState createState() => _AddParallelInnovationsState();
+  _AddMetricsState createState() => _AddMetricsState();
 }
 
-class _AddParallelInnovationsState extends State<AddParallelInnovations> {
+class _AddMetricsState extends State<AddMetrics> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +47,7 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "Let's add possible parallel innovation concepts",
+                      "Add additional metrics (optional)",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
@@ -54,7 +55,7 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                   ),
                   NoteCard(
                     Note:
-                        'Tip: Based on your solution concept which has been designed until this point, is there any parallel solution concept(s) which you can think of which would provide value to the customer?\nOne example of this is Uber Eats which was derived from the Original Uber solution. Another example is the Apple watch which was designed as a complementary offering to the iPhone/iPad line of products.',
+                        'Tip: Metrics help measure and keep track of what is important in the solution concept and business model.\nThe framework for capture of metrics used by this application is based on the MESOPS Framework. To study this further, please refer to this link.',
                   ),
                   (AddingNewParallelInnovations.length == 0)
                       ? Padding(
@@ -70,24 +71,20 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                           ),
                         )
                       : ListView.builder(
-                          itemCount: AddingNewParallelInnovations.length,
+                          itemCount: AddingNewMetrics.length,
                           shrinkWrap: true,
                           padding: EdgeInsets.only(top: 10.0),
                           itemBuilder: (context, index) {
                             return Column(
-                              children: AddingNewParallelInnovations != null
+                              children: AddingNewMetrics != null
                                   ? <Widget>[
                                       SmallOrangeCardWithTitle(
-                                        title:
-                                            AddingNewParallelInnovations[index]
-                                                .Name,
+                                        title: AddingNewMetrics[index].Name,
                                         description:
-                                            AddingNewParallelInnovations[index]
-                                                .Description,
+                                            AddingNewMetrics[index].Description,
                                         index: index,
-                                        removingat:
-                                            AddingNewParallelInnovations,
-                                        Dialogue: addParallelInnovationDialogue(
+                                        removingat: AddingNewMetrics,
+                                        Dialogue: addMetricsDialogue(
                                           index: index,
                                         ),
                                       )
@@ -107,8 +104,8 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                         ),
                         CompleteStepButton(
                           OnTap: () {
-                            bcpData[6].CompletionValidator = true;
-                            print(bcpData[6].CompletionValidator);
+                            bcpData[7].CompletionValidator = true;
+
                             Navigator.pushNamed(
                                 context, '/BlitzInnovationFramework');
                           },
@@ -128,8 +125,7 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) =>
-                  addParallelInnovationDialogue(),
+              builder: (BuildContext context) => addMetricsDialogue(),
             ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),

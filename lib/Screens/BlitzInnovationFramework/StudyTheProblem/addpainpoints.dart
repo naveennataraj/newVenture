@@ -14,10 +14,6 @@ class AddPainPoints extends StatefulWidget {
 }
 
 class _AddPainPointsState extends State<AddPainPoints> {
-  NotifyProgress() {
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +114,7 @@ class _AddPainPointsState extends State<AddPainPoints> {
             showDialog(
               context: context,
               builder: (BuildContext context) => painpointDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

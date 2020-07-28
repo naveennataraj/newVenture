@@ -97,7 +97,6 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddSolutionButton(
-                            routeName: '/solutionideation',
                             onTap: () {
                               setState(() {
                                 final NewSolutionIdeation = addSolutions(

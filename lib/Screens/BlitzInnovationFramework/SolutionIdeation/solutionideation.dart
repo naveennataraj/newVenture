@@ -7,7 +7,7 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/RankSolutionsButton.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitleForDropdown.dart';
 
 class SolutionIdeation extends StatefulWidget {
   @override
@@ -84,7 +84,7 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                             return Column(
                               children: AddingNewSolutions != null
                                   ? <Widget>[
-                                      SmallOrangeCardWithoutTitle(
+                                      SmallOrangeCardWithoutTitleForDropDown(
                                         description:
                                             AddingNewSolutions[index].Name,
                                         index: index,
@@ -130,7 +130,7 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
             showDialog(
               context: context,
               builder: (BuildContext context) => solutionIdeationDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

@@ -125,7 +125,7 @@ class _AddQuotesState extends State<AddQuotes> {
             showDialog(
               context: context,
               builder: (BuildContext context) => addQuotesDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),
