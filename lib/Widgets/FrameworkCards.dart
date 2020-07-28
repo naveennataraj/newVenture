@@ -72,7 +72,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                         children: [
                           Spacer(),
                           Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
+                            padding: const EdgeInsets.only(right: 20.0),
                             child: RaisedButton(
                               elevation: 5,
                               hoverElevation: 10,
@@ -95,7 +95,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                         children: [
                           Spacer(),
                           Padding(
-                            padding: const EdgeInsets.only(right: 5.0),
+                            padding: const EdgeInsets.only(right: 15.0),
                             child: RaisedButton(
                               elevation: 5,
                               hoverElevation: 10,
@@ -111,17 +111,23 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                           ),
                           Flexible(
                             child: SizedBox(
-                              width: 50,
+                              width: 100,
                             ),
                           ),
                           (widget.stepCompleteValidator == false)
-                              ? Icon(
-                                  Icons.access_time,
-                                  color: Colors.orange,
+                              ? Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Icon(
+                                    Icons.access_time,
+                                    color: Colors.orange,
+                                  ),
                                 )
-                              : Icon(
-                                  Icons.beenhere,
-                                  color: Colors.green,
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Icon(
+                                    Icons.beenhere,
+                                    color: Colors.green,
+                                  ),
                                 ),
                         ],
                       ),

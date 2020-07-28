@@ -4,9 +4,10 @@ class NavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: Text('iVENTURE'),
-    backgroundColor: Color(0XFFE95420),
-    ),);
+        backgroundColor: const Color(0xFFE95420),
+      ),
+    );
   }
 }

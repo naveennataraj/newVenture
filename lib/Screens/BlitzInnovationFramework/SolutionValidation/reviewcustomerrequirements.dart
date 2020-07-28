@@ -12,8 +12,36 @@ class ReviewCustomerRequirements extends StatefulWidget {
       _ReviewCustomerRequirementsState();
 }
 
+DateTime selectedDate = DateTime.now();
+
 class _ReviewCustomerRequirementsState
     extends State<ReviewCustomerRequirements> {
+//  Date picker
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: (selectedDate == null) ? DateTime.now() : selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: const Color(0xFFE95420),
+            accentColor: const Color(0xFFE95420),
+            colorScheme: ColorScheme.light(primary: const Color(0xFFE95420)),
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child,
+        );
+      },
+    );
+
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +82,44 @@ class _ReviewCustomerRequirementsState
                   NoteCard(
                     Note:
                         'Tip: Customer pain points can change over time and the solution will need to evolve accordingly to stay relevant. Additionally, It might be a good idea to have a review of the problem-solution fit after some time, to see if the current solution concept is still the best option to resolve the customer pain points. These can be done after a 3 month, 6 month or 1 year window.',
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: GestureDetector(
+                      onTap: () => _selectDate(context),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            width: 1,
+                            color: Color(0XFFABABAB),
+                          ),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Icon(Icons.calendar_today),
+                              SizedBox(width: 20),
+                              Text(
+                                "${selectedDate.toLocal()}".split(' ')[0],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Date set to minimum 30 days from current data',
+                    style: TextStyle(color: Colors.grey),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
