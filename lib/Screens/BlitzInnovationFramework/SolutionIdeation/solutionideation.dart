@@ -108,8 +108,11 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                           width: 50,
                         ),
                         RankSolutionsButton(
-                          StepValidator: NotifyProgress(),
-                          routeName: '/ranksolutions',
+                          OnTap: () {
+                            bcpData[2].CompletionValidator = false;
+                            print(bcpData[2].CompletionValidator);
+                            Navigator.pushNamed(context, '/ranksolutions');
+                          },
                         ),
                       ],
                     ),

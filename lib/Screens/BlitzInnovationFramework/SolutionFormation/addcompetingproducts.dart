@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
+import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addCompetingProductsDialogue.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -104,7 +105,12 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: '/addwireframelink',
+//                          routeName: '/addwireframelink',
+                          OnTap: () {
+                            bcpData[3].CompletionValidator = false;
+                            print(bcpData[3].CompletionValidator);
+                            Navigator.pushNamed(context, '/addwireframelink');
+                          },
                         ),
                       ],
                     ),

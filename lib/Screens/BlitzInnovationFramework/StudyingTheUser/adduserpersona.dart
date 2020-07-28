@@ -18,13 +18,6 @@ class _AddUserPersonaState extends State<AddUserPersona> {
   final UserPersonaFocusNode = new FocusNode();
   String UserPersona;
 
-  NotifyProgress() {
-    setState(() {
-      bcpData[1].CompletionValidator = false;
-      print(bcpData[1].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,8 +74,12 @@ class _AddUserPersonaState extends State<AddUserPersona> {
                           width: 50,
                         ),
                         goNextButton(
-                          StepValidator: NotifyProgress(),
-                          routeName: '/adduserenvironmentdetails',
+                          OnTap: () {
+                            bcpData[1].CompletionValidator = false;
+                            print(bcpData[1].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/adduserenvironmentdetails');
+                          },
                         ),
                       ],
                     ),

@@ -55,13 +55,6 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
     super.initState();
   }
 
-  NotifyProgress() {
-    setState(() {
-      bcpData[2].CompletionValidator = true;
-      print(bcpData[2].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -178,7 +171,12 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                             width: 50,
                           ),
                           CompleteStepButton(
-                            statusValidator: NotifyProgress(),
+                            OnTap: () {
+                              bcpData[2].CompletionValidator = true;
+                              print(bcpData[2].CompletionValidator);
+                              Navigator.pushNamed(
+                                  context, '/BlitzInnovationFramework');
+                            },
                           ),
                         ],
                       ),

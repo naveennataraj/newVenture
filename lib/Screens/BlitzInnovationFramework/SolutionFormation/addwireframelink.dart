@@ -92,7 +92,12 @@ class _AddWireframeLinkState extends State<AddWireframeLink> {
                           width: 50,
                         ),
                         CompleteStepButton(
-                          statusValidator: NotifyProgress(),
+                          OnTap: () {
+                            bcpData[3].CompletionValidator = true;
+                            print(bcpData[3].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/BlitzInnovationFramework');
+                          },
                         )
                       ],
                     ),

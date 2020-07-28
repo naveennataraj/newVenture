@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/TextFieldWidget.dart';
-
-//Import button widgets
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/NavigationBar.dart';
+import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 String userProfile = '';
 
@@ -21,11 +19,10 @@ final visionTextController = TextEditingController();
 final visionFocusNode = new FocusNode();
 String visionText;
 
-
-
 class BcStep2CollectUserProfile extends StatefulWidget {
   @override
-  _BcStep2CollectUserProfileState createState() => _BcStep2CollectUserProfileState();
+  _BcStep2CollectUserProfileState createState() =>
+      _BcStep2CollectUserProfileState();
 }
 
 class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
@@ -67,7 +64,8 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                         //textAlign: TextAlign.center,
                       )),
                   TextFieldWidget(
-                    labelText: 'Please provide a link to the User\'s (updated) Persona',
+                    labelText:
+                        'Please provide a link to the User\'s (updated) Persona',
                     myTextController: missionTextController,
                     myFocusNode: missionFocusNode,
                     validText: validMission,
@@ -76,8 +74,6 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                     helperText: '',
                     labelcolour: missionLabelColor,
                   ),
-
-
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -88,7 +84,11 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: '/BCStep2CaptureUserStories',
+                          OnTap: () {
+//                            bcpData[6].CompletionValidator = false;
+                            Navigator.pushNamed(
+                                context, '/BCStep2CaptureUserStories');
+                          },
                         ),
                       ],
                     ),

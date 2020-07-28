@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
@@ -257,7 +258,12 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: '/addstoriespainpoints',
+                          OnTap: () {
+                            bcpData[1].CompletionValidator = false;
+                            print(bcpData[1].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/addstoriespainpoints');
+                          },
                         ),
                       ],
                     ),

@@ -14,13 +14,6 @@ class ReviewCustomerRequirements extends StatefulWidget {
 
 class _ReviewCustomerRequirementsState
     extends State<ReviewCustomerRequirements> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[5].CompletionValidator = true;
-      print(bcpData[5].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +65,12 @@ class _ReviewCustomerRequirementsState
                           width: 50,
                         ),
                         CompleteStepButton(
-                          statusValidator: NotifyProgress(),
+                          OnTap: () {
+                            bcpData[5].CompletionValidator = true;
+                            print(bcpData[5].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/BlitzInnovationFramework');
+                          },
                         ),
                       ],
                     ),

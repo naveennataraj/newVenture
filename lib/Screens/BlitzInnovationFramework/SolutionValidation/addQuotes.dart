@@ -16,13 +16,6 @@ class AddQuotes extends StatefulWidget {
 }
 
 class _AddQuotesState extends State<AddQuotes> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[5].CompletionValidator = false;
-      print(bcpData[5].CompletionValidator);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,8 +102,12 @@ class _AddQuotesState extends State<AddQuotes> {
                           width: 50,
                         ),
                         goNextButton(
-                          StepValidator: NotifyProgress(),
-                          routeName: '/reviewcustomerrequirements',
+                          OnTap: () {
+                            bcpData[5].CompletionValidator = false;
+                            print(bcpData[5].CompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/reviewcustomerrequirements');
+                          },
                         ),
                       ],
                     ),
