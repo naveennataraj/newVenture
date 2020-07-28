@@ -52,7 +52,7 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkDescription:
     'Highlighting what makes the solution unique and the customer touchpoints in focus.',
     buttonText: 'Begin Step 4',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/BCStep4SellingProposition',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 5 - The User\'s feedback',

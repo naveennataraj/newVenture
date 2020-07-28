@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesProduct.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/BcAddFidelityWireframes.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/SolutionStandOut.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/CustomerTouchPoint.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
@@ -95,6 +99,12 @@ class Vueapp extends StatelessWidget {
             BcStep2CapturingUserStories(),
         //Step3 Defining the solution
         '/BCStep3Goals': (context) => Step3GoalsTheSolution(),
+        '/BCStep3FeatureProduct': (context) => BcProductFeature(),
+        '/BCStep3WireFrameLink': (context) => BcAddWireframeLink(),
+        //step4 Unique selling proposition
+        '/BCStep4SellingProposition': (context) => UniqueSellingProposition(),
+        '/BCStep4ConsumerTouchPoints': (context) => BcConsumerTouchPoints(),
+
       },
     );
   }

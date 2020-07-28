@@ -1,22 +1,19 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcProductGoals.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalDialogue.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcFeatureProduct.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesDialogue.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithoutTittleDynamic.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
 
-class Step3GoalsTheSolution extends StatefulWidget {
+class BcProductFeature extends StatefulWidget {
   @override
-  _Step3GoalsTheSolutionState createState() => _Step3GoalsTheSolutionState();
+  _BcProductFeatureState createState() => _BcProductFeatureState();
 }
 
-class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
 
-
+class _BcProductFeatureState extends State<BcProductFeature> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,15 +44,15 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "List of the product goals for the solution concept",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),),
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "List of the Product Features for the solution concept",
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),),
 
-                  (productGoals.length == 0)
+                  (addingNewProductFeature.length == 0)
                       ? Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: Row(
@@ -70,18 +67,22 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                   )
                       :
                   ListView.builder(
-                    itemCount: productGoals.length,
+                    itemCount: addingNewProductFeature.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: productGoals != null
+                        children: addingNewProductFeature != null
                             ? <Widget>[
-                          SmallOrangeCardWithoutTitleDynamic(
-                            description: productGoals[index].goals,
+                          SmallOrangeCardWithTitleDynamic(
+                            title: addingNewProductFeature[index]
+                                .FeatureTitle,
+                            description:
+                            addingNewProductFeature[index]
+                                .FeatureDescription,
                             index: index,
-                            removingat: productGoals,
-                            Dialogue: GoalDialogue(
+                            removingat: addingNewProductFeature,
+                            Dialogue: Step3BCProductFeatureDialogue(
                               index: index,
                             ),
                           )
@@ -100,7 +101,7 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                           width: 50,
                         ),
                         goNextButton(
-                          routeName: '/BCStep3FeatureProduct',
+                          routeName: '/BCStep3WireFrameLink',
                           // write here
                         ),
                       ],
@@ -118,7 +119,7 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => GoalDialogue(),
+              builder: (BuildContext context) => Step3BCProductFeatureDialogue(),
             );
           },
           child: Icon(Icons.add),
