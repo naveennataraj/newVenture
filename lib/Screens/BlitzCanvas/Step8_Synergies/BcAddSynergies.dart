@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentAsAService.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/AsAServiceDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step8_Synergies/ContentSynergies.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step8_Synergies/BcSynergiesDialogue.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
@@ -46,13 +45,13 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "List of 'As a service' offerings",
+                      "Can we spot any Synergies between the Business segments?",
                       style: TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),),
 
-                  (addingAsaService.length == 0)
+                  (addingNewSynergies.length == 0)
                       ? Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: Row(
@@ -67,22 +66,22 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                   )
                       :
                   ListView.builder(
-                    itemCount: addingAsaService.length,
+                    itemCount: addingNewSynergies.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: addingAsaService != null
+                        children: addingNewSynergies != null
                             ? <Widget>[
                           SmallOrangeCardWithTitleDynamic(
-                            title: addingAsaService[index]
-                                .serviceName,
+                            title: addingNewSynergies[index]
+                                .synergyName,
                             description:
-                            addingAsaService[index]
-                                .serviceTaskDescription,
+                            addingNewSynergies[index]
+                                .synergyDescription,
                             index: index,
-                            removingat: addingAsaService,
-                            Dialogue: BcAsaServiceDialogue(
+                            removingat: addingNewSynergies,
+                            Dialogue: BcSynergiesDialogue(
                               index: index,
                             ),
                           )
@@ -125,7 +124,7 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => BcAsaServiceDialogue(),
+              builder: (BuildContext context) => BcSynergiesDialogue(),
             );
           },
           child: Icon(Icons.add),

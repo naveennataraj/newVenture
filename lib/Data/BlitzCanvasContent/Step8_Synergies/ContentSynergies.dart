@@ -1,23 +1,33 @@
 class ContentSynergies {
   final String synergyName;
-  final String valueProposition1;
-  final String valueProposition2;
-  final String valueProposition3;
-  final String valueProposition4;
+  final String synergyValueProposition;
+  final String synergyCustomerSegment;
+  final String synergyRevenueStream;
+  final String synergyDistributionChannel;
+  final String synergyCustomerRelationship;
+  final String synergyKeyActivity;
+  final String synergyKeyResource;
+  final String synergyKeyPartner;
+  final String synergyCostStructure;
   final String synergyDescription;
   final String synergyValues;
 
 
   ContentSynergies({
     this.synergyName,
-    this.valueProposition1,
-    this.valueProposition2,
-    this.valueProposition3,
-    this.valueProposition4,
+    this.synergyValueProposition,
+    this.synergyCustomerSegment,
+    this.synergyRevenueStream,
+    this.synergyDistributionChannel,
+    this.synergyCustomerRelationship,
+    this.synergyKeyActivity,
+    this.synergyKeyResource,
+    this.synergyKeyPartner,
+    this.synergyCostStructure,
     this.synergyDescription,
     this.synergyValues,
 
   });
 }
 
-List<ContentSynergies> addingAsaService = [];
+List<ContentSynergies> addingNewSynergies = [];

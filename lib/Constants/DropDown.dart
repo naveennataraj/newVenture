@@ -79,6 +79,11 @@ List<DropDownItem> ServiceUsage = [
   DropDownItem(20, '100%'),
 ];
 
+List<DropDownItem> StrategySustainable = [
+  DropDownItem(1, 'Yes'),
+  DropDownItem(2, 'No'),
+];
+
 List<DropdownMenuItem<DropDownItem>> ProblemDomaindropdown;
 List<DropdownMenuItem<DropDownItem>> UserEnvironmentdropdown;
 List<DropdownMenuItem<DropDownItem>> Solutionsdropdown;
@@ -87,6 +92,7 @@ List<DropdownMenuItem<DropDownItem>> intellectualAssetsDropDown;
 List<DropdownMenuItem<DropDownItem>> serviceTypeDropDown;
 List<DropdownMenuItem<DropDownItem>> serviceUsageDropDown;
 List<DropdownMenuItem<DropDownItem>> Metricsdropdown;
+List<DropdownMenuItem<DropDownItem>> strategySustainable;
 
 DropDownItem SelectedProblemDomain;
 
@@ -99,6 +105,7 @@ DropDownItem SelectedBcmElement;
 DropDownItem SelectedIntellectualAsset;
 DropDownItem SelectedServiceType;
 DropDownItem SelectedServiceUsage;
+DropDownItem SelectedStrategySustainable;
 
 DropDownItem SelectedMetrics;
 
