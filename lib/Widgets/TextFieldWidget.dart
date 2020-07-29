@@ -4,56 +4,31 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class TextFieldWidget extends StatefulWidget {
   final String textCollecter;
-  final bool validText;
-  final TextEditingController myTextController;
-  final String labelText;
-  final FocusNode myFocusNode;
-  final int maxLines;
-  final Color labelcolour;
-  final String helperText;
 
-  const TextFieldWidget({
+  TextFieldWidget({
     this.textCollecter,
     this.validText,
     this.myTextController,
     this.labelText,
-    this.labelcolour,
     this.myFocusNode,
     this.maxLines,
+    this.labelcolour,
     this.helperText,
   });
 
+  bool validText;
+  final TextEditingController myTextController;
+  final String labelText;
+  FocusNode myFocusNode;
+  final int maxLines;
+  Color labelcolour;
+  final String helperText;
+
   @override
-  _TextFieldWidgetState createState() => _TextFieldWidgetState(
-      textCollecter,
-      validText,
-      myTextController,
-      labelText,
-      labelcolour,
-      maxLines,
-      myFocusNode,
-      helperText);
+  _TextFieldWidgetState createState() => _TextFieldWidgetState();
 }
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
-  String textCollecter;
-  bool validText;
-  TextEditingController myTextController;
-  String labelText;
-  FocusNode myFocusNode;
-  int maxLines;
-  Color labelcolour;
-  String helperText;
-
-  _TextFieldWidgetState(
-      this.textCollecter,
-      this.validText,
-      this.myTextController,
-      this.labelText,
-      this.labelcolour,
-      this.maxLines,
-      this.myFocusNode,
-      this.helperText);
   requestFocus(FocusNode myFocusNode) {
     setState(() {
       FocusScope.of(context).requestFocus(myFocusNode);
@@ -63,13 +38,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void initState() {
     super.initState();
-    myFocusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    myFocusNode.dispose();
-    super.dispose();
+    widget.myFocusNode = FocusNode();
   }
 
   @override
@@ -77,42 +46,44 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     return Container(
       margin: EdgeInsets.all(15),
       child: TextField(
-        focusNode: myFocusNode,
+        focusNode: widget.myFocusNode,
         onTap: () {
-          requestFocus(myFocusNode);
+          requestFocus(widget.myFocusNode);
         },
-        controller: myTextController,
-        maxLines: maxLines,
+        controller: widget.myTextController,
+        maxLines: widget.maxLines,
         decoration: TextFieldsDecoration.copyWith(
-          labelText: labelText,
-          helperText: myFocusNode.hasFocus ? helperText : null,
+          labelText: widget.labelText,
+          helperText: widget.myFocusNode.hasFocus ? widget.helperText : null,
           labelStyle: TextStyle(
-              color: myFocusNode.hasFocus ? Color(0XFFE95420) : labelcolour),
-          errorText: validText ? null : 'This field is required',
+              color: widget.myFocusNode.hasFocus
+                  ? Color(0XFFE95420)
+                  : widget.labelcolour),
+          errorText: widget.validText ? null : 'This field is required',
         ),
         onChanged: (text) {
-          if (myTextController.text == "") {
+          if (widget.myTextController.text == "") {
             setState(() {
-              validText = false;
-              labelcolour = Color(0XFFF53E70);
+              widget.validText = false;
+              widget.labelcolour = Color(0XFFF53E70);
             });
           } else {
             setState(() {
-              validText = true;
-              labelcolour = Colors.grey;
+              widget.validText = true;
+              widget.labelcolour = Colors.grey;
             });
           }
         },
         onSubmitted: (text) {
-          if (myTextController.text == "") {
+          if (widget.myTextController.text == "") {
             setState(() {
-              validText = false;
-              labelcolour = Color(0XFFF53E70);
+              widget.validText = false;
+              widget.labelcolour = Color(0XFFF53E70);
             });
           } else {
             setState(() {
-              validText = true;
-              labelcolour = Colors.grey;
+              widget.validText = true;
+              widget.labelcolour = Colors.grey;
             });
           }
         },

@@ -34,6 +34,27 @@ final ImportanceFocusNode = new FocusNode();
 String Importance;
 
 class _ProblemStudyState extends State<ProblemStudy> {
+  validator() {
+    setState(() {
+      TitleTextController.text.isEmpty ? validTitle = false : validTitle = true;
+      TitleTextController.text.isEmpty
+          ? TitlelabelColor = Color(0xFFF53E70)
+          : TitlelabelColor = Color(0xFF919191);
+      ProblemTextController.text.isEmpty
+          ? validProblem = false
+          : validProblem = true;
+      ProblemTextController.text.isEmpty
+          ? ProblemlabelColor = Color(0xFFF53E70)
+          : ProblemlabelColor = Color(0xFF919191);
+      ImportanceTextController.text.isEmpty
+          ? validImportance = false
+          : validImportance = true;
+      ImportanceTextController.text.isEmpty
+          ? ImportancelabelColor = Color(0xFFF53E70)
+          : ImportancelabelColor = Color(0xFF919191);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,11 +133,17 @@ class _ProblemStudyState extends State<ProblemStudy> {
                           width: 50,
                         ),
                         goNextButton(
-                          OnTap: () {
-                            bcpData[0].CompletionValidator = false;
-                            print(bcpData[0].CompletionValidator);
-                            Navigator.pushNamed(context, '/addpainpoints');
-                          },
+                          OnTap: (TitleTextController.text.isEmpty ||
+                                  ProblemTextController.text.isEmpty ||
+                                  ImportanceTextController.text.isEmpty)
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  bcpData[0].CompletionValidator = false;
+                                  Navigator.pushNamed(
+                                      context, '/addpainpoints');
+                                },
                         ),
                       ],
                     ),

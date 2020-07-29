@@ -33,12 +33,17 @@ class _SmallOrangeCardWithoutTitleState
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Delete card?",),
+          title: new Text(
+            "Delete card?",
+          ),
           content: new Text("This will remove the card permanently"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Delete", style: TextStyle( color: Colors.grey),),
+              child: new Text(
+                "Delete",
+                style: TextStyle(color: Colors.grey),
+              ),
               onPressed: () {
                 setState(() {
                   erased = true;
@@ -48,7 +53,13 @@ class _SmallOrangeCardWithoutTitleState
               },
             ),
             FlatButton(
-              child: new Text("Head Back", style: TextStyle( color: Color(0XFFE95420,)),),
+              child: new Text(
+                "Head Back",
+                style: TextStyle(
+                    color: Color(
+                  0XFFE95420,
+                )),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -58,7 +69,6 @@ class _SmallOrangeCardWithoutTitleState
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

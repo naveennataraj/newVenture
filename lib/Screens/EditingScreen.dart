@@ -57,9 +57,7 @@ class _EditingscreenState extends State<Editingscreen> {
                                     BorderRadius.all(Radius.circular(10)),
                               ),
                             ),
-                            onSubmitted: (title) {
-                              print(titleController.text.toString());
-                            },
+                            onSubmitted: (title) {},
                           ),
                         ),
                         Container(
