@@ -253,16 +253,14 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                                   addingNewProductFeature.insert(
                                       index, NewProductFeature);
                                 }
-
                                 ProductFeatureTextController.clear();
                                 FeatureDescriptionTextController.clear();
                                 checked = false;
                                 clickedRadio = 0;
-
-                                //Navigator.pop(context);
-                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcProductFeature()),
-                                )
-                                    .then((value) => setState(() {}),);
+                                Navigator.pop(context);
+//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcProductFeature()),
+//                                )
+//                                    .then((value) => setState(() {}),);
                               });
                             },
                           ),

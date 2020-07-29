@@ -87,9 +87,10 @@ class _GoalDialogueState extends State<GoalDialogue> {
                               }
 //
                               goalTextController.clear();
-                              Navigator.push(context, new MaterialPageRoute(builder: (context) => Step3GoalsTheSolution()),
-                              )
-                              .then((value) => setState(() {}),);
+                              Navigator.pop(context);
+//                              Navigator.push(context, new MaterialPageRoute(builder: (context) => Step3GoalsTheSolution()),
+//                              )
+//                              .then((value) => setState(() {}),);
                             },);
                           },
                         ),

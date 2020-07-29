@@ -1,14 +1,19 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/AddFoudationalDeatil.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
-import 'package:iventure001/Widgets/FloatingButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCard.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-class Step1AddFoundation extends StatelessWidget {
+class Step1AddFoundation extends StatefulWidget {
+  @override
+  _Step1AddFoundationState createState() => _Step1AddFoundationState();
+}
+
+class _Step1AddFoundationState extends State<Step1AddFoundation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,37 +38,58 @@ class Step1AddFoundation extends StatelessWidget {
               ),
             ],
           ),
+
           child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        'Add details of the foundational aspects of the business',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )),
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add details of the foundational aspects of the business",
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),),
+
+                  (foundationContent.length == 0)
+                      ? Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Click on '+' to add the Product Goals",
+                          style: TextStyle(color: Colors.grey),
+                        )
+                      ],
+                    ),
+                  )
+                      :
                   ListView.builder(
                     itemCount: foundationContent.length,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (context, index) {
                       return Column(
-                        children: <Widget>[
-                          //CardRectangleLarge(subjects[index]),
-                          SmallOrangeCard(foundationContent[index]),
-                        ],
+                        children: foundationContent != null
+                            ? <Widget>[
+                          SmallOrangeCardWithTitle(
+                            title: foundationContent[index]
+                                .title,
+                            description:
+                            foundationContent[index]
+                                .description,
+                            index: index,
+                            removingat: foundationContent,
+                            Dialogue: AddFoundationalDetail(
+                              index: index,
+                            ),
+                          )
+                        ]
+                            : null,
                       );
                     },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Icon(
-                      Icons.add,
-                      size: 20.0,
-                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -74,50 +100,47 @@ class Step1AddFoundation extends StatelessWidget {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(),
+                        CompleteStepButton(
+                          OnTap: () {
+                            bcStepsContent[0].bcCompletionValidator = true;
+                            print(bcStepsContent[0].bcCompletionValidator);
+                            Navigator.pushNamed(
+                                context, '/BCHomeView');
+                          },
+                        ),
+//                        goNextButton(
+//                          OnTap: () {
+////                            bcpData[0].CompletionValidator = false;
+////                            print(bcpData[0].CompletionValidator);
+//                            Navigator.pushNamed(context, '/BCStep7IntellectualAssets');
+//                          },
+//                          //routeName: '/BCStep3WireFrameLink',
+//                          // write here
+//                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               )),
         ),
       ),
-      floatingActionButton: FloatingButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => AddFoundationalDetail(),
-          );
-        },
+      floatingActionButton: Container(
+        margin: EdgeInsets.all(100),
+        child: FloatingActionButton(
+          tooltip: "Add's New Card",
+          backgroundColor: Color(0XFFE95420),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => AddFoundationalDetail(),
+            ).then((_) => setState(() {}));
+          },
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }
 }
 
-class CompleteStepButton extends StatelessWidget {
-  const CompleteStepButton({
-    Key key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        //Navigator.pushNamed(context, '/BCHomeView');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BCScreen(
-              completeStep1: 1,
-              stepsList: [1],
-            ),
-          ),
-        );
-      },
-      child: Text(
-        'COMPLETE STEP',
-        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
-      ),
-    );
-  }
-}
+

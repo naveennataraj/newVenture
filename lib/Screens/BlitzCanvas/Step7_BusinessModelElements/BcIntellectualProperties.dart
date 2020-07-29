@@ -5,7 +5,8 @@ import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcIn
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 
 class BcIntellectualPropertyAssets extends StatefulWidget {
@@ -74,7 +75,7 @@ class _BcIntellectualPropertyAssetsState extends State<BcIntellectualPropertyAss
                       return Column(
                         children: addingIntellectualAssets != null
                             ? <Widget>[
-                          SmallOrangeCardWithTitleDynamic(
+                          SmallOrangeCardWithTitle(
                             title: addingIntellectualAssets[index]
                                 .intellectualProperty,
                             description:
@@ -102,7 +103,7 @@ class _BcIntellectualPropertyAssetsState extends State<BcIntellectualPropertyAss
                         ),
                         goNextButton(
                           OnTap: () {
-//                            bcpData[0].CompletionValidator = false;
+                            bcStepsContent[6].bcCompletionValidator = false;
 //                            print(bcpData[0].CompletionValidator);
                             Navigator.pushNamed(context, '/BCStep7ServiceOffering');
                           },
@@ -125,7 +126,7 @@ class _BcIntellectualPropertyAssetsState extends State<BcIntellectualPropertyAss
             showDialog(
               context: context,
               builder: (BuildContext context) => BcIntellectualDialogue(),
-            );
+            ).then((_) => setState(() {}),);
           },
           child: Icon(Icons.add),
         ),

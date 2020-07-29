@@ -4,8 +4,17 @@ import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 String customerProblems = '';
+//bool bcStepValidator;
+
+
+class BcStep1CollectionAspects extends StatefulWidget {
+  @override
+  _BcStep1CollectionAspectsState createState() =>
+      _BcStep1CollectionAspectsState();
+}
 
 var missionLabelColor = Color(0XFF919191);
 bool validMission = true;
@@ -19,34 +28,7 @@ final visionTextController = TextEditingController();
 final visionFocusNode = new FocusNode();
 String visionText;
 
-class BcStep1CollectionAspects extends StatefulWidget {
-  @override
-  _BcStep1CollectionAspectsState createState() =>
-      _BcStep1CollectionAspectsState();
-}
-
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
-//  bool validTitle = true;
-//  final titleController = TextEditingController();
-//  final customerProblemController = TextEditingController(text: customerProblems);
-//  final problemImportanceController = TextEditingController();
-//
-//
-//  //text controllers to receive the information from the screen that is written by the user
-//  TextEditingController missionController = TextEditingController();
-//  TextEditingController visionController = TextEditingController();
-//
-//
-//  //bool _isEditingText = false;
-//  bool _isVisionText = false;
-//
-//  //TextEditingController _editingController;
-//  TextEditingController _visionController;
-//  //String initialText = "To empower people to become more productive with the help of IT enabled capabilities";
-//  String initialVisionStatement = "To achieve an average of 20% efficiency improvement per customer by 2022.";
-//
-//  //Color missionStatementColour = inactiveBlackColour;
-//  //Color visionStatementColour = inactiveBlackColour;
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +99,7 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                         ),
                         goNextButton(
                           OnTap: () {
+                            bcStepsContent[0].bcCompletionValidator = false;
 //                            bcpData[6].CompletionValidator = false;
                             Navigator.pushNamed(context, '/BCStep1AddDetails');
                           },

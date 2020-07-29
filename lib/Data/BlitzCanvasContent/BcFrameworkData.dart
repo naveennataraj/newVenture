@@ -2,25 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BcFrameworkContent {
-  final int id;
   final IconData frameWorkIcon;
   final String frameworkStep;
   final String frameWorkDescription;
   final String buttonText;
   final String navigateTo;
-
+  bool bcCompletionValidator;
 
   BcFrameworkContent(
-      { this.id, this.frameWorkIcon,
+      { this.frameWorkIcon,
         this.frameworkStep,
         this.frameWorkDescription,
         this.buttonText,
-        this.navigateTo});
+        this.navigateTo,
+        this.bcCompletionValidator});
 }
 
 List<BcFrameworkContent> bcStepsContent = [
   BcFrameworkContent(
-    id: 1,
     frameworkStep: 'Step 1 - Build the Foundation',
     frameWorkIcon: Icons.build,
     frameWorkDescription:
@@ -29,7 +28,6 @@ List<BcFrameworkContent> bcStepsContent = [
     navigateTo: '/BCStep1CollectAspects',
   ),
   BcFrameworkContent(
-    id:2,
     frameworkStep: 'Step 2 - Studying the user',
     frameWorkIcon: Icons.person,
     frameWorkDescription:
@@ -38,7 +36,6 @@ List<BcFrameworkContent> bcStepsContent = [
     navigateTo: '/BCStep2UserProfile',
   ),
   BcFrameworkContent(
-    id:3,
     frameworkStep: 'Step 3 - Defining the solution',
     frameWorkIcon: Icons.mouse,
     frameWorkDescription:
@@ -92,7 +89,7 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkDescription:
     'Outlining how the business intends to scale with growth and plan parallel products.',
     buttonText: 'Begin Step 9',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/BCStep9Growth',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 10 - Metrics',
@@ -100,6 +97,6 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkDescription:
     'List out the metrics which will be used to keep track of the business.',
     buttonText: 'Begin Step 10',
-    navigateTo: '/Problemstudy',
+    navigateTo: '/BCStep10MetricSection1',
   ),
 ];

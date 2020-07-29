@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
-import 'package:iventure001/Widgets/AddStoryButton.dart';
+import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
+import 'package:iventure001/Widgets/AddDetailButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -106,23 +107,11 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AddStoryButton(
-                          routeName: '/BCStep2CaptureUserStories',
-                          buttonName: 'ADD STORY',
-                          onTap: ()
-//                      async {
-//                    await Navigator.push(
-//                    context,
-//                    MaterialPageRoute(
-//                    builder: (BuildContext context) => BcStep2CapturingUserStories(),
-//                    fullscreenDialog: true,
-//                    )
-//                    );
-//                    setState(() {});
-//                    },
-                              {
+
+                        AddDetailButton(
+                          routeName: '/addpainpoints',
+                          onTap: () {
                             setState(() {
-                              //setState(() {});
                               final NewUserStory = BcContentUserStories(
                                 Asa: AsaTextController.text,
                                 IWantTo: SoThatTextController.text,
@@ -132,13 +121,19 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
                                 userStoriesContent.add(NewUserStory);
                               } else {
                                 userStoriesContent.removeAt(index);
-                                userStoriesContent.insert(index, NewUserStory);
+                                userStoriesContent.insert(
+                                    index, NewUserStory);
                               }
 //
                               AsaTextController.clear();
                               SoThatTextController.clear();
                               IWantToTextController.clear();
+
                               Navigator.pop(context);
+//                              Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep2CapturingUserStories()),
+//                              )
+//                                  .then((value) => setState(() {}),);
+
                             });
                           },
                         ),
@@ -163,3 +158,4 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
     );
   }
 }
+

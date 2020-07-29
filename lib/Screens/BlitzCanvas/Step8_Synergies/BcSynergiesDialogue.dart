@@ -191,12 +191,12 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                               synergyNameTextController.clear();
                               synergyDescriptionTextController.clear();
                               synergyValueTextController.clear();
-
-
-                              //Navigator.pop(context);
-                              Navigator.push(context, new MaterialPageRoute(builder: (context) => BcAddSynergies()),
-                              )
-                                  .then((value) => setState(() {}),);
+                              selectedServiceTypeName = '';
+                              selectedServiceUsagePercentage = '';
+                              Navigator.pop(context);
+//                              Navigator.push(context, new MaterialPageRoute(builder: (context) => BcAddSynergies()),
+//                              )
+//                                  .then((value) => setState(() {}),);
 
                             });
                           },
@@ -209,7 +209,8 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                             synergyNameTextController.clear();
                             synergyDescriptionTextController.clear();
                             synergyValueTextController.clear();
-
+                            selectedServiceTypeName = '';
+                            selectedServiceUsagePercentage = '';
                             Navigator.pop(context);
                           },
                         ),

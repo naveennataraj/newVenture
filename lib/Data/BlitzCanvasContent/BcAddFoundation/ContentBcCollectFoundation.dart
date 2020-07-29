@@ -15,11 +15,5 @@ class ContentBcStep1CollectionFoundation {
 }
 
 List<ContentBcStep1CollectionFoundation> collectionBcStep1Content = [
-  ContentBcStep1CollectionFoundation(
-    titleMission: 'Provide a mission statement for the business adventure',
-    descriptionMission: "To empower people to become more productive with the help of IT enabled capabilities",
-    titleVision: 'Provide a vision for the business venture to work towards',
-    descriptionVision: "To achieve an average of 20% efficiency improvement per customer by 2022.",
-  ),
 
 ];

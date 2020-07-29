@@ -4,20 +4,15 @@ import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-String userProfile = '';
+//String userProfile = '';
 
-var missionLabelColor = Color(0XFF919191);
-bool validMission = true;
-final missionTextController = TextEditingController();
-final missionFocusNode = new FocusNode();
-String missionText;
-
-var visionLabelColor = Color(0XFF919191);
-bool validVision = true;
-final visionTextController = TextEditingController();
-final visionFocusNode = new FocusNode();
-String visionText;
+var userProfileLabelColor = Color(0XFF919191);
+bool validUserProfile = true;
+final userProfileTextController = TextEditingController();
+final userProfileFocusNode = new FocusNode();
+String userProfileText;
 
 class BcStep2CollectUserProfile extends StatefulWidget {
   @override
@@ -66,24 +61,13 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                   TextFieldWidget(
                     labelText:
                         'Please provide a link to the User\'s (updated) Persona',
-                    myTextController: missionTextController,
-                    myFocusNode: missionFocusNode,
-                    validText: validMission,
+                    myTextController: userProfileTextController,
+                    myFocusNode: userProfileFocusNode,
+                    validText: validUserProfile,
                     maxLines: 1,
-                    textCollecter: missionText,
+                    textCollecter: userProfileText,
                     helperText: '',
-                    labelcolour: missionLabelColor,
-                  ),
-                  TextFieldWidget(
-                    labelText:
-                    'Please provide a link to the User\'s (updated) Persona',
-                    myTextController: missionTextController,
-                    myFocusNode: missionFocusNode,
-                    validText: validMission,
-                    maxLines: 1,
-                    textCollecter: missionText,
-                    helperText: '',
-                    labelcolour: missionLabelColor,
+                    labelcolour: userProfileLabelColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -96,7 +80,7 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                         ),
                         goNextButton(
                           OnTap: () {
-//                            bcpData[6].CompletionValidator = false;
+                            bcStepsContent[1].bcCompletionValidator = false;
                             Navigator.pushNamed(
                                 context, '/BCStep2CaptureUserStories');
                           },

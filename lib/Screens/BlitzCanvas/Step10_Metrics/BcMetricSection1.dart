@@ -1,30 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Widgets/AddGenericButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-class BcAddWireframeLink extends StatefulWidget {
+class BcStep10MetricSection1 extends StatefulWidget {
   @override
-  _BcAddWireframeLinkState createState() => _BcAddWireframeLinkState();
+  _BcStep10MetricSection1State createState() => _BcStep10MetricSection1State();
 }
 
-var WireFrameLinklabelColor = Color(0XFF919191);
-bool validWireFrameLink = true;
-var WireFrameLinkTextController = TextEditingController();
-final WireFrameLinkFocusNode = new FocusNode();
-String WireFrameLink;
+var metricSectionOneLabelColor = Color(0XFF919191);
+bool validMetricSectionOne = true;
+var metricSectionOneTextController = TextEditingController();
+final metricSectionOneFocusNode = new FocusNode();
+String metricSectionOneText;
 
-class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
-  //  NotifyProgress() {
-//    setState(() {
-//      bcpData[3].CompletionValidator = true;
-//      print(bcpData[3].CompletionValidator);
-//    });
-//  }
+class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,31 +49,23 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "Adding High Fidelity Wireframes, if we have one handy:",
+                      "Metrics (Section 1) - Let's list the single most important metric for your business",
                       style:
                       TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  NoteCard(
-                    Note:
-                    "Tip: For the prefered solution concept, a wireframe can be developed using a service such as AdobeXD or Marvel App. The purpose of this is to have the End user(s) interact with it, with the goal of eventually collecting feedback from them. In this section, please add the High Fidelity wireframe of the product concept, which will include details such as colors and graphics and will be representative of the final product that will be shipped to the customer.",
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text('Learn More About Wireframes'),
-                  ),
                   TextFieldWidget(
-                    labelText:
-                    "Please enter the link to the High Fidelity wireframe below",
-                    maxLines: 1,
-                    validText: validWireFrameLink,
-                    myFocusNode: WireFrameLinkFocusNode,
-                    myTextController: WireFrameLinkTextController,
-                    textCollecter: WireFrameLink,
+                    labelText: "What is your North star metric?",
+                    maxLines: 2,
+                    validText: validMetricSectionOne,
+                    myFocusNode: metricSectionOneFocusNode,
+                    myTextController: metricSectionOneTextController,
+                    textCollecter: metricSectionOneText,
                     helperText: '',
-                    labelcolour: WireFrameLinklabelColor,
+                    labelcolour: metricSectionOneLabelColor,
                   ),
+
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -90,13 +75,15 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            bcStepsContent[2].bcCompletionValidator = true;
+                        AddGenericButton (
+                          buttonName: 'PROCEED TO METRICS-SECTION2',
+                          onTap: () {
+                            bcStepsContent[9].bcCompletionValidator = false;
+//                            print(bcpData[6].CompletionValidator);
                             Navigator.pushNamed(
-                                context, '/BCHomeView');
+                                context, '/BCStep10MetricSection2');
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -107,7 +94,3 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
     );
   }
 }
-
-
-
-

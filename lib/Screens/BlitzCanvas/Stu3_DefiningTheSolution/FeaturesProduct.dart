@@ -5,13 +5,13 @@ import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/Feature
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 class BcProductFeature extends StatefulWidget {
   @override
   _BcProductFeatureState createState() => _BcProductFeatureState();
 }
-
 
 class _BcProductFeatureState extends State<BcProductFeature> {
   @override
@@ -74,7 +74,7 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                       return Column(
                         children: addingNewProductFeature != null
                             ? <Widget>[
-                          SmallOrangeCardWithTitleDynamic(
+                          SmallOrangeCardWithTitle(
                             title: addingNewProductFeature[index]
                                 .FeatureTitle,
                             description:
@@ -102,8 +102,7 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                         ),
                         goNextButton(
                           OnTap: () {
-//                            bcpData[0].CompletionValidator = false;
-//                            print(bcpData[0].CompletionValidator);
+                            bcStepsContent[2].bcCompletionValidator = false;
                             Navigator.pushNamed(context, '/BCStep3WireFrameLink');
                           },
                           //routeName: '/BCStep3WireFrameLink',
@@ -125,7 +124,7 @@ class _BcProductFeatureState extends State<BcProductFeature> {
             showDialog(
               context: context,
               builder: (BuildContext context) => Step3BCProductFeatureDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

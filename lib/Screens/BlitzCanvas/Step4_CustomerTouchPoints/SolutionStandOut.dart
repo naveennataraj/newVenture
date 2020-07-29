@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 class UniqueSellingProposition extends StatefulWidget {
   @override
@@ -82,6 +82,7 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
                         ),
                         goNextButton(
                           OnTap: () {
+                            bcStepsContent[3].bcCompletionValidator = false;
 //                            bcpData[0].CompletionValidator = false;
 //                            print(bcpData[0].CompletionValidator);
                             Navigator.pushNamed(context, '/BCStep4ConsumerTouchPoints');

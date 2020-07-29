@@ -4,9 +4,6 @@ import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
 
 class BlitzInnovationFramework extends StatelessWidget {
-  final bool StudyTheProblem;
-
-  BlitzInnovationFramework({this.StudyTheProblem});
 
   @override
   Widget build(BuildContext context) {

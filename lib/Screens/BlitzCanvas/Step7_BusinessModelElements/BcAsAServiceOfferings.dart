@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentAsAService.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/AsAServiceDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
-import 'package:iventure001/Widgets/CanvasCompleteStepButton.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
 
 class BcAsaServiceOffering extends StatefulWidget {
   @override
@@ -74,7 +74,7 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                       return Column(
                         children: addingAsaService != null
                             ? <Widget>[
-                          SmallOrangeCardWithTitleDynamic(
+                          SmallOrangeCardWithTitle(
                             title: addingAsaService[index]
                                 .serviceName,
                             description:
@@ -100,7 +100,13 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(),
+                        CompleteStepButton(
+                          OnTap: () {
+                            bcStepsContent[6].bcCompletionValidator = true;
+                            Navigator.pushNamed(
+                                context, '/BCHomeView');
+                          },
+                        ),
 //                        goNextButton(
 //                          OnTap: () {
 ////                            bcpData[0].CompletionValidator = false;
@@ -126,7 +132,7 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
             showDialog(
               context: context,
               builder: (BuildContext context) => BcAsaServiceDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

@@ -30,6 +30,39 @@ class _SmallOrangeCardWithTitleState extends State<SmallOrangeCardWithTitle> {
     super.initState();
   }
 
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Delete card?",),
+          content: new Text("This will remove the card permanently"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Delete", style: TextStyle( color: Colors.grey),),
+              onPressed: () {
+                setState(() {
+                  erased = true;
+                  widget.removingat.removeAt(widget.index);
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: new Text("Head Back", style: TextStyle( color: Color(0XFFE95420,)),),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return erased
@@ -100,10 +133,11 @@ class _SmallOrangeCardWithTitleState extends State<SmallOrangeCardWithTitle> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            setState(() {
-                              erased = true;
-                              widget.removingat.removeAt(widget.index);
-                            });
+                            _showDialog();
+//                            setState(() {
+//                              erased = true;
+//                              widget.removingat.removeAt(widget.index);
+//                            });
                           },
                           child: Icon(Icons.delete),
                         ),

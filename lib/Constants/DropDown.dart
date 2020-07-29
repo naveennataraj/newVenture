@@ -79,7 +79,7 @@ List<DropDownItem> ServiceUsage = [
   DropDownItem(20, '100%'),
 ];
 
-List<DropDownItem> StrategySustainable = [
+List<DropDownItem> StrategySustainableList = [
   DropDownItem(1, 'Yes'),
   DropDownItem(2, 'No'),
 ];

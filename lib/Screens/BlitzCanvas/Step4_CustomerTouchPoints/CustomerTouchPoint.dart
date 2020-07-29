@@ -1,19 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-
-import 'package:iventure001/Widgets/CanvasCompleteStepButton.dart';
 import '../../../Widgets/HeadBackButton.dart';
-
-String consumerTouchPoints = '';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
 
 class BcConsumerTouchPoints extends StatefulWidget {
   @override
   _BcConsumerTouchPointsState createState() => _BcConsumerTouchPointsState();
 }
-
 
 var keyTouchLabelColor = Color(0XFF919191);
 bool validKeyTitle = true;
@@ -117,6 +113,11 @@ class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
                           width: 50,
                         ),
                         CompleteStepButton(
+                          OnTap: () {
+                            bcStepsContent[3].bcCompletionValidator = true;
+                            Navigator.pushNamed(
+                                context, '/BCHomeView');
+                          },
                         ),
                       ],
                     ),

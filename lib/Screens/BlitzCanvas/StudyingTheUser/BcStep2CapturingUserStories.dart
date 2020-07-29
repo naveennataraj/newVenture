@@ -1,16 +1,14 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
-
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStoryDialogue.dart';
-
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-//BcContentUserStories contentBcUserStories = BcContentUserStories();
 
 class BcStep2CapturingUserStories extends StatefulWidget {
   @override
@@ -26,9 +24,6 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
 
     return 'As a $A, I want to $B so that $C';
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +60,21 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
-                      )),
+                      ),),
+                  (userStoriesContent.length == 0)
+                      ? Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Click on '+' to add the User Stories",
+                          style: TextStyle(color: Colors.grey),
+                        )
+                      ],
+                    ),
+                  )
+                      :
                   ListView.builder(
                     itemCount: userStoriesContent.length,
                     shrinkWrap: true,
@@ -96,7 +105,13 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(),
+                        CompleteStepButton(
+                          OnTap: () {
+                            bcStepsContent[1].bcCompletionValidator = true;
+                            Navigator.pushNamed(
+                                context, '/BCHomeView');
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -113,7 +128,7 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
             showDialog(
               context: context,
               builder: (BuildContext context) => BcUserStoryDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),
@@ -121,37 +136,6 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
     );
   }
 }
-
-
-
-class CompleteStepButton extends StatelessWidget {
-  const CompleteStepButton({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        //Navigator.pushNamed(context, '/BCHomeView');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BCScreen(
-              completeStep1: 2,
-              stepsList: [],
-            ),
-          ),
-        );
-      },
-      child: Text(
-        'COMPLETE STEP',
-        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
-      ),
-    );
-  }
-}
-
 
 
 

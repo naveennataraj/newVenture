@@ -41,6 +41,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
           text: addingIntellectualAssets[index].intellectualCode);
       AdditionalDetailsTextController = TextEditingController(
           text: addingIntellectualAssets[index].intellectualDetails);
+      selectedIntellectualAsset = addingIntellectualAssets[index].intellectualProperty;
     }
 
     intellectualAssetsDropDown = buildDropDownMenuItems(IntellectualAssets);
@@ -153,6 +154,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                               selectedIntellectualAsset,
                               intellectualCode:
                               CodeDescriptionTextController.text,
+                              intellectualDetails: AdditionalDetailsTextController.text,
                               //FeatureType: clickedRadio)
                             );
 
@@ -167,11 +169,11 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
 
                             CodeDescriptionTextController.clear();
                             AdditionalDetailsTextController.clear();
-
-                            //Navigator.pop(context);
-                            Navigator.push(context, new MaterialPageRoute(builder: (context) => BcIntellectualPropertyAssets()),
-                            )
-                                .then((value) => setState(() {}),);
+                            selectedIntellectualAsset = '';
+                            Navigator.pop(context);
+//                            Navigator.push(context, new MaterialPageRoute(builder: (context) => BcIntellectualPropertyAssets()),
+//                            )
+//                                .then((value) => setState(() {}),);
                           });
                         },
                       ),
@@ -182,7 +184,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                         OnTap: () {
                           CodeDescriptionTextController.clear();
                           AdditionalDetailsTextController.clear();
-
+                          selectedIntellectualAsset = '';
                           //clickedRadio = 0;
 
                           Navigator.pop(context);

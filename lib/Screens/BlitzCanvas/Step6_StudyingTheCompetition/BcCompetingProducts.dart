@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/DialogueCompetingProduct.dart';
-import 'package:iventure001/Widgets/CanvasCompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
 
 class BcStep6CompetingProducts extends StatefulWidget {
   @override
@@ -76,7 +77,7 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                       return Column(
                         children: AddingNewCompetingProduct != null
                             ? <Widget>[
-                          SmallOrangeCardWithTitleDynamic(
+                          SmallOrangeCardWithTitle(
                             title: AddingNewCompetingProduct[index]
                                 .ProductName,
                             description:
@@ -102,15 +103,14 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(),
-//                        goNextButton(
-////                          routeName: '/addwireframelink',
-//                          OnTap: () {
-////                            bcpData[3].CompletionValidator = false;
-////                            print(bcpData[3].CompletionValidator);
-//                            Navigator.pushNamed(context, '/addwireframelink');
-//                          },
-//                        ),
+                        CompleteStepButton(
+                            OnTap: () {
+                              bcStepsContent[5].bcCompletionValidator = true;
+                              Navigator.pushNamed(
+                                  context, '/BCHomeView');
+                            },
+                        ),
+
                       ],
                     ),
                   ),
@@ -127,7 +127,7 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
             showDialog(
               context: context,
               builder: (BuildContext context) => BcCompetingProductDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

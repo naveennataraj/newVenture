@@ -5,7 +5,8 @@ import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcBu
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithTittleDynamic.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 class BcBusinessElements extends StatefulWidget {
   @override
@@ -73,7 +74,7 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                       return Column(
                         children: addingNewBusinessElement != null
                             ? <Widget>[
-                          SmallOrangeCardWithTitleDynamic(
+                          SmallOrangeCardWithTitle(
                             title: addingNewBusinessElement[index]
                                 .elementTitle,
                             description:
@@ -101,7 +102,7 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                         ),
                         goNextButton(
                           OnTap: () {
-//                            bcpData[0].CompletionValidator = false;
+                            bcStepsContent[6].bcCompletionValidator = false;
 //                            print(bcpData[0].CompletionValidator);
                             Navigator.pushNamed(context, '/BCStep7IntellectualAssets');
                           },
@@ -124,7 +125,7 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
             showDialog(
               context: context,
               builder: (BuildContext context) => BcBusinessElementsDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

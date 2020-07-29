@@ -110,10 +110,10 @@ class _BcQuoteDialogueState extends State<BcQuoteDialogue> {
                                 quoteContentTextController.clear();
                                 quoteChecked = false;
 
-                                //Navigator.pop(context);
-                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep5CustomerQuotes()),
-                                )
-                                    .then((value) => setState(() {}),);
+                                Navigator.pop(context);
+//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep5CustomerQuotes()),
+//                                )
+//                                    .then((value) => setState(() {}),);
                               });
                             },
                           ),

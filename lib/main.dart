@@ -9,6 +9,11 @@ import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcAd
 import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcAsAServiceOfferings.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcIntellectualProperties.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step8_Synergies/BcAddSynergies.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step9_ManagingGrowth/BcAddBusinessGrowth.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step9_ManagingGrowth/BcCreatingEcosystems.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcMetricSection1.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcMetricSection2.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/BcAddFidelityWireframes.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesProduct.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
@@ -93,13 +98,9 @@ class Vueapp extends StatelessWidget {
 
         // BC- BlitzCanvas
         '/BCHomeView': (context) => BCScreen(
-              completeStep1: 11,
             ),
         //Step1 Build the Foundation
-        '/BCStep1CollectAspects': (context) =>
-            BcStep1CollectionAspects(), //Mission and Vision statements
-        '/BCStep1CollectAspects': (context) =>
-            BcStep1CollectionAspects(), //Mission and Vision statements
+        '/BCStep1CollectAspects': (context) => BcStep1CollectionAspects(), //Mission and Vision statements
         '/BCStep1AddDetails': (context) => Step1AddFoundation(), //OrangeCards
         //Step2
         '/BCStep2UserProfile': (context) => BcStep2CollectUserProfile(),
@@ -126,8 +127,15 @@ class Vueapp extends StatelessWidget {
         '/BCStep7ServiceOffering': (context) => BcAsaServiceOffering(),
         //Step8 Synergies
         '/BCStep8Synergies': (context) => BcAddSynergies(),
-//        '/BCStep7IntellectualAssets': (context) => BcIntellectualPropertyAssets(),
-//        '/BCStep7ServiceOffering': (context) => BcAsaServiceOffering(),
+//       //Step9 Managing growth
+        '/BCStep9Growth': (context) => BcStep9BusinessGrowth(),
+        '/BCStep9CreatingEcosystems': (context) => BcCreatingEcosystems(),
+        //Step9 Managing growth
+        '/BCStep10MetricSection1': (context) => BcStep10MetricSection1(),
+        '/BCStep10MetricSection2': (context) => BcMetricsSection2(),
+        '/BCStep10AddMoreMetrics': (context) => BcAddMoreMetrics(),
+
+
       },
     );
   }

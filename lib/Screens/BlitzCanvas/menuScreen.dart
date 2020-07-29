@@ -4,111 +4,72 @@ import 'package:iventure001/Widgets/BCanvasIntroCard.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/BCStepCard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Widgets/FrameworkCards.dart';
 
-const activeOrangeColour = Color(0XFFE95420);
-const inactiveBlackColour = Color(0xFF274C4B);
 
-BcFrameworkContent _frameworkContent = BcFrameworkContent();
+class BCScreen extends StatelessWidget {
 
-class BCScreen extends StatefulWidget {
-  final List<int> stepsList;
-  final int completeStep1;
-  BCScreen({Key key, this.stepsList, @required this.completeStep1, });
-  @override
-  _BCScreenState createState() => _BCScreenState(completeStep1, stepsList);
-}
+  final bool StudyTheProblem;
 
-class _BCScreenState extends State<BCScreen> {
-  List stepsList;
-  int completeStep1;
-  _BCScreenState(this.completeStep1, this.stepsList);
-
-  List<int> selectedIndexList = [];
-
-//  @override
-//  void initState() {
-//    selectedIndexList.add(completeStep1);
-//    print(selectedIndexList);
-//    super.initState();
-//  }
-
-  List<int> numbers = new List<int>();
-
-  void addItem(int completeStep1) {
-
-    int i = completeStep1;
-    selectedIndexList.insert(i, completeStep1);
-    print(selectedIndexList);
-    setState(() {});
-  }
+  BCScreen({this.StudyTheProblem});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: NavigationBar(),
+      appBar: AppBar(
+        title: Text('iVENTURE'),
+        backgroundColor: Color(0XFFE95420),
       ),
+      backgroundColor: Color(0XFFFAFAFA),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            //distance from the bar to the tittle
-            SizedBox(height: 80),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Center(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              //distance from the bar to the tittle
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
                 child: Text(
                   'Blitz Canvas',
-                  style: TextStyle(fontSize: 50),
+                  style: TextStyle(fontSize: 60),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            BCanvasIntroCard(menuContents[1]),
-            SizedBox(height:50.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 300, right: 300),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: bcStepsContent.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 1,
-                    childAspectRatio: 1.5,
-                    crossAxisCount: 3),
-                itemBuilder: (BuildContext context, int index) {
-//                  if (!completeStep1.contains(bcStepsContent[index])) {
-//                    selectedIndexList.add(index);
-//                  } else {
-//                    selectedIndexList.remove(index);
-//                  }
-
-//                  if (completeStep1 != null) {
-//                    selectedIndexList.insert(index, completeStep1);
-//                  }
-
-                  return BcStepCard(
-
-                      //completeStep1: completeStep1,
-                      frameWorkIcon: bcStepsContent[index].frameWorkIcon,
-                      frameworkStep: bcStepsContent[index].frameworkStep,
-                      frameWorkDescription: bcStepsContent[index].frameWorkDescription,
-                      //cardColour: index+1 == completeStep1? inactiveBlackColour: activeOrangeColour,
-
-                      cardColour: selectedIndexList.contains(index+1) ? inactiveBlackColour : activeOrangeColour,
-                      buttonText: index +1 == completeStep1? 'Done': bcStepsContent[index].buttonText,
-                      //buttonText: _validateCompletion(),
-                      navigateTo: bcStepsContent[index].navigateTo);
-                },
+              SizedBox(
+                height: 20,
               ),
-            ),
-            SizedBox(height:20.0),
+              BCanvasIntroCard(menuContents[1]),
+              SizedBox(height:40.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 100, right: 100),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  //physics: NeverScrollableScrollPhysics(),
+                  itemCount: bcStepsContent.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: 1.5,
+                      crossAxisSpacing: 1.5,
+                      childAspectRatio: 2.5,
+//                      mainAxisSpacing: 15,
+//                      crossAxisSpacing: 1,
+//                      childAspectRatio: 1.5,
+                      crossAxisCount: 3),
+                  itemBuilder: (BuildContext context, int index) {
+//
+                    return FrameworkCards(
+                        stepCompleteValidator:
+                        bcStepsContent[index].bcCompletionValidator,
+                      //completeStep1: completeStep1,
+                        frameworkicon: bcStepsContent[index].frameWorkIcon,
+                        frameworkStep: bcStepsContent[index].frameworkStep,
+                        frameworkdescrip: bcStepsContent[index].frameWorkDescription,
+                        buttonText: bcStepsContent[index].buttonText,
+                        navigateTo: bcStepsContent[index].navigateTo);
+                  },
+                ),
+              ),
+              SizedBox(height:20.0),
 //            Row(
 //              crossAxisAlignment: CrossAxisAlignment.center,
 //              children: <Widget>[
@@ -116,7 +77,8 @@ class _BCScreenState extends State<BCScreen> {
 //                BcStepCard(bcStepsContent[1]),
 //              ],
 //            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -142,3 +104,4 @@ class DoneRaisedButton extends StatelessWidget {
     );
   }
 }
+

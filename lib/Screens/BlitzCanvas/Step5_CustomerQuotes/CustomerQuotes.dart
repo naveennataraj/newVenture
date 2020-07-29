@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step5_CustomerQuotes/BcAddQuote.dart';
-import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/CanvasCompleteStepButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithoutTittleDynamic.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step5_CustomerQuotes/QuotesDialogue.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Widgets/CompleteStepButton.dart';
 //import 'addQuotesDialogue.dart';
 
 class BcStep5CustomerQuotes extends StatefulWidget {
@@ -78,7 +78,7 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                       return Column(
                         children: addingNewQuote != null
                             ? <Widget>[
-                          SmallOrangeCardWithoutTitleDynamic(
+                          SmallOrangeCardWithoutTitle(
                             description:
                             addingNewQuote[index].content,
                             index: index,
@@ -102,7 +102,11 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                           width: 50,
                         ),
                         CompleteStepButton(
-
+                        OnTap: () {
+                          bcStepsContent[4].bcCompletionValidator = true;
+                          Navigator.pushNamed(
+                              context, '/BCHomeView');
+                        },
                         ),
                       ],
                     ),
@@ -120,7 +124,7 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
             showDialog(
               context: context,
               builder: (BuildContext context) => BcQuoteDialogue(),
-            );
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

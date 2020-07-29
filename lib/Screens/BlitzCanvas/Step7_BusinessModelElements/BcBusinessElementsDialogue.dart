@@ -4,7 +4,6 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcAddBusinessElements.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
 
 class BcBusinessElementsDialogue extends StatefulWidget {
@@ -35,6 +34,7 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
       FeatureDescriptionTextController = TextEditingController(
           text: addingNewBusinessElement[index].elementDescription);
       checked = addingNewBusinessElement[index].elementChecked;
+      selectedElement = addingNewBusinessElement[index].elementTitle;
     }
 
     bmcElementDropDown = buildDropDownMenuItems(BMCElements);
@@ -165,12 +165,13 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
 
                             FeatureDescriptionTextController.clear();
                             checked = false;
+                            selectedElement = '';
                             //clickedRadio = 0;
 
-                            //Navigator.pop(context);
-                            Navigator.push(context, new MaterialPageRoute(builder: (context) => BcBusinessElements()),
-                            )
-                                .then((value) => setState(() {}),);
+                            Navigator.pop(context);
+//                            Navigator.push(context, new MaterialPageRoute(builder: (context) => BcBusinessElements()),
+//                            )
+//                                .then((value) => setState(() {}),);
                           });
                         },
                       ),
@@ -181,6 +182,7 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                         OnTap: () {
                           FeatureDescriptionTextController.clear();
                           checked = false;
+                          selectedElement = '';
                           //clickedRadio = 0;
 
                           Navigator.pop(context);

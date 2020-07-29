@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/BcCompetingProducts.dart';
 import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
@@ -157,10 +156,10 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                                 CompetingOfferingTextController.clear();
                                 SolutionOfferingTextController.clear();
 
-                                //Navigator.pop(context);
-                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep6CompetingProducts()),
-                                )
-                                    .then((value) => setState(() {}),);
+                                Navigator.pop(context);
+//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep6CompetingProducts()),
+//                                )
+//                                    .then((value) => setState(() {}),);
 
                               });
                             },

@@ -1,15 +1,14 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
-//import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 class BcStep9BusinessGrowth extends StatefulWidget {
   @override
@@ -23,13 +22,12 @@ final handleScaleLFocusNode = new FocusNode();
 String handleScaleLText;
 
 class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
-
-  String selectedStrategyOption;
+  //String selectedStrategyOption;
 
   @override
   void initState() {
     super.initState();
-    strategySustainable = buildDropDownMenuItems(strategySustainable);
+    strategySustainable = buildDropDownMenuItems(StrategySustainableList);
   }
   @override
   Widget build(BuildContext context) {
@@ -78,7 +76,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                     myFocusNode: handleScaleLFocusNode,
                     myTextController: handleScaleLTextController,
                     textCollecter: handleScaleLText,
-                    helperText: 'Please provide details on how the scaling aspect of the solution would be handled.\nDetermining this would help the business handle issues associated with a sudden increase or decrease\n in the usage of the product such as datacenter costs or infrastructure availability',
+                    helperText: 'Please provide details on how the scaling aspect of the solution would be handled.\nDetermining this would help the business handle issues associated with a sudden increase or\ndecrease in the usage of the product such as datacenter costs or infrastructure availability',
                     labelcolour: handleScaleLabelColor,
                   ),
                   Container(
@@ -93,7 +91,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Text(
-                            'Please Approx. percentage of time saved as a result of service usage',
+                            'Is the currently chosen growth strategy sustainable?',
                             style: TextStyle(
                                 color: Colors.grey.shade600, fontSize: 16),
                           ),
@@ -110,7 +108,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                               onChanged: (newValue) {
                                 setState(() {
                                   SelectedStrategySustainable = newValue;
-                                  selectedStrategyOption = SelectedStrategySustainable.name;
+                                  //selectedStrategyOption = SelectedStrategySustainable.name;
                                 },);
                               },
                               items: strategySustainable,
@@ -133,10 +131,10 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                         ),
                         goNextButton(
                           OnTap: () {
-//                            bcpData[6].CompletionValidator = false;
+                            bcStepsContent[8].bcCompletionValidator = false;
 //                            print(bcpData[6].CompletionValidator);
                             Navigator.pushNamed(
-                                context, '/addparallelinnovations');
+                                context, '/BCStep9CreatingEcosystems');
                           },
                         ),
                       ],
