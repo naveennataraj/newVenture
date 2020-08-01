@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step8_Synergies/ContentSynergies.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step8_Synergies/BcAddSynergies.dart';
-import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Constants/MultivalueDropDown.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Widgets/AddGenericButton.dart';
@@ -53,9 +52,8 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
           text: addingNewSynergies[index].synergyValues);
 
     }
+    bmcElementDropDown = buildDropDownMenuItems(BMCElements);
 
-    serviceTypeDropDown = buildDropDownMenuItems(ServiceType);
-    serviceUsageDropDown = buildDropDownMenuItems(ServiceUsage);
   }
 
 
@@ -122,12 +120,12 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                               ),
                               onChanged: (newValue) {
                                 setState(() {
-                                  SelectedServiceType = newValue;
-                                  selectedServiceTypeName = SelectedServiceType.name;
+                                  SelectedBcmElement = newValue;
+                                  selectedServiceTypeName = SelectedBcmElement.name;
                                 });
                               },
-                              items: serviceTypeDropDown,
-                              value: SelectedServiceType,
+                              items: bmcElementDropDown,
+                              value: SelectedBcmElement,
                             ),
                           ),
                         ],
