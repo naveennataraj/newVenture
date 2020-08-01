@@ -56,7 +56,6 @@ class _AddPainPointsState extends State<AddPainPoints> {
                   ),
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore.collection('painPoints').snapshots(),
-                    
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final messsages = snapshot.data.documents.reversed;
