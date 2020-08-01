@@ -4,13 +4,15 @@ class addPainPoints {
   final String Consequence;
   final String Addresspp;
   final String Expectations;
+  final ID;
 
   addPainPoints(
       {this.Consequence,
       this.MoreDetails,
       this.Challenge,
       this.Addresspp,
-      this.Expectations});
+      this.Expectations,
+      this.ID});
 }
 
 List<addPainPoints> AddingNewPainPoint = [];

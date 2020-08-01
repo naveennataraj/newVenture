@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/CardData.dart';
@@ -6,9 +7,6 @@ import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 import '../../../Widgets/GoNextButton.dart';
 import '../../../Widgets/HeadBackButton.dart';
-
-String customerProblems = '';
-bool StepValidator;
 
 class ProblemStudy extends StatefulWidget {
   @override
@@ -54,6 +52,8 @@ class _ProblemStudyState extends State<ProblemStudy> {
           : ImportancelabelColor = Color(0xFF919191);
     });
   }
+
+  final _firestore = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {

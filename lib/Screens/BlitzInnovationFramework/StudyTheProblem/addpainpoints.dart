@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
@@ -14,6 +15,8 @@ class AddPainPoints extends StatefulWidget {
 }
 
 class _AddPainPointsState extends State<AddPainPoints> {
+  final _firestore = Firestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,44 +46,77 @@ class _AddPainPointsState extends State<AddPainPoints> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        'Add details of the foundational aspects of the business',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )),
-                  (AddingNewPainPoint.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the Pain Points",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewPainPoint.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: <Widget>[
-                                SmallOrangeCardWithoutTitle(
-                                  description:
-                                      AddingNewPainPoint[index].Challenge,
-                                  index: index,
-                                  removingat: AddingNewPainPoint,
-                                  Dialogue: painpointDialogue(index: index),
-                                )
-                              ],
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      'Add details of the foundational aspects of the business',
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('painPoints').snapshots(),
+                    
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewPainPoint = [];
+                        for (var message in messsages) {
+                          final Consequence = message.data['Consequence'];
+                          final MoreDetails = message.data['MoreDetails'];
+                          final Challenge = message.data['Challenge'];
+                          final Addresspp = message.data['Addresspp'];
+
+                          final Expectations = message.data['Expectations'];
+                          final ID = message.documentID;
+
+                          final card = addPainPoints(
+                              Consequence: Consequence,
+                              MoreDetails: MoreDetails,
+                              Challenge: Challenge,
+                              Addresspp: Addresspp,
+                              Expectations: Expectations,
+                              ID: ID);
+                          AddingNewPainPoint.add(card);
+                        }
+                        ;
+                      }
+                      ;
+                      return (AddingNewPainPoint.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewPainPoint.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: <Widget>[
+                                    SmallOrangeCardWithoutTitle(
+                                      description:
+                                          AddingNewPainPoint[index].Challenge,
+                                      index: index,
+                                      removingat: AddingNewPainPoint,
+                                      Dialogue: painpointDialogue(index: index),
+                                      CollectionName: 'painPoints',
+                                      ID: AddingNewPainPoint[index].ID,
+                                    ),
+                                  ],
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Pain Points",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
