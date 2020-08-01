@@ -1,12 +1,4 @@
-//import 'package:flutter/cupertino.dart';
-//import 'package:flutter/material.dart';
-//import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
-//import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
-//import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
-//import 'package:iventure001/Widgets/AddDetailButton.dart';
-//import 'package:iventure001/Widgets/CancelButton.dart';
-//import 'package:iventure001/Widgets/TextFieldWidget.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
@@ -33,7 +25,7 @@ String foundationText;
 
 class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
   int index;
-
+  final _firestore = Firestore.instance;
   int clickedRadio;
   String clickRadioName;
 
@@ -212,10 +204,19 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                                 if (index == null) {
                                   foundationContent.add(
                                       NewProductFeature);
+                                  _firestore.collection('BcStep1').document('FoundationAspects').setData({
+
+                                    'goal': (clickedRadio ==1) ? 'Goal' : '',
+                                    'competence': (clickedRadio ==2) ? 'Competence' : '',
+                                    'cultural': (clickedRadio ==3) ? 'Cultural' : '',
+                                    'description': foundationTextController.text
+                                  });
+                                  
                                 } else {
                                   foundationContent.removeAt(index);
                                   foundationContent.insert(
                                       index, NewProductFeature);
+
                                 }
 
                                 foundationTextController.clear();

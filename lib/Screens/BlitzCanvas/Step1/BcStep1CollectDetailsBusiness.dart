@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
@@ -29,7 +30,8 @@ final visionFocusNode = new FocusNode();
 String visionText;
 
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
-
+  final _firestore = Firestore.instance;
+  String missionTextFirebase;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +101,10 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                         ),
                         goNextButton(
                           OnTap: () {
+                            _firestore.collection('BcStep1').document('missionStatement').setData({
+                              'mission':missionTextController.text,
+                              'vision':visionTextController.text
+                            });
                             bcStepsContent[0].bcCompletionValidator = false;
 //                            bcpData[6].CompletionValidator = false;
                             Navigator.pushNamed(context, '/BCStep1AddDetails');

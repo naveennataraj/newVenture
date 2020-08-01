@@ -37,9 +37,7 @@ class _SmallOrangeCardWithoutTitleState
   @override
   Widget build(BuildContext context) {
     return
-//      erased
-//        ? Container()
-//        :
+
         GestureDetector(
       onTap: () {
         //Navigator.pushNamed(context, subject.pushView);
