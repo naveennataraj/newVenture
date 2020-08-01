@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 const cardColor = Color(0xFFF7C3B1);
@@ -7,9 +8,16 @@ class SmallOrangeCardWithoutTitle extends StatefulWidget {
   final int index;
   final List removingat;
   Widget Dialogue;
+  final String CollectionName;
+  final ID;
 
   SmallOrangeCardWithoutTitle(
-      {this.description, this.index, this.removingat, this.Dialogue});
+      {this.description,
+      this.index,
+      this.removingat,
+      this.Dialogue,
+      this.CollectionName,
+      this.ID});
 
   @override
   _SmallOrangeCardWithoutTitleState createState() =>
@@ -20,13 +28,14 @@ bool erased;
 
 class _SmallOrangeCardWithoutTitleState
     extends State<SmallOrangeCardWithoutTitle> {
+  final _firestore = Firestore.instance;
   @override
   void initState() {
     erased = false;
     super.initState();
   }
 
-  void _showDialog() {
+  void _showDialog(CollectionName, ID) {
     // flutter defined function
     showDialog(
       context: context,
@@ -46,8 +55,9 @@ class _SmallOrangeCardWithoutTitleState
               ),
               onPressed: () {
                 setState(() {
-                  erased = true;
-                  widget.removingat.removeAt(widget.index);
+//                  erased = true;
+//                  widget.removingat.removeAt(widget.index);
+                  _firestore.collection(CollectionName).document(ID).delete();
                 });
                 Navigator.of(context).pop();
               },
@@ -72,78 +82,79 @@ class _SmallOrangeCardWithoutTitleState
 
   @override
   Widget build(BuildContext context) {
-    return erased
-        ? Container()
-        : GestureDetector(
-            onTap: () {
-              //Navigator.pushNamed(context, subject.pushView);
-              print('working');
-            },
-            child: Container(
-              height: 180,
-              width: 370,
-              margin: EdgeInsets.symmetric(horizontal: 46.0, vertical: 10.0),
-              decoration: BoxDecoration(
-                color: cardColor,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(20.0),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10.0,
-                      offset: Offset(0.0, 10.0)),
-                ],
+    return
+//      erased
+//        ? Container()
+//        :
+        GestureDetector(
+      onTap: () {
+        //Navigator.pushNamed(context, subject.pushView);
+        print('working');
+      },
+      child: Container(
+        height: 180,
+        width: 370,
+        margin: EdgeInsets.symmetric(horizontal: 46.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: cardColor,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10.0,
+                offset: Offset(0.0, 10.0)),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            //SizedBox(height: 30.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                widget.description,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+            ),
+            Flexible(
+              child: SizedBox(
+                height: 30,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15, right: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  //SizedBox(height: 30.0),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      widget.description,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => widget.Dialogue,
+                      ).then((_) => setState(() {}));
+                    },
+                    child: Icon(Icons.edit),
                   ),
-                  Flexible(
-                    child: SizedBox(
-                      height: 30,
-                    ),
+                  SizedBox(
+                    width: 15.0,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15, right: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  widget.Dialogue,
-                            ).then((_) => setState(() {}));
-                          },
-                          child: Icon(Icons.edit),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _showDialog();
-                          },
-                          child: Icon(Icons.delete),
-                        ),
-                      ],
-                    ),
+                  GestureDetector(
+                    onTap: () {
+                      _showDialog(widget.CollectionName, widget.ID);
+                    },
+                    child: Icon(Icons.delete),
                   ),
                 ],
               ),
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 }

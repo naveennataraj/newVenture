@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
@@ -45,6 +46,7 @@ String expectations;
 
 class _painpointDialogueState extends State<painpointDialogue> {
   int index;
+  final _firestore = Firestore.instance;
 
   _painpointDialogueState(this.index);
   @override
@@ -161,9 +163,28 @@ class _painpointDialogueState extends State<painpointDialogue> {
                           );
                           if (index == null) {
                             AddingNewPainPoint.add(NewPainpoint);
+                            _firestore.collection('painPoints').add({
+                              'Challenge': ChallengeTextController.text,
+                              'MoreDetails': MoreDetailsTextController.text,
+                              'Consequence': ConsequenceTextController.text,
+                              'Addresspp': addressppTextController.text,
+                              'Expectations': expectationsTextController.text,
+                              'Sender': "tester@gmail.com",
+                            });
                           } else {
-                            AddingNewPainPoint.removeAt(index);
-                            AddingNewPainPoint.insert(index, NewPainpoint);
+//                            AddingNewPainPoint.removeAt(index);
+////                            AddingNewPainPoint.insert(index, NewPainpoint);
+                            _firestore
+                                .collection('painPoints')
+                                .document(AddingNewPainPoint[index].ID)
+                                .updateData({
+                              'Challenge': ChallengeTextController.text,
+                              'MoreDetails': MoreDetailsTextController.text,
+                              'Consequence': ConsequenceTextController.text,
+                              'Addresspp': addressppTextController.text,
+                              'Expectations': expectationsTextController.text,
+                              'Sender': "tester@gmail.com",
+                            });
                           }
                           ChallengeTextController.clear();
                           MoreDetailsTextController.clear();
