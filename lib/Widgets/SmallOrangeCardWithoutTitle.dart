@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Widgets/DeleteDialog.dart';
 
 const cardColor = Color(0xFFF7C3B1);
 
@@ -24,60 +24,14 @@ class SmallOrangeCardWithoutTitle extends StatefulWidget {
       _SmallOrangeCardWithoutTitleState();
 }
 
-bool erased;
+//bool erased;
 
 class _SmallOrangeCardWithoutTitleState
     extends State<SmallOrangeCardWithoutTitle> {
-  final _firestore = Firestore.instance;
   @override
   void initState() {
-    erased = false;
+//    erased = false;
     super.initState();
-  }
-
-  void _showDialog(CollectionName, ID) {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text(
-            "Delete card?",
-          ),
-          content: new Text("This will remove the card permanently"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text(
-                "Delete",
-                style: TextStyle(color: Colors.grey),
-              ),
-              onPressed: () {
-                setState(() {
-//                  erased = true;
-//                  widget.removingat.removeAt(widget.index);
-                  _firestore.collection(CollectionName).document(ID).delete();
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: new Text(
-                "Head Back",
-                style: TextStyle(
-                    color: Color(
-                  0XFFE95420,
-                )),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -145,7 +99,13 @@ class _SmallOrangeCardWithoutTitleState
                   ),
                   GestureDetector(
                     onTap: () {
-                      _showDialog(widget.CollectionName, widget.ID);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => DeleteDialogue(
+                          ID: widget.ID,
+                          CollectionName: widget.CollectionName,
+                        ),
+                      ).then((_) => setState(() {}));
                     },
                     child: Icon(Icons.delete),
                   ),
