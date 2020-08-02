@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductGoal.dart';
@@ -14,6 +15,7 @@ class AddProductGoals extends StatefulWidget {
 }
 
 class _AddProductGoalsState extends State<AddProductGoals> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,41 +53,61 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  (AddingNewProductGoals.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the Product Goals",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewProductGoals.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewProductGoals != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithoutTitle(
-                                        description:
-                                            AddingNewProductGoals[index].goal,
-                                        index: index,
-                                        removingat: AddingNewProductGoals,
-                                        Dialogue: addProductGoalsDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('productGoal').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewProductGoals = [];
+                        for (var message in messsages) {
+                          final goal = message.data['goal'];
+                          final ID = message.documentID;
+
+                          final card = addProductGoal(goal: goal, ID: ID);
+                          AddingNewProductGoals.add(card);
+                        }
+                      }
+
+                      return (AddingNewProductGoals.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewProductGoals.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewProductGoals != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithoutTitle(
+                                            description:
+                                                AddingNewProductGoals[index]
+                                                    .goal,
+                                            index: index,
+                                            removingat: AddingNewProductGoals,
+                                            Dialogue: addProductGoalsDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: 'productGoal',
+                                            ID: AddingNewProductGoals[index].ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Product Goals",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

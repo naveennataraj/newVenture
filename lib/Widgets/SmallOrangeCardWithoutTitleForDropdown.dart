@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/DropDown.dart';
 
 import 'DeleteDialog.dart';
 
@@ -99,6 +100,7 @@ class _SmallOrangeCardWithoutTitleForDropDownState
                   ),
                   GestureDetector(
                     onTap: () {
+                      SolutionRankingList.removeAt(widget.index);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => DeleteDialogue(

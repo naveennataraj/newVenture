@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
@@ -58,6 +59,7 @@ class _addCompetingProductsDialogueState
     }
   }
 
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -136,21 +138,47 @@ class _addCompetingProductsDialogueState
                             routeName: '/addproductgoals',
                             onTap: () {
                               setState(() {
-                                final NewComponentProduct = addCompetingProduct(
-                                    ProductName: ProductNameTextController.text,
-                                    OrgName: OrgNameTextController.text,
-                                    Features:
-                                        CompetingOfferingTextController.text,
-                                    CurrentOffering:
-                                        SolutionOfferingTextController.text);
+//                                final NewComponentProduct = addCompetingProduct(
+//                                    ProductName: ProductNameTextController.text,
+//                                    OrgName: OrgNameTextController.text,
+//                                    Features:
+//                                        CompetingOfferingTextController.text,
+//                                    CurrentOffering:
+//                                        SolutionOfferingTextController.text);
 
                                 if (index == null) {
-                                  AddingNewCompetingProduct.add(
-                                      NewComponentProduct);
+//                                  AddingNewCompetingProduct.add(
+//                                      NewComponentProduct);
+                                  _firestore
+                                      .collection('competingProducts')
+                                      .add({
+                                    'ProductName':
+                                        ProductNameTextController.text,
+                                    'OrgName': OrgNameTextController.text,
+                                    'Features':
+                                        CompetingOfferingTextController.text,
+                                    'CurrentOffering':
+                                        SolutionOfferingTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewCompetingProduct.removeAt(index);
-                                  AddingNewCompetingProduct.insert(
-                                      index, NewComponentProduct);
+//                                  AddingNewCompetingProduct.removeAt(index);
+//                                  AddingNewCompetingProduct.insert(
+//                                      index, NewComponentProduct);
+                                  _firestore
+                                      .collection('competingProducts')
+                                      .document(
+                                          AddingNewCompetingProduct[index].ID)
+                                      .updateData({
+                                    'ProductName':
+                                        ProductNameTextController.text,
+                                    'OrgName': OrgNameTextController.text,
+                                    'Features':
+                                        CompetingOfferingTextController.text,
+                                    'CurrentOffering':
+                                        SolutionOfferingTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 ProductNameTextController.clear();

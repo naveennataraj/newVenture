@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
@@ -22,6 +23,7 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
     return 'As a $A, I want to $B so that $C';
   }
 
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,47 +53,73 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Let's capture some user stories",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )),
-                  (AddingNewUserStory.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the User Stories",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewUserStory.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewUserStory != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithoutTitle(
-                                        description: UserStory(index),
-                                        index: index,
-                                        removingat: AddingNewUserStory,
-                                        Dialogue: userStoryDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Let's capture some user stories",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('userStory').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewUserStory = [];
+                        for (var message in messsages) {
+                          final Asa = message.data['Asa'];
+                          final IWantTo = message.data['IWantTo'];
+                          final SoThat = message.data['SoThat'];
+                          final ID = message.documentID;
+
+                          final card = addUserStories(
+                              Asa: Asa,
+                              IWantTo: IWantTo,
+                              SoThat: SoThat,
+                              ID: ID);
+                          AddingNewUserStory.add(card);
+                        }
+                      }
+
+                      return (AddingNewUserStory.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewUserStory.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewUserStory != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithoutTitle(
+                                            description: UserStory(index),
+                                            index: index,
+                                            removingat: AddingNewUserStory,
+                                            Dialogue: userStoryDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: 'userStory',
+                                            ID: AddingNewUserStory[index].ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the User Stories",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

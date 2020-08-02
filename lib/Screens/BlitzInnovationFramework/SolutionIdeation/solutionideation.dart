@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideationDialogue.dart';
@@ -15,13 +17,12 @@ class SolutionIdeation extends StatefulWidget {
 }
 
 class _SolutionIdeationState extends State<SolutionIdeation> {
-  NotifyProgress() {
-    setState(() {
-      bcpData[2].CompletionValidator = false;
-      print(bcpData[2].CompletionValidator);
-    });
+  ValueofSolution() {
+    int value = AddingNewSolutions.length - 1;
+    return value;
   }
 
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,41 +64,72 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                     Note:
                         'Tip: To start with, it is ideal to add as many solutions as possible. The relevant solutions can then be shortlisted and the ideal solution option can be selected at the end.',
                   ),
-                  (AddingNewSolutions.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the solutions",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewSolutions.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewSolutions != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithoutTitleForDropDown(
-                                        description:
-                                            AddingNewSolutions[index].Name,
-                                        index: index,
-                                        removingat: AddingNewSolutions,
-                                        Dialogue: solutionIdeationDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream:
+                        _firestore.collection('solutionIdeation').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewSolutions = [];
+                        SolutionRankingList = [];
+                        for (var message in messsages) {
+                          final Name = message.data['Name'];
+                          final BriefDesctiption =
+                              message.data['BriefDesctiption'];
+                          final ID = message.documentID;
+
+                          final card = addSolutions(
+                              Name: Name,
+                              BriefDesctiption: BriefDesctiption,
+                              ID: ID);
+                          AddingNewSolutions.add(card);
+                          //Adding solutions to dropdown
+                          final AddingSolutinstoDropdown =
+                              DropDownItem(ValueofSolution(), Name);
+
+                          SolutionRankingList.add(AddingSolutinstoDropdown);
+                        }
+                      }
+
+                      return (AddingNewSolutions.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewSolutions.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewSolutions != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithoutTitleForDropDown(
+                                            description:
+                                                AddingNewSolutions[index].Name,
+                                            index: index,
+                                            removingat: AddingNewSolutions,
+                                            Dialogue: solutionIdeationDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: 'solutionIdeation',
+                                            ID: AddingNewSolutions[index].ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the solutions",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

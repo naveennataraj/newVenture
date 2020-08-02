@@ -3,8 +3,10 @@ class addCompetingProduct {
   final String OrgName;
   final String Features;
   final String CurrentOffering;
+  final ID;
 
   addCompetingProduct({
+    this.ID,
     this.ProductName,
     this.OrgName,
     this.Features,

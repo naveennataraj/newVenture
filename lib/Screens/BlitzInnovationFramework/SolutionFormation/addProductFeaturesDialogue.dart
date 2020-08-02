@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
@@ -29,6 +30,7 @@ String FeatureDescription;
 class _addProductFeaturesDialogueState
     extends State<addProductFeaturesDialogue> {
   int index;
+
   bool checked = false;
   int clickedRadio;
   Color CheckTextActive = Colors.black;
@@ -45,6 +47,8 @@ class _addProductFeaturesDialogueState
   }
 
   _addProductFeaturesDialogueState(this.index);
+
+  final _firestore = Firestore.instance;
   @override
   void initState() {
     super.initState();
@@ -246,12 +250,34 @@ class _addProductFeaturesDialogueState
                                     FeatureType: clickedRadio);
 
                                 if (index == null) {
-                                  AddingNewProductFeature.add(
-                                      NewProductFeature);
+//                                  AddingNewProductFeature.add(
+//                                      NewProductFeature);
+                                  _firestore.collection('productFeatures').add({
+                                    'FeatureTitle':
+                                        ProductFeatureTextController.text,
+                                    'FeatureDescription':
+                                        FeatureDescriptionTextController.text,
+                                    'FeatureChecked': checked,
+                                    'FeatureType': clickedRadio,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewProductFeature.removeAt(index);
-                                  AddingNewProductFeature.insert(
-                                      index, NewProductFeature);
+//                                  AddingNewProductFeature.removeAt(index);
+//                                  AddingNewProductFeature.insert(
+//                                      index, NewProductFeature);
+                                  _firestore
+                                      .collection('productFeatures')
+                                      .document(
+                                          AddingNewProductFeature[index].ID)
+                                      .updateData({
+                                    'FeatureTitle':
+                                        ProductFeatureTextController.text,
+                                    'FeatureDescription':
+                                        FeatureDescriptionTextController.text,
+                                    'FeatureChecked': checked,
+                                    'FeatureType': clickedRadio,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 ProductFeatureTextController.clear();

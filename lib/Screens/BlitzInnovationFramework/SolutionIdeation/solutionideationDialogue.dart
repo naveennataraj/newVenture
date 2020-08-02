@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
@@ -29,6 +30,7 @@ String Brief;
 
 class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
   int index;
+  final _firestore = Firestore.instance;
 
   _solutionIdeationDialogueState(this.index);
   @override
@@ -99,17 +101,34 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                           AddSolutionButton(
                             onTap: () {
                               setState(() {
-                                final NewSolutionIdeation = addSolutions(
-                                  Name: NameTextController.text,
-                                  BriefDesctiption: BriefTextController.text,
-                                );
+//                                final NewSolutionIdeation = addSolutions(
+//                                  Name: NameTextController.text,
+//                                  BriefDesctiption: BriefTextController.text,
+//                                );
 
                                 if (index == null) {
-                                  AddingNewSolutions.add(NewSolutionIdeation);
+//                                  AddingNewSolutions.add(NewSolutionIdeation);
+                                  _firestore
+                                      .collection('solutionIdeation')
+                                      .add({
+                                    'Name': NameTextController.text,
+                                    'BriefDesctiption':
+                                        BriefTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewSolutions.removeAt(index);
-                                  AddingNewSolutions.insert(
-                                      index, NewSolutionIdeation);
+//                                  AddingNewSolutions.removeAt(index);
+//                                  AddingNewSolutions.insert(
+//                                      index, NewSolutionIdeation);
+                                  _firestore
+                                      .collection('solutionIdeation')
+                                      .document(AddingNewSolutions[index].ID)
+                                      .updateData({
+                                    'Name': NameTextController.text,
+                                    'BriefDesctiption':
+                                        BriefTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 //Adding solutions to dropdown

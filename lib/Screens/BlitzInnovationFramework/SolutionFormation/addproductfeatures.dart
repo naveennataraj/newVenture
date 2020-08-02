@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
@@ -14,6 +15,8 @@ class AddProductFeatures extends StatefulWidget {
 }
 
 class _AddProductFeaturesState extends State<AddProductFeatures> {
+  final _firestore = Firestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,44 +54,76 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  (AddingNewProductFeature.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the Product Features",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewProductFeature.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewProductFeature != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithTitle(
-                                        title: AddingNewProductFeature[index]
-                                            .FeatureTitle,
-                                        description:
-                                            AddingNewProductFeature[index]
-                                                .FeatureDescription,
-                                        index: index,
-                                        removingat: AddingNewProductFeature,
-                                        Dialogue: addProductFeaturesDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream:
+                        _firestore.collection('productFeatures').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewProductFeature = [];
+                        for (var message in messsages) {
+                          final FeatureTitle = message.data['FeatureTitle'];
+                          final FeatureDescription =
+                              message.data['FeatureDescription'];
+                          final FeatureChecked = message.data['FeatureChecked'];
+                          final FeatureType = message.data['FeatureType'];
+                          final ID = message.documentID;
+
+                          final card = addProductFeature(
+                              FeatureTitle: FeatureTitle,
+                              FeatureDescription: FeatureDescription,
+                              FeatureChecked: FeatureChecked,
+                              FeatureType: FeatureType,
+                              ID: ID);
+                          AddingNewProductFeature.add(card);
+                        }
+                      }
+
+                      return (AddingNewProductFeature.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewProductFeature.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewProductFeature != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title:
+                                                AddingNewProductFeature[index]
+                                                    .FeatureTitle,
+                                            description:
+                                                AddingNewProductFeature[index]
+                                                    .FeatureDescription,
+                                            index: index,
+                                            removingat: AddingNewProductFeature,
+                                            Dialogue:
+                                                addProductFeaturesDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: 'productFeatures',
+                                            ID: AddingNewProductFeature[index]
+                                                .ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Product Features",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

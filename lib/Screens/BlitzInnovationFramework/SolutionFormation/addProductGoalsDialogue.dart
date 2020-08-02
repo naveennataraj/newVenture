@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductGoal.dart';
@@ -18,10 +19,11 @@ var ProductGoallabelColor = Color(0XFF919191);
 bool validProductGoal = true;
 var ProductGoalTextController = TextEditingController();
 final ProductGoalFocusNode = new FocusNode();
-String ProductGoal;
+String ProductGoal = '';
 
 class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
   int index;
+  final _firestore = Firestore.instance;
 
   _addProductGoalsDialogueState(this.index);
   @override
@@ -76,16 +78,27 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
                           AddProductGoalButton(
                             onTap: () {
                               setState(() {
-                                final NewProductGoals = addProductGoal(
-                                  goal: ProductGoalTextController.text,
-                                );
+//                                final NewProductGoals = addProductGoal(
+//                                  goal: ProductGoalTextController.text,
+//                                );
 
                                 if (index == null) {
-                                  AddingNewProductGoals.add(NewProductGoals);
+//                                  AddingNewProductGoals.add(NewProductGoals);
+                                  _firestore.collection('productGoal').add({
+                                    'goal': ProductGoalTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewProductGoals.removeAt(index);
-                                  AddingNewProductGoals.insert(
-                                      index, NewProductGoals);
+//                                  AddingNewProductGoals.removeAt(index);
+//                                  AddingNewProductGoals.insert(
+//                                      index, NewProductGoals);
+                                  _firestore
+                                      .collection('productGoal')
+                                      .document(AddingNewProductGoals[index].ID)
+                                      .updateData({
+                                    'goal': ProductGoalTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 ProductGoalTextController.clear();

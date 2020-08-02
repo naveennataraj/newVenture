@@ -49,7 +49,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
   final _firestore = Firestore.instance;
 
   _painpointDialogueState(this.index);
-  @override
+
   void initState() {
     //  implement initState
     super.initState();

@@ -65,7 +65,6 @@ class _AddPainPointsState extends State<AddPainPoints> {
                           final MoreDetails = message.data['MoreDetails'];
                           final Challenge = message.data['Challenge'];
                           final Addresspp = message.data['Addresspp'];
-
                           final Expectations = message.data['Expectations'];
                           final ID = message.documentID;
 
@@ -78,9 +77,8 @@ class _AddPainPointsState extends State<AddPainPoints> {
                               ID: ID);
                           AddingNewPainPoint.add(card);
                         }
-                        ;
                       }
-                      ;
+
                       return (AddingNewPainPoint.length != 0)
                           ? ListView.builder(
                               itemCount: AddingNewPainPoint.length,

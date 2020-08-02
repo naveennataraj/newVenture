@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
@@ -33,6 +34,7 @@ String SoThat;
 
 class _userStoryDialogueState extends State<userStoryDialogue> {
   int index;
+  final _firestore = Firestore.instance;
 
   _userStoryDialogueState(this.index);
   @override
@@ -113,17 +115,32 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
                             routeName: '/addpainpoints',
                             onTap: () {
                               setState(() {
-                                final NewUserStory = addUserStories(
-                                  Asa: AsaTextController.text,
-                                  IWantTo: SoThatTextController.text,
-                                  SoThat: IWantToTextController.text,
-                                );
+//                                final NewUserStory = addUserStories(
+//                                  Asa: AsaTextController.text,
+//                                  IWantTo: SoThatTextController.text,
+//                                  SoThat: IWantToTextController.text,
+//                                );
                                 if (index == null) {
-                                  AddingNewUserStory.add(NewUserStory);
+//                                  AddingNewUserStory.add(NewUserStory);
+                                  _firestore.collection('userStory').add({
+                                    'Asa': AsaTextController.text,
+                                    'IWantTo': SoThatTextController.text,
+                                    'SoThat': IWantToTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewUserStory.removeAt(index);
-                                  AddingNewUserStory.insert(
-                                      index, NewUserStory);
+//                                  AddingNewUserStory.removeAt(index);
+//                                  AddingNewUserStory.insert(
+//                                      index, NewUserStory);
+                                  _firestore
+                                      .collection('userStory')
+                                      .document(AddingNewUserStory[index].ID)
+                                      .updateData({
+                                    'Asa': AsaTextController.text,
+                                    'IWantTo': SoThatTextController.text,
+                                    'SoThat': IWantToTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 //
                                 AsaTextController.clear();

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
@@ -16,6 +17,7 @@ class AddCompetingProducts extends StatefulWidget {
 }
 
 class _AddCompetingProductsState extends State<AddCompetingProducts> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,44 +59,76 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                     Note:
                         "Tip: This section is a list of products in the market which currently cater to the customer's pain points",
                   ),
-                  (AddingNewCompetingProduct.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the Competing Products",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewCompetingProduct.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewCompetingProduct != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithTitle(
-                                        title: AddingNewCompetingProduct[index]
-                                            .ProductName,
-                                        description:
-                                            AddingNewCompetingProduct[index]
-                                                .Features,
-                                        index: index,
-                                        removingat: AddingNewProductFeature,
-                                        Dialogue: addCompetingProductsDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream:
+                        _firestore.collection('competingProducts').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewCompetingProduct = [];
+                        for (var message in messsages) {
+                          final ProductName = message.data['ProductName'];
+                          final OrgName = message.data['OrgName'];
+                          final Features = message.data['Features'];
+                          final CurrentOffering =
+                              message.data['CurrentOffering'];
+                          final ID = message.documentID;
+
+                          final card = addCompetingProduct(
+                              CurrentOffering: CurrentOffering,
+                              Features: Features,
+                              OrgName: OrgName,
+                              ProductName: ProductName,
+                              ID: ID);
+                          AddingNewCompetingProduct.add(card);
+                        }
+                      }
+
+                      return (AddingNewCompetingProduct.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewCompetingProduct.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewCompetingProduct != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title:
+                                                AddingNewCompetingProduct[index]
+                                                    .ProductName,
+                                            description:
+                                                AddingNewCompetingProduct[index]
+                                                    .Features,
+                                            index: index,
+                                            removingat: AddingNewProductFeature,
+                                            Dialogue:
+                                                addCompetingProductsDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: 'competingProducts',
+                                            ID: AddingNewCompetingProduct[index]
+                                                .ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Competing Products",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
