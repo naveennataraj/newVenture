@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
@@ -15,6 +16,7 @@ class AddParallelInnovations extends StatefulWidget {
 }
 
 class _AddParallelInnovationsState extends State<AddParallelInnovations> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,46 +58,79 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                     Note:
                         'Tip: Based on your solution concept which has been designed until this point, is there any parallel solution concept(s) which you can think of which would provide value to the customer?\nOne example of this is Uber Eats which was derived from the Original Uber solution. Another example is the Apple watch which was designed as a complementary offering to the iPhone/iPad line of products.',
                   ),
-                  (AddingNewParallelInnovations.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the solution concept",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewParallelInnovations.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewParallelInnovations != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithTitle(
-                                        title:
-                                            AddingNewParallelInnovations[index]
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection('parallelInnovations')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewParallelInnovations = [];
+                        for (var message in messsages) {
+                          final Name = message.data['Name'];
+                          final Description = message.data['Description'];
+                          final CheckedSolution =
+                              message.data['CheckedSolution'];
+                          final ID = message.documentID;
+
+                          final card = addparallelinnovations(
+                              Name: Name,
+                              Description: Description,
+                              CheckedSolution: CheckedSolution,
+                              ID: ID);
+                          AddingNewParallelInnovations.add(card);
+                        }
+                      }
+
+                      return (AddingNewParallelInnovations.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewParallelInnovations.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewParallelInnovations != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title: AddingNewParallelInnovations[
+                                                    index]
                                                 .Name,
-                                        description:
-                                            AddingNewParallelInnovations[index]
-                                                .Description,
-                                        index: index,
-                                        removingat:
-                                            AddingNewParallelInnovations,
-                                        Dialogue: addParallelInnovationDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                                            description:
+                                                AddingNewParallelInnovations[
+                                                        index]
+                                                    .Description,
+                                            index: index,
+                                            removingat:
+                                                AddingNewParallelInnovations,
+                                            Dialogue:
+                                                addParallelInnovationDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName:
+                                                'parallelInnovations',
+                                            ID: AddingNewParallelInnovations[
+                                                    index]
+                                                .ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the solution concept",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

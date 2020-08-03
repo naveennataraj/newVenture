@@ -4,8 +4,9 @@ class addMetrics {
   final String Name;
   final String Description;
   final DropDownItem SelectedOption;
+  final ID;
 
-  addMetrics({this.SelectedOption, this.Name, this.Description});
+  addMetrics({this.ID, this.SelectedOption, this.Name, this.Description});
 }
 
 List<addMetrics> AddingNewMetrics = [

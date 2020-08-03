@@ -1,9 +1,9 @@
 import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -52,6 +52,7 @@ final ParallelSolutionFocusNode = new FocusNode();
 String ParallelSolution;
 
 class _AddProductMetricsState extends State<AddProductMetrics> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,56 +167,203 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                           OnTap: () {
                             bcpData[7].CompletionValidator = false;
 
-                            final NewMetric1 = addMetrics(
-                                Name: 'Problem Space',
-                                Description: CustomerProblemTextController.text,
-                                SelectedOption: MetricsList[0]);
-                            final NewMetric2 = addMetrics(
-                                Name: 'Solution Space',
-                                Description: SolutionTextController.text,
-                                SelectedOption: MetricsList[1]);
-                            final NewMetic3 = addMetrics(
-                                Name: 'Evangelism',
-                                Description: EvangelismTextController.text,
-                                SelectedOption: MetricsList[2]);
-                            final NewMetic4 = addMetrics(
-                                Name: 'Scale',
-                                Description: ScaleTextController.text,
-                                SelectedOption: MetricsList[3]);
-                            final NewMetic5 = addMetrics(
-                                Name: 'Evolution',
-                                Description: EvolutionTextController.text,
-                                SelectedOption: MetricsList[4]);
-                            final NewMetic6 = addMetrics(
-                                Name: 'Ecosystem',
-                                Description:
-                                    ParallelSolutionTextController.text,
-                                SelectedOption: MetricsList[5]);
+//                            final NewMetric1 = addMetrics(
+//                                Name: 'Problem Space',
+//                                Description: CustomerProblemTextController.text,
+//                                SelectedOption: MetricsList[0]);
+                            _firestore
+                                .collection('metrics')
+                                .document('ProblemSpace')
+                                .setData({
+                              'Name': 'Problem Space',
+                              'Description': CustomerProblemTextController.text,
+                              'SelectedOption': [
+                                MetricsList[0].value,
+                                MetricsList[0].name
+                              ],
+                              'Sender': "tester@gmail.com",
+                            });
+//                            final NewMetric2 = addMetrics(
+//                                Name: 'Solution Space',
+//                                Description: SolutionTextController.text,
+//                                SelectedOption: MetricsList[1]);
+                            _firestore
+                                .collection('metrics')
+                                .document('SolutionSpace')
+                                .setData({
+                              'Name': 'Solution Space',
+                              'Description': SolutionTextController.text,
+                              'SelectedOption': [
+                                MetricsList[1].value,
+                                MetricsList[1].name
+                              ],
+                              'Sender': "tester@gmail.com",
+                            });
+//                            final NewMetic3 = addMetrics(
+//                                Name: 'Evangelism',
+//                                Description: EvangelismTextController.text,
+//                                SelectedOption: MetricsList[2]);
+                            _firestore
+                                .collection('metrics')
+                                .document('Evangelism')
+                                .setData({
+                              'Name': 'Evangelism',
+                              'Description': EvangelismTextController.text,
+                              'SelectedOption': [
+                                MetricsList[2].value,
+                                MetricsList[2].name
+                              ],
+                              'Sender': "tester@gmail.com",
+                            });
+//                            final NewMetic4 = addMetrics(
+//                                Name: 'Scale',
+//                                Description: ScaleTextController.text,
+//                                SelectedOption: MetricsList[3]);
+                            _firestore
+                                .collection('metrics')
+                                .document('Scale')
+                                .setData({
+                              'Name': 'Scale',
+                              'Description': ScaleTextController.text,
+                              'SelectedOption': [
+                                MetricsList[3].value,
+                                MetricsList[3].name
+                              ],
+                              'Sender': "tester@gmail.com",
+                            });
+//                            final NewMetic5 = addMetrics(
+//                                Name: 'Evolution',
+//                                Description: EvolutionTextController.text,
+//                                SelectedOption: MetricsList[4]);
+                            _firestore
+                                .collection('metrics')
+                                .document('Evolution')
+                                .setData({
+                              'Name': 'Evolution',
+                              'Description': EvolutionTextController.text,
+                              'SelectedOption': [
+                                MetricsList[4].value,
+                                MetricsList[4].name
+                              ],
+                              'Sender': "tester@gmail.com",
+                            });
+//                            final NewMetic6 = addMetrics(
+//                                Name: 'Ecosystem',
+//                                Description:
+//                                    ParallelSolutionTextController.text,
+//                                SelectedOption: MetricsList[5]);
+                            _firestore
+                                .collection('metrics')
+                                .document('Ecosystem')
+                                .setData({
+                              'Name': 'Ecosystem',
+                              'Description':
+                                  ParallelSolutionTextController.text,
+                              'SelectedOption': [
+                                MetricsList[5].value,
+                                MetricsList[5].name
+                              ],
+                              'Sender': "tester@gmail.com",
+                            });
 
                             setState(() {
                               if (CustomerProblemTextController.text != null) {
-                                AddingNewMetrics.removeAt(0);
-                                AddingNewMetrics.insert(0, NewMetric1);
+//                                AddingNewMetrics.removeAt(0);
+//                                AddingNewMetrics.insert(0, NewMetric1);
+                                _firestore
+                                    .collection('metrics')
+                                    .document('ProblemSpace')
+                                    .updateData({
+                                  'Name': 'Problem Space',
+                                  'Description':
+                                      CustomerProblemTextController.text,
+                                  'SelectedOption': [
+                                    MetricsList[0].value,
+                                    MetricsList[0].name
+                                  ],
+                                  'Sender': "tester@gmail.com",
+                                });
                               }
                               if (SolutionTextController.text != null) {
-                                AddingNewMetrics.removeAt(1);
-                                AddingNewMetrics.insert(1, NewMetric2);
+//                                AddingNewMetrics.removeAt(1);
+//                                AddingNewMetrics.insert(1, NewMetric2);
+                                _firestore
+                                    .collection('metrics')
+                                    .document('SolutionSpace')
+                                    .updateData({
+                                  'Name': 'Solution Space',
+                                  'Description': SolutionTextController.text,
+                                  'SelectedOption': [
+                                    MetricsList[1].value,
+                                    MetricsList[1].name
+                                  ],
+                                  'Sender': "tester@gmail.com",
+                                });
                               }
                               if (EvangelismTextController.text != null) {
-                                AddingNewMetrics.removeAt(2);
-                                AddingNewMetrics.insert(2, NewMetic3);
+//                                AddingNewMetrics.removeAt(2);
+//                                AddingNewMetrics.insert(2, NewMetic3);
+                                _firestore
+                                    .collection('metrics')
+                                    .document('Evangelism')
+                                    .updateData({
+                                  'Name': 'Evangelism',
+                                  'Description': EvangelismTextController.text,
+                                  'SelectedOption': [
+                                    MetricsList[2].value,
+                                    MetricsList[2].name
+                                  ],
+                                  'Sender': "tester@gmail.com",
+                                });
                               }
                               if (ScaleTextController.text != null) {
-                                AddingNewMetrics.removeAt(3);
-                                AddingNewMetrics.insert(3, NewMetic4);
+//                                AddingNewMetrics.removeAt(3);
+//                                AddingNewMetrics.insert(3, NewMetic4);
+                                _firestore
+                                    .collection('metrics')
+                                    .document('Scale')
+                                    .updateData({
+                                  'Name': 'Scale',
+                                  'Description': ScaleTextController.text,
+                                  'SelectedOption': [
+                                    MetricsList[3].value,
+                                    MetricsList[3].name
+                                  ],
+                                  'Sender': "tester@gmail.com",
+                                });
                               }
                               if (EvolutionTextController.text != null) {
-                                AddingNewMetrics.removeAt(4);
-                                AddingNewMetrics.insert(4, NewMetic5);
+//                                AddingNewMetrics.removeAt(4);
+//                                AddingNewMetrics.insert(4, NewMetic5);
+                                _firestore
+                                    .collection('metrics')
+                                    .document('Evolution')
+                                    .updateData({
+                                  'Name': 'Evolution',
+                                  'Description': EvolutionTextController.text,
+                                  'SelectedOption': [
+                                    MetricsList[4].value,
+                                    MetricsList[4].name
+                                  ],
+                                  'Sender': "tester@gmail.com",
+                                });
                               }
                               if (ParallelSolutionTextController.text != null) {
-                                AddingNewMetrics.removeAt(5);
-                                AddingNewMetrics.insert(5, NewMetic6);
+//                                AddingNewMetrics.removeAt(5);
+//                                AddingNewMetrics.insert(5, NewMetic6);
+                                _firestore
+                                    .collection('metrics')
+                                    .document('Ecosystem')
+                                    .updateData({
+                                  'Name': 'Ecosystem',
+                                  'Description':
+                                      ParallelSolutionTextController.text,
+                                  'SelectedOption': [
+                                    MetricsList[5].value,
+                                    MetricsList[5].name
+                                  ],
+                                  'Sender': "tester@gmail.com",
+                                });
                               }
 
                               Navigator.pushNamed(context, '/addmetrics');

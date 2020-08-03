@@ -3,8 +3,10 @@ class addContact {
   final String Email;
   final String Contact;
   final int ContactSelected;
+  final ID;
 
-  addContact({this.Name, this.Email, this.Contact, this.ContactSelected});
+  addContact(
+      {this.ID, this.Name, this.Email, this.Contact, this.ContactSelected});
 }
 
 List<addContact> AddingNewContacts = [];

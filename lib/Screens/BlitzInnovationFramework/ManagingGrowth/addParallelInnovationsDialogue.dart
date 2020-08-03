@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
@@ -33,6 +34,8 @@ String SolutionDescription;
 class _addParallelInnovationDialogueState
     extends State<addParallelInnovationDialogue> {
   int index;
+
+  final _firestore = Firestore.instance;
 
   _addParallelInnovationDialogueState(this.index);
   @override
@@ -116,21 +119,42 @@ class _addParallelInnovationDialogueState
                           AddMetricButton(
                             onTap: () {
                               setState(() {
-                                final NewParallelInnovation =
-                                    addparallelinnovations(
-                                        Name: SolutionNameTextController.text,
-                                        Description:
-                                            SolutionDescriptionTextController
-                                                .text,
-                                        CheckedSolution: SolutionChecked);
+//                                final NewParallelInnovation =
+//                                    addparallelinnovations(
+//                                        Name: SolutionNameTextController.text,
+//                                        Description:
+//                                            SolutionDescriptionTextController
+//                                                .text,
+//                                        CheckedSolution: SolutionChecked);
 
                                 if (index == null) {
-                                  AddingNewParallelInnovations.add(
-                                      NewParallelInnovation);
+//                                  AddingNewParallelInnovations.add(
+//                                      NewParallelInnovation);
+                                  _firestore
+                                      .collection('parallelInnovations')
+                                      .add({
+                                    'Name': SolutionNameTextController.text,
+                                    'Description':
+                                        SolutionDescriptionTextController.text,
+                                    'CheckedSolution': SolutionChecked,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewParallelInnovations.removeAt(index);
-                                  AddingNewParallelInnovations.insert(
-                                      index, NewParallelInnovation);
+//                                  AddingNewParallelInnovations.removeAt(index);
+//                                  AddingNewParallelInnovations.insert(
+//                                      index, NewParallelInnovation);
+                                  _firestore
+                                      .collection('parallelInnovations')
+                                      .document(
+                                          AddingNewParallelInnovations[index]
+                                              .ID)
+                                      .updateData({
+                                    'Name': SolutionNameTextController.text,
+                                    'Description':
+                                        SolutionDescriptionTextController.text,
+                                    'CheckedSolution': SolutionChecked,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 SolutionNameTextController.clear();

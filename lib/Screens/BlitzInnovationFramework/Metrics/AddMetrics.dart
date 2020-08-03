@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/Metrics/addMetricsDialogue.dart';
@@ -17,7 +19,6 @@ class AddMetrics extends StatefulWidget {
 class _AddMetricsState extends State<AddMetrics> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
       AddingNewMetrics;
@@ -25,6 +26,7 @@ class _AddMetricsState extends State<AddMetrics> {
     });
   }
 
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,42 +68,78 @@ class _AddMetricsState extends State<AddMetrics> {
                     Note:
                         'Tip: Metrics help measure and keep track of what is important in the solution concept and business model.\nThe framework for capture of metrics used by this application is based on the MESOPS Framework. To study this further, please refer to this link.',
                   ),
-                  (AddingNewMetrics.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the solution concept",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewMetrics.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewMetrics != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithTitle(
-                                        title: AddingNewMetrics[index].Name,
-                                        description:
-                                            AddingNewMetrics[index].Description,
-                                        index: index,
-                                        removingat: AddingNewMetrics,
-                                        Dialogue: addMetricsDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('metrics').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewMetrics = [];
+                        for (var message in messsages) {
+                          final Name = message.data['Name'];
+                          final Description = message.data['Description'];
+                          final SelectedOption = message.data['SelectedOption'];
+                          final ID = message.documentID;
+
+                          final int dropValue = SelectedOption[0];
+                          final String dropName = SelectedOption[1];
+
+                          final card = addMetrics(
+                              Name: Name,
+                              Description: Description,
+                              SelectedOption: DropDownItem(dropValue, dropName),
+                              ID: ID);
+                          AddingNewMetrics.add(card);
+                        }
+                      }
+
+                      return (AddingNewMetrics.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewMetrics.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewMetrics != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title: AddingNewMetrics[index].Name,
+                                            description: AddingNewMetrics[index]
+                                                .Description,
+                                            index: index,
+                                            removingat: AddingNewMetrics,
+                                            Dialogue: addMetricsDialogue(
+                                              index: index,
+                                              SelectedMetricsName:
+                                                  AddingNewMetrics[index]
+                                                      .SelectedOption
+                                                      .name,
+                                              SelectedMetricsValue:
+                                                  AddingNewMetrics[index]
+                                                      .SelectedOption
+                                                      .value,
+                                            ),
+                                            CollectionName: 'metrics',
+                                            ID: AddingNewMetrics[index].ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the solution concept",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

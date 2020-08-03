@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
@@ -16,6 +17,7 @@ class AddQuotes extends StatefulWidget {
 }
 
 class _AddQuotesState extends State<AddQuotes> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,41 +59,62 @@ class _AddQuotesState extends State<AddQuotes> {
                     Note:
                         'Tip: When speaking with prospective customers or potential end users, do we get the impression that the preferred solution concept will provide relief on their pain points? If yes, at the least one of these can be added to demonstrate the effectiveness of the solution concept.',
                   ),
-                  (AddingNewQuote.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the solutions",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewQuote.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewQuote != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithoutTitle(
-                                        description:
-                                            AddingNewQuote[index].Content,
-                                        index: index,
-                                        removingat: AddingNewQuote,
-                                        Dialogue: addQuotesDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('Quote').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewQuote = [];
+                        for (var message in messsages) {
+                          final Content = message.data['Content'];
+                          final CheckQuote = message.data['CheckQuote'];
+                          final ID = message.documentID;
+
+                          final card = addQuote(
+                              Content: Content, CheckQuote: CheckQuote, ID: ID);
+                          AddingNewQuote.add(card);
+                        }
+                      }
+
+                      return (AddingNewQuote.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewQuote.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewQuote != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithoutTitle(
+                                            description:
+                                                AddingNewQuote[index].Content,
+                                            index: index,
+                                            removingat: AddingNewQuote,
+                                            Dialogue: addQuotesDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: 'Quote',
+                                            ID: AddingNewQuote[index].ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the solutions",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

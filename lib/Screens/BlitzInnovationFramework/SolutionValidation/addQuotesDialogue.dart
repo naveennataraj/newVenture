@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
@@ -36,6 +37,7 @@ class _addQuotesDialogueState extends State<addQuotesDialogue> {
     }
   }
 
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -96,15 +98,28 @@ class _addQuotesDialogueState extends State<addQuotesDialogue> {
                           AddQuoteButton(
                             onTap: () {
                               setState(() {
-                                final NewQuote = addQuote(
-                                    Content: QuoteContentTextController.text,
-                                    CheckQuote: Quotechecked);
+//                                final NewQuote = addQuote(
+//                                    Content: QuoteContentTextController.text,
+//                                    CheckQuote: Quotechecked);
 
                                 if (index == null) {
-                                  AddingNewQuote.add(NewQuote);
+//                                  AddingNewQuote.add(NewQuote);
+                                  _firestore.collection('Quote').add({
+                                    'Content': QuoteContentTextController.text,
+                                    'CheckQuote': Quotechecked,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewQuote.removeAt(index);
-                                  AddingNewQuote.insert(index, NewQuote);
+//                                  AddingNewQuote.removeAt(index);
+//                                  AddingNewQuote.insert(index, NewQuote);
+                                  _firestore
+                                      .collection('Quote')
+                                      .document(AddingNewQuote[index].ID)
+                                      .updateData({
+                                    'Content': QuoteContentTextController.text,
+                                    'CheckQuote': Quotechecked,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 QuoteContentTextController.clear();

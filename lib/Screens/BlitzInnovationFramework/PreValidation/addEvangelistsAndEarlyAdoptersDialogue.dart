@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addContact.dart';
@@ -66,6 +67,8 @@ class _addEvangelistsAndEarlyAdoptersDialogueState
     radio2Focus.dispose();
     super.dispose();
   }
+
+  final _firestore = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -174,23 +177,42 @@ class _addEvangelistsAndEarlyAdoptersDialogueState
                           AddProductGoalButton(
                             onTap: () {
                               setState(() {
-                                final NewContacts = addContact(
-                                  Name: PersonNameTextController.text,
-                                  Email: PersonEmailTextController.text,
-                                  Contact: PersonNumberTextController.text,
-                                );
+//                                final NewContacts = addContact(
+//                                  Name: PersonNameTextController.text,
+//                                  Email: PersonEmailTextController.text,
+//                                  Contact: PersonNumberTextController.text,
+//                                );
 
                                 if (index == null) {
-                                  AddingNewContacts.add(NewContacts);
+//                                  AddingNewContacts.add(NewContacts);
+                                  _firestore
+                                      .collection('evangelistsAndEarlyAdopters')
+                                      .add({
+                                    'Name': PersonNameTextController.text,
+                                    'Email': PersonEmailTextController.text,
+                                    'Contact': PersonNumberTextController.text,
+                                    'ContactSelected': clickedRadio,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewContacts.removeAt(index);
-                                  AddingNewContacts.insert(index, NewContacts);
+//                                  AddingNewContacts.removeAt(index);
+//                                  AddingNewContacts.insert(index, NewContacts);
+                                  _firestore
+                                      .collection('evangelistsAndEarlyAdopters')
+                                      .document(AddingNewContacts[index].ID)
+                                      .updateData({
+                                    'Name': PersonNameTextController.text,
+                                    'Email': PersonEmailTextController.text,
+                                    'Contact': PersonNumberTextController.text,
+                                    'ContactSelected': clickedRadio,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 PersonNameTextController.clear();
                                 PersonEmailTextController.clear();
                                 PersonNumberTextController.clear();
-
+                                clickedRadio = null;
                                 Navigator.pop(context);
                               });
                             },

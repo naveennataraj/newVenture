@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addContact.dart';
@@ -17,6 +18,7 @@ class AddEvangelistsAndEarlyAdopters extends StatefulWidget {
 
 class _AddEvangelistsAndEarlyAdoptersState
     extends State<AddEvangelistsAndEarlyAdopters> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,43 +60,75 @@ class _AddEvangelistsAndEarlyAdoptersState
                     Note:
                         'Tip: Add the contact details of the evangelists and early adopters with whom the wireframe will be shared.',
                   ),
-                  (AddingNewContacts.length == 0)
-                      ? Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Click on '+' to add the Quote",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: AddingNewContacts.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(top: 10.0),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: AddingNewContacts != null
-                                  ? <Widget>[
-                                      SmallOrangeCardWithTitle(
-                                        title: AddingNewContacts[index].Name,
-                                        description:
-                                            AddingNewContacts[index].Email,
-                                        index: index,
-                                        removingat: AddingNewContacts,
-                                        Dialogue:
-                                            addEvangelistsAndEarlyAdoptersDialogue(
-                                          index: index,
-                                        ),
-                                      )
-                                    ]
-                                  : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection('evangelistsAndEarlyAdopters')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messsages = snapshot.data.documents.reversed;
+                        AddingNewContacts = [];
+                        for (var message in messsages) {
+                          final Name = message.data['Name'];
+                          final Email = message.data['Email'];
+                          final Contact = message.data['Contact'];
+                          final ContactSelected =
+                              message.data['ContactSelected'];
+                          final ID = message.documentID;
+
+                          final card = addContact(
+                              Name: Name,
+                              Contact: Contact,
+                              ContactSelected: ContactSelected,
+                              Email: Email,
+                              ID: ID);
+                          AddingNewContacts.add(card);
+                        }
+                      }
+
+                      return (AddingNewContacts.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewContacts.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewContacts != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title:
+                                                AddingNewContacts[index].Name,
+                                            description:
+                                                AddingNewContacts[index].Email,
+                                            index: index,
+                                            removingat: AddingNewContacts,
+                                            Dialogue:
+                                                addEvangelistsAndEarlyAdoptersDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName:
+                                                'evangelistsAndEarlyAdopters',
+                                            ID: AddingNewContacts[index].ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Quote",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             );
-                          },
-                        ),
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

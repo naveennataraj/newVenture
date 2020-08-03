@@ -3,8 +3,10 @@ class addparallelinnovations {
   final String Description;
 
   final bool CheckedSolution;
+  final ID;
 
-  addparallelinnovations({this.Name, this.Description, this.CheckedSolution});
+  addparallelinnovations(
+      {this.ID, this.Name, this.Description, this.CheckedSolution});
 }
 
 List<addparallelinnovations> AddingNewParallelInnovations = [];

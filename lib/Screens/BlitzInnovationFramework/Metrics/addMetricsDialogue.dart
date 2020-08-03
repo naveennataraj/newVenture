@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
@@ -8,8 +9,11 @@ import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 class addMetricsDialogue extends StatefulWidget {
   final int index;
+  final String SelectedMetricsName;
+  final int SelectedMetricsValue;
 
-  const addMetricsDialogue({this.index});
+  const addMetricsDialogue(
+      {this.index, this.SelectedMetricsName, this.SelectedMetricsValue});
   @override
   _addMetricsDialogueState createState() => _addMetricsDialogueState(index);
 }
@@ -27,14 +31,22 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
   @override
   void initState() {
     super.initState();
-    Metricsdropdown = buildDropDownMenuItems(MetricsList);
+//    setState(() {
+//      AddingNewMetrics;
+//      print(AddingNewMetrics[index].SelectedOption);
+//      Metricsdropdown = buildDropDownMenuItems(MetricsList);
+//      print(Metricsdropdown);
+//    });
+
     if (index != null) {
+      Metricsdropdown = buildDropDownMenuItems(MetricsList);
       MetricsNameTextController =
           TextEditingController(text: AddingNewMetrics[index].Description);
       SelectedMetrics = AddingNewMetrics[index].SelectedOption;
     }
   }
 
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -117,17 +129,40 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                           AddMetricButton(
                             onTap: () {
                               setState(() {
-                                final NewMetrics = addMetrics(
-                                  Name: SelectedMetrics.name,
-                                  Description: MetricsNameTextController.text,
-                                  SelectedOption: SelectedMetrics,
-                                );
+//                                final NewMetrics = addMetrics(
+//                                  Name: SelectedMetrics.name,
+//                                  Description: MetricsNameTextController.text,
+//                                  SelectedOption: SelectedMetrics,
+//                                );
 
                                 if (index == null) {
-                                  AddingNewMetrics.add(NewMetrics);
+//                                  AddingNewMetrics.add(NewMetrics);
+                                  _firestore.collection('metrics').add({
+                                    'Name': SelectedMetrics.name,
+                                    'Description':
+                                        MetricsNameTextController.text,
+                                    'SelectedOption': [
+                                      SelectedMetrics.value,
+                                      SelectedMetrics.name
+                                    ],
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 } else {
-                                  AddingNewMetrics.removeAt(index);
-                                  AddingNewMetrics.insert(index, NewMetrics);
+//                                  AddingNewMetrics.removeAt(index);
+//                                  AddingNewMetrics.insert(index, NewMetrics);
+                                  _firestore
+                                      .collection('metrics')
+                                      .document(AddingNewMetrics[index].ID)
+                                      .updateData({
+                                    'Name': SelectedMetrics.name,
+                                    'Description':
+                                        MetricsNameTextController.text,
+                                    'SelectedOption': [
+                                      SelectedMetrics.value,
+                                      SelectedMetrics.name
+                                    ],
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 MetricsNameTextController.clear();

@@ -115,7 +115,11 @@ class _ReviewCustomerRequirementsState
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20),
                                     )
-                                  : Text('Pick a date'),
+                                  : Text(
+                                      'Pick a date',
+                                      style:
+                                          TextStyle(color: Color(0xFFE95420)),
+                                    ),
                             ],
                           ),
                         ),
