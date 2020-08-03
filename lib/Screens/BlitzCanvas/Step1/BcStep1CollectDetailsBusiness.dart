@@ -10,7 +10,6 @@ import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 String customerProblems = '';
 //bool bcStepValidator;
 
-
 class BcStep1CollectionAspects extends StatefulWidget {
   @override
   _BcStep1CollectionAspectsState createState() =>
@@ -29,9 +28,48 @@ final visionTextController = TextEditingController();
 final visionFocusNode = new FocusNode();
 String visionText;
 
+String ID;
+bool spinner = false;
+
+
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
   final _firestore = Firestore.instance;
+ var timestamp = FieldValue.serverTimestamp();
   String missionTextFirebase;
+  bool dataExists = false;
+  String fireData;
+  List IdDocumentList = [];
+
+  get updatedAt => null;
+
+  void initState() {
+    super.initState();
+
+    (dataExists == true)? dataExists= false : getDocuments();
+  }
+
+  void getDocuments() async {
+    //Source fromCache = Source.CACHE;
+    try {
+      final document = await _firestore
+          .collection('Bc1_buildFoundation')
+          .document('MissionStatement')
+          .get();
+
+      setState(() {
+        missionText = document.data['mission'];
+        visionText = document.data['vision'];
+        ID = document.documentID;
+        dataExists = document.data.isNotEmpty;
+        print(document.exists);
+        missionTextController.text = missionText;
+        visionTextController.text = visionText;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,10 +94,16 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
               ),
             ],
           ),
+
+
+
           child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
+
                 children: <Widget>[
+
+
                   Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: Text(
@@ -101,11 +145,21 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                         ),
                         goNextButton(
                           OnTap: () {
-                            _firestore.collection('BcStep1').document('missionStatement').setData({
-                              'mission':missionTextController.text,
-                              'vision':visionTextController.text
+
+
+                            _firestore
+                                .collection('Bc1_buildFoundation')
+                                .document('MissionStatement')
+                                .setData({
+                              'mission': missionTextController.text,
+                              'vision': visionTextController.text,
+                              'Sender': "tester@gmail.com",
+                              'updatedAt': timestamp,
                             });
+
                             bcStepsContent[0].bcCompletionValidator = false;
+                            fireData = ID;
+                            dataExists = false;
 //                            bcpData[6].CompletionValidator = false;
                             Navigator.pushNamed(context, '/BCStep1AddDetails');
                           },
