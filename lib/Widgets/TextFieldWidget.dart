@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class TextFieldWidget extends StatefulWidget {
-  final String textCollecter;
+  String textCollecter;
 
   TextFieldWidget({
     this.textCollecter,
@@ -64,11 +64,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         onChanged: (text) {
           if (widget.myTextController.text == "") {
             setState(() {
+              widget.textCollecter = widget.myTextController.text;
               widget.validText = false;
               widget.labelcolour = Color(0XFFF53E70);
             });
           } else {
             setState(() {
+              widget.textCollecter = widget.myTextController.text;
               widget.validText = true;
               widget.labelcolour = Colors.grey;
             });
@@ -77,11 +79,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         onSubmitted: (text) {
           if (widget.myTextController.text == "") {
             setState(() {
+              widget.textCollecter = widget.myTextController.text;
               widget.validText = false;
               widget.labelcolour = Color(0XFFF53E70);
             });
           } else {
             setState(() {
+              widget.textCollecter = widget.myTextController.text;
               widget.validText = true;
               widget.labelcolour = Colors.grey;
             });

@@ -42,7 +42,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
       Metricsdropdown = buildDropDownMenuItems(MetricsList);
       MetricsNameTextController =
           TextEditingController(text: AddingNewMetrics[index].Description);
-      SelectedMetrics = AddingNewMetrics[index].SelectedOption;
+//      SelectedMetrics = AddingNewMetrics[index].SelectedOption;
     }
   }
 

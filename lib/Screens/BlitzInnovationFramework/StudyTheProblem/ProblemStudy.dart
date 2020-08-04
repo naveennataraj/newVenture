@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/problemStudy.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
@@ -14,28 +15,27 @@ class ProblemStudy extends StatefulWidget {
   _ProblemStudyState createState() => _ProblemStudyState();
 }
 
-var TitlelabelColor = Color(0XFF919191);
-bool validTitle = true;
-final TitleTextController = TextEditingController();
-final TitleFocusNode = new FocusNode();
-String Title;
+class _ProblemStudyState extends State<ProblemStudy> {
+  var TitlelabelColor = Color(0XFF919191);
+  bool validTitle = true;
+  var TitleTextController = TextEditingController();
+  final TitleFocusNode = new FocusNode();
+  String Title;
 
-var ProblemlabelColor = Color(0XFF919191);
-bool validProblem = true;
-final ProblemTextController = TextEditingController();
-final ProblemFocusNode = new FocusNode();
-String Problem;
+  var ProblemlabelColor = Color(0XFF919191);
+  bool validProblem = true;
+  var ProblemTextController = TextEditingController();
+  final ProblemFocusNode = new FocusNode();
+  String Problem;
 
-var ImportancelabelColor = Color(0XFF919191);
-bool validImportance = true;
-final ImportanceTextController = TextEditingController();
-final ImportanceFocusNode = new FocusNode();
-String Importance;
+  var ImportancelabelColor = Color(0XFF919191);
+  bool validImportance = true;
+  var ImportanceTextController = TextEditingController();
+  final ImportanceFocusNode = new FocusNode();
+  String Importance;
 
-String ID;
-bool spinner = false;
-
-class _ProblemStudyState extends State<ProblemStudy>  {
+  String ID;
+  bool spinner = false;
   validator() {
     setState(() {
       TitleTextController.text.isEmpty ? validTitle = false : validTitle = true;
@@ -59,44 +59,43 @@ class _ProblemStudyState extends State<ProblemStudy>  {
   }
 
   final _firestore = Firestore.instance;
-  void getDocuments() async {
-    try {
-      final document =
-          await _firestore.collection('problemStudy').getDocuments();
-//    if (document.documents != null) {
 
-      setState(() {
-        Title = document.documents[0].data['Title'];
-        Problem = document.documents[0].data['Problem'];
-        Importance = document.documents[0].data['Importance'];
-        ID = document.documents[0].documentID;
-        spinner = false;
-        print('Checking for documents ------ $Title');
-        TitleTextController.text = Title;
-        ProblemTextController.text = Problem;
-        ImportanceTextController.text = Importance;
-      });
-    } catch (e) {
-      spinner = false;
+  void getDocument() async {
+    spinner = true;
+    final document = await _firestore.collection('problemStudy').getDocuments();
+    print("GEt method called");
+
+    for (var message in document.documents) {
+      ProblemStudyArray = [];
+      final Title = message.data['Title'];
+      final Problem = message.data['Problem'];
+      final Importance = message.data['Importance'];
+      final ID = message.documentID;
+
+      final fields = problemStudy(
+          title: Title, problem: Problem, importance: Importance, ID: ID);
+
+      ProblemStudyArray.add(fields);
     }
-
-//    } else if (document.documents == null) {
-//      setState(() {
-//        Title = "";
-//        Problem = "";
-//        Importance = "";
-//        ID = null;
-//        spinner = false;
-//        print("set the null vaslues");
-//      });
-//    }
+    setState(() {
+      spinner = false;
+      if (ProblemStudyArray.length != 0) {
+        TitleTextController =
+            TextEditingController(text: ProblemStudyArray[0].title);
+        ProblemTextController =
+            TextEditingController(text: ProblemStudyArray[0].problem);
+        ImportanceTextController =
+            TextEditingController(text: ProblemStudyArray[0].importance);
+      }
+    });
   }
 
   @override
   void initState() {
 //    spinner = true;
-//    getDocuments();
-//    print('on Problems page');
+
+    getDocument();
+
     super.initState();
   }
 
@@ -182,17 +181,18 @@ class _ProblemStudyState extends State<ProblemStudy>  {
                             width: 50,
                           ),
                           goNextButton(
-                            OnTap: (TitleTextController.text.isEmpty ||
-                                    ProblemTextController.text.isEmpty ||
-                                    ImportanceTextController.text.isEmpty)
+                            OnTap: (TitleTextController.text == '' ||
+                                    ProblemTextController.text == '' ||
+                                    ImportanceTextController.text == '')
                                 ? () {
                                     validator();
                                   }
                                 : () {
-                                    if (ID != null) {
+                                    if (ProblemStudyArray.length != 0) {
+                                      print("Update method called");
                                       _firestore
                                           .collection('problemStudy')
-                                          .document(ID)
+                                          .document(ProblemStudyArray[0].ID)
                                           .updateData({
                                         'Title': TitleTextController.text,
                                         'Problem': ProblemTextController.text,
@@ -200,7 +200,14 @@ class _ProblemStudyState extends State<ProblemStudy>  {
                                             ImportanceTextController.text,
                                         'Sender': "tester@gmail.com",
                                       });
+                                      ProblemStudyArray[0].title =
+                                          TitleTextController.text;
+                                      ProblemStudyArray[0].problem =
+                                          ProblemTextController.text;
+                                      ProblemStudyArray[0].importance =
+                                          ImportanceTextController.text;
                                     } else {
+                                      print("add method called");
                                       _firestore
                                           .collection('problemStudy')
                                           .add({
@@ -210,6 +217,12 @@ class _ProblemStudyState extends State<ProblemStudy>  {
                                             ImportanceTextController.text,
                                         'Sender': "tester@gmail.com",
                                       });
+                                      final _field = problemStudy(
+                                          title: TitleTextController.text,
+                                          problem: ProblemTextController.text,
+                                          importance:
+                                              ImportanceTextController.text);
+                                      ProblemStudyArray.add(_field);
                                     }
                                     bcpData[0].CompletionValidator = false;
                                     Navigator.pushNamed(
