@@ -200,12 +200,12 @@ class _ProblemStudyState extends State<ProblemStudy> {
                                             ImportanceTextController.text,
                                         'Sender': "tester@gmail.com",
                                       });
-                                      ProblemStudyArray[0].title =
-                                          TitleTextController.text;
-                                      ProblemStudyArray[0].problem =
-                                          ProblemTextController.text;
-                                      ProblemStudyArray[0].importance =
-                                          ImportanceTextController.text;
+//                                      ProblemStudyArray[0].title =
+//                                          TitleTextController.text;
+//                                      ProblemStudyArray[0].problem =
+//                                          ProblemTextController.text;
+//                                      ProblemStudyArray[0].importance =
+//                                          ImportanceTextController.text;
                                     } else {
                                       print("add method called");
                                       _firestore
@@ -217,12 +217,12 @@ class _ProblemStudyState extends State<ProblemStudy> {
                                             ImportanceTextController.text,
                                         'Sender': "tester@gmail.com",
                                       });
-                                      final _field = problemStudy(
-                                          title: TitleTextController.text,
-                                          problem: ProblemTextController.text,
-                                          importance:
-                                              ImportanceTextController.text);
-                                      ProblemStudyArray.add(_field);
+//                                      final _field = problemStudy(
+//                                          title: TitleTextController.text,
+//                                          problem: ProblemTextController.text,
+//                                          importance:
+//                                              ImportanceTextController.text);
+//                                      ProblemStudyArray.add(_field);
                                     }
                                     bcpData[0].CompletionValidator = false;
                                     Navigator.pushNamed(
