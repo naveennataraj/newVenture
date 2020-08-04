@@ -184,6 +184,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
                               'Addresspp': addressppTextController.text,
                               'Expectations': expectationsTextController.text,
                               'Sender': "tester@gmail.com",
+                              'cardWithTitle': "true",
                             });
                           }
                           ChallengeTextController.clear();

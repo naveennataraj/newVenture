@@ -2,15 +2,15 @@ class ContentBcAddFoundation {
 
   final String title;
   final String description;
-  final int featureType;
-
-
+  //final int featureType;
+  final String ID;
 
   ContentBcAddFoundation({
 
     this.title,
     this.description,
-    this.featureType,
+    //this.featureType,
+    this.ID,
 
   });
 }

@@ -35,7 +35,7 @@ String Importance;
 String ID;
 bool spinner = false;
 
-class _ProblemStudyState extends State<ProblemStudy> {
+class _ProblemStudyState extends State<ProblemStudy>  {
   validator() {
     setState(() {
       TitleTextController.text.isEmpty ? validTitle = false : validTitle = true;

@@ -1,8 +1,11 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/AddFoudationalDeatil.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
@@ -16,6 +19,7 @@ class Step1AddFoundation extends StatefulWidget {
 
 class _Step1AddFoundationState extends State<Step1AddFoundation> {
   final _firestore = Firestore.instance;
+  String documentField = 'MissionStatement';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,48 +53,71 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
                       "Add details of the foundational aspects of the business",
-                      style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
-                    ),),
-
-                  (foundationContent.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the Product Goals",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
                     ),
-                  )
-                      :
-                  ListView.builder(
-                    itemCount: foundationContent.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: foundationContent != null
-                            ? <Widget>[
-                          SmallOrangeCardWithTitle(
-                            title: foundationContent[index]
-                                .title,
-                            description:
-                            foundationContent[index]
-                                .description,
-                            index: index,
-                            removingat: foundationContent,
-                            Dialogue: AddFoundationalDetail(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
-                      );
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream:
+                        _firestore.collection('/Bc1_buildFoundation/MissionStatement/addFoundations').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+
+
+                        final messages = snapshot.data.documents.reversed;
+                        print(messages);
+                        foundationContent = [];
+                        for (var message in messages) {
+                          final title = message.data['title'];
+                          final description = message.data['description'];
+                          final ID = message.documentID;
+
+                          final card = ContentBcAddFoundation(
+                            title: title,
+                            description: description,
+                            ID: ID,
+                          );
+                          foundationContent.add(card);
+                        }
+                      }
+
+                      return (foundationContent.length != 0)
+                          ? ListView.builder(
+                              itemCount: foundationContent.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: <Widget>[
+                                    SmallOrangeCardWithTitle(
+                                      title: foundationContent[index].title,
+                                      description:
+                                          foundationContent[index].description,
+                                      index: index,
+                                      removingat: foundationContent,
+                                      Dialogue: AddFoundationalDetail(
+                                        index: index,
+                                      ),
+                                      CollectionName: '/Bc1_buildFoundation/MissionStatement/addFoundations',
+                                      ID: foundationContent[index].ID,
+                                    )
+                                  ],
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Pain Points",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                            );
                     },
                   ),
                   Padding(
@@ -106,8 +133,7 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                           OnTap: () {
                             bcStepsContent[0].bcCompletionValidator = true;
                             print(bcStepsContent[0].bcCompletionValidator);
-                            Navigator.pushNamed(
-                                context, '/BCHomeView');
+                            Navigator.pushNamed(context, '/BCHomeView');
                           },
                         ),
 //                        goNextButton(
@@ -143,6 +169,3 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
     );
   }
 }
-
-
-

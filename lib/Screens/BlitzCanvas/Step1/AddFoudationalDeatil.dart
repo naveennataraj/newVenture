@@ -28,7 +28,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
   final _firestore = Firestore.instance;
   int clickedRadio;
   String clickRadioName;
-
+  var timestamp = FieldValue.serverTimestamp();
   var radio1Focus = new FocusNode();
   var radio2Focus = new FocusNode();
   var radio3Focus = new FocusNode();
@@ -49,7 +49,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
       foundationTextController = TextEditingController(
           text: foundationContent[index].description);
       clickRadioName = foundationContent[index].title;
-      clickedRadio = foundationContent[index].featureType;
+      //clickedRadio = foundationContent[index].featureType;
     }
   }
 
@@ -199,34 +199,37 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                                 final NewProductFeature = ContentBcAddFoundation(
                                     title: clickRadioName,
                                     description: foundationTextController.text,
-                                    featureType: clickedRadio);
+                                    //featureType: clickedRadio
+                                );
 
                                 if (index == null) {
-                                  foundationContent.add(
-                                      NewProductFeature);
-                                  _firestore.collection('BcStep1').document('FoundationAspects').setData({
-
-                                    'goal': (clickedRadio ==1) ? 'Goal' : '',
-                                    'competence': (clickedRadio ==2) ? 'Competence' : '',
-                                    'cultural': (clickedRadio ==3) ? 'Cultural' : '',
-                                    'description': foundationTextController.text
+                                  foundationContent.add(NewProductFeature);
+                                  _firestore.collection('/Bc1_buildFoundation/MissionStatement/addFoundations').add({
+                                    'title': clickRadioName,
+                                    //'featureType': clickedRadio,
+                                    'description': foundationTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                    'updatedAt': timestamp,
                                   });
-                                  
                                 } else {
-                                  foundationContent.removeAt(index);
-                                  foundationContent.insert(
-                                      index, NewProductFeature);
-
+//                                  foundationContent.removeAt(index);
+//                                  foundationContent.insert(
+//                                      index, NewProductFeature);
+                                  _firestore
+                                      .collection('/Bc1_buildFoundation/MissionStatement/addFoundations')
+                                      .document(foundationContent[index].ID)
+                                      .updateData({
+                                    'title': clickRadioName,
+                                    //'featureType': clickedRadio,
+                                    'description': foundationTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                    'updatedAt': timestamp,
+                                  });
                                 }
-
                                 foundationTextController.clear();
                                 clickedRadio = 0;
                                 clickRadioName = '';
                                 Navigator.pop(context);
-//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => Step1AddFoundation()),
-//                                )
-//                                    .then((value) => setState(() {}),);
-
                               });
                             },
                           ),
@@ -238,7 +241,6 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                               foundationTextController.clear();
                               clickedRadio = 0;
                               clickRadioName = '';
-
                               Navigator.pop(context);
                             },
                           ),

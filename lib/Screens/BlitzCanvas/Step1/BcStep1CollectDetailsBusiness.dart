@@ -32,20 +32,21 @@ String ID;
 bool spinner = false;
 
 
-class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
+class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> with SingleTickerProviderStateMixin {
   final _firestore = Firestore.instance;
  var timestamp = FieldValue.serverTimestamp();
   String missionTextFirebase;
   bool dataExists = false;
-  String fireData;
-  List IdDocumentList = [];
+  // variables to save mission and vision values
+  String fireMissionData;
+  String fireVisionData;
+  // animation controller
+  AnimationController controller;
 
-  get updatedAt => null;
 
   void initState() {
     super.initState();
-
-    (dataExists == true)? dataExists= false : getDocuments();
+    (fireMissionData == null)? getDocuments() : print ('data exists') ;
   }
 
   void getDocuments() async {
@@ -55,10 +56,11 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
           .collection('Bc1_buildFoundation')
           .document('MissionStatement')
           .get();
-
       setState(() {
         missionText = document.data['mission'];
         visionText = document.data['vision'];
+        fireMissionData = document.data['mission'];
+        fireVisionData = document.data['vision'];
         ID = document.documentID;
         dataExists = document.data.isNotEmpty;
         print(document.exists);
@@ -69,6 +71,19 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
       print(e);
     }
   }
+
+
+  // validate Mission and vision exists
+//  validator() {
+//    setState(() {
+//      controller = AnimationController(duration: const Duration(seconds: 2), vsync: this);
+//      missionTextController.text.isEmpty ? validMission = false : validMission = true;
+//      missionTextController.text.isEmpty
+//          ? missionLabelColor = Color(0xFFF53E70)
+//          : missionLabelColor = Color(0xFF919191);
+//      print("(Validator is called)");
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,20 +160,25 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                         ),
                         goNextButton(
                           OnTap: () {
-
-
-                            _firestore
-                                .collection('Bc1_buildFoundation')
-                                .document('MissionStatement')
-                                .setData({
-                              'mission': missionTextController.text,
-                              'vision': visionTextController.text,
-                              'Sender': "tester@gmail.com",
-                              'updatedAt': timestamp,
-                            });
-
+                            if (fireMissionData == missionTextController.text && fireVisionData == visionTextController.text && fireMissionData != null && fireVisionData != null ) {
+                              print ('you shouldnt update anything');
+                            } else if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
+                              print ('I am updating anyway');
+                              print('firemission $fireMissionData');
+                              print(missionText);
+                              _firestore
+                                  .collection('Bc1_buildFoundation')
+                                  .document('MissionStatement')
+                                  .setData({
+                                'mission': missionTextController.text,
+                                'vision': visionTextController.text,
+                                'Sender': "tester@gmail.com",
+                                'updatedAt': timestamp,
+                              });
+                            }
                             bcStepsContent[0].bcCompletionValidator = false;
-                            fireData = ID;
+                            fireMissionData = missionTextController.text;
+                            fireVisionData = visionTextController.text;
                             dataExists = false;
 //                            bcpData[6].CompletionValidator = false;
                             Navigator.pushNamed(context, '/BCStep1AddDetails');
