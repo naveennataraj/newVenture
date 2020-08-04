@@ -117,7 +117,7 @@ class _AddPainPointsState extends State<AddPainPoints> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Click on '+' to add the Pain Points",
+                                      "There are no pain points at the moment. Would you like to add some? Use the '+’ button to get started.",
                                       style: TextStyle(color: Colors.grey),
                                     )
                                   ],

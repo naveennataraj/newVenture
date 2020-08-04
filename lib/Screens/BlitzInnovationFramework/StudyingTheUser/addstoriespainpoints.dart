@@ -112,7 +112,7 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Click on '+' to add the User Stories",
+                                    "There are no user stories at the moment. Would you like to add some? Use the '+’ button to get started.",
                                     style: TextStyle(color: Colors.grey),
                                   )
                                 ],
