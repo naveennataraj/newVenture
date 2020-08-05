@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -19,8 +20,36 @@ class BcStep2CollectUserProfile extends StatefulWidget {
   _BcStep2CollectUserProfileState createState() =>
       _BcStep2CollectUserProfileState();
 }
+const userUid = "tester@gmail.com";
+String ID;
 
 class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
+  final _firestore = Firestore.instance.collection(userUid).document('Bc2_studyingTheUser');
+  String userProfileData;
+
+  void initState() {
+    super.initState();
+    (userProfileData == null)? getDocuments() : print ('data exists') ;
+  }
+
+  void getDocuments() async {
+    final document = await _firestore.get();
+
+    if (document.exists) {
+      try {
+        setState(() {
+          userProfileText = document.data['userProfile'];
+          userProfileData=document.data['userProfile'];
+          ID = document.documentID;
+          userProfileTextController.text = userProfileText;
+        });
+      } catch (e) {
+        print('Bc2_studyingTheUser error of init state $e');
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +109,13 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                         ),
                         goNextButton(
                           OnTap: () {
+                             if (userProfileData != userProfileTextController.text ) {
+                              _firestore.setData({
+                                'userProfile': userProfileTextController.text,
+                                'Sender': "tester@gmail.com",
+                              });
+                            }
+                             userProfileData = userProfileTextController.text;
                             bcStepsContent[1].bcCompletionValidator = false;
                             Navigator.pushNamed(
                                 context, '/BCStep2CaptureUserStories');

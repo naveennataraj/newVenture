@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
@@ -18,13 +19,37 @@ var WireFrameLinkTextController = TextEditingController();
 final WireFrameLinkFocusNode = new FocusNode();
 String WireFrameLink;
 
+String ID;
+const userUid = "tester@gmail.com";
+
 class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
-  //  NotifyProgress() {
-//    setState(() {
-//      bcpData[3].CompletionValidator = true;
-//      print(bcpData[3].CompletionValidator);
-//    });
-//  }
+  final _firestore = Firestore.instance
+      .collection(userUid)
+      .document('Bc3_definingTheSolution');
+  String linkWireframe;
+
+  void initState() {
+    super.initState();
+    (linkWireframe == null) ? getDocuments() : print('data exists');
+  }
+
+  void getDocuments() async {
+    final document = await _firestore.get();
+
+    if (document.exists) {
+      try {
+        setState(() {
+          WireFrameLink = document.data['wireFrameLink'];
+          linkWireframe = document.data['wireFrameLink'];
+          ID = document.documentID;
+          WireFrameLinkTextController.text = WireFrameLink;
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,13 +83,13 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
                     child: Text(
                       "Adding High Fidelity Wireframes, if we have one handy:",
                       style:
-                      TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   NoteCard(
                     Note:
-                    "Tip: For the prefered solution concept, a wireframe can be developed using a service such as AdobeXD or Marvel App. The purpose of this is to have the End user(s) interact with it, with the goal of eventually collecting feedback from them. In this section, please add the High Fidelity wireframe of the product concept, which will include details such as colors and graphics and will be representative of the final product that will be shipped to the customer.",
+                        "Tip: For the prefered solution concept, a wireframe can be developed using a service such as AdobeXD or Marvel App. The purpose of this is to have the End user(s) interact with it, with the goal of eventually collecting feedback from them. In this section, please add the High Fidelity wireframe of the product concept, which will include details such as colors and graphics and will be representative of the final product that will be shipped to the customer.",
                   ),
                   FlatButton(
                     onPressed: () {},
@@ -72,7 +97,7 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
                   ),
                   TextFieldWidget(
                     labelText:
-                    "Please enter the link to the High Fidelity wireframe below",
+                        "Please enter the link to the High Fidelity wireframe below",
                     maxLines: 1,
                     validText: validWireFrameLink,
                     myFocusNode: WireFrameLinkFocusNode,
@@ -92,9 +117,15 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
                         ),
                         CompleteStepButton(
                           OnTap: () {
+                            if (linkWireframe !=
+                                WireFrameLinkTextController.text) {
+                              _firestore.setData({
+                                'wireFrameLink':
+                                    WireFrameLinkTextController.text,
+                              });
+                            }
                             bcStepsContent[2].bcCompletionValidator = true;
-                            Navigator.pushNamed(
-                                context, '/BCHomeView');
+                            Navigator.pushNamed(context, '/BCHomeView');
                           },
                         )
                       ],
@@ -107,7 +138,3 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
     );
   }
 }
-
-
-
-

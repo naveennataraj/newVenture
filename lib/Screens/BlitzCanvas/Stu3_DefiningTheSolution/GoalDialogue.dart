@@ -1,11 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcProductGoals.dart';
 import 'package:iventure001/Widgets/AddProductGoalButton.dart';
-import 'package:iventure001/Widgets/AddStoryButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
 
 
 class GoalDialogue extends StatefulWidget {
@@ -21,7 +21,10 @@ var goalTextController = TextEditingController();
 final goalFocusNode = new FocusNode();
 String goal;
 
+const userUid = "tester@gmail.com";
+
 class _GoalDialogueState extends State<GoalDialogue> {
+  final _firestore = Firestore.instance;
   int index;
   _GoalDialogueState(this.index);
   @override
@@ -81,9 +84,23 @@ class _GoalDialogueState extends State<GoalDialogue> {
                               );
                               if (index == null) {
                                 productGoals.add(newProductGoal);
+                                _firestore.collection(userUid+'/Bc3_definingTheSolution/addGoals').add({
+                                  'goal': goalTextController.text,
+                                  'Sender': "tester@gmail.com",
+                                });
+
+
                               } else {
-                                productGoals.removeAt(index);
-                                productGoals.insert(index, newProductGoal);
+//                                productGoals.removeAt(index);
+//                                productGoals.insert(index, newProductGoal);
+                                _firestore
+                                    .collection(userUid+'/Bc3_definingTheSolution/addGoals')
+                                    .document(productGoals[index].ID)
+                                    .updateData({
+                                  'goal': goalTextController.text,
+                                  'Sender': "tester@gmail.com",
+                                },);
+
                               }
 //
                               goalTextController.clear();

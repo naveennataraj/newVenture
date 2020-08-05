@@ -30,13 +30,12 @@ String visionText;
 
 String ID;
 bool spinner = false;
-
+const userUid = "tester@gmail.com";
 
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> with SingleTickerProviderStateMixin {
-  final _firestore = Firestore.instance;
+  final _firestore = Firestore.instance.collection(userUid).document('Bc1_buildTheFoundation');
  var timestamp = FieldValue.serverTimestamp();
   String missionTextFirebase;
-  bool dataExists = false;
   // variables to save mission and vision values
   String fireMissionData;
   String fireVisionData;
@@ -50,28 +49,24 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
   }
 
   void getDocuments() async {
-    //Source fromCache = Source.CACHE;
-    try {
-      final document = await _firestore
-          .collection('Bc1_buildFoundation')
-          .document('MissionStatement')
-          .get();
-      setState(() {
-        missionText = document.data['mission'];
-        visionText = document.data['vision'];
-        fireMissionData = document.data['mission'];
-        fireVisionData = document.data['vision'];
-        ID = document.documentID;
-        dataExists = document.data.isNotEmpty;
-        print(document.exists);
-        missionTextController.text = missionText;
-        visionTextController.text = visionText;
-      });
-    } catch (e) {
-      print(e);
+    final document = await _firestore.get();
+
+    if (document.exists) {
+      try {
+        setState(() {
+          missionText = document.data['mission'];
+          visionText = document.data['vision'];
+          fireMissionData = document.data['mission'];
+          fireVisionData = document.data['vision'];
+          ID = document.documentID;
+          missionTextController.text = missionText;
+          visionTextController.text = visionText;
+        });
+      } catch (e) {
+        print(e);
+      }
     }
   }
-
 
   // validate Mission and vision exists
 //  validator() {
@@ -160,16 +155,8 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
                         ),
                         goNextButton(
                           OnTap: () {
-                            if (fireMissionData == missionTextController.text && fireVisionData == visionTextController.text && fireMissionData != null && fireVisionData != null ) {
-                              print ('you shouldnt update anything');
-                            } else if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
-                              print ('I am updating anyway');
-                              print('firemission $fireMissionData');
-                              print(missionText);
-                              _firestore
-                                  .collection('Bc1_buildFoundation')
-                                  .document('MissionStatement')
-                                  .setData({
+                             if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
+                              _firestore.setData({
                                 'mission': missionTextController.text,
                                 'vision': visionTextController.text,
                                 'Sender': "tester@gmail.com",
@@ -179,7 +166,6 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
                             bcStepsContent[0].bcCompletionValidator = false;
                             fireMissionData = missionTextController.text;
                             fireVisionData = visionTextController.text;
-                            dataExists = false;
 //                            bcpData[6].CompletionValidator = false;
                             Navigator.pushNamed(context, '/BCStep1AddDetails');
                           },

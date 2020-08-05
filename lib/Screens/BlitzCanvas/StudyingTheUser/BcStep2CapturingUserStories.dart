@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
@@ -9,13 +10,17 @@ import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-
 class BcStep2CapturingUserStories extends StatefulWidget {
   @override
-  _BcStep2CapturingUserStoriesState createState() => _BcStep2CapturingUserStoriesState();
+  _BcStep2CapturingUserStoriesState createState() =>
+      _BcStep2CapturingUserStoriesState();
 }
 
-class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStories> {
+const userUid = "tester@gmail.com";
+
+class _BcStep2CapturingUserStoriesState
+    extends State<BcStep2CapturingUserStories> {
+  final _firestore = Firestore.instance;
 
   UserStory(int index) {
     String A = userStoriesContent[index].Asa;
@@ -54,48 +59,127 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Capturing User stories",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),),
-                  (userStoriesContent.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the User Stories",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add details of the foundational aspects of the business",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                  )
-                      :
-                  ListView.builder(
-                    itemCount: userStoriesContent.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: userStoriesContent != null
-                            ? <Widget>[
-                          SmallOrangeCardWithoutTitle(
-                            description: UserStory(index),
-                            index: index,
-                            removingat: userStoriesContent,
-                            Dialogue: BcUserStoryDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
-                      );
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(
+                            userUid + '/Bc2_studyingTheUser/addFoundations')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        print(messages);
+                        userStoriesContent = [];
+                        for (var message in messages) {
+                          final Asa = message.data['Asa'];
+                          final IWantTo = message.data['IWantTo'];
+                          final SoThat = message.data['SoThat'];
+                          final ID = message.documentID;
+
+                          final card = BcContentUserStories(
+                            Asa: Asa,
+                            IWantTo: IWantTo,
+                            SoThat: SoThat,
+                            ID: ID,
+                          );
+                          userStoriesContent.add(card);
+                        }
+                      }
+
+                      return (userStoriesContent.length != 0)
+                          ? ListView.builder(
+                              itemCount: userStoriesContent.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: userStoriesContent != null
+                                      ?<Widget>[
+                                    SmallOrangeCardWithoutTitle(
+                                      description: UserStory(index),
+                                      index: index,
+                                      removingat: userStoriesContent,
+                                      Dialogue: BcUserStoryDialogue(
+                                        index: index,
+                                      ),
+                                      CollectionName: userUid +
+                                          '/Bc2_studyingTheUser/addFoundations',
+                                      ID: userStoriesContent[index].ID,
+                                    )
+                                  ]
+                                  : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Pain Points",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                            );
                     },
                   ),
+
+//          SingleChildScrollView(
+//              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+//              child: Column(
+//                children: <Widget>[
+//                  Padding(
+//                      padding: EdgeInsets.symmetric(vertical: 10.0),
+//                      child: Text(
+//                        "Capturing User stories",
+//                        style: TextStyle(
+//                            fontSize: 22, fontWeight: FontWeight.bold),
+//                        textAlign: TextAlign.center,
+//                      ),),
+//                  (userStoriesContent.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the User Stories",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      :
+//                  ListView.builder(
+//                    itemCount: userStoriesContent.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: userStoriesContent != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithoutTitle(
+//                            description: UserStory(index),
+//                            index: index,
+//                            removingat: userStoriesContent,
+//                            Dialogue: BcUserStoryDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -108,8 +192,7 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
                         CompleteStepButton(
                           OnTap: () {
                             bcStepsContent[1].bcCompletionValidator = true;
-                            Navigator.pushNamed(
-                                context, '/BCHomeView');
+                            Navigator.pushNamed(context, '/BCHomeView');
                           },
                         ),
                       ],
@@ -136,6 +219,3 @@ class _BcStep2CapturingUserStoriesState extends State<BcStep2CapturingUserStorie
     );
   }
 }
-
-
-

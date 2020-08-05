@@ -1,6 +1,7 @@
 class BcContentProductGoals {
   final String goals;
-  BcContentProductGoals({this.goals,});
+  final ID;
+  BcContentProductGoals({this.goals, this.ID });
 }
 
 List<BcContentProductGoals> productGoals = [];

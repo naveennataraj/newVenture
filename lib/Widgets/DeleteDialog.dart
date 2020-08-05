@@ -31,6 +31,7 @@ class _DeleteDialogueState extends State<DeleteDialogue> {
           ),
           onPressed: () {
             setState(() {
+              print('i should delete know');
 //                  erased = true;
 //                  widget.removingat.removeAt(widget.index);
               _firestore

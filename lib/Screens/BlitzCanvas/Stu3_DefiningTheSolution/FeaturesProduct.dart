@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcFeatureProduct.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesDialogue.dart';
@@ -13,7 +14,11 @@ class BcProductFeature extends StatefulWidget {
   _BcProductFeatureState createState() => _BcProductFeatureState();
 }
 
+const userUid = "tester@gmail.com";
+
 class _BcProductFeatureState extends State<BcProductFeature> {
+  final _firestore = Firestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,50 +52,127 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
                       "List of the Product Features for the solution concept",
-                      style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
-                    ),),
-
-                  (addingNewProductFeature.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the Product Goals",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
                     ),
-                  )
-                      :
-                  ListView.builder(
-                    itemCount: addingNewProductFeature.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: addingNewProductFeature != null
-                            ? <Widget>[
-                          SmallOrangeCardWithTitle(
-                            title: addingNewProductFeature[index]
-                                .FeatureTitle,
-                            description:
-                            addingNewProductFeature[index]
-                                .FeatureDescription,
-                            index: index,
-                            removingat: addingNewProductFeature,
-                            Dialogue: Step3BCProductFeatureDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
-                      );
+                  ),
+
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(
+                            userUid + '/Bc3_definingTheSolution/addFeatures')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        print('these are the messages $messages');
+                        addingNewProductFeature = [];
+                        for (var message in messages) {
+                          final FeatureTitle = message.data['featureTitle'];
+                          final FeatureDescription =
+                              message.data['featureDescription'];
+                          final FeatureChecked = message.data['featureChecked'];
+                          final FeatureType = message.data['featureType'];
+                          final ID = message.documentID;
+
+                          final card = ContentBcFeatureProduct(
+                            FeatureTitle: FeatureTitle,
+                            FeatureDescription: FeatureDescription,
+                            FeatureChecked: FeatureChecked,
+                            FeatureType: FeatureType,
+                            ID: ID,
+                          );
+                          addingNewProductFeature.add(card);
+                        }
+                      }
+
+                      return (addingNewProductFeature.length != 0)
+                          ? ListView.builder(
+                              itemCount: addingNewProductFeature.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: addingNewProductFeature != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title:
+                                                addingNewProductFeature[index]
+                                                    .FeatureTitle,
+                                            description:
+                                                addingNewProductFeature[index]
+                                                    .FeatureDescription,
+                                            index: index,
+                                            removingat: addingNewProductFeature,
+                                            Dialogue:
+                                                Step3BCProductFeatureDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: userUid +
+                                                '/Bc3_definingTheSolution/addFeatures',
+                                            ID: addingNewProductFeature[index]
+                                                .ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Pain Points",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                            );
                     },
                   ),
+
+//                  (addingNewProductFeature.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the Product Goals",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      :
+//                  ListView.builder(
+//                    itemCount: addingNewProductFeature.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: addingNewProductFeature != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithTitle(
+//                            title: addingNewProductFeature[index]
+//                                .FeatureTitle,
+//                            description:
+//                            addingNewProductFeature[index]
+//                                .FeatureDescription,
+//                            index: index,
+//                            removingat: addingNewProductFeature,
+//                            Dialogue: Step3BCProductFeatureDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -103,7 +185,8 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                         goNextButton(
                           OnTap: () {
                             bcStepsContent[2].bcCompletionValidator = false;
-                            Navigator.pushNamed(context, '/BCStep3WireFrameLink');
+                            Navigator.pushNamed(
+                                context, '/BCStep3WireFrameLink');
                           },
                           //routeName: '/BCStep3WireFrameLink',
                           // write here
@@ -123,7 +206,8 @@ class _BcProductFeatureState extends State<BcProductFeature> {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => Step3BCProductFeatureDialogue(),
+              builder: (BuildContext context) =>
+                  Step3BCProductFeatureDialogue(),
             ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
@@ -132,6 +216,3 @@ class _BcProductFeatureState extends State<BcProductFeature> {
     );
   }
 }
-
-
-

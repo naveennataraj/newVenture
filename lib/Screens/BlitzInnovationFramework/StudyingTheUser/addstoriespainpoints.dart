@@ -24,6 +24,7 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
   }
 
   final _firestore = Firestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

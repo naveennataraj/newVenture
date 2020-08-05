@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
@@ -31,8 +32,12 @@ var SoThatTextController = TextEditingController();
 final SoThatFocusNode = new FocusNode();
 String SoThat;
 
+const userUid = "tester@gmail.com";
+
 class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
+  final _firestore = Firestore.instance;
   int index;
+
   _BcUserStoryDialogueState(this.index);
   @override
   void initState() {
@@ -112,27 +117,40 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
                           routeName: '/addpainpoints',
                           onTap: () {
                             setState(() {
+
                               final NewUserStory = BcContentUserStories(
                                 Asa: AsaTextController.text,
-                                IWantTo: SoThatTextController.text,
-                                SoThat: IWantToTextController.text,
+                                IWantTo: IWantToTextController.text,
+                                SoThat:  SoThatTextController.text,
                               );
                               if (index == null) {
                                 userStoriesContent.add(NewUserStory);
+                                _firestore.collection(userUid+'/Bc2_studyingTheUser/addFoundations').add({
+                                  'Asa': AsaTextController.text,
+                                  'IWantTo': IWantToTextController.text,
+                                  'SoThat': SoThatTextController.text,
+                                  'Sender': "tester@gmail.com",
+                                });
+
                               } else {
-                                userStoriesContent.removeAt(index);
-                                userStoriesContent.insert(
-                                    index, NewUserStory);
+//                                userStoriesContent.removeAt(index);
+//                                userStoriesContent.insert(
+//                                    index, NewUserStory);
+                                _firestore
+                                    .collection(userUid+'/Bc2_studyingTheUser/addFoundations')
+                                    .document(userStoriesContent[index].ID)
+                                    .updateData({
+                                  'Asa': AsaTextController.text,
+                                  'IWantTo': IWantToTextController.text,
+                                  'SoThat':  SoThatTextController.text,
+                                  'Sender': "tester@gmail.com",
+                                },);
                               }
 //
                               AsaTextController.clear();
-                              SoThatTextController.clear();
                               IWantToTextController.clear();
-
+                              SoThatTextController.clear();
                               Navigator.pop(context);
-//                              Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep2CapturingUserStories()),
-//                              )
-//                                  .then((value) => setState(() {}),);
 
                             });
                           },
