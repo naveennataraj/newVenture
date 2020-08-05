@@ -108,17 +108,9 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
       AddingNewMetrics = [];
       final Name = message.data['Name'];
       final Description = message.data['Description'];
-      final SelectedOption = message.data['SelectedOption'];
       final ID = message.documentID;
 
-      final int dropValue = SelectedOption[0];
-      final String dropName = SelectedOption[1];
-
-      final card = addMetrics(
-          Name: Name,
-          Description: Description,
-          SelectedOption: DropDownItem(dropValue, dropName),
-          ID: ID);
+      final card = addMetrics(Name: Name, Description: Description, ID: ID);
       AddingNewMetrics.add(card);
       switch (ID) {
         case 'ProblemSpace':

@@ -27,7 +27,14 @@ List<DropDownItem> MetricsList = [
   DropDownItem(5, 'Evolution'),
   DropDownItem(6, 'Ecosystem')
 ];
-
+const List<String> MetricDropdownList = [
+  'Problem Space',
+  'Solution Space',
+  'Evangelism',
+  'Scale',
+  'Evolution',
+  'Ecosystem'
+];
 List<DropDownItem> SolutionRankingList = [];
 
 List<DropDownItem> BMCElements = [

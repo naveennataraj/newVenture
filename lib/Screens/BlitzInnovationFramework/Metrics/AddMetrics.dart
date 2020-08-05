@@ -23,7 +23,6 @@ class _AddMetricsState extends State<AddMetrics> {
     super.initState();
     setState(() {
       AddingNewMetrics;
-      print(AddingNewMetrics);
     });
   }
 
@@ -81,17 +80,11 @@ class _AddMetricsState extends State<AddMetrics> {
                         for (var message in messsages) {
                           final Name = message.data['Name'];
                           final Description = message.data['Description'];
-                          final SelectedOption = message.data['SelectedOption'];
+
                           final ID = message.documentID;
 
-                          final int dropValue = SelectedOption[0];
-                          final String dropName = SelectedOption[1];
-
                           final card = addMetrics(
-                              Name: Name,
-                              Description: Description,
-                              SelectedOption: DropDownItem(dropValue, dropName),
-                              ID: ID);
+                              Name: Name, Description: Description, ID: ID);
                           AddingNewMetrics.add(card);
                         }
                       }
@@ -113,14 +106,6 @@ class _AddMetricsState extends State<AddMetrics> {
                                             removingat: AddingNewMetrics,
                                             Dialogue: addMetricsDialogue(
                                               index: index,
-                                              SelectedMetricsName:
-                                                  AddingNewMetrics[index]
-                                                      .SelectedOption
-                                                      .name,
-                                              SelectedMetricsValue:
-                                                  AddingNewMetrics[index]
-                                                      .SelectedOption
-                                                      .value,
                                             ),
                                             CollectionName:
                                                 '$currentUser/Metrics/metrics',

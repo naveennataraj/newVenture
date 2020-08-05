@@ -27,7 +27,8 @@ String MetricsName;
 
 class _addMetricsDialogueState extends State<addMetricsDialogue> {
   int index;
-
+  List<String> itemList;
+  String itemSelected;
   _addMetricsDialogueState(this.index);
   @override
   void initState() {
@@ -38,7 +39,10 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
       MetricsNameTextController =
           TextEditingController(text: AddingNewMetrics[index].Description);
       setState(() {
-        SelectedMetrics = AddingNewMetrics[index].SelectedOption;
+//        SelectedMetrics = DropDownItem(
+//            widget.SelectedMetricsValue, widget.SelectedMetricsName);
+
+        itemSelected = AddingNewMetrics[widget.index].Name;
       });
     }
   }
@@ -107,11 +111,16 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
-                                    SelectedMetrics = newValue;
+                                    itemSelected = newValue;
                                   });
                                 },
-                                items: Metricsdropdown,
-                                value: SelectedMetrics,
+                                items:
+                                    MetricDropdownList.map((String singleItem) {
+                                  return DropdownMenuItem<String>(
+                                      value: singleItem,
+                                      child: Text(singleItem));
+                                }).toList(),
+                                value: itemSelected,
                               ),
                             ),
                           ],
@@ -138,13 +147,9 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                       .collection(
                                           '$currentUser/Metrics/metrics')
                                       .add({
-                                    'Name': SelectedMetrics.name,
+                                    'Name': itemSelected,
                                     'Description':
                                         MetricsNameTextController.text,
-                                    'SelectedOption': [
-                                      SelectedMetrics.value,
-                                      SelectedMetrics.name
-                                    ],
                                     'Sender': "tester@gmail.com",
                                   });
                                 } else {
@@ -155,19 +160,15 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                           '$currentUser/Metrics/metrics')
                                       .document(AddingNewMetrics[index].ID)
                                       .updateData({
-                                    'Name': SelectedMetrics.name,
+                                    'Name': itemSelected,
                                     'Description':
                                         MetricsNameTextController.text,
-                                    'SelectedOption': [
-                                      SelectedMetrics.value,
-                                      SelectedMetrics.name
-                                    ],
                                     'Sender': "tester@gmail.com",
                                   });
                                 }
 
                                 MetricsNameTextController.clear();
-                                SelectedMetrics = null;
+                                itemSelected = null;
 
                                 Navigator.pop(context);
                               });
