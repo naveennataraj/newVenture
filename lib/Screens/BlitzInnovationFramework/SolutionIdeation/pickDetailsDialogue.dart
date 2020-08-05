@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -90,7 +91,9 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
 
   void getDocument() async {
     spinner = true;
-    final document = await _firestore.collection('pickDetails').getDocuments();
+    final document = await _firestore
+        .collection('$currentUser/SolutionIdeation/pickDetails')
+        .getDocuments();
 //    print("GEt method called");
 
     for (var message in document.documents) {
@@ -135,7 +138,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
   update() {
     print("Update method called");
     _firestore
-        .collection('pickDetails')
+        .collection('$currentUser/SolutionIdeation/pickDetails')
         .document(PickDetailsArray[0].ID)
         .updateData({
       'checked': checked,
@@ -150,7 +153,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
 
   add() {
     print("add method called");
-    _firestore.collection('pickDetails').add({
+    _firestore.collection('$currentUser/SolutionIdeation/pickDetails').add({
       'checked': checked,
       'Event': EventTextController.text,
       'Monetize': MonetizeTextController.text,

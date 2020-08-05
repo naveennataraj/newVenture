@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideationDialogue.dart';
@@ -65,8 +66,10 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                         'Tip: To start with, it is ideal to add as many solutions as possible. The relevant solutions can then be shortlisted and the ideal solution option can be selected at the end.',
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream:
-                        _firestore.collection('solutionIdeation').snapshots(),
+                    stream: _firestore
+                        .collection(
+                            '$currentUser/SolutionIdeation/solutionIdeation')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final messsages = snapshot.data.documents.reversed;
@@ -108,7 +111,8 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                                             Dialogue: solutionIdeationDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: 'solutionIdeation',
+                                            CollectionName:
+                                                '$currentUser/SolutionIdeation/solutionIdeation',
                                             ID: AddingNewSolutions[index].ID,
                                           )
                                         ]

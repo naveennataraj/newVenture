@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -163,7 +164,10 @@ class _painpointDialogueState extends State<painpointDialogue> {
                           );
                           if (index == null) {
                             AddingNewPainPoint.add(NewPainpoint);
-                            _firestore.collection('painPoints').add({
+                            _firestore
+                                .collection(
+                                    '$currentUser/StudyTheProblem/painPoints')
+                                .add({
                               'Challenge': ChallengeTextController.text,
                               'MoreDetails': MoreDetailsTextController.text,
                               'Consequence': ConsequenceTextController.text,
@@ -175,7 +179,8 @@ class _painpointDialogueState extends State<painpointDialogue> {
 //                            AddingNewPainPoint.removeAt(index);
 ////                            AddingNewPainPoint.insert(index, NewPainpoint);
                             _firestore
-                                .collection('painPoints')
+                                .collection(
+                                    '$currentUser/StudyTheProblem/painPoints')
                                 .document(AddingNewPainPoint[index].ID)
                                 .updateData({
                               'Challenge': ChallengeTextController.text,

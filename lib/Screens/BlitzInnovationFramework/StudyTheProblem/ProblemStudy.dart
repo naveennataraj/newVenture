@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/problemStudy.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
@@ -62,7 +63,9 @@ class _ProblemStudyState extends State<ProblemStudy> {
 
   void getDocument() async {
     spinner = true;
-    final document = await _firestore.collection('problemStudy').getDocuments();
+    final document = await _firestore
+        .collection('$currentUser/StudyTheProblem/problemStudy')
+        .getDocuments();
     print("GEt method called");
 
     for (var message in document.documents) {
@@ -191,14 +194,16 @@ class _ProblemStudyState extends State<ProblemStudy> {
                                     if (ProblemStudyArray.length != 0) {
                                       print("Update method called");
                                       _firestore
-                                          .collection('problemStudy')
+                                          .collection(
+                                              '$currentUser/StudyTheProblem/problemStudy')
                                           .document(ProblemStudyArray[0].ID)
                                           .updateData({
                                         'Title': TitleTextController.text,
                                         'Problem': ProblemTextController.text,
                                         'Importance':
                                             ImportanceTextController.text,
-                                        'Sender': "tester@gmail.com",
+                                        'Sender': currentUser,
+                                        'Sender': currentUser,
                                       });
 //                                      ProblemStudyArray[0].title =
 //                                          TitleTextController.text;
@@ -209,13 +214,14 @@ class _ProblemStudyState extends State<ProblemStudy> {
                                     } else {
                                       print("add method called");
                                       _firestore
-                                          .collection('problemStudy')
+                                          .collection(
+                                              '$currentUser/StudyTheProblem/problemStudy')
                                           .add({
                                         'Title': TitleTextController.text,
                                         'Problem': ProblemTextController.text,
                                         'Importance':
                                             ImportanceTextController.text,
-                                        'Sender': "tester@gmail.com",
+                                        'Sender': currentUser,
                                       });
 //                                      final _field = problemStudy(
 //                                          title: TitleTextController.text,

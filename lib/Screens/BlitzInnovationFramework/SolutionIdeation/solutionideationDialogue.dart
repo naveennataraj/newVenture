@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
 import 'package:iventure001/Widgets/AddSolutionButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -109,7 +110,8 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                                 if (index == null) {
 //                                  AddingNewSolutions.add(NewSolutionIdeation);
                                   _firestore
-                                      .collection('solutionIdeation')
+                                      .collection(
+                                          '$currentUser/SolutionIdeation/solutionIdeation')
                                       .add({
                                     'Name': NameTextController.text,
                                     'BriefDesctiption':
@@ -121,7 +123,8 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
 //                                  AddingNewSolutions.insert(
 //                                      index, NewSolutionIdeation);
                                   _firestore
-                                      .collection('solutionIdeation')
+                                      .collection(
+                                          '$currentUser/SolutionIdeation/solutionIdeation')
                                       .document(AddingNewSolutions[index].ID)
                                       .updateData({
                                     'Name': NameTextController.text,

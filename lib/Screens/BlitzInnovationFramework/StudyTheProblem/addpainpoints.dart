@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyTheProblem/painPointDialogue.dart';
@@ -65,7 +66,9 @@ class _AddPainPointsState extends State<AddPainPoints> {
                       ),
                     ),
                     StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('painPoints').snapshots(),
+                      stream: _firestore
+                          .collection('$currentUser/StudyTheProblem/painPoints')
+                          .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           final messsages = snapshot.data.documents.reversed;
@@ -104,7 +107,8 @@ class _AddPainPointsState extends State<AddPainPoints> {
                                         removingat: AddingNewPainPoint,
                                         Dialogue:
                                             painpointDialogue(index: index),
-                                        CollectionName: 'painPoints',
+                                        CollectionName:
+                                            '$currentUser/StudyTheProblem/painPoints',
                                         ID: AddingNewPainPoint[index].ID,
                                       ),
                                     ],
@@ -116,9 +120,14 @@ class _AddPainPointsState extends State<AddPainPoints> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      "There are no pain points at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                      style: TextStyle(color: Colors.grey),
+                                    Expanded(
+                                      child: Text(
+                                        "There are no pain points at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     )
                                   ],
                                 ),
