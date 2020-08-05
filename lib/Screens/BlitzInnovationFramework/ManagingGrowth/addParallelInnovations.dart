@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/addParallelInnovationsDialogue.dart';
@@ -60,7 +61,8 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                   ),
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
-                        .collection('parallelInnovations')
+                        .collection(
+                            '$currentUser/ManagingGrowth/parallelInnovations')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -107,7 +109,7 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                                               index: index,
                                             ),
                                             CollectionName:
-                                                'parallelInnovations',
+                                                '$currentUser/ManagingGrowth/parallelInnovations',
                                             ID: AddingNewParallelInnovations[
                                                     index]
                                                 .ID,

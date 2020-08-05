@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
 import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -241,32 +242,36 @@ class _addProductFeaturesDialogueState
                             routeName: '/addproductgoals',
                             onTap: () {
                               setState(() {
-                                final NewProductFeature = addProductFeature(
-                                    FeatureTitle:
-                                        ProductFeatureTextController.text,
-                                    FeatureDescription:
-                                        FeatureDescriptionTextController.text,
-                                    FeatureChecked: checked,
-                                    FeatureType: clickedRadio);
+//                                final NewProductFeature = addProductFeature(
+//                                    FeatureTitle:
+//                                        ProductFeatureTextController.text,
+//                                    FeatureDescription:
+//                                        FeatureDescriptionTextController.text,
+//                                    FeatureChecked: checked,
+//                                    FeatureType: clickedRadio);
 
                                 if (index == null) {
 //                                  AddingNewProductFeature.add(
 //                                      NewProductFeature);
-                                  _firestore.collection('productFeatures').add({
+                                  _firestore
+                                      .collection(
+                                          '$currentUser/SolutionFormulation/productFeatures')
+                                      .add({
                                     'FeatureTitle':
                                         ProductFeatureTextController.text,
                                     'FeatureDescription':
                                         FeatureDescriptionTextController.text,
                                     'FeatureChecked': checked,
                                     'FeatureType': clickedRadio,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 } else {
 //                                  AddingNewProductFeature.removeAt(index);
 //                                  AddingNewProductFeature.insert(
 //                                      index, NewProductFeature);
                                   _firestore
-                                      .collection('productFeatures')
+                                      .collection(
+                                          '$currentUser/SolutionFormulation/productFeatures')
                                       .document(
                                           AddingNewProductFeature[index].ID)
                                       .updateData({
@@ -276,7 +281,7 @@ class _addProductFeaturesDialogueState
                                         FeatureDescriptionTextController.text,
                                     'FeatureChecked': checked,
                                     'FeatureType': clickedRadio,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 }
 

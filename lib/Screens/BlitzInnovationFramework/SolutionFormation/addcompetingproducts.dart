@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
 import 'package:iventure001/Data/CardData.dart';
@@ -60,8 +61,10 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                         "Tip: This section is a list of products in the market which currently cater to the customer's pain points",
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream:
-                        _firestore.collection('competingProducts').snapshots(),
+                    stream: _firestore
+                        .collection(
+                            '$currentUser/SolutionFormulation/competingProducts')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final messsages = snapshot.data.documents.reversed;
@@ -106,7 +109,8 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
                                                 addCompetingProductsDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: 'competingProducts',
+                                            CollectionName:
+                                                '$currentUser/SolutionFormulation/competingProducts',
                                             ID: AddingNewCompetingProduct[index]
                                                 .ID,
                                           )

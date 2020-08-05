@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addProductFeaturesDialogue.dart';
@@ -55,8 +56,10 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                     ),
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream:
-                        _firestore.collection('productFeatures').snapshots(),
+                    stream: _firestore
+                        .collection(
+                            '$currentUser/SolutionFormulation/productFeatures')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final messsages = snapshot.data.documents.reversed;
@@ -101,7 +104,8 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                                                 addProductFeaturesDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: 'productFeatures',
+                                            CollectionName:
+                                                '$currentUser/SolutionFormulation/productFeatures',
                                             ID: AddingNewProductFeature[index]
                                                 .ID,
                                           )

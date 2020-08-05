@@ -1,9 +1,11 @@
 import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/handlingScale.dart';
 import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
@@ -15,13 +17,80 @@ class handlingScale extends StatefulWidget {
   _handlingScaleState createState() => _handlingScaleState();
 }
 
-var MediumlabelColor = Color(0XFF919191);
-bool validMedium = true;
-var MediumTextController = TextEditingController();
-final PersonMedium = new FocusNode();
-String Medium;
-
 class _handlingScaleState extends State<handlingScale> {
+  bool spinner = false;
+  final _firestore = Firestore.instance;
+
+  var HandlingScalelabelColor = Color(0XFF919191);
+  bool validHandlingScale = true;
+  var HandlingScaleTextController = TextEditingController();
+  final HandlingScaleFocus = new FocusNode();
+  String HandlingScale;
+
+  validator() {
+    setState(() {
+      HandlingScaleTextController.text.isEmpty
+          ? validHandlingScale = false
+          : validHandlingScale = true;
+      HandlingScaleTextController.text.isEmpty
+          ? HandlingScalelabelColor = Color(0xFFF53E70)
+          : HandlingScalelabelColor = Color(0xFF919191);
+    });
+  }
+
+  void getDocument() async {
+    spinner = true;
+    final document = await _firestore
+        .collection('$currentUser/ManagingGrowth/handlingScale')
+        .getDocuments();
+//    print("GEt method called");
+
+    for (var message in document.documents) {
+      HandlingScaleArray = [];
+      final Scale = message.data['Scale'];
+      final ID = message.documentID;
+
+      final fields = addHandlingScale(Scale: Scale, ID: ID);
+
+      HandlingScaleArray.add(fields);
+      print('Get Method called');
+      print(HandlingScaleArray[0].Scale);
+    }
+    setState(() {
+      spinner = false;
+
+      if (HandlingScaleArray.length != 0) {
+        HandlingScaleTextController =
+            TextEditingController(text: HandlingScaleArray[0].Scale);
+      }
+    });
+  }
+
+  update() {
+    print("Update method called");
+    _firestore
+        .collection('$currentUser/ManagingGrowth/handlingScale')
+        .document(HandlingScaleArray[0].ID)
+        .updateData({
+      'Scale': HandlingScaleTextController.text,
+      'Sender': currentUser,
+    });
+  }
+
+  add() {
+    print("add method called");
+    _firestore.collection('$currentUser/ManagingGrowth/handlingScale').add({
+      'Scale': HandlingScaleTextController.text,
+      'Sender': currentUser,
+    });
+  }
+
+  @override
+  void initState() {
+    getDocument();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,12 +134,12 @@ class _handlingScaleState extends State<handlingScale> {
                   TextFieldWidget(
                     labelText: "How would you handle scale?",
                     maxLines: 2,
-                    validText: validPersonName,
-                    myFocusNode: PersonNameFocusNode,
-                    myTextController: PersonNameTextController,
-                    textCollecter: PersonName,
+                    validText: validHandlingScale,
+                    myFocusNode: HandlingScaleFocus,
+                    myTextController: HandlingScaleTextController,
+                    textCollecter: HandlingScale,
                     helperText: '',
-                    labelcolour: PersonNamelabelColor,
+                    labelcolour: HandlingScalelabelColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -82,12 +151,21 @@ class _handlingScaleState extends State<handlingScale> {
                           width: 50,
                         ),
                         goNextButton(
-                          OnTap: () {
-                            bcpData[6].CompletionValidator = false;
-                            print(bcpData[6].CompletionValidator);
-                            Navigator.pushNamed(
-                                context, '/addparallelinnovations');
-                          },
+                          OnTap: (HandlingScaleTextController.text == '')
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  if (HandlingScaleArray.length != 0) {
+                                    update();
+                                  } else {
+                                    add();
+                                  }
+                                  bcpData[6].CompletionValidator = false;
+                                  print(bcpData[6].CompletionValidator);
+                                  Navigator.pushNamed(
+                                      context, '/addparallelinnovations');
+                                },
                         ),
                       ],
                     ),

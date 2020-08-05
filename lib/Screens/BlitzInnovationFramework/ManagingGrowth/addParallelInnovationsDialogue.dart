@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
 import 'package:iventure001/Widgets/AddMetricButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -131,7 +132,8 @@ class _addParallelInnovationDialogueState
 //                                  AddingNewParallelInnovations.add(
 //                                      NewParallelInnovation);
                                   _firestore
-                                      .collection('parallelInnovations')
+                                      .collection(
+                                          '$currentUser/ManagingGrowth/parallelInnovations')
                                       .add({
                                     'Name': SolutionNameTextController.text,
                                     'Description':
@@ -144,7 +146,8 @@ class _addParallelInnovationDialogueState
 //                                  AddingNewParallelInnovations.insert(
 //                                      index, NewParallelInnovation);
                                   _firestore
-                                      .collection('parallelInnovations')
+                                      .collection(
+                                          '$currentUser/ManagingGrowth/parallelInnovations')
                                       .document(
                                           AddingNewParallelInnovations[index]
                                               .ID)

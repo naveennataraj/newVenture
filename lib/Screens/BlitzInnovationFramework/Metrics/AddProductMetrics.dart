@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -172,7 +173,7 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
 //                                Description: CustomerProblemTextController.text,
 //                                SelectedOption: MetricsList[0]);
                             _firestore
-                                .collection('metrics')
+                                .collection('$currentUser/Metrics/metrics')
                                 .document('ProblemSpace')
                                 .setData({
                               'Name': 'Problem Space',
@@ -181,14 +182,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                 MetricsList[0].value,
                                 MetricsList[0].name
                               ],
-                              'Sender': "tester@gmail.com",
+                              'Sender': currentUser,
                             });
 //                            final NewMetric2 = addMetrics(
 //                                Name: 'Solution Space',
 //                                Description: SolutionTextController.text,
 //                                SelectedOption: MetricsList[1]);
                             _firestore
-                                .collection('metrics')
+                                .collection('$currentUser/Metrics/metrics')
                                 .document('SolutionSpace')
                                 .setData({
                               'Name': 'Solution Space',
@@ -197,14 +198,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                 MetricsList[1].value,
                                 MetricsList[1].name
                               ],
-                              'Sender': "tester@gmail.com",
+                              'Sender': currentUser,
                             });
 //                            final NewMetic3 = addMetrics(
 //                                Name: 'Evangelism',
 //                                Description: EvangelismTextController.text,
 //                                SelectedOption: MetricsList[2]);
                             _firestore
-                                .collection('metrics')
+                                .collection('$currentUser/Metrics/metrics')
                                 .document('Evangelism')
                                 .setData({
                               'Name': 'Evangelism',
@@ -213,14 +214,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                 MetricsList[2].value,
                                 MetricsList[2].name
                               ],
-                              'Sender': "tester@gmail.com",
+                              'Sender': currentUser,
                             });
 //                            final NewMetic4 = addMetrics(
 //                                Name: 'Scale',
 //                                Description: ScaleTextController.text,
 //                                SelectedOption: MetricsList[3]);
                             _firestore
-                                .collection('metrics')
+                                .collection('$currentUser/Metrics/metrics')
                                 .document('Scale')
                                 .setData({
                               'Name': 'Scale',
@@ -229,14 +230,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                 MetricsList[3].value,
                                 MetricsList[3].name
                               ],
-                              'Sender': "tester@gmail.com",
+                              'Sender': currentUser,
                             });
 //                            final NewMetic5 = addMetrics(
 //                                Name: 'Evolution',
 //                                Description: EvolutionTextController.text,
 //                                SelectedOption: MetricsList[4]);
                             _firestore
-                                .collection('metrics')
+                                .collection('$currentUser/Metrics/metrics')
                                 .document('Evolution')
                                 .setData({
                               'Name': 'Evolution',
@@ -245,7 +246,7 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                 MetricsList[4].value,
                                 MetricsList[4].name
                               ],
-                              'Sender': "tester@gmail.com",
+                              'Sender': currentUser,
                             });
 //                            final NewMetic6 = addMetrics(
 //                                Name: 'Ecosystem',
@@ -253,7 +254,7 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
 //                                    ParallelSolutionTextController.text,
 //                                SelectedOption: MetricsList[5]);
                             _firestore
-                                .collection('metrics')
+                                .collection('$currentUser/Metrics/metrics')
                                 .document('Ecosystem')
                                 .setData({
                               'Name': 'Ecosystem',
@@ -263,7 +264,7 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                 MetricsList[5].value,
                                 MetricsList[5].name
                               ],
-                              'Sender': "tester@gmail.com",
+                              'Sender': currentUser,
                             });
 
                             setState(() {
@@ -271,7 +272,7 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
 //                                AddingNewMetrics.removeAt(0);
 //                                AddingNewMetrics.insert(0, NewMetric1);
                                 _firestore
-                                    .collection('metrics')
+                                    .collection('$currentUser/Metrics/metrics')
                                     .document('ProblemSpace')
                                     .updateData({
                                   'Name': 'Problem Space',
@@ -281,14 +282,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                     MetricsList[0].value,
                                     MetricsList[0].name
                                   ],
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
                               }
                               if (SolutionTextController.text != null) {
 //                                AddingNewMetrics.removeAt(1);
 //                                AddingNewMetrics.insert(1, NewMetric2);
                                 _firestore
-                                    .collection('metrics')
+                                    .collection('$currentUser/Metrics/metrics')
                                     .document('SolutionSpace')
                                     .updateData({
                                   'Name': 'Solution Space',
@@ -297,14 +298,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                     MetricsList[1].value,
                                     MetricsList[1].name
                                   ],
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
                               }
                               if (EvangelismTextController.text != null) {
 //                                AddingNewMetrics.removeAt(2);
 //                                AddingNewMetrics.insert(2, NewMetic3);
                                 _firestore
-                                    .collection('metrics')
+                                    .collection('$currentUser/Metrics/metrics')
                                     .document('Evangelism')
                                     .updateData({
                                   'Name': 'Evangelism',
@@ -313,14 +314,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                     MetricsList[2].value,
                                     MetricsList[2].name
                                   ],
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
                               }
                               if (ScaleTextController.text != null) {
 //                                AddingNewMetrics.removeAt(3);
 //                                AddingNewMetrics.insert(3, NewMetic4);
                                 _firestore
-                                    .collection('metrics')
+                                    .collection('$currentUser/Metrics/metrics')
                                     .document('Scale')
                                     .updateData({
                                   'Name': 'Scale',
@@ -329,14 +330,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                     MetricsList[3].value,
                                     MetricsList[3].name
                                   ],
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
                               }
                               if (EvolutionTextController.text != null) {
 //                                AddingNewMetrics.removeAt(4);
 //                                AddingNewMetrics.insert(4, NewMetic5);
                                 _firestore
-                                    .collection('metrics')
+                                    .collection('$currentUser/Metrics/metrics')
                                     .document('Evolution')
                                     .updateData({
                                   'Name': 'Evolution',
@@ -345,14 +346,14 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                     MetricsList[4].value,
                                     MetricsList[4].name
                                   ],
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
                               }
                               if (ParallelSolutionTextController.text != null) {
 //                                AddingNewMetrics.removeAt(5);
 //                                AddingNewMetrics.insert(5, NewMetic6);
                                 _firestore
-                                    .collection('metrics')
+                                    .collection('$currentUser/Metrics/metrics')
                                     .document('Ecosystem')
                                     .updateData({
                                   'Name': 'Ecosystem',
@@ -362,7 +363,7 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                     MetricsList[5].value,
                                     MetricsList[5].name
                                   ],
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
                               }
 

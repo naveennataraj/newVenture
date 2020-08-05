@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductGoal.dart';
 import 'package:iventure001/Widgets/AddProductGoalButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -84,20 +85,24 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
 
                                 if (index == null) {
 //                                  AddingNewProductGoals.add(NewProductGoals);
-                                  _firestore.collection('productGoal').add({
+                                  _firestore
+                                      .collection(
+                                          '$currentUser/SolutionFormulation/productGoal')
+                                      .add({
                                     'goal': ProductGoalTextController.text,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 } else {
 //                                  AddingNewProductGoals.removeAt(index);
 //                                  AddingNewProductGoals.insert(
 //                                      index, NewProductGoals);
                                   _firestore
-                                      .collection('productGoal')
+                                      .collection(
+                                          '$currentUser/SolutionFormulation/productGoal')
                                       .document(AddingNewProductGoals[index].ID)
                                       .updateData({
                                     'goal': ProductGoalTextController.text,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 }
 

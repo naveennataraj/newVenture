@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/Metrics/addMetricsDialogue.dart';
@@ -69,11 +70,14 @@ class _AddMetricsState extends State<AddMetrics> {
                         'Tip: Metrics help measure and keep track of what is important in the solution concept and business model.\nThe framework for capture of metrics used by this application is based on the MESOPS Framework. To study this further, please refer to this link.',
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('metrics').snapshots(),
+                    stream: _firestore
+                        .collection('$currentUser/Metrics/metrics')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final messsages = snapshot.data.documents.reversed;
                         AddingNewMetrics = [];
+                        SelectedMetrics = null;
                         for (var message in messsages) {
                           final Name = message.data['Name'];
                           final Description = message.data['Description'];
@@ -118,7 +122,8 @@ class _AddMetricsState extends State<AddMetrics> {
                                                       .SelectedOption
                                                       .value,
                                             ),
-                                            CollectionName: 'metrics',
+                                            CollectionName:
+                                                '$currentUser/Metrics/metrics',
                                             ID: AddingNewMetrics[index].ID,
                                           )
                                         ]

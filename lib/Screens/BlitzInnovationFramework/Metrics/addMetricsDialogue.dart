@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Widgets/AddMetricButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -31,15 +32,9 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
   @override
   void initState() {
     super.initState();
-//    setState(() {
-//      AddingNewMetrics;
-//      print(AddingNewMetrics[index].SelectedOption);
-//      Metricsdropdown = buildDropDownMenuItems(MetricsList);
-//      print(Metricsdropdown);
-//    });
 
+    Metricsdropdown = buildDropDownMenuItems(MetricsList);
     if (index != null) {
-      Metricsdropdown = buildDropDownMenuItems(MetricsList);
       MetricsNameTextController =
           TextEditingController(text: AddingNewMetrics[index].Description);
       SelectedMetrics = AddingNewMetrics[index].SelectedOption;
@@ -137,7 +132,10 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
 
                                 if (index == null) {
 //                                  AddingNewMetrics.add(NewMetrics);
-                                  _firestore.collection('metrics').add({
+                                  _firestore
+                                      .collection(
+                                          '$currentUser/Metrics/metrics')
+                                      .add({
                                     'Name': SelectedMetrics.name,
                                     'Description':
                                         MetricsNameTextController.text,
@@ -151,7 +149,8 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
 //                                  AddingNewMetrics.removeAt(index);
 //                                  AddingNewMetrics.insert(index, NewMetrics);
                                   _firestore
-                                      .collection('metrics')
+                                      .collection(
+                                          '$currentUser/Metrics/metrics')
                                       .document(AddingNewMetrics[index].ID)
                                       .updateData({
                                     'Name': SelectedMetrics.name,

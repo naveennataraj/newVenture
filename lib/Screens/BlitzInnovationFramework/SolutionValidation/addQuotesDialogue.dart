@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
 import 'package:iventure001/Widgets/AddQuoteButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -104,21 +105,25 @@ class _addQuotesDialogueState extends State<addQuotesDialogue> {
 
                                 if (index == null) {
 //                                  AddingNewQuote.add(NewQuote);
-                                  _firestore.collection('Quote').add({
+                                  _firestore
+                                      .collection(
+                                          '$currentUser/SolutionValidation/Quote')
+                                      .add({
                                     'Content': QuoteContentTextController.text,
                                     'CheckQuote': Quotechecked,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 } else {
 //                                  AddingNewQuote.removeAt(index);
 //                                  AddingNewQuote.insert(index, NewQuote);
                                   _firestore
-                                      .collection('Quote')
+                                      .collection(
+                                          '$currentUser/SolutionValidation/Quote')
                                       .document(AddingNewQuote[index].ID)
                                       .updateData({
                                     'Content': QuoteContentTextController.text,
                                     'CheckQuote': Quotechecked,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 }
 

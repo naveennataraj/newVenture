@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addContact.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
@@ -62,7 +63,8 @@ class _AddEvangelistsAndEarlyAdoptersState
                   ),
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
-                        .collection('evangelistsAndEarlyAdopters')
+                        .collection(
+                            '$currentUser/PreValidation/evangelistsAndEarlyAdopters')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -107,7 +109,7 @@ class _AddEvangelistsAndEarlyAdoptersState
                                               index: index,
                                             ),
                                             CollectionName:
-                                                'evangelistsAndEarlyAdopters',
+                                                '$currentUser/PreValidation/evangelistsAndEarlyAdopters',
                                             ID: AddingNewContacts[index].ID,
                                           )
                                         ]

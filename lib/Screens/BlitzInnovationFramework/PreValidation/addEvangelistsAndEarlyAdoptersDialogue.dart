@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addContact.dart';
 import 'package:iventure001/Widgets/AddProductGoalButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -186,26 +187,28 @@ class _addEvangelistsAndEarlyAdoptersDialogueState
                                 if (index == null) {
 //                                  AddingNewContacts.add(NewContacts);
                                   _firestore
-                                      .collection('evangelistsAndEarlyAdopters')
+                                      .collection(
+                                          '$currentUser/PreValidation/evangelistsAndEarlyAdopters')
                                       .add({
                                     'Name': PersonNameTextController.text,
                                     'Email': PersonEmailTextController.text,
                                     'Contact': PersonNumberTextController.text,
                                     'ContactSelected': clickedRadio,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 } else {
 //                                  AddingNewContacts.removeAt(index);
 //                                  AddingNewContacts.insert(index, NewContacts);
                                   _firestore
-                                      .collection('evangelistsAndEarlyAdopters')
+                                      .collection(
+                                          '$currentUser/PreValidation/evangelistsAndEarlyAdopters')
                                       .document(AddingNewContacts[index].ID)
                                       .updateData({
                                     'Name': PersonNameTextController.text,
                                     'Email': PersonEmailTextController.text,
                                     'Contact': PersonNumberTextController.text,
                                     'ContactSelected': clickedRadio,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 }
 

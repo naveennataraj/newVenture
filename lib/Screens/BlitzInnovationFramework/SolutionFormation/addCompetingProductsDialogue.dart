@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
 import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -150,7 +151,8 @@ class _addCompetingProductsDialogueState
 //                                  AddingNewCompetingProduct.add(
 //                                      NewComponentProduct);
                                   _firestore
-                                      .collection('competingProducts')
+                                      .collection(
+                                          '$currentUser/SolutionFormulation/competingProducts')
                                       .add({
                                     'ProductName':
                                         ProductNameTextController.text,
@@ -159,14 +161,15 @@ class _addCompetingProductsDialogueState
                                         CompetingOfferingTextController.text,
                                     'CurrentOffering':
                                         SolutionOfferingTextController.text,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 } else {
 //                                  AddingNewCompetingProduct.removeAt(index);
 //                                  AddingNewCompetingProduct.insert(
 //                                      index, NewComponentProduct);
                                   _firestore
-                                      .collection('competingProducts')
+                                      .collection(
+                                          '$currentUser/SolutionFormulation/competingProducts')
                                       .document(
                                           AddingNewCompetingProduct[index].ID)
                                       .updateData({
@@ -177,7 +180,7 @@ class _addCompetingProductsDialogueState
                                         CompetingOfferingTextController.text,
                                     'CurrentOffering':
                                         SolutionOfferingTextController.text,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 }
 

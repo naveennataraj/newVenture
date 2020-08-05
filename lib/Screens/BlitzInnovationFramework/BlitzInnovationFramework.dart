@@ -4,7 +4,6 @@ import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
 
 class BlitzInnovationFramework extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +99,7 @@ class BlitzInnovationFramework extends StatelessWidget {
                 height: 40,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 100, right: 100),
+                padding: const EdgeInsets.only(left: 50, right: 50),
                 child: GridView.builder(
                   shrinkWrap: true,
 //                  physics: NeverScrollableScrollPhysics(),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
@@ -60,7 +61,9 @@ class _AddQuotesState extends State<AddQuotes> {
                         'Tip: When speaking with prospective customers or potential end users, do we get the impression that the preferred solution concept will provide relief on their pain points? If yes, at the least one of these can be added to demonstrate the effectiveness of the solution concept.',
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('Quote').snapshots(),
+                    stream: _firestore
+                        .collection('$currentUser/SolutionValidation/Quote')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final messsages = snapshot.data.documents.reversed;
@@ -93,7 +96,8 @@ class _AddQuotesState extends State<AddQuotes> {
                                             Dialogue: addQuotesDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: 'Quote',
+                                            CollectionName:
+                                                '$currentUser/SolutionValidation/Quote',
                                             ID: AddingNewQuote[index].ID,
                                           )
                                         ]

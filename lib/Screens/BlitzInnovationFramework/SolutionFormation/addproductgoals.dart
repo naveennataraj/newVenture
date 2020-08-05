@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductGoal.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addProductGoalsDialogue.dart';
@@ -54,7 +55,10 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                     ),
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('productGoal').snapshots(),
+                    stream: _firestore
+                        .collection(
+                            '$currentUser/SolutionFormulation/productGoal')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final messsages = snapshot.data.documents.reversed;
@@ -86,7 +90,8 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                                             Dialogue: addProductGoalsDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: 'productGoal',
+                                            CollectionName:
+                                                '$currentUser/SolutionFormulation/productGoal',
                                             ID: AddingNewProductGoals[index].ID,
                                           )
                                         ]
