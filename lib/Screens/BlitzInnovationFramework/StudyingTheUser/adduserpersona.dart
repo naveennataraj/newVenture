@@ -1,23 +1,93 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserPersona.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class AddUserPersona extends StatefulWidget {
   @override
   _AddUserPersonaState createState() => _AddUserPersonaState();
 }
 
-bool validUserPersona = true;
-var UserPersonalabelColor = Color(0XFF919191);
-var UserPersonaTextController = TextEditingController();
-final UserPersonaFocusNode = new FocusNode();
-String UserPersona;
-
 class _AddUserPersonaState extends State<AddUserPersona> {
+  bool spinner = false;
+  final _firestore = Firestore.instance;
+
+  bool validUserPersona = true;
+  var UserPersonalabelColor = Color(0XFF919191);
+  var UserPersonaTextController = TextEditingController();
+  final UserPersonaFocusNode = new FocusNode();
+  String UserPersona;
+
+  validator() {
+    setState(() {
+      UserPersonaTextController.text.isEmpty
+          ? validUserPersona = false
+          : validUserPersona = true;
+      UserPersonaTextController.text.isEmpty
+          ? UserPersonalabelColor = Color(0xFFF53E70)
+          : UserPersonalabelColor = Color(0xFF919191);
+    });
+  }
+
+  void getDocument() async {
+    spinner = true;
+    final document = await _firestore
+        .collection('$currentUser/StudyingTheUser/UserPersona')
+        .getDocuments();
+//    print("GEt method called");
+
+    for (var message in document.documents) {
+      UserPersonaArray = [];
+      final Link = message.data['Link'];
+      final ID = message.documentID;
+
+      final fields = addUserPersona(link: Link, ID: ID);
+
+      UserPersonaArray.add(fields);
+      print('Get Method called');
+    }
+    setState(() {
+      spinner = false;
+
+      if (UserPersonaArray.length != 0) {
+        UserPersonaTextController =
+            TextEditingController(text: UserPersonaArray[0].link);
+      }
+    });
+  }
+
+  update() {
+    print("Update method called");
+    _firestore
+        .collection('$currentUser/StudyingTheUser/UserPersona')
+        .document(UserPersonaArray[0].ID)
+        .updateData({
+      'Link': UserPersonaTextController.text,
+      'Sender': currentUser,
+    });
+  }
+
+  add() {
+    print("add method called");
+    _firestore.collection('$currentUser/StudyingTheUser/UserPersona').add({
+      'Link': UserPersonaTextController.text,
+      'Sender': currentUser,
+    });
+  }
+
+  @override
+  void initState() {
+    getDocument();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,66 +96,79 @@ class _AddUserPersonaState extends State<AddUserPersona> {
         preferredSize: Size.fromHeight(60.0),
         child: NavigationBar(),
       ),
-      body: Center(
-        child: Container(
-          //height: MediaQuery.of(context).size.height * .40,
-          margin: EdgeInsets.only(top: 40.0),
-          width: MediaQuery.of(context).size.width * .40,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            //shape: BoxShape.rectangle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 1.0), //(x,y)
-                blurRadius: 2.0,
-              ),
-            ],
-          ),
-          child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        'Add details of the foundational aspects of the business',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )),
-                  TextFieldWidget(
-                    labelText: "Please provide a link to the User's Persona",
-                    maxLines: 1,
-                    validText: validUserPersona,
-                    myFocusNode: UserPersonaFocusNode,
-                    myTextController: UserPersonaTextController,
-                    textCollecter: UserPersona,
-                    helperText: '',
-                    labelcolour: UserPersonalabelColor,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        headBackButtton(),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        goNextButton(
-                          OnTap: () {
-                            bcpData[1].CompletionValidator = false;
-
-                            Navigator.pushNamed(
-                                context, '/adduserenvironmentdetails');
-                          },
-                        ),
-                      ],
+      body: ModalProgressHUD(
+        inAsyncCall: spinner,
+        child: Center(
+          child: Container(
+            //height: MediaQuery.of(context).size.height * .40,
+            margin: EdgeInsets.only(top: 40.0),
+            width: MediaQuery.of(context).size.width * .40,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              //shape: BoxShape.rectangle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 2.0,
+                ),
+              ],
+            ),
+            child: SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          'Add details of the foundational aspects of the business',
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        )),
+                    TextFieldWidget(
+                      labelText: "Please provide a link to the User's Persona",
+                      maxLines: 1,
+                      validText: validUserPersona,
+                      myFocusNode: UserPersonaFocusNode,
+                      myTextController: UserPersonaTextController,
+                      textCollecter: UserPersona,
+                      helperText: '',
+                      labelcolour: UserPersonalabelColor,
                     ),
-                  )
-                ],
-              )),
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          headBackButtton(),
+                          SizedBox(
+                            width: 50,
+                          ),
+                          goNextButton(
+                            OnTap: (UserPersonaTextController.text == '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    if (UserPersonaArray.length != 0) {
+                                      update();
+                                    } else {
+                                      add();
+                                    }
+                                    bcpData[1].CompletionValidator = false;
+
+                                    Navigator.pushNamed(
+                                        context, '/adduserenvironmentdetails');
+                                  },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+          ),
         ),
       ),
     );

@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserEnvironment.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -13,28 +16,135 @@ class AddUserEnvironmentDetails extends StatefulWidget {
       _AddUserEnvironmentDetailsState();
 }
 
-bool validUserIssues = true;
-var UserIssueslabelColor = Color(0XFF919191);
-var UserIssuesTextController = TextEditingController();
-final UserIssuesFocusNode = new FocusNode();
-String UserIssues;
-
-bool validUserDetails = true;
-var UserDetailslabelColor = Color(0XFF919191);
-var UserDetailsTextController = TextEditingController();
-final UserDetailsFocusNode = new FocusNode();
-String UserDetails;
-
 RangeValues ageValues = RangeValues(ageValuesStart, ageValuesEnd);
 RangeLabels ageLabels = RangeLabels(
     ageValuesStart.toInt().toString(), ageValuesEnd.toInt().toString());
-double ageValuesStart = 18;
-double ageValuesEnd = 35;
+
+double ageValuesStart = (UserEnvironmentArray.length != 0)
+    ? UserEnvironmentArray[0].ageRangeStart
+    : 18;
+double ageValuesEnd = (UserEnvironmentArray.length != 0)
+    ? UserEnvironmentArray[0].ageRangeEnd
+    : 35;
 
 class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
+  bool spinner = false;
+  final _firestore = Firestore.instance;
+
+  bool validUserIssues = true;
+  var UserIssueslabelColor = Color(0XFF919191);
+  var UserIssuesTextController = TextEditingController();
+  final UserIssuesFocusNode = new FocusNode();
+  String UserIssues;
+
+  bool validUserDetails = true;
+  var UserDetailslabelColor = Color(0XFF919191);
+  var UserDetailsTextController = TextEditingController();
+  final UserDetailsFocusNode = new FocusNode();
+  String UserDetails;
+
+  validator() {
+    setState(() {
+      UserIssuesTextController.text.isEmpty
+          ? validUserIssues = false
+          : validUserIssues = true;
+      UserIssuesTextController.text.isEmpty
+          ? UserIssueslabelColor = Color(0xFFF53E70)
+          : UserIssueslabelColor = Color(0xFF919191);
+      UserDetailsTextController.text.isEmpty
+          ? validUserDetails = false
+          : validUserDetails = true;
+      UserDetailsTextController.text.isEmpty
+          ? UserDetailslabelColor = Color(0xFFF53E70)
+          : UserDetailslabelColor = Color(0xFF919191);
+    });
+  }
+
+  void getDocument() async {
+    spinner = true;
+    final document = await _firestore
+        .collection('$currentUser/StudyingTheUser/UserEnvironment')
+        .getDocuments();
+//    print("GEt method called");
+
+    for (var message in document.documents) {
+      UserEnvironmentArray = [];
+      final double Start = message.data['AgeStart'];
+      final double End = message.data['AgeEnd'];
+      final int ProblemDropdownValue = message.data['ProblemDropdownValue'];
+      final ProblemDropdownName = message.data['ProblemDropdownName'];
+      final int EnvironmentDropdownValue =
+          message.data['EnvironmentDropdownValue'];
+      final EnvironmentDropdownName = message.data['EnvironmentDropdownName'];
+      final Issues = message.data['Issues'];
+      final Details = message.data['Details'];
+      final ID = message.documentID;
+
+      final fields = addUserEnvironment(
+          ageRangeStart: Start,
+          ageRangeEnd: End,
+          ProblemDrop: DropDownItem(ProblemDropdownValue, ProblemDropdownName),
+          EnvironmentDrop:
+              DropDownItem(EnvironmentDropdownValue, EnvironmentDropdownName),
+          issues: Issues,
+          detail: Details,
+          ID: ID);
+
+      UserEnvironmentArray.add(fields);
+      print('Get Method called');
+    }
+    setState(() {
+      spinner = false;
+
+      if (UserEnvironmentArray.length != 0) {
+        ageValuesStart = UserEnvironmentArray[0].ageRangeStart;
+        ageValuesEnd = UserEnvironmentArray[0].ageRangeEnd;
+        UserIssuesTextController =
+            TextEditingController(text: UserEnvironmentArray[0].issues);
+        UserDetailsTextController =
+            TextEditingController(text: UserEnvironmentArray[0].detail);
+      }
+    });
+  }
+
+  update() {
+    print("Update method called");
+
+    _firestore
+        .collection('$currentUser/StudyingTheUser/UserEnvironment')
+        .document(UserEnvironmentArray[0].ID)
+        .updateData({
+      'AgeStart': ageValues.start,
+      'AgeEnd': ageValues.end,
+      'ProblemDropdownValue': SelectedProblemDomain.value as int,
+      'ProblemDropdownName': SelectedProblemDomain.name as String,
+      'EnvironmentDropdownValue': SelectedUserEnvironment.value as int,
+      'EnvironmentDropdownName': SelectedUserEnvironment.name as String,
+      'Issues': UserIssuesTextController.text,
+      'Details': UserDetailsTextController.text,
+      'Sender': currentUser,
+    });
+  }
+
+  add() {
+    print("add method called");
+    _firestore.collection('$currentUser/StudyingTheUser/UserEnvironment').add({
+      'AgeStart': ageValues.start,
+      'AgeEnd': ageValues.end,
+      'ProblemDropdownValue': SelectedProblemDomain.value as int,
+      'ProblemDropdownName': SelectedProblemDomain.name as String,
+      'EnvironmentDropdownValue': SelectedUserEnvironment.value as int,
+      'EnvironmentDropdownName': SelectedUserEnvironment.name as String,
+      'Issues': UserIssuesTextController.text,
+      'Details': UserDetailsTextController.text,
+      'Sender': currentUser,
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    getDocument();
     ProblemDomaindropdown = buildDropDownMenuItems(ProblemDomainlist);
     UserEnvironmentdropdown = buildDropDownMenuItems(UserEnvironmentList);
   }
@@ -262,12 +372,28 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                           width: 50,
                         ),
                         goNextButton(
-                          OnTap: () {
-                            bcpData[1].CompletionValidator = false;
-                            print(bcpData[1].CompletionValidator);
-                            Navigator.pushNamed(
-                                context, '/addstoriespainpoints');
-                          },
+                          OnTap: (UserIssuesTextController.text == '' ||
+                                  UserDetailsTextController.text == '' ||
+                                  SelectedUserEnvironment == null ||
+                                  SelectedProblemDomain == null)
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  if (UserEnvironmentArray.length != 0) {
+                                    update();
+                                  } else {
+                                    add();
+                                  }
+                                  setState(() {
+                                    SelectedUserEnvironment = null;
+                                    SelectedProblemDomain = null;
+                                  });
+                                  bcpData[1].CompletionValidator = false;
+                                  print(bcpData[1].CompletionValidator);
+                                  Navigator.pushNamed(
+                                      context, '/addstoriespainpoints');
+                                },
                         ),
                       ],
                     ),

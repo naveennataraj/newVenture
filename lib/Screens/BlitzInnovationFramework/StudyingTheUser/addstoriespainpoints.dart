@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/UserStoryDialogue.dart';
@@ -63,7 +64,9 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                     ),
                   ),
                   StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('userStory').snapshots(),
+                    stream: _firestore
+                        .collection('$currentUser/StudyingTheUser/userStory')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final messsages = snapshot.data.documents.reversed;
@@ -99,7 +102,8 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                                             Dialogue: userStoryDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: 'userStory',
+                                            CollectionName:
+                                                '$currentUser/StudyingTheUser/userStory',
                                             ID: AddingNewUserStory[index].ID,
                                           )
                                         ]

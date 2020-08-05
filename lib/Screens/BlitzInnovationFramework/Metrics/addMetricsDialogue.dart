@@ -37,7 +37,9 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
     if (index != null) {
       MetricsNameTextController =
           TextEditingController(text: AddingNewMetrics[index].Description);
-      SelectedMetrics = AddingNewMetrics[index].SelectedOption;
+      setState(() {
+        SelectedMetrics = AddingNewMetrics[index].SelectedOption;
+      });
     }
   }
 

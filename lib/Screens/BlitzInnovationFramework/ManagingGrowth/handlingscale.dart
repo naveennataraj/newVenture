@@ -18,14 +18,14 @@ class handlingScale extends StatefulWidget {
 }
 
 class _handlingScaleState extends State<handlingScale> {
-  bool spinner = false;
-  final _firestore = Firestore.instance;
-
   var HandlingScalelabelColor = Color(0XFF919191);
   bool validHandlingScale = true;
   var HandlingScaleTextController = TextEditingController();
   final HandlingScaleFocus = new FocusNode();
   String HandlingScale;
+
+  bool spinner = false;
+  final _firestore = Firestore.instance;
 
   validator() {
     setState(() {

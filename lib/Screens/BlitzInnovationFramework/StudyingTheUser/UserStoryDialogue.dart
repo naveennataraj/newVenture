@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
@@ -122,7 +123,10 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
 //                                );
                                 if (index == null) {
 //                                  AddingNewUserStory.add(NewUserStory);
-                                  _firestore.collection('userStory').add({
+                                  _firestore
+                                      .collection(
+                                          '$currentUser/StudyingTheUser/userStory')
+                                      .add({
                                     'Asa': AsaTextController.text,
                                     'IWantTo': SoThatTextController.text,
                                     'SoThat': IWantToTextController.text,
@@ -133,7 +137,8 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
 //                                  AddingNewUserStory.insert(
 //                                      index, NewUserStory);
                                   _firestore
-                                      .collection('userStory')
+                                      .collection(
+                                          '$currentUser/StudyingTheUser/userStory')
                                       .document(AddingNewUserStory[index].ID)
                                       .updateData({
                                     'Asa': AsaTextController.text,
