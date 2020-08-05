@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcProductGoals.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalDialogue.dart';
@@ -8,14 +9,15 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-
 class Step3GoalsTheSolution extends StatefulWidget {
   @override
   _Step3GoalsTheSolutionState createState() => _Step3GoalsTheSolutionState();
 }
 
-class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
+const userUid = "tester@gmail.com";
 
+class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
+  final _firestore = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -47,49 +49,114 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "List of the product goals for the solution concept",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),),
-
-                  (productGoals.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the Product Goals",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "List of the product goals for the solution concept",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                  )
-                      :
-                  ListView.builder(
-                    itemCount: productGoals.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: productGoals != null
-                            ? <Widget>[
-                          SmallOrangeCardWithoutTitle(
-                            description: productGoals[index].goals,
-                            index: index,
-                            removingat: productGoals,
-                            Dialogue: GoalDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
-                      );
+                  ),
+
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(
+                            userUid + '/Bc3_definingTheSolution/addGoals')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        print('these are the messages $messages');
+                        productGoals = [];
+                        for (var message in messages) {
+                          final goal = message.data['goal'];
+                          final ID = message.documentID;
+
+                          final card = BcContentProductGoals(
+                            goals: goal,
+                            ID: ID,
+                          );
+                          productGoals.add(card);
+                        }
+                      }
+
+                      return (productGoals.length != 0)
+                          ? ListView.builder(
+                              itemCount: productGoals.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: productGoals != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithoutTitle(
+                                            description:
+                                                productGoals[index].goals,
+                                            index: index,
+                                            removingat: productGoals,
+                                            Dialogue: GoalDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: userUid +
+                                                '/Bc3_definingTheSolution/addGoals',
+                                            ID: productGoals[index].ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Pain Points",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                            );
                     },
                   ),
+
+//                  (productGoals.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the Product Goals",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      :
+//                  ListView.builder(
+//                    itemCount: productGoals.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: productGoals != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithoutTitle(
+//                            description: productGoals[index].goals,
+//                            index: index,
+//                            removingat: productGoals,
+//                            Dialogue: GoalDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
+
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -102,7 +169,8 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                         goNextButton(
                           OnTap: () {
                             bcStepsContent[2].bcCompletionValidator = false;
-                            Navigator.pushNamed(context, '/BCStep3FeatureProduct');
+                            Navigator.pushNamed(
+                                context, '/BCStep3FeatureProduct');
                           },
                           //routeName: '/BCStep3FeatureProduct',
                           // write here
@@ -131,6 +199,3 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
     );
   }
 }
-
-
-

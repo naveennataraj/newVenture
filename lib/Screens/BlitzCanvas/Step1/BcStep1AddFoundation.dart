@@ -1,5 +1,4 @@
 import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +16,62 @@ class Step1AddFoundation extends StatefulWidget {
   _Step1AddFoundationState createState() => _Step1AddFoundationState();
 }
 
+const userUid = "tester@gmail.com";
+
 class _Step1AddFoundationState extends State<Step1AddFoundation> {
   final _firestore = Firestore.instance;
-  String documentField = 'MissionStatement';
+  //bool documentExists = false;
+  //int count = 0;
+//  @override
+//  void initState() {
+////    spinner = true;
+//    //(foundationContent.length== 0) ? getDocument() : print('not needed');
+//    super.initState();
+//  }
+
+
+//  void getDocument() async {
+//    //spinner = true;
+//    final document = await _firestore.collection('/Bc1_buildFoundation/MissionStatement/addFoundations').getDocuments();
+//
+//    if (document.documents.isNotEmpty) {
+//      print("the length is $document.documents.length");
+//      for (var message in document.documents) {
+//        //foundationContent = [];
+//        final title = message.data['title'];
+//        final description = message.data['description'];
+//        final featureType = message.data['featureType'];
+//        final ID = message.documentID;
+//
+//
+//        final card = ContentBcAddFoundation(
+//          title: title,
+//          description: description,
+//          featureType: featureType,
+//          ID: ID,
+//          index: count
+//        );
+//        count +=1;
+//        foundationContent.add(card);
+//        print(count);
+//      }
+//    }
+//    count = 0;
+////    setState(() {
+////      //spinner = false;
+//////      if (foundationContent.length != 0) {
+//////        title =
+//////            foundationContent[index].title);
+//////        ProblemTextController =
+//////            TextEditingController(text: ProblemStudyArray[0].problem);
+//////        ImportanceTextController =
+//////            TextEditingController(text: ProblemStudyArray[0].importance);
+//////      }
+////    });
+//  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +97,67 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
             ],
           ),
 
-          child: SingleChildScrollView(
+          child:
+
+
+//          SingleChildScrollView(
+//              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+//              child: Column(
+//                children: <Widget>[
+//                  Padding(
+//                    padding: EdgeInsets.symmetric(vertical: 10.0),
+//                    child: Text(
+//                      "List of the Product Features for the solution concept",
+//                      style: TextStyle(
+//                          fontSize: 22, fontWeight: FontWeight.bold),
+//                      textAlign: TextAlign.center,
+//                    ),),
+//
+//                  (foundationContent.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the Product Goals",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      :
+//                  ListView.builder(
+//                    itemCount: foundationContent.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: foundationContent != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithTitle(
+//                            title: foundationContent[index]
+//                                .title,
+//                            description:
+//                            foundationContent[index]
+//                                .description,
+//                            index: index,
+//                            removingat: foundationContent,
+//                            Dialogue: AddFoundationalDetail(
+//                              index: index,
+//                            ),
+//                            CollectionName: '/Bc1_buildFoundation/MissionStatement/addFoundations',
+//                            ID: foundationContent[index].ID,
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
+
+
+
+          SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
                 children: <Widget>[
@@ -60,7 +172,7 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                   ),
                   StreamBuilder<QuerySnapshot>(
                     stream:
-                        _firestore.collection('/Bc1_buildFoundation/MissionStatement/addFoundations').snapshots(),
+                        _firestore.collection(userUid+'/Bc1_buildTheFoundation/addFoundations').snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
 
@@ -71,11 +183,13 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                         for (var message in messages) {
                           final title = message.data['title'];
                           final description = message.data['description'];
+                          final featureType = message.data['featureType'];
                           final ID = message.documentID;
 
                           final card = ContentBcAddFoundation(
                             title: title,
                             description: description,
+                            featureType: featureType,
                             ID: ID,
                           );
                           foundationContent.add(card);
@@ -99,7 +213,7 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                                       Dialogue: AddFoundationalDetail(
                                         index: index,
                                       ),
-                                      CollectionName: '/Bc1_buildFoundation/MissionStatement/addFoundations',
+                                      CollectionName: userUid+'/Bc1_buildTheFoundation/addFoundations',
                                       ID: foundationContent[index].ID,
                                     )
                                   ],
@@ -131,6 +245,7 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                         ),
                         CompleteStepButton(
                           OnTap: () {
+                            //documentExists = false;
                             bcStepsContent[0].bcCompletionValidator = true;
                             print(bcStepsContent[0].bcCompletionValidator);
                             Navigator.pushNamed(context, '/BCHomeView');
@@ -169,3 +284,5 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
     );
   }
 }
+
+

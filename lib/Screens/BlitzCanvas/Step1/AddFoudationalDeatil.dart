@@ -22,6 +22,7 @@ var foundationTextController = TextEditingController();
 final foundationFocusNode = new FocusNode();
 String foundationText;
 
+const userUid = "tester@gmail.com";
 
 class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
   int index;
@@ -49,7 +50,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
       foundationTextController = TextEditingController(
           text: foundationContent[index].description);
       clickRadioName = foundationContent[index].title;
-      //clickedRadio = foundationContent[index].featureType;
+      clickedRadio = foundationContent[index].featureType;
     }
   }
 
@@ -199,14 +200,14 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                                 final NewProductFeature = ContentBcAddFoundation(
                                     title: clickRadioName,
                                     description: foundationTextController.text,
-                                    //featureType: clickedRadio
+                                    featureType: clickedRadio
                                 );
 
                                 if (index == null) {
                                   foundationContent.add(NewProductFeature);
-                                  _firestore.collection('/Bc1_buildFoundation/MissionStatement/addFoundations').add({
+                                  _firestore.collection(userUid+'/Bc1_buildTheFoundation/addFoundations').add({
                                     'title': clickRadioName,
-                                    //'featureType': clickedRadio,
+                                    'featureType': clickedRadio,
                                     'description': foundationTextController.text,
                                     'Sender': "tester@gmail.com",
                                     'updatedAt': timestamp,
@@ -216,11 +217,11 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
 //                                  foundationContent.insert(
 //                                      index, NewProductFeature);
                                   _firestore
-                                      .collection('/Bc1_buildFoundation/MissionStatement/addFoundations')
+                                      .collection(userUid+'/Bc1_buildTheFoundation/addFoundations')
                                       .document(foundationContent[index].ID)
                                       .updateData({
                                     'title': clickRadioName,
-                                    //'featureType': clickedRadio,
+                                    'featureType': clickedRadio,
                                     'description': foundationTextController.text,
                                     'Sender': "tester@gmail.com",
                                     'updatedAt': timestamp,
