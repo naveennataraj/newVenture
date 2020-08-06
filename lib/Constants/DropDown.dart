@@ -7,17 +7,26 @@ class DropDownItem {
   DropDownItem(this.value, this.name);
 }
 
-List<DropDownItem> ProblemDomainlist = [
-  DropDownItem(1, 'Enterprise'),
-  DropDownItem(2, 'Consumer'),
-  DropDownItem(3, 'Both Enterprise and Consumer'),
-  DropDownItem(4, 'Not Sure')
+//List<DropDownItem> ProblemDomainlist = [
+//  DropDownItem(1, 'Enterprise'),
+//  DropDownItem(2, 'Consumer'),
+//  DropDownItem(3, 'Both Enterprise and Consumer'),
+//  DropDownItem(4, 'Not Sure')
+//];
+
+const List<String> ProblemDomainlist = [
+  'Enterprise',
+  'Consumer',
+  'Both Enterprise and Consumer',
+  'Not Sure'
 ];
 
-List<DropDownItem> UserEnvironmentList = [
-  DropDownItem(1, 'Urban'),
-  DropDownItem(2, 'Rural'),
-];
+const List<String> UserEnvironmentList = ['Urban', 'Rural'];
+
+//List<DropDownItem> UserEnvironmentList = [
+//  DropDownItem(1, 'Urban'),
+//  DropDownItem(2, 'Rural'),
+//];
 
 List<DropDownItem> MetricsList = [
   DropDownItem(1, 'Problem Space'),
@@ -35,7 +44,6 @@ const List<String> MetricDropdownList = [
   'Evolution',
   'Ecosystem'
 ];
-List<DropDownItem> SolutionRankingList = [];
 
 List<DropDownItem> BMCElements = [
   DropDownItem(1, 'Value proposition'),
@@ -135,7 +143,6 @@ const List<String> ServiceUsageList = [
   '100%',
 ];
 
-
 List<DropDownItem> StrategySustainableList = [
   DropDownItem(1, 'Yes'),
   DropDownItem(2, 'No'),
@@ -156,13 +163,6 @@ List<DropdownMenuItem<DropDownItem>> serviceUsageDropDown;
 List<DropdownMenuItem<DropDownItem>> Metricsdropdown;
 List<DropdownMenuItem<DropDownItem>> strategySustainable;
 
-DropDownItem SelectedProblemDomain;
-
-DropDownItem SelectedUserEnvironment;
-
-DropDownItem SelectedFirstSolution;
-DropDownItem SelectedSecondSolution;
-DropDownItem SelectedThirdSolution;
 DropDownItem SelectedBcmElement;
 DropDownItem SelectedIntellectualAsset;
 DropDownItem SelectedServiceType;

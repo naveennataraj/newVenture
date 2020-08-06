@@ -21,9 +21,6 @@ class _AddMetricsState extends State<AddMetrics> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      AddingNewMetrics;
-    });
   }
 
   final _firestore = Firestore.instance;

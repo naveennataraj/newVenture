@@ -14,7 +14,7 @@
     ]
   },
   "firestore": {
-    "rules": "build/web/firestoreRules",
-    "indexes": "build/web/firestoreIndexes"
+    "rules": "build/web/FirestoreRules",
+    "indexes": "build/web/FirestoreIndexes"
   }
 }

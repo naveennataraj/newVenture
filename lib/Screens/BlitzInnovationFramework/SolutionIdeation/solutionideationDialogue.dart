@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
 import 'package:iventure001/Widgets/AddSolutionButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
@@ -135,8 +135,8 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                                 }
 
                                 //Adding solutions to dropdown
-                                final AddingSolutinstoDropdown = DropDownItem(
-                                    ValueofSolution(), NameTextController.text);
+                                final AddingSolutinstoDropdown =
+                                    NameTextController.text;
 
                                 if (index == null) {
                                   SolutionRankingList.add(

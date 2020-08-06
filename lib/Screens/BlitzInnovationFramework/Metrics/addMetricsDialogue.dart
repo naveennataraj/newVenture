@@ -10,11 +10,8 @@ import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 class addMetricsDialogue extends StatefulWidget {
   final int index;
-  final String SelectedMetricsName;
-  final int SelectedMetricsValue;
 
-  const addMetricsDialogue(
-      {this.index, this.SelectedMetricsName, this.SelectedMetricsValue});
+  const addMetricsDialogue({this.index});
   @override
   _addMetricsDialogueState createState() => _addMetricsDialogueState(index);
 }
@@ -27,8 +24,8 @@ String MetricsName;
 
 class _addMetricsDialogueState extends State<addMetricsDialogue> {
   int index;
-  List<String> itemList;
-  String itemSelected;
+  String SelectedMetric;
+
   _addMetricsDialogueState(this.index);
   @override
   void initState() {
@@ -42,8 +39,8 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
 //        SelectedMetrics = DropDownItem(
 //            widget.SelectedMetricsValue, widget.SelectedMetricsName);
 
-        itemSelected = AddingNewMetrics[widget.index].Name;
-        print('the wierd item selected $itemSelected');
+        SelectedMetric = AddingNewMetrics[widget.index].Name;
+        print('the wierd item selected $SelectedMetric');
       });
     }
   }
@@ -112,7 +109,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
-                                    itemSelected = newValue;
+                                    SelectedMetric = newValue;
                                   });
                                 },
                                 items:
@@ -121,7 +118,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                       value: singleItem,
                                       child: Text(singleItem));
                                 }).toList(),
-                                value: itemSelected,
+                                value: SelectedMetric,
                               ),
                             ),
                           ],
@@ -148,7 +145,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                       .collection(
                                           '$currentUser/Metrics/metrics')
                                       .add({
-                                    'Name': itemSelected,
+                                    'Name': SelectedMetric,
                                     'Description':
                                         MetricsNameTextController.text,
                                     'Sender': "tester@gmail.com",
@@ -161,7 +158,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                           '$currentUser/Metrics/metrics')
                                       .document(AddingNewMetrics[index].ID)
                                       .updateData({
-                                    'Name': itemSelected,
+                                    'Name': SelectedMetric,
                                     'Description':
                                         MetricsNameTextController.text,
                                     'Sender': "tester@gmail.com",
@@ -169,7 +166,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                 }
 
                                 MetricsNameTextController.clear();
-                                itemSelected = null;
+                                SelectedMetric = null;
 
                                 Navigator.pop(context);
                               });

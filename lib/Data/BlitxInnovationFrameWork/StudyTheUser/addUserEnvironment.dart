@@ -1,12 +1,10 @@
-import 'package:iventure001/Constants/DropDown.dart';
-
 class addUserEnvironment {
   final String issues;
   final String detail;
   final double ageRangeStart;
   final double ageRangeEnd;
-  final DropDownItem ProblemDrop;
-  final DropDownItem EnvironmentDrop;
+  final String ProblemDrop;
+  final String EnvironmentDrop;
   final ID;
 
   addUserEnvironment(

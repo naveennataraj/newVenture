@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
 import 'package:iventure001/Data/CardData.dart';
+import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideationDialogue.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
@@ -87,8 +87,7 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                               ID: ID);
                           AddingNewSolutions.add(card);
                           //Adding solutions to dropdown
-                          final AddingSolutinstoDropdown =
-                              DropDownItem(ValueofSolution(), Name);
+                          final AddingSolutinstoDropdown = Name;
 
                           SolutionRankingList.add(AddingSolutinstoDropdown);
                         }

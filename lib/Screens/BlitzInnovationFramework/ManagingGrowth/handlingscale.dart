@@ -11,6 +11,7 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class handlingScale extends StatefulWidget {
   @override
@@ -99,79 +100,83 @@ class _handlingScaleState extends State<handlingScale> {
         preferredSize: Size.fromHeight(60.0),
         child: NavigationBar(),
       ),
-      body: Center(
-        child: Container(
-          //height: MediaQuery.of(context).size.height * .40,
-          margin: EdgeInsets.only(top: 40.0),
-          width: MediaQuery.of(context).size.width * .40,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            //shape: BoxShape.rectangle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 1.0), //(x,y)
-                blurRadius: 2.0,
-              ),
-            ],
-          ),
-          child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      "How would we handle scale (as the product grows)",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+      body: ModalProgressHUD(
+        inAsyncCall: spinner,
+        child: Center(
+          child: Container(
+            //height: MediaQuery.of(context).size.height * .40,
+            margin: EdgeInsets.only(top: 40.0),
+            width: MediaQuery.of(context).size.width * .40,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              //shape: BoxShape.rectangle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 2.0,
+                ),
+              ],
+            ),
+            child: SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        "How would we handle scale (as the product grows)",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                  NoteCard(
-                      Note:
-                          'Tip: If the product sells well, How would you handle scale?\nA few typical responses include:\n"I intend to use a cloud service provider such as AWS, Firebase or Azure."\n"I intend to hire a team dedicated to handle server infrastructure."\n"I intend to outsource all tasks concerning this matter."'),
-                  TextFieldWidget(
-                    labelText: "How would you handle scale?",
-                    maxLines: 2,
-                    validText: validHandlingScale,
-                    myFocusNode: HandlingScaleFocus,
-                    myTextController: HandlingScaleTextController,
-                    textCollecter: HandlingScale,
-                    helperText: '',
-                    labelcolour: HandlingScalelabelColor,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        headBackButtton(),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        goNextButton(
-                          OnTap: (HandlingScaleTextController.text == '')
-                              ? () {
-                                  validator();
-                                }
-                              : () {
-                                  if (HandlingScaleArray.length != 0) {
-                                    update();
-                                  } else {
-                                    add();
+                    NoteCard(
+                        Note:
+                            'Tip: If the product sells well, How would you handle scale?\nA few typical responses include:\n"I intend to use a cloud service provider such as AWS, Firebase or Azure."\n"I intend to hire a team dedicated to handle server infrastructure."\n"I intend to outsource all tasks concerning this matter."'),
+                    TextFieldWidget(
+                      labelText: "How would you handle scale?",
+                      maxLines: 2,
+                      validText: validHandlingScale,
+                      myFocusNode: HandlingScaleFocus,
+                      myTextController: HandlingScaleTextController,
+                      textCollecter: HandlingScale,
+                      helperText: '',
+                      labelcolour: HandlingScalelabelColor,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          headBackButtton(),
+                          SizedBox(
+                            width: 50,
+                          ),
+                          goNextButton(
+                            OnTap: (HandlingScaleTextController.text == '')
+                                ? () {
+                                    validator();
                                   }
-                                  bcpData[6].CompletionValidator = false;
-                                  print(bcpData[6].CompletionValidator);
-                                  Navigator.pushNamed(
-                                      context, '/addparallelinnovations');
-                                },
-                        ),
-                      ],
+                                : () {
+                                    if (HandlingScaleArray.length != 0) {
+                                      update();
+                                    } else {
+                                      add();
+                                    }
+                                    bcpData[6].CompletionValidator = false;
+                                    print(bcpData[6].CompletionValidator);
+                                    Navigator.pushNamed(
+                                        context, '/addparallelinnovations');
+                                  },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                  ],
+                )),
+          ),
         ),
       ),
     );
