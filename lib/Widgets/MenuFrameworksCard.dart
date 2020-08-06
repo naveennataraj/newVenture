@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/ContentFrameworkMenu.dart';
-import 'package:iventure001/Widgets/SpaceHeight30.dart';
 import 'package:iventure001/Widgets/SpaceHeight20.dart';
+import 'package:iventure001/Widgets/SpaceHeight30.dart';
 
 class MenuFrameworkCard extends StatelessWidget {
-
   final ContentFrameworkMenu menuContent;
   MenuFrameworkCard(this.menuContent);
 
@@ -43,24 +42,22 @@ class MenuFrameworkCard extends StatelessWidget {
               ),
               Space20(),
               Text(
-                  menuContent.paragraph2,
+                menuContent.paragraph2,
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
               Space30(),
               ReusableButton(
                   buttonTitle: 'Let\'s ideate and create a product concept :)',
-                  buttonPushView: '/BIFHomeView'
-              ),
-
+                  buttonPushView: '/BlitzInnovationFramework'),
               ReusableButton(
-                  buttonTitle: 'I already have a product idea in mind. Let\'s create a business model around it :)',
-                  buttonPushView: '/BCHomeView'
-              ),
+                  buttonTitle:
+                      'I already have a product idea in mind. Let\'s create a business model around it :)',
+                  buttonPushView: '/BCHomeView'),
               ReusableButton(
-                  buttonTitle: 'I just starting out. Let\'s create a startup from scratch :)',
-                  buttonPushView: '/BlitzInnovationFramework'
-              ),
+                  buttonTitle:
+                      'I just starting out. Let\'s create a startup from scratch :)',
+                  buttonPushView: '/BlitzInnovationFramework'),
             ],
           ),
         ),
@@ -69,9 +66,7 @@ class MenuFrameworkCard extends StatelessWidget {
   }
 }
 
-
 class ReusableButton extends StatelessWidget {
-
   ReusableButton({@required this.buttonTitle, this.buttonPushView});
   final String buttonTitle;
   final String buttonPushView;
@@ -87,8 +82,7 @@ class ReusableButton extends StatelessWidget {
       },
       child: Text(
         buttonTitle,
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.white),
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }
