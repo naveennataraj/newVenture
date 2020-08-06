@@ -272,38 +272,37 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                               Border.all(width: 1, color: Color(0XFFABABAB)),
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Text(
                               'Which domain does this Problem fall in?',
                               style: TextStyle(
                                   color: Colors.grey.shade600, fontSize: 16),
                             ),
-                            Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: DropdownButton(
-                                hint: Text(
-                                  'Choose',
-                                  style: TextStyle(
-                                    color: Color(0XFFE95420),
-                                  ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            DropdownButton(
+                              isExpanded: true,
+                              elevation: 30,
+                              hint: Text(
+                                'Choose',
+                                style: TextStyle(
+                                  color: Color(0XFFE95420),
                                 ),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    SelectedProblemDomain = newValue;
-                                  });
-                                },
-                                items:
-                                    ProblemDomainlist.map((String singleItem) {
-                                  return DropdownMenuItem<String>(
-                                      value: singleItem,
-                                      child: Text(singleItem));
-                                }).toList(),
-                                value: SelectedProblemDomain,
                               ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  SelectedProblemDomain = newValue;
+                                });
+                              },
+                              items: ProblemDomainlist.map((String singleItem) {
+                                return DropdownMenuItem<String>(
+                                    value: singleItem, child: Text(singleItem));
+                              }).toList(),
+                              value: SelectedProblemDomain,
                             ),
                           ],
                         ),
@@ -317,38 +316,37 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                               Border.all(width: 1, color: Color(0XFFABABAB)),
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Text(
                               'What Type of environment do the users live in?',
                               style: TextStyle(
                                   color: Colors.grey.shade600, fontSize: 16),
                             ),
-                            Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: DropdownButton(
-                                hint: Text(
-                                  'Choose',
-                                  style: TextStyle(
-                                    color: Color(0XFFE95420),
-                                  ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            DropdownButton(
+                              isExpanded: true,
+                              hint: Text(
+                                'Choose',
+                                style: TextStyle(
+                                  color: Color(0XFFE95420),
                                 ),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    SelectedUserEnvironment = newValue;
-                                  });
-                                },
-                                items: UserEnvironmentList.map(
-                                    (String singleItem) {
-                                  return DropdownMenuItem<String>(
-                                      value: singleItem,
-                                      child: Text(singleItem));
-                                }).toList(),
-                                value: SelectedUserEnvironment,
                               ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  SelectedUserEnvironment = newValue;
+                                });
+                              },
+                              items:
+                                  UserEnvironmentList.map((String singleItem) {
+                                return DropdownMenuItem<String>(
+                                    value: singleItem, child: Text(singleItem));
+                              }).toList(),
+                              value: SelectedUserEnvironment,
                             ),
                           ],
                         ),
