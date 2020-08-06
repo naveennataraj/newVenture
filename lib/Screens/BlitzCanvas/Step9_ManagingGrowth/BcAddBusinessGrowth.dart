@@ -1,5 +1,5 @@
 //import 'dart:html';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
@@ -21,14 +21,43 @@ var handleScaleLTextController = TextEditingController();
 final handleScaleLFocusNode = new FocusNode();
 String handleScaleLText;
 
+String ID;
+const userUid = "tester@gmail.com";
+
 class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
-  //String selectedStrategyOption;
+  final _firestore = Firestore.instance.collection(userUid).document('Bc9_managingGrowth');
+  String selectedStrategyOption;
+  String fireStrategyData;
 
   @override
   void initState() {
     super.initState();
-    strategySustainable = buildDropDownMenuItems(StrategySustainableList);
+
+    if (fireStrategyData != null ) {getDocuments();}
+    //strategySustainable = buildDropDownMenuItems(StrategySustainableList);
   }
+
+
+  void getDocuments() async {
+    final document = await _firestore.get();
+
+    if (document.exists) {
+      try {
+        setState(() {
+          handleScaleLText = document.data['handleScaleLText'];
+          selectedStrategyOption = document.data['selectedStrategyOption'];
+          fireStrategyData = document.data['handleScaleLText'];
+          ID = document.documentID;
+          handleScaleLTextController.text = handleScaleLText;
+          //visionTextController.text = visionText;
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,12 +136,19 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                               ),
                               onChanged: (newValue) {
                                 setState(() {
-                                  SelectedStrategySustainable = newValue;
-                                  //selectedStrategyOption = SelectedStrategySustainable.name;
+                                  //SelectedStrategySustainable = newValue;
+                                  selectedStrategyOption = newValue;
+
                                 },);
                               },
-                              items: strategySustainable,
-                              value: SelectedStrategySustainable,
+                              items: StrategyList.map((String singleItem) {
+                                return DropdownMenuItem<String>(
+                                    value: singleItem,
+                                    child: Text(singleItem));
+                              }).toList(),
+                              //strategySustainable,
+                              value: selectedStrategyOption,
+                              //SelectedStrategySustainable,
                             ),
                           ),
                         ],
@@ -131,6 +167,16 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                         ),
                         goNextButton(
                           OnTap: () {
+
+                            if (fireStrategyData != handleScaleLTextController.text ) {
+                              _firestore.setData({
+                                'handleScaleLText': handleScaleLTextController.text,
+                                'selectedStrategyOption': selectedStrategyOption,
+                                'Sender': "tester@gmail.com",
+
+                              });
+                            }
+
                             bcStepsContent[8].bcCompletionValidator = false;
 //                            print(bcpData[6].CompletionValidator);
                             Navigator.pushNamed(

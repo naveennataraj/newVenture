@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step5_CustomerQuotes/BcAddQuote.dart';
@@ -19,7 +20,10 @@ var quoteContentTextController = TextEditingController();
 final quoteContentFocusNode = new FocusNode();
 String quoteContent;
 
+const userUid = "tester@gmail.com";
+
 class _BcQuoteDialogueState extends State<BcQuoteDialogue> {
+  final _firestore = Firestore.instance;
   int index;
   bool quoteChecked = false;
   Color checkTextActive = Colors.black;
@@ -102,9 +106,23 @@ class _BcQuoteDialogueState extends State<BcQuoteDialogue> {
 
                                 if (index == null) {
                                   addingNewQuote.add(newQuote);
+                                  _firestore.collection(userUid+'/Bc5_userFeedback/addQuotes').add({
+                                    'content': quoteContentTextController.text,
+                                    'checkQuote': quoteChecked,
+                                    'Sender': "tester@gmail.com",
+                                  });
+
                                 } else {
-                                  addingNewQuote.removeAt(index);
-                                  addingNewQuote.insert(index, newQuote);
+//                                  addingNewQuote.removeAt(index);
+//                                  addingNewQuote.insert(index, newQuote);
+                                  _firestore
+                                      .collection(userUid+'/Bc5_userFeedback/addQuotes')
+                                      .document(addingNewQuote[index].ID)
+                                      .updateData({
+                                    'content': quoteContentTextController.text,
+                                    'checkQuote': quoteChecked,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 quoteContentTextController.clear();

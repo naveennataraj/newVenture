@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentParallelSolution.dart';
@@ -29,8 +30,10 @@ var SolutionDescriptionTextController = TextEditingController();
 final SolutionDescriptionFocusNode = new FocusNode();
 String SolutionDescription;
 
+const userUid = "tester@gmail.com";
 
 class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
+  final _firestore = Firestore.instance;
   int index;
   _BcEcosystemsDialogueState(this.index);
 
@@ -126,10 +129,27 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
                                 if (index == null) {
                                   AddingNewParallelInnovations.add(
                                       NewParallelInnovation);
+                                  _firestore.collection(userUid+'/Bc9_managingGrowth/addConcepts').add({
+                                    'Name': SolutionNameTextController.text,
+                                    'Description': SolutionDescriptionTextController.text,
+                                    'CheckedSolution': SolutionChecked,
+                                    'Sender': "tester@gmail.com",
+                                  });
+
                                 } else {
-                                  AddingNewParallelInnovations.removeAt(index);
-                                  AddingNewParallelInnovations.insert(
-                                      index, NewParallelInnovation);
+//                                  AddingNewParallelInnovations.removeAt(index);
+//                                  AddingNewParallelInnovations.insert(
+//                                      index, NewParallelInnovation);
+                                  _firestore
+                                      .collection(userUid+'/Bc9_managingGrowth/addConcepts')
+                                      .document(AddingNewParallelInnovations[index].ID)
+                                      .updateData({
+                                    'Name': SolutionNameTextController.text,
+                                    'Description': SolutionDescriptionTextController.text,
+                                    'CheckedSolution': SolutionChecked,
+                                    'Sender': "tester@gmail.com",
+                                  });
+
                                 }
 
                                 SolutionNameTextController.clear();

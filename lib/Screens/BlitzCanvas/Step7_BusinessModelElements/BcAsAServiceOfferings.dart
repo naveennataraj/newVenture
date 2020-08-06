@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentAsAService.dart';
@@ -13,7 +14,10 @@ class BcAsaServiceOffering extends StatefulWidget {
   _BcAsaServiceOfferingState createState() => _BcAsaServiceOfferingState();
 }
 
+const userUid = "tester@gmail.com";
+
 class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,45 +56,125 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                       textAlign: TextAlign.center,
                     ),),
 
-                  (addingAsaService.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the Product Goals",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  )
-                      :
-                  ListView.builder(
-                    itemCount: addingAsaService.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: addingAsaService != null
-                            ? <Widget>[
-                          SmallOrangeCardWithTitle(
-                            title: addingAsaService[index]
-                                .serviceName,
-                            description:
-                            addingAsaService[index]
-                                .serviceTaskDescription,
-                            index: index,
-                            removingat: addingAsaService,
-                            Dialogue: BcAsaServiceDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(
+                        userUid + '/Bc7_businessModelElements/addServices')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        addingAsaService = [];
+                        for (var message in messages) {
+                          final serviceName = message.data['serviceName'];
+                          final serviceDescription =
+                          message.data['serviceDescription'];
+                          final serviceType = message.data['serviceType'];
+                          final parentCompany = message.data['parentCompany'];
+                          final serviceTaskDescription = message.data['serviceTaskDescription'];
+                          final servicePercentage = message.data['servicePercentage'];
+
+                          final ID = message.documentID;
+
+                          final card = AddAsaServiceOffering(
+                            serviceName: serviceName,
+                            serviceDescription: serviceDescription,
+                            serviceType: serviceType,
+                            parentCompany: parentCompany,
+                            serviceTaskDescription: serviceTaskDescription,
+                            servicePercentage: servicePercentage,
+                            ID: ID,
+                          );
+                          addingAsaService.add(card);
+                        }
+                      }
+
+                      return (addingAsaService.length != 0)
+                          ? ListView.builder(
+                        itemCount: addingAsaService.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.only(top: 10.0),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: addingAsaService != null
+                                ? <Widget>[
+                              SmallOrangeCardWithTitle(
+                                title:
+                                addingAsaService[index]
+                                    .serviceName,
+                                description:
+                                addingAsaService[index]
+                                    .serviceTaskDescription,
+                                index: index,
+                                removingat: addingAsaService,
+                                Dialogue:
+                                BcAsaServiceDialogue(
+                                  index: index,
+                                ),
+                                CollectionName: userUid +
+                                    '/Bc7_businessModelElements/addServices',
+                                ID: addingAsaService[index]
+                                    .ID,
+                              )
+                            ]
+                                : null,
+                          );
+                        },
+                      )
+                          : Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Click on '+' to add the Pain Points",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
                       );
                     },
                   ),
+
+//                  (addingAsaService.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the Product Goals",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      :
+//                  ListView.builder(
+//                    itemCount: addingAsaService.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: addingAsaService != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithTitle(
+//                            title: addingAsaService[index]
+//                                .serviceName,
+//                            description:
+//                            addingAsaService[index]
+//                                .serviceTaskDescription,
+//                            index: index,
+//                            removingat: addingAsaService,
+//                            Dialogue: BcAsaServiceDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

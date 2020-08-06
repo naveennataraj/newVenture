@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
@@ -38,7 +39,10 @@ var SolutionOfferingTextController = TextEditingController();
 final SolutionOfferingFocusNode = new FocusNode();
 String SolutionOffering;
 
+const userUid = "tester@gmail.com";
+
 class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue> {
+  final _firestore = Firestore.instance;
   int index;
   _BcCompetingProductDialogueState(this.index);
 
@@ -145,10 +149,29 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                                 if (index == null) {
                                   AddingNewCompetingProduct.add(
                                       NewComponentProduct);
+                                  _firestore.collection(userUid+'/Bc6_studyingTheCompetition/addPlayers').add({
+                                    'ProductName': ProductNameTextController.text,
+                                    'OrgName': OrgNameTextController.text,
+                                    'Features': CompetingOfferingTextController.text,
+                                    'CurrentOffering': SolutionOfferingTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
+
+
                                 } else {
-                                  AddingNewCompetingProduct.removeAt(index);
-                                  AddingNewCompetingProduct.insert(
-                                      index, NewComponentProduct);
+//                                  AddingNewCompetingProduct.removeAt(index);
+//                                  AddingNewCompetingProduct.insert(
+//                                      index, NewComponentProduct);
+                                  _firestore
+                                      .collection(userUid+'/Bc6_studyingTheCompetition/addPlayers')
+                                      .document(AddingNewCompetingProduct[index].ID)
+                                      .updateData({
+                                    'ProductName': ProductNameTextController.text,
+                                    'OrgName': OrgNameTextController.text,
+                                    'Features': CompetingOfferingTextController.text,
+                                    'CurrentOffering': SolutionOfferingTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  },);
                                 }
 
                                 ProductNameTextController.clear();
@@ -157,11 +180,8 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                                 SolutionOfferingTextController.clear();
 
                                 Navigator.pop(context);
-//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep6CompetingProducts()),
-//                                )
-//                                    .then((value) => setState(() {}),);
 
-                              });
+                              },);
                             },
                           ),
                           SizedBox(

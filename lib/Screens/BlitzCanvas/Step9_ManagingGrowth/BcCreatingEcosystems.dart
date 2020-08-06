@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentParallelSolution.dart';
@@ -14,7 +15,10 @@ class BcCreatingEcosystems extends StatefulWidget {
   _BcCreatingEcosystemsState createState() => _BcCreatingEcosystemsState();
 }
 
+const userUid = "tester@gmail.com";
+
 class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,52 +52,127 @@ class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
                     child: Text(
                       "Creating Ecosystems with new product offerings",
                       style:
-                      TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   NoteCard(
                     Note:
-                    "Tip: Tip: Based on your solution concept which has been designed until this point, is there any parallel solution concept(s) which you can think of which would provide value to the customer?\nOne example of this is Uber Eats which was derived from the Original Uber solution. Another example is the Apple watch which was designed as a complementary offering to the iPhone/iPad line of products.",
+                        "Tip: Tip: Based on your solution concept which has been designed until this point, is there any parallel solution concept(s) which you can think of which would provide value to the customer?\nOne example of this is Uber Eats which was derived from the Original Uber solution. Another example is the Apple watch which was designed as a complementary offering to the iPhone/iPad line of products.",
                   ),
-                  (AddingNewParallelInnovations.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the Competing Products",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  )
-                      : ListView.builder(
-                    itemCount: AddingNewParallelInnovations.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: AddingNewParallelInnovations != null
-                            ? <Widget>[
-                          SmallOrangeCardWithTitle(
-                            title: AddingNewParallelInnovations[index]
-                                .Name,
-                            description:
-                            AddingNewParallelInnovations[index]
-                                .Description,
-                            index: index,
-                            removingat: AddingNewParallelInnovations,
-                            Dialogue: BcEcosystemsDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
-                      );
+
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(userUid + '/Bc9_managingGrowth/addConcepts')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        AddingNewParallelInnovations = [];
+                        for (var message in messages) {
+                          final Name = message.data['Name'];
+                          final Description = message.data['Description'];
+                          final CheckedSolution =
+                              message.data['CheckedSolution'];
+                          final ID = message.documentID;
+
+                          final card = ContentParallelSolution(
+                            Name: Name,
+                            Description: Description,
+                            CheckedSolution: CheckedSolution,
+                            ID: ID,
+                          );
+                          AddingNewParallelInnovations.add(card);
+                        }
+                      }
+
+                      return (AddingNewParallelInnovations.length != 0)
+                          ? ListView.builder(
+                              itemCount: AddingNewParallelInnovations.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: AddingNewParallelInnovations != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title: AddingNewParallelInnovations[
+                                                    index]
+                                                .Name,
+                                            description:
+                                                AddingNewParallelInnovations[
+                                                        index]
+                                                    .Description,
+                                            index: index,
+                                            removingat:
+                                                AddingNewParallelInnovations,
+                                            Dialogue: BcEcosystemsDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: userUid +
+                                                '/Bc9_managingGrowth/addConcepts',
+                                            ID: AddingNewParallelInnovations[
+                                                    index]
+                                                .ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Pain Points",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                            );
                     },
                   ),
+
+//                  (AddingNewParallelInnovations.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the Competing Products",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      : ListView.builder(
+//                    itemCount: AddingNewParallelInnovations.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: AddingNewParallelInnovations != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithTitle(
+//                            title: AddingNewParallelInnovations[index]
+//                                .Name,
+//                            description:
+//                            AddingNewParallelInnovations[index]
+//                                .Description,
+//                            index: index,
+//                            removingat: AddingNewParallelInnovations,
+//                            Dialogue: BcEcosystemsDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -106,8 +185,7 @@ class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
                         CompleteStepButton(
                           OnTap: () {
                             bcStepsContent[8].bcCompletionValidator = true;
-                            Navigator.pushNamed(
-                                context, '/BCHomeView');
+                            Navigator.pushNamed(context, '/BCHomeView');
                           },
                         ),
                       ],

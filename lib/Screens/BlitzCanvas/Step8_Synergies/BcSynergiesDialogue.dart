@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step8_Synergies/ContentSynergies.dart';
@@ -31,8 +32,10 @@ var synergyValueTextController = TextEditingController();
 final synergyValueFocusNode = new FocusNode();
 String synergyValueText;
 
+const userUid = "tester@gmail.com";
 
 class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
+  final _firestore = Firestore.instance;
   int index;
   _BcSynergiesDialogueState(this.index);
 
@@ -167,23 +170,41 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                             setState(() {
                               final NewSynergies = ContentSynergies(
                                 synergyName: synergyNameTextController.text,
-
                                 //synergyValueProposition:selectedServiceUsagePercentage,
                                 //synergyCustomerSegment:selectedServiceUsagePercentage,
-
                                 synergyDescription: synergyDescriptionTextController.text,
                                 synergyValues: synergyValueTextController.text,
-
-
                               );
 
                               if (index == null) {
                                 addingNewSynergies.add(
                                     NewSynergies);
+                                _firestore.collection(userUid+'/Bc8_synergies/addSynergies').add({
+                                  'synergyName': synergyNameTextController.text,
+                                  'synergyDescription': synergyDescriptionTextController.text,
+//                                  'serviceType': selectedServiceTypeName,
+//                                  'parentCompany': parentCompanyTextController.text,
+//                                  'serviceTaskDescription': taskTextController.text,
+                                  'synergyValues': synergyDescriptionTextController.text,
+                                  'Sender': "tester@gmail.com",
+                                });
                               } else {
-                                addingNewSynergies.removeAt(index);
-                                addingNewSynergies.insert(
-                                    index, NewSynergies);
+//                                addingNewSynergies.removeAt(index);
+//                                addingNewSynergies.insert(
+//                                    index, NewSynergies);
+                                _firestore
+                                    .collection(userUid+'/Bc8_synergies/addSynergies')
+                                    .document(addingNewSynergies[index].ID)
+                                    .updateData({
+                                  'synergyName': synergyNameTextController.text,
+                                  'synergyDescription': synergyDescriptionTextController.text,
+//                                  'serviceType': selectedServiceTypeName,
+//                                  'parentCompany': parentCompanyTextController.text,
+//                                  'serviceTaskDescription': taskTextController.text,
+                                  'synergyValues': synergyDescriptionTextController.text,
+                                  'Sender': "tester@gmail.com",
+                                });
+
                               }
 
                               synergyNameTextController.clear();

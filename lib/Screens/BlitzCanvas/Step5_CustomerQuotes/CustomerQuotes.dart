@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step5_CustomerQuotes/BcAddQuote.dart';
@@ -15,7 +16,10 @@ class BcStep5CustomerQuotes extends StatefulWidget {
   _BcStep5CustomerQuotesState createState() => _BcStep5CustomerQuotesState();
 }
 
+const userUid = "tester@gmail.com";
+
 class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,41 +61,111 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                     Note:
                     'Tip: When speaking with prospective customers or potential end users, do we get the impression that the preferred solution concept will provide relief on their pain points? If yes, at the least one of these can be added to demonstrate the effectiveness of the solution concept.',
                   ),
-                  (addingNewQuote.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the solutions",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  )
-                      : ListView.builder(
-                    itemCount: addingNewQuote.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: addingNewQuote != null
-                            ? <Widget>[
-                          SmallOrangeCardWithoutTitle(
-                            description:
-                            addingNewQuote[index].content,
-                            index: index,
-                            removingat: addingNewQuote,
-                            Dialogue: BcQuoteDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(
+                        userUid + '/Bc5_userFeedback/addQuotes')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        //print('these are the messages $messages');
+                        addingNewQuote = [];
+                        for (var message in messages) {
+                          final content = message.data['content'];
+                          final checkQuote =
+                          message.data['checkQuote'];
+                          final ID = message.documentID;
+
+                          final card = BcAddQuote(
+                            content: content,
+                            checkQuote: checkQuote,
+                            ID: ID,
+                          );
+                          addingNewQuote.add(card);
+                        }
+                      }
+
+                      return (addingNewQuote.length != 0)
+                          ? ListView.builder(
+                        itemCount: addingNewQuote.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.only(top: 10.0),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: addingNewQuote != null
+                                ? <Widget>[
+                              SmallOrangeCardWithoutTitle(
+                                description:
+                                addingNewQuote[index]
+                                    .content,
+                                index: index,
+                                removingat: addingNewQuote,
+                                Dialogue:
+                                BcQuoteDialogue(
+                                  index: index,
+                                ),
+                                CollectionName: userUid +
+                                    '/Bc5_userFeedback/addQuotes',
+                                ID: addingNewQuote[index]
+                                    .ID,
+                              )
+                            ]
+                                : null,
+                          );
+                        },
+                      )
+                          : Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Click on '+' to add the Pain Points",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
                       );
                     },
                   ),
+
+
+//                  (addingNewQuote.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the solutions",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      : ListView.builder(
+//                    itemCount: addingNewQuote.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: addingNewQuote != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithoutTitle(
+//                            description:
+//                            addingNewQuote[index].content,
+//                            index: index,
+//                            removingat: addingNewQuote,
+//                            Dialogue: BcQuoteDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

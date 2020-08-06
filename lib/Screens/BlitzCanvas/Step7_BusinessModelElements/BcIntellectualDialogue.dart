@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcIntellectualAssets.dart';
@@ -26,9 +27,11 @@ var AdditionalDetailsTextController = TextEditingController();
 final AdditionalDetailsFocusNode = new FocusNode();
 String AdditionalDetailsDescription;
 
+const userUid = "tester@gmail.com";
 
 class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
   int index;
+  final _firestore = Firestore.instance;
   _BcIntellectualDialogueState(this.index);
   String selectedIntellectualAsset;
 
@@ -41,10 +44,9 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
           text: addingIntellectualAssets[index].intellectualCode);
       AdditionalDetailsTextController = TextEditingController(
           text: addingIntellectualAssets[index].intellectualDetails);
-      selectedIntellectualAsset = addingIntellectualAssets[index].intellectualProperty;
+      selectedIntellectualAsset = addingIntellectualAssets[widget.index].intellectualProperty;
     }
-
-    intellectualAssetsDropDown = buildDropDownMenuItems(IntellectualAssets);
+    //intellectualAssetsDropDown = buildDropDownMenuItems(IntellectualAssets);
   }
 
 
@@ -102,12 +104,17 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                             ),
                             onChanged: (newValue) {
                               setState(() {
-                                SelectedIntellectualAsset = newValue;
-                                selectedIntellectualAsset = SelectedIntellectualAsset.name;
+                                selectedIntellectualAsset = newValue;
+                                //selectedIntellectualAsset = SelectedIntellectualAsset.name;
                               });
                             },
-                            items: intellectualAssetsDropDown,
-                            value: SelectedIntellectualAsset,
+                            items: IntellectualAssetsList.map((String singleItem) {
+                              return DropdownMenuItem<String>(
+                                  value: singleItem,
+                                  child: Text(singleItem));
+                            }).toList(),
+                            //intellectualAssetsDropDown,
+                            value: selectedIntellectualAsset,
                           ),
                         ),
                       ],
@@ -161,19 +168,33 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                             if (index == null) {
                               addingIntellectualAssets.add(
                                   NewProductFeature);
+
+                              _firestore.collection(userUid+'/Bc7_businessModelElements/addIntellectualProperties').add({
+                                'intellectualProperty': selectedIntellectualAsset,
+                                'intellectualCode': CodeDescriptionTextController.text,
+                                'intellectualDetails': AdditionalDetailsTextController.text,
+                                'Sender': "tester@gmail.com",
+                              });
+
                             } else {
-                              addingIntellectualAssets.removeAt(index);
-                              addingIntellectualAssets.insert(
-                                  index, NewProductFeature);
+//                              addingIntellectualAssets.removeAt(index);
+//                              addingIntellectualAssets.insert(
+//                                  index, NewProductFeature);
+                              _firestore
+                                  .collection(userUid+'/Bc7_businessModelElements/addIntellectualProperties')
+                                  .document(addingIntellectualAssets[index].ID)
+                                  .updateData({
+                                'intellectualProperty': selectedIntellectualAsset,
+                                'intellectualCode': CodeDescriptionTextController.text,
+                                'intellectualDetails': AdditionalDetailsTextController.text,
+                                'Sender': "tester@gmail.com",
+                              });
                             }
 
                             CodeDescriptionTextController.clear();
                             AdditionalDetailsTextController.clear();
-                            selectedIntellectualAsset = '';
+                            selectedIntellectualAsset = null;
                             Navigator.pop(context);
-//                            Navigator.push(context, new MaterialPageRoute(builder: (context) => BcIntellectualPropertyAssets()),
-//                            )
-//                                .then((value) => setState(() {}),);
                           });
                         },
                       ),
@@ -184,7 +205,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                         OnTap: () {
                           CodeDescriptionTextController.clear();
                           AdditionalDetailsTextController.clear();
-                          selectedIntellectualAsset = '';
+                          selectedIntellectualAsset = null;
                           //clickedRadio = 0;
 
                           Navigator.pop(context);

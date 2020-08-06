@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcElements.dart';
@@ -19,12 +20,17 @@ var FeatureDescriptionTextController = TextEditingController();
 final FeatureDescriptionFocusNode = new FocusNode();
 String FeatureDescription;
 
+const userUid = "tester@gmail.com";
+
 class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue> {
+  final _firestore = Firestore.instance;
+
   int index;
   bool checked = false;
   Color CheckTextActive = Colors.black;
   Color CheckTextInActive = Color(0XFFABABAB);
   String selectedElement;
+  int selectedTyped;
 
   @override
   void initState() {
@@ -34,10 +40,13 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
       FeatureDescriptionTextController = TextEditingController(
           text: addingNewBusinessElement[index].elementDescription);
       checked = addingNewBusinessElement[index].elementChecked;
-      selectedElement = addingNewBusinessElement[index].elementTitle;
+      selectedElement = addingNewBusinessElement[widget.index].elementTitle;
+      //selectedTyped = addingNewBusinessElement[index].featureType;
     }
 
-    bmcElementDropDown = buildDropDownMenuItems(BMCElements);
+    //bmcElementDropDown = buildDropDownMenuItems(BMCElements);
+
+
   }
 
   _BcBusinessElementsDialogueState(this.index);
@@ -95,12 +104,17 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                             ),
                             onChanged: (newValue) {
                               setState(() {
-                                SelectedBcmElement = newValue;
-                                selectedElement = SelectedBcmElement.name;
+                                selectedElement = newValue;
                               });
                             },
-                            items: bmcElementDropDown,
-                            value: SelectedBcmElement,
+                            items:  BMCElementsList.map((String singleItem) {
+                              return DropdownMenuItem<String>(
+                                  value: singleItem,
+                                  child: Text(singleItem));
+                            }).toList(),
+                            //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].elementTitle: BMCElementsList ,
+                            value: selectedElement,
+                            //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].selectedTyped : SelectedBcmElement,
                           ),
                         ),
                       ],
@@ -157,16 +171,32 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                             if (index == null) {
                               addingNewBusinessElement.add(
                                   NewProductFeature);
+                              _firestore.collection(userUid+'/Bc7_businessModelElements/addElements').add({
+                                'elementTitle': selectedElement,
+                                'elementDescription': FeatureDescriptionTextController.text,
+                                'elementChecked': checked,
+                                'Sender': "tester@gmail.com",
+                              });
+
                             } else {
-                              addingNewBusinessElement.removeAt(index);
-                              addingNewBusinessElement.insert(
-                                  index, NewProductFeature);
+//                              addingNewBusinessElement.removeAt(index);
+//                              addingNewBusinessElement.insert(
+//                                  index, NewProductFeature);
+                              _firestore
+                                  .collection(userUid+'/Bc7_businessModelElements/addElements')
+                                  .document(addingNewBusinessElement[index].ID)
+                                  .updateData({
+                                'elementTitle': selectedElement,
+                                'elementDescription': FeatureDescriptionTextController.text,
+                                'elementChecked': checked,
+                                'Sender': "tester@gmail.com",
+                              });
                             }
 
                             FeatureDescriptionTextController.clear();
                             checked = false;
-                            selectedElement = '';
-                            //clickedRadio = 0;
+                            selectedElement = null;
+                            //selectedTyped = 0;
 
                             Navigator.pop(context);
 //                            Navigator.push(context, new MaterialPageRoute(builder: (context) => BcBusinessElements()),
@@ -182,8 +212,8 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                         OnTap: () {
                           FeatureDescriptionTextController.clear();
                           checked = false;
-                          selectedElement = '';
-                          //clickedRadio = 0;
+                          selectedElement = null;
+                          //selectedTyped = 0;
 
                           Navigator.pop(context);
                         },

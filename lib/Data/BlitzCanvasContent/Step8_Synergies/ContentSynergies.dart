@@ -11,6 +11,7 @@ class ContentSynergies {
   final String synergyCostStructure;
   final String synergyDescription;
   final String synergyValues;
+  final ID;
 
 
   ContentSynergies({
@@ -26,6 +27,7 @@ class ContentSynergies {
     this.synergyCostStructure,
     this.synergyDescription,
     this.synergyValues,
+    this.ID,
 
   });
 }

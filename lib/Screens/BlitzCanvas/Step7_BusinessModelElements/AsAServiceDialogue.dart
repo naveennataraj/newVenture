@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentAsAService.dart';
@@ -40,8 +41,10 @@ var taskTextController = TextEditingController();
 final taskFocusNode = new FocusNode();
 String taskText;
 
+const userUid = "tester@gmail.com";
 
 class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
+  final _firestore = Firestore.instance;
   int index;
   _BcAsaServiceDialogueState(this.index);
 
@@ -61,10 +64,13 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
           text: addingAsaService[index].parentCompany);
       taskTextController = TextEditingController(
           text: addingAsaService[index].serviceTaskDescription);
+      selectedServiceTypeName = addingAsaService[widget.index].serviceType;
+      selectedServiceUsagePercentage = addingAsaService[widget.index].servicePercentage;
+
     }
 
-    serviceTypeDropDown = buildDropDownMenuItems(ServiceType);
-    serviceUsageDropDown = buildDropDownMenuItems(ServiceUsage);
+//    serviceTypeDropDown = buildDropDownMenuItems(ServiceType);
+//    serviceUsageDropDown = buildDropDownMenuItems(ServiceUsage);
   }
 
 
@@ -143,12 +149,17 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
-                                    SelectedServiceType = newValue;
-                                    selectedServiceTypeName = SelectedServiceType.name;
+                                    selectedServiceTypeName = newValue;
+                                    //selectedServiceTypeName = SelectedServiceType.name;
                                   });
                                 },
-                                items: serviceTypeDropDown,
-                                value: SelectedServiceType,
+                                items: ServiceTypeList.map((String singleItem) {
+                                  return DropdownMenuItem<String>(
+                                      value: singleItem,
+                                      child: Text(singleItem));
+                                }).toList(),
+                                //serviceTypeDropDown,
+                                value: selectedServiceTypeName,
                               ),
                             ),
                           ],
@@ -207,12 +218,17 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
-                                    SelectedServiceUsage = newValue;
-                                    selectedServiceUsagePercentage = SelectedServiceUsage.name;
+                                    selectedServiceUsagePercentage = newValue;
+                                    //selectedServiceUsagePercentage = SelectedServiceUsage.name;
                                   },);
                                 },
-                                items: serviceUsageDropDown,
-                                value: SelectedServiceUsage,
+                                items: ServiceUsageList.map((String singleItem) {
+                                  return DropdownMenuItem<String>(
+                                      value: singleItem,
+                                      child: Text(singleItem));
+                                }).toList(),
+                                //serviceUsageDropDown,
+                                value: selectedServiceUsagePercentage,
                               ),
                             ),
                           ],
@@ -231,7 +247,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                 final NewComponentProduct = AddAsaServiceOffering(
                                     serviceName: serviceTextController.text,
                                     serviceDescription: descriptionTextController.text,
-                                    serviceType: selectedServiceUsagePercentage,
+                                    serviceType: selectedServiceTypeName,
                                     parentCompany: parentCompanyTextController.text,
                                     serviceTaskDescription: taskTextController.text,
                                     servicePercentage:selectedServiceUsagePercentage,
@@ -240,16 +256,41 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                 if (index == null) {
                                   addingAsaService.add(
                                       NewComponentProduct);
+                                  _firestore.collection(userUid+'/Bc7_businessModelElements/addServices').add({
+                                    'serviceName': serviceTextController.text,
+                                    'serviceDescription': descriptionTextController.text,
+                                    'serviceType': selectedServiceTypeName,
+                                    'parentCompany': parentCompanyTextController.text,
+                                    'serviceTaskDescription': taskTextController.text,
+                                    'servicePercentage': selectedServiceUsagePercentage,
+                                    'Sender': "tester@gmail.com",
+                                  });
+
+
                                 } else {
-                                  addingAsaService.removeAt(index);
-                                  addingAsaService.insert(
-                                      index, NewComponentProduct);
+//                                  addingAsaService.removeAt(index);
+//                                  addingAsaService.insert(
+//                                      index, NewComponentProduct);
+                                  _firestore
+                                      .collection(userUid+'/Bc7_businessModelElements/addServices')
+                                      .document(addingAsaService[index].ID)
+                                      .updateData({
+                                    'serviceName': serviceTextController.text,
+                                    'serviceDescription': descriptionTextController.text,
+                                    'serviceType': selectedServiceTypeName,
+                                    'parentCompany': parentCompanyTextController.text,
+                                    'serviceTaskDescription': taskTextController.text,
+                                    'servicePercentage': selectedServiceUsagePercentage,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 serviceTextController.clear();
                                 descriptionTextController.clear();
                                 parentCompanyTextController.clear();
                                 taskTextController.clear();
+                                selectedServiceTypeName = null;
+                                selectedServiceUsagePercentage = null;
 
                                 //Navigator.pop(context);
                                 Navigator.push(context, new MaterialPageRoute(builder: (context) => BcAsaServiceOffering()),
@@ -268,6 +309,8 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                               descriptionTextController.clear();
                               parentCompanyTextController.clear();
                               taskTextController.clear();
+                              selectedServiceTypeName = null;
+                              selectedServiceUsagePercentage= null;
 
                               Navigator.pop(context);
                             },

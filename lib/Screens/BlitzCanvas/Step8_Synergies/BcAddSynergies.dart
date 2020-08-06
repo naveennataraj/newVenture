@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step8_Synergies/ContentSynergies.dart';
@@ -13,7 +14,10 @@ class BcAddSynergies extends StatefulWidget {
   _BcAddSynergiesState createState() => _BcAddSynergiesState();
 }
 
+const userUid = "tester@gmail.com";
+
 class _BcAddSynergiesState extends State<BcAddSynergies> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,50 +51,127 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
                       "Can we spot any Synergies between the Business segments?",
-                      style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
-                    ),),
-
-                  (addingNewSynergies.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the Product Goals",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
                     ),
-                  )
-                      :
-                  ListView.builder(
-                    itemCount: addingNewSynergies.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: addingNewSynergies != null
-                            ? <Widget>[
-                          SmallOrangeCardWithTitle(
-                            title: addingNewSynergies[index]
-                                .synergyName,
-                            description:
-                            addingNewSynergies[index]
-                                .synergyDescription,
-                            index: index,
-                            removingat: addingNewSynergies,
-                            Dialogue: BcSynergiesDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
-                      );
+                  ),
+
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(userUid + '/Bc8_synergies/addSynergies')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        addingNewSynergies = [];
+                        for (var message in messages) {
+                          final synergyName = message.data['synergyName'];
+                          //final synergyValueProposition =
+                              //message.data['synergyValueProposition'];
+//                          final serviceType = message.data['serviceType'];
+//                          final parentCompany = message.data['parentCompany'];
+                          final synergyDescription =
+                              message.data['synergyDescription'];
+                          final synergyValues = message.data['synergyValues'];
+
+                          final ID = message.documentID;
+
+                          final card = ContentSynergies(
+                            synergyName: synergyName,
+                            //synergyValueProposition: synergyValueProposition,
+//                            serviceType: serviceType,
+//                            parentCompany: parentCompany,
+                            synergyDescription: synergyDescription,
+                            synergyValues: synergyValues,
+                            ID: ID,
+                          );
+                          addingNewSynergies.add(card);
+                        }
+                      }
+                      return (addingNewSynergies.length != 0)
+                          ? ListView.builder(
+                              itemCount: addingNewSynergies.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: addingNewSynergies != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title: addingNewSynergies[index]
+                                                .synergyName,
+                                            description:
+                                                addingNewSynergies[index]
+                                                    .synergyDescription,
+                                            index: index,
+                                            removingat: addingNewSynergies,
+                                            Dialogue: BcSynergiesDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: userUid +
+                                                '/Bc8_synergies/addSynergies',
+                                            ID: addingNewSynergies[index].ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Pain Points",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                            );
                     },
                   ),
+
+//                  (addingNewSynergies.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the Product Goals",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      :
+//                  ListView.builder(
+//                    itemCount: addingNewSynergies.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: addingNewSynergies != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithTitle(
+//                            title: addingNewSynergies[index]
+//                                .synergyName,
+//                            description:
+//                            addingNewSynergies[index]
+//                                .synergyDescription,
+//                            index: index,
+//                            removingat: addingNewSynergies,
+//                            Dialogue: BcSynergiesDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -103,8 +184,7 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                         CompleteStepButton(
                           OnTap: () {
                             bcStepsContent[7].bcCompletionValidator = true;
-                            Navigator.pushNamed(
-                                context, '/BCHomeView');
+                            Navigator.pushNamed(context, '/BCHomeView');
                           },
                         ),
                       ],

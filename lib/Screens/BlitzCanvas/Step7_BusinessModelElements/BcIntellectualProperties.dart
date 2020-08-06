@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcIntellectualAssets.dart';
@@ -8,13 +9,17 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-
 class BcIntellectualPropertyAssets extends StatefulWidget {
   @override
-  _BcIntellectualPropertyAssetsState createState() => _BcIntellectualPropertyAssetsState();
+  _BcIntellectualPropertyAssetsState createState() =>
+      _BcIntellectualPropertyAssetsState();
 }
 
-class _BcIntellectualPropertyAssetsState extends State<BcIntellectualPropertyAssets> {
+const userUid = "tester@gmail.com";
+
+class _BcIntellectualPropertyAssetsState
+    extends State<BcIntellectualPropertyAssets> {
+  final _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,50 +53,127 @@ class _BcIntellectualPropertyAssetsState extends State<BcIntellectualPropertyAss
                     padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
                       "Let's add some Intellectual property assets:",
-                      style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
-                    ),),
-
-                  (addingIntellectualAssets.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the Product Goals",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
                     ),
-                  )
-                      :
-                  ListView.builder(
-                    itemCount: addingIntellectualAssets.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: addingIntellectualAssets != null
-                            ? <Widget>[
-                          SmallOrangeCardWithTitle(
-                            title: addingIntellectualAssets[index]
-                                .intellectualProperty,
-                            description:
-                            addingIntellectualAssets[index]
-                                .intellectualCode,
-                            index: index,
-                            removingat: addingIntellectualAssets,
-                            Dialogue: BcIntellectualDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
-                      );
+                  ),
+
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(userUid +
+                            '/Bc7_businessModelElements/addIntellectualProperties')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        print('these are the messages $messages');
+                        addingIntellectualAssets = [];
+                        for (var message in messages) {
+                          final intellectualProperty =
+                              message.data['intellectualProperty'];
+                          final intellectualCode =
+                              message.data['intellectualCode'];
+                          final intellectualDetails =
+                              message.data['intellectualDetails'];
+                          final ID = message.documentID;
+
+                          final card = ContentBcIntellectualAssets(
+                            intellectualProperty: intellectualProperty,
+                            intellectualCode: intellectualCode,
+                            intellectualDetails: intellectualDetails,
+                            ID: ID,
+                          );
+                          addingIntellectualAssets.add(card);
+                        }
+                      }
+
+                      return (addingIntellectualAssets.length != 0)
+                          ? ListView.builder(
+                              itemCount: addingIntellectualAssets.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10.0),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: addingIntellectualAssets != null
+                                      ? <Widget>[
+                                          SmallOrangeCardWithTitle(
+                                            title:
+                                                addingIntellectualAssets[index]
+                                                    .intellectualProperty,
+                                            description:
+                                                addingIntellectualAssets[index]
+                                                    .intellectualCode,
+                                            index: index,
+                                            removingat:
+                                                addingIntellectualAssets,
+                                            Dialogue: BcIntellectualDialogue(
+                                              index: index,
+                                            ),
+                                            CollectionName: userUid +
+                                                '/Bc7_businessModelElements/addIntellectualProperties',
+                                            ID: addingIntellectualAssets[index]
+                                                .ID,
+                                          )
+                                        ]
+                                      : null,
+                                );
+                              },
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Click on '+' to add the Pain Points",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                            );
                     },
                   ),
+
+//                  (addingIntellectualAssets.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the Product Goals",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      :
+//                  ListView.builder(
+//                    itemCount: addingIntellectualAssets.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: addingIntellectualAssets != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithTitle(
+//                            title: addingIntellectualAssets[index]
+//                                .intellectualProperty,
+//                            description:
+//                            addingIntellectualAssets[index]
+//                                .intellectualCode,
+//                            index: index,
+//                            removingat: addingIntellectualAssets,
+//                            Dialogue: BcIntellectualDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(
@@ -105,7 +187,8 @@ class _BcIntellectualPropertyAssetsState extends State<BcIntellectualPropertyAss
                           OnTap: () {
                             bcStepsContent[6].bcCompletionValidator = false;
 //                            print(bcpData[0].CompletionValidator);
-                            Navigator.pushNamed(context, '/BCStep7ServiceOffering');
+                            Navigator.pushNamed(
+                                context, '/BCStep7ServiceOffering');
                           },
                           //routeName: '/BCStep3WireFrameLink',
                           // write here
@@ -126,7 +209,9 @@ class _BcIntellectualPropertyAssetsState extends State<BcIntellectualPropertyAss
             showDialog(
               context: context,
               builder: (BuildContext context) => BcIntellectualDialogue(),
-            ).then((_) => setState(() {}),);
+            ).then(
+              (_) => setState(() {}),
+            );
           },
           child: Icon(Icons.add),
         ),

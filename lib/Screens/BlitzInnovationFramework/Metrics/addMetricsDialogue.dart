@@ -43,6 +43,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
 //            widget.SelectedMetricsValue, widget.SelectedMetricsName);
 
         itemSelected = AddingNewMetrics[widget.index].Name;
+        print('the wierd item selected $itemSelected');
       });
     }
   }

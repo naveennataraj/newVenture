@@ -5,6 +5,7 @@ class AddAsaServiceOffering {
   final String parentCompany;
   final String serviceTaskDescription;
   final String servicePercentage;
+  final ID;
 
 
   AddAsaServiceOffering({
@@ -13,7 +14,8 @@ class AddAsaServiceOffering {
     this.serviceType,
     this.parentCompany,
     this.serviceTaskDescription,
-    this.servicePercentage
+    this.servicePercentage,
+    this.ID,
   });
 }
 

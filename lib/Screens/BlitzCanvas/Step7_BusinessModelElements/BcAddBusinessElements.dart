@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcElements.dart';
@@ -12,8 +13,11 @@ class BcBusinessElements extends StatefulWidget {
   @override
   _BcBusinessElementsState createState() => _BcBusinessElementsState();
 }
+const userUid = "tester@gmail.com";
 
 class _BcBusinessElementsState extends State<BcBusinessElements> {
+  final _firestore = Firestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,45 +56,120 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                       textAlign: TextAlign.center,
                     ),),
 
-                  (addingNewBusinessElement.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the Product Goals",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  )
-                      :
-                  ListView.builder(
-                    itemCount: addingNewBusinessElement.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: addingNewBusinessElement != null
-                            ? <Widget>[
-                          SmallOrangeCardWithTitle(
-                            title: addingNewBusinessElement[index]
-                                .elementTitle,
-                            description:
-                            addingNewBusinessElement[index]
-                                .elementDescription,
-                            index: index,
-                            removingat: addingNewBusinessElement,
-                            Dialogue: BcBusinessElementsDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
+
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection(
+                        userUid + '/Bc7_businessModelElements/addElements')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        print('these are the messages $messages');
+                        addingNewBusinessElement = [];
+                        for (var message in messages) {
+                          final elementTitle = message.data['elementTitle'];
+                          final elementDescription =
+                          message.data['elementDescription'];
+                          final elementChecked = message.data['elementChecked'];
+                          final ID = message.documentID;
+
+                          final card = ContentBcElements(
+                            elementTitle: elementTitle,
+                            elementDescription: elementDescription,
+                            elementChecked: elementChecked,
+                            ID: ID,
+                          );
+                          addingNewBusinessElement.add(card);
+                        }
+                      }
+
+                      return (addingNewBusinessElement.length != 0)
+                          ? ListView.builder(
+                        itemCount: addingNewBusinessElement.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.only(top: 10.0),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: addingNewBusinessElement != null
+                                ? <Widget>[
+                              SmallOrangeCardWithTitle(
+                                title:
+                                addingNewBusinessElement[index]
+                                    .elementTitle,
+                                description:
+                                addingNewBusinessElement[index]
+                                    .elementDescription,
+                                index: index,
+                                removingat: addingNewBusinessElement,
+                                Dialogue:
+                                BcBusinessElementsDialogue(
+                                  index: index,
+                                ),
+                                CollectionName: userUid +
+                                    '/Bc7_businessModelElements/addElements',
+                                ID: addingNewBusinessElement[index]
+                                    .ID,
+                              )
+                            ]
+                                : null,
+                          );
+                        },
+                      )
+                          : Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Click on '+' to add the Pain Points",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
                       );
                     },
                   ),
+
+//                  (addingNewBusinessElement.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the Product Goals",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      :
+//                  ListView.builder(
+//                    itemCount: addingNewBusinessElement.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: addingNewBusinessElement != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithTitle(
+//                            title: addingNewBusinessElement[index]
+//                                .elementTitle,
+//                            description:
+//                            addingNewBusinessElement[index]
+//                                .elementDescription,
+//                            index: index,
+//                            removingat: addingNewBusinessElement,
+//                            Dialogue: BcBusinessElementsDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

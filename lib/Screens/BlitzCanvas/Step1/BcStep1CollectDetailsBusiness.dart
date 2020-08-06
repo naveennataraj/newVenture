@@ -35,7 +35,7 @@ const userUid = "tester@gmail.com";
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> with SingleTickerProviderStateMixin {
   final _firestore = Firestore.instance.collection(userUid).document('Bc1_buildTheFoundation');
  var timestamp = FieldValue.serverTimestamp();
-  String missionTextFirebase;
+  //String missionTextFirebase;
   // variables to save mission and vision values
   String fireMissionData;
   String fireVisionData;

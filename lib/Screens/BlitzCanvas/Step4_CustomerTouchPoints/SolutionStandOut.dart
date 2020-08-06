@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step4_UniqueSellingProposition/BcSellingProposition.dart';
 import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
@@ -11,19 +13,49 @@ class UniqueSellingProposition extends StatefulWidget {
   _UniqueSellingPropositionState createState() => _UniqueSellingPropositionState();
 }
 
-class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
-  bool validProposition = true;
-  var propositionLabelColor = Color(0XFF919191);
-  var propositionTextController = TextEditingController();
-  final propositionFocusNode = new FocusNode();
-  String sellingProposition;
+String ID;
+const userUid = "tester@gmail.com";
 
-//  NotifyProgress() {
-//    setState(() {
-//      bcpData[1].CompletionValidator = false;
-//      print(bcpData[1].CompletionValidator);
-//    });
-//  }
+bool validProposition = true;
+var propositionLabelColor = Color(0XFF919191);
+var propositionTextController = TextEditingController();
+final propositionFocusNode = new FocusNode();
+String sellingProposition;
+
+class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
+
+  final _firestore = Firestore.instance.collection(userUid).document('Bc4_uniqueSellingProposition');
+  String propositionFirebaseData;
+
+  void initState() {
+    super.initState();
+    (propositionFirebaseData  == null)? getDocuments() : print ('data exists') ;
+  }
+
+  void getDocuments() async {
+    final document = await _firestore.get();
+
+    if (document.exists) {
+      try {
+        setState(() {
+          sellingProposition = document.data['proposition'];
+          propositionFirebaseData = document.data['proposition'];
+          ID = document.documentID;
+          propositionTextController.text = sellingProposition;
+        });
+      } catch (e) {
+        print(e);
+      }
+      final fields = BcSellingProposition(
+          proposition: sellingProposition,
+          ID: ID);
+
+      sellingPropositionArray.add(fields);
+    }
+
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +114,25 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
                         ),
                         goNextButton(
                           OnTap: () {
+                            if(sellingPropositionArray.length != 0) {
+                              _firestore
+                                  .updateData({
+                                'proposition': propositionTextController.text,
+                              });
+                            } else {
+                              if (propositionFirebaseData != propositionTextController.text ) {
+                                _firestore.setData({
+                                  'proposition': propositionTextController.text,
+                                  'keyTouchText': '',
+                                  'capitalizeText': '',
+                                  'growthText': '',
+                                  'Sender': "tester@gmail.com",
+                                });
+                              }
+                            }
+
+
+                            propositionFirebaseData =propositionTextController.text;
                             bcStepsContent[3].bcCompletionValidator = false;
 //                            bcpData[0].CompletionValidator = false;
 //                            print(bcpData[0].CompletionValidator);
