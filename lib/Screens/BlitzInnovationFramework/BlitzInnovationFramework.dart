@@ -20,7 +20,7 @@ class BlitzInnovationFramework extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Text(
                   'Blitz Innovation Framework',
                   style: TextStyle(fontSize: 60),
@@ -33,8 +33,9 @@ class BlitzInnovationFramework extends StatelessWidget {
                 color: Colors.white,
                 elevation: 5,
                 child: Container(
-                  height: MediaQuery.of(context).size.height * .30,
-                  width: MediaQuery.of(context).size.width * .50,
+                  margin: EdgeInsets.all(15),
+                  height: 300,
+                  width: 800,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
@@ -99,16 +100,31 @@ class BlitzInnovationFramework extends StatelessWidget {
                 height: 40,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 50, right: 50),
+                padding: EdgeInsets.only(
+                  left: (MediaQuery.of(context).size.width >= 1300)
+                      ? 50
+                      : (MediaQuery.of(context).size.width <= 700) ? 10 : 20,
+                  right: (MediaQuery.of(context).size.width >= 1300)
+                      ? 50
+                      : (MediaQuery.of(context).size.width <= 700) ? 10 : 20,
+                ),
                 child: GridView.builder(
                   shrinkWrap: true,
 //                  physics: NeverScrollableScrollPhysics(),
                   itemCount: bcpData.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 1.5,
+                      mainAxisSpacing: 1,
                       crossAxisSpacing: 1.5,
-                      childAspectRatio: 2.5,
-                      crossAxisCount: 3),
+                      childAspectRatio:
+                          (MediaQuery.of(context).size.width >= 1300)
+                              ? 2.4
+                              : (MediaQuery.of(context).size.width <= 700)
+                                  ? 2.6
+                                  : 2,
+                      crossAxisCount: (MediaQuery.of(context).size.width >=
+                              1300)
+                          ? 3
+                          : (MediaQuery.of(context).size.width <= 700) ? 1 : 2),
                   itemBuilder: (BuildContext context, int index) {
                     return FrameworkCards(
                         stepCompleteValidator:
