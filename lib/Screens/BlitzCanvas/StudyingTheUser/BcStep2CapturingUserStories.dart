@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStoryDialogue.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/testCompleteButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
@@ -190,10 +190,13 @@ class _BcStep2CapturingUserStoriesState
                           width: 50,
                         ),
                         CompleteStepButton(
-                          OnTap: () {
-                            bcStepsContent[1].bcCompletionValidator = true;
-                            Navigator.pushNamed(context, '/BCHomeView');
-                          },
+                          routeName: '/BCHomeView',
+                          step: 1,
+                          stepBool: true,
+//                          OnTap: () {
+//                            bcStepsContent[1].bcCompletionValidator = true;
+//                            Navigator.pushNamed(context, '/BCHomeView');
+//                          },
                         ),
                       ],
                     ),

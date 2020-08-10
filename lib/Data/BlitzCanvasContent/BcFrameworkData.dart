@@ -8,6 +8,8 @@ class BcFrameworkContent {
   final String buttonText;
   final String navigateTo;
   bool bcCompletionValidator;
+  final ID;
+  final index;
 
   BcFrameworkContent(
       { this.frameWorkIcon,
@@ -15,7 +17,9 @@ class BcFrameworkContent {
         this.frameWorkDescription,
         this.buttonText,
         this.navigateTo,
-        this.bcCompletionValidator});
+        this.bcCompletionValidator,
+        this.ID,
+      this.index});
 }
 
 List<BcFrameworkContent> bcStepsContent = [

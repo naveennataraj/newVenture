@@ -55,7 +55,7 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
           text: addingNewSynergies[index].synergyValues);
 
     }
-    bmcElementDropDown = buildDropDownMenuItems(BMCElements);
+    //bmcElementDropDown = buildDropDownMenuItems(BMCElements);
 
   }
 
@@ -113,23 +113,25 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                           ),
                           Spacer(),
                           Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: DropdownButton(
-                              hint: Text(
-                                'Choose',
-                                style: TextStyle(
-                                  color: Color(0XFFE95420),
-                                ),
-                              ),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  SelectedBcmElement = newValue;
-                                  selectedServiceTypeName = SelectedBcmElement.name;
-                                });
-                              },
-                              items: bmcElementDropDown,
-                              value: SelectedBcmElement,
-                            ),
+                            //padding: const EdgeInsets.only(right: 20),
+                            child: CheckboxWidget()
+
+//                            DropdownButton(
+//                              hint: Text(
+//                                'Choose',
+//                                style: TextStyle(
+//                                  color: Color(0XFFE95420),
+//                                ),
+//                              ),
+//                              onChanged: (newValue) {
+//                                setState(() {
+//                                  SelectedBcmElement = newValue;
+//                                  selectedServiceTypeName = SelectedBcmElement.name;
+//                                });
+//                              },
+//                              items: bmcElementDropDown,
+//                              value: SelectedBcmElement,
+//                            ),
                           ),
                         ],
                       ),
@@ -204,7 +206,6 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                                   'synergyValues': synergyDescriptionTextController.text,
                                   'Sender': "tester@gmail.com",
                                 });
-
                               }
 
                               synergyNameTextController.clear();
