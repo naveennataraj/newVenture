@@ -243,9 +243,8 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                             CompleteStepButton(
                               routeName: '/BCHomeView',
                               step: 0,
-                              //stepValidation: 'bcStepsContent[0].bcCompletionValidator',
                               stepBool: true,
-                              //stepValidation2: bcStepsContent[0].bcCompletionValidator= true,
+
 //                          OnTap: () {
 //
 //                            //documentExists = false;

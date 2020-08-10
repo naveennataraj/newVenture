@@ -173,7 +173,6 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                                 'intellectualProperty': selectedIntellectualAsset,
                                 'intellectualCode': CodeDescriptionTextController.text,
                                 'intellectualDetails': AdditionalDetailsTextController.text,
-                                'Sender': "tester@gmail.com",
                               });
 
                             } else {

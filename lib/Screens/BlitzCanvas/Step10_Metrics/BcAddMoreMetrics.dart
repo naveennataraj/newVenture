@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentBcMetrics.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcMetricDialogue.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
@@ -14,7 +16,10 @@ class BcAddMoreMetrics extends StatefulWidget {
   _BcAddMoreMetricsState createState() => _BcAddMoreMetricsState();
 }
 
+
 class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
+  final _firestore = Firestore.instance;
+
 
   @override
   void initState() {
@@ -102,42 +107,110 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
                     Note:
                     'Please note: Metrics which have already been added are listed below. To add more\nmetrics, please use the add button at the button of the page.\nTip: Metrics help measure and keep track of what is important in the solution concept and business model.\nThe framework for capture of metrics used by this application is based on the MESOPS Framework. To study this further, please refer to this link.',
                   ),
-                  (AddingNewMetrics.length == 0)
-                      ? Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click on '+' to add the solution concept",
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  )
-                      : ListView.builder(
-                    itemCount: AddingNewMetrics.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10.0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: AddingNewMetrics != null
-                            ? <Widget>[
-                          SmallOrangeCardWithTitle(
-                            title: AddingNewMetrics[index].Name,
-                            description:
-                            AddingNewMetrics[index].Description,
-                            index: index,
-                            removingat: AddingNewMetrics,
-                            Dialogue: BcMetricDialogue(
-                              index: index,
-                            ),
-                          )
-                        ]
-                            : null,
+
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection('$currentUser/Bc10_metrics/addMoreMetrics')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data.documents.reversed;
+                        AddingNewMetrics = [];
+                        for (var message in messages) {
+                          final Name = message.data['Name'];
+                          final Description =
+                          message.data['Description'];
+                          final ID = message.documentID;
+
+                          final card = ContentBcMetrics(
+                            Name: Name,
+                            Description: Description,
+                            ID: ID,
+                          );
+                          AddingNewMetrics.add(card);
+                        }
+                      }
+                      return (AddingNewMetrics.length != 0)
+                          ? ListView.builder(
+                        itemCount: AddingNewMetrics.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.only(top: 10.0),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: AddingNewMetrics != null
+                                ? <Widget>[
+                              SmallOrangeCardWithTitle(
+                                title: AddingNewMetrics[index]
+                                    .Name,
+                                description:
+                                AddingNewMetrics[index]
+                                    .Description,
+                                index: index,
+                                removingat: AddingNewMetrics,
+                                Dialogue: BcMetricDialogue(
+                                  index: index,
+                                ),
+                                CollectionName:
+                                    '$currentUser/Bc10_metrics/addMoreMetrics',
+                                ID: AddingNewMetrics[index].ID,
+                              )
+                            ]
+                                : null,
+                          );
+                        },
+                      )
+                          : Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Click on '+' to add the Pain Points",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
                       );
                     },
                   ),
+
+
+//                  (AddingNewMetrics.length == 0)
+//                      ? Padding(
+//                    padding: const EdgeInsets.all(25.0),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.center,
+//                      children: [
+//                        Text(
+//                          "Click on '+' to add the solution concept",
+//                          style: TextStyle(color: Colors.grey),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                      : ListView.builder(
+//                    itemCount: AddingNewMetrics.length,
+//                    shrinkWrap: true,
+//                    padding: EdgeInsets.only(top: 10.0),
+//                    itemBuilder: (context, index) {
+//                      return Column(
+//                        children: AddingNewMetrics != null
+//                            ? <Widget>[
+//                          SmallOrangeCardWithTitle(
+//                            title: AddingNewMetrics[index].Name,
+//                            description:
+//                            AddingNewMetrics[index].Description,
+//                            index: index,
+//                            removingat: AddingNewMetrics,
+//                            Dialogue: BcMetricDialogue(
+//                              index: index,
+//                            ),
+//                          )
+//                        ]
+//                            : null,
+//                      );
+//                    },
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Row(

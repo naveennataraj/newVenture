@@ -17,9 +17,7 @@ class CompleteStepButton extends StatelessWidget {
  bool bcStepsContent0;
 
   void switchStep(){
-
     switch(step){
-
       case 0 :
         _firestore.collection(userUid).document('stepValidation').updateData({
           if(stepBool == true)
@@ -121,8 +119,6 @@ class CompleteStepButton extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, routeName);
         switchStep();
-        
-
       },
 
       child: Text(
