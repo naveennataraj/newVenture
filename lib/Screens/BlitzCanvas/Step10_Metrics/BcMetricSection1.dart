@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Widgets/AddGenericButton.dart';
@@ -5,6 +6,9 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+
+const userUid = "tester@gmail.com";
+String ID;
 
 class BcStep10MetricSection1 extends StatefulWidget {
   @override
@@ -18,6 +22,32 @@ final metricSectionOneFocusNode = new FocusNode();
 String metricSectionOneText;
 
 class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
+  final _firestore = Firestore.instance.collection(userUid).document('Bc10_metrics');
+  String fireMetricData;
+
+  void initState() {
+    super.initState();
+    (fireMetricData == null)? getDocuments() : print ('data exists') ;
+  }
+
+  void getDocuments() async {
+    final document = await _firestore.get();
+
+    if (document.exists) {
+      try {
+        setState(() {
+          metricSectionOneText = document.data['metricSectionOne'];
+          ID = document.documentID;
+          fireMetricData = document.data['metricSectionOne'];
+          metricSectionOneTextController.text = metricSectionOneText;
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +108,19 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
                         AddGenericButton (
                           buttonName: 'PROCEED TO METRICS-SECTION2',
                           onTap: () {
+
+                            if (fireMetricData == null || fireMetricData == '') {
+                              _firestore.setData({
+                                'metricSectionOne': metricSectionOneTextController.text,
+                              });
+                            }
+
+                            if (fireMetricData != metricSectionOneTextController.text ) {
+                              _firestore.updateData({
+                                'metricSectionOne': metricSectionOneTextController.text,
+                              });
+                            }
+
                             bcStepsContent[9].bcCompletionValidator = false;
 //                            print(bcpData[6].CompletionValidator);
                             Navigator.pushNamed(

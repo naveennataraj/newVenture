@@ -36,6 +36,16 @@ List<DropDownItem> MetricsList = [
   DropDownItem(5, 'Evolution'),
   DropDownItem(6, 'Ecosystem')
 ];
+
+const List<String> MetricList = [
+  'Problem Space',
+  'Solution Space',
+  'Evangelism',
+  'Scale',
+  'Evolution',
+  'Ecosystem'
+];
+
 const List<String> MetricDropdownList = [
   'Problem Space',
   'Solution Space',
@@ -45,17 +55,17 @@ const List<String> MetricDropdownList = [
   'Ecosystem'
 ];
 
-List<DropDownItem> BMCElements = [
-  DropDownItem(1, 'Value proposition'),
-  DropDownItem(2, 'Customer segment'),
-  DropDownItem(3, 'Revenue stream'),
-  DropDownItem(4, 'Distribution channel'),
-  DropDownItem(5, 'Customer relationship'),
-  DropDownItem(6, 'Key activity'),
-  DropDownItem(7, 'Key resource'),
-  DropDownItem(8, 'Key partner'),
-  DropDownItem(9, 'Cost Structure'),
-];
+//List<DropDownItem> BMCElements = [
+//  DropDownItem(1, 'Value proposition'),
+//  DropDownItem(2, 'Customer segment'),
+//  DropDownItem(3, 'Revenue stream'),
+//  DropDownItem(4, 'Distribution channel'),
+//  DropDownItem(5, 'Customer relationship'),
+//  DropDownItem(6, 'Key activity'),
+//  DropDownItem(7, 'Key resource'),
+//  DropDownItem(8, 'Key partner'),
+//  DropDownItem(9, 'Cost Structure'),
+//];
 
 const List<String> BMCElementsList = [
   'Value proposition',
@@ -69,13 +79,13 @@ const List<String> BMCElementsList = [
   'Cost Structure',
 ];
 
-List<DropDownItem> IntellectualAssets = [
-  DropDownItem(1, 'Contract'),
-  DropDownItem(2, 'Copyright'),
-  DropDownItem(3, 'Trademark'),
-  DropDownItem(4, 'Tradesecret'),
-  DropDownItem(5, 'Patent'),
-];
+//List<DropDownItem> IntellectualAssets = [
+//  DropDownItem(1, 'Contract'),
+//  DropDownItem(2, 'Copyright'),
+//  DropDownItem(3, 'Trademark'),
+//  DropDownItem(4, 'Tradesecret'),
+//  DropDownItem(5, 'Patent'),
+//];
 
 const List<String> IntellectualAssetsList = [
   'Contract',

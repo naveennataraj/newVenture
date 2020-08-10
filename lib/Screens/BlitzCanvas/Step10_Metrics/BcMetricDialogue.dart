@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentBcMetrics.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
@@ -23,7 +25,8 @@ String MetricsName;
 
 class _BcMetricDialogueState extends State<BcMetricDialogue> {
   int index;
-
+  String selectedMetric;
+  final _firestore = Firestore.instance;
   @override
   void initState() {
     super.initState();
@@ -31,7 +34,13 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
     if (index != null) {
       MetricsNameTextController =
           TextEditingController(text: AddingNewMetrics[index].Description);
-      SelectedMetrics = AddingNewMetrics[index].SelectedOption;
+      setState(() {
+//        SelectedMetrics = DropDownItem(
+//            widget.SelectedMetricsValue, widget.SelectedMetricsName);
+
+        selectedMetric = AddingNewMetrics[widget.index].Name;
+        //print('the wierd item selected $SelectedMetric');
+      });
     }
   }
 
@@ -61,7 +70,7 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                       ),
                     ),
                     TextFieldWidget(
-                      labelText: "Wnter a name Briefly describing the metric",
+                      labelText: "Enter a name briefly describing the metric",
                       maxLines: 2,
                       validText: validSMetricsName,
                       myFocusNode: MetricsNameFocusNode,
@@ -99,11 +108,15 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
-                                    SelectedMetrics = newValue;
+                                    selectedMetric = newValue;
                                   });
                                 },
-                                items: Metricsdropdown,
-                                value: SelectedMetrics,
+                                items: MetricList.map((String singleItem) {
+                                  return DropdownMenuItem<String>(
+                                      value: singleItem,
+                                      child: Text(singleItem));
+                                }).toList(),
+                                value: selectedMetric,
                               ),
                             ),
                           ],
@@ -118,21 +131,35 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                           AddMetricButton(
                             onTap: () {
                               setState(() {
-                                final NewMetrics = ContentBcMetrics(
-                                  Name: SelectedMetrics.name,
-                                  Description: MetricsNameTextController.text,
-                                  SelectedOption: SelectedMetrics,
-                                );
+//                                final NewMetrics = ContentBcMetrics(
+//                                  Name: SelectedMetrics.name,
+//                                  Description: MetricsNameTextController.text,
+//
+//                                );
 
                                 if (index == null) {
-                                  AddingNewMetrics.add(NewMetrics);
+                                  //AddingNewMetrics.add(NewMetrics);
+                                  _firestore.collection('$currentUser/Bc10_metrics/addMoreMetrics').add({
+                                    'Name': selectedMetric,
+                                    'Description': MetricsNameTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
+
                                 } else {
-                                  AddingNewMetrics.removeAt(index);
-                                  AddingNewMetrics.insert(index, NewMetrics);
+//                                  AddingNewMetrics.removeAt(index);
+//                                  AddingNewMetrics.insert(index, NewMetrics);
+                                  _firestore
+                                      .collection('$currentUser/Bc10_metrics/addMoreMetrics')
+                                      .document(AddingNewMetrics[index].ID)
+                                      .updateData({
+                                    'Name': selectedMetric,
+                                    'Description': MetricsNameTextController.text,
+                                    'Sender': "tester@gmail.com",
+                                  });
                                 }
 
                                 MetricsNameTextController.clear();
-                                SelectedMetrics = null;
+                                selectedMetric = null;
 
                                 Navigator.pop(context);
 //                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcAddMoreMetrics()),

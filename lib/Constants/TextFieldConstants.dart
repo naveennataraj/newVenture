@@ -17,4 +17,5 @@ const TextFieldsDecoration = InputDecoration(
   ),
 );
 
-String currentUser = 'Tester1@gmail.com';
+//String currentUser = 'Tester1@gmail.com';
+String currentUser = 'tester@gmail.com';

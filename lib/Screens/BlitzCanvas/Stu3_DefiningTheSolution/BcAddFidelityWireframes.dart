@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/testCompleteButton.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 class BcAddWireframeLink extends StatefulWidget {
@@ -116,17 +117,26 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
                           width: 50,
                         ),
                         CompleteStepButton(
-                          OnTap: () {
-                            if (linkWireframe !=
-                                WireFrameLinkTextController.text) {
-                              _firestore.setData({
-                                'wireFrameLink':
-                                    WireFrameLinkTextController.text,
-                              });
-                            }
-                            bcStepsContent[2].bcCompletionValidator = true;
-                            Navigator.pushNamed(context, '/BCHomeView');
-                          },
+                          routeName: '/BCHomeView',
+                          step: 2,
+                          stepBool: true,
+
+                          widget: _firestore.setData({
+                            'wireFrameLink':
+                            WireFrameLinkTextController.text,
+                          }),
+
+//                          OnTap: () {
+//                            if (linkWireframe !=
+//                                WireFrameLinkTextController.text) {
+//                              _firestore.setData({
+//                                'wireFrameLink':
+//                                    WireFrameLinkTextController.text,
+//                              });
+//                            }
+//                            bcStepsContent[2].bcCompletionValidator = true;
+//                            Navigator.pushNamed(context, '/BCHomeView');
+//                          },
                         )
                       ],
                     ),

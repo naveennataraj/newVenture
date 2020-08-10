@@ -28,12 +28,13 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
   final _firestore = Firestore.instance.collection(userUid).document('Bc9_managingGrowth');
   String selectedStrategyOption;
   String fireStrategyData;
+  String fireOptionSelected;
 
   @override
   void initState() {
     super.initState();
 
-    if (fireStrategyData != null ) {getDocuments();}
+    if (fireStrategyData == null || fireOptionSelected == null ) {getDocuments();}
     //strategySustainable = buildDropDownMenuItems(StrategySustainableList);
   }
 
@@ -47,6 +48,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
           handleScaleLText = document.data['handleScaleLText'];
           selectedStrategyOption = document.data['selectedStrategyOption'];
           fireStrategyData = document.data['handleScaleLText'];
+          fireOptionSelected = document.data['selectedStrategyOption'];
           ID = document.documentID;
           handleScaleLTextController.text = handleScaleLText;
           //visionTextController.text = visionText;
@@ -168,7 +170,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                         goNextButton(
                           OnTap: () {
 
-                            if (fireStrategyData != handleScaleLTextController.text ) {
+                            if (fireStrategyData != handleScaleLTextController.text || fireOptionSelected != selectedStrategyOption  ) {
                               _firestore.setData({
                                 'handleScaleLText': handleScaleLTextController.text,
                                 'selectedStrategyOption': selectedStrategyOption,
@@ -176,7 +178,8 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
 
                               });
                             }
-
+                            fireOptionSelected = selectedStrategyOption;
+                            fireStrategyData= handleScaleLTextController.text;
                             bcStepsContent[8].bcCompletionValidator = false;
 //                            print(bcpData[6].CompletionValidator);
                             Navigator.pushNamed(

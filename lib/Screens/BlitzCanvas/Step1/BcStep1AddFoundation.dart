@@ -8,7 +8,8 @@ import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusin
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+//import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/testCompleteButton.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 class Step1AddFoundation extends StatefulWidget {
@@ -28,7 +29,6 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
 //    //(foundationContent.length== 0) ? getDocument() : print('not needed');
 //    super.initState();
 //  }
-
 
 //  void getDocument() async {
 //    //spinner = true;
@@ -70,8 +70,6 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
 ////    });
 //  }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +96,6 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
           ),
 
           child:
-
 
 //          SingleChildScrollView(
 //              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
@@ -155,102 +152,107 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
 //                    },
 //                  ),
 
+              SingleChildScrollView(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          "Add details of the foundational aspects of the business",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      StreamBuilder<QuerySnapshot>(
+                        stream: _firestore
+                            .collection(userUid +
+                                '/Bc1_buildTheFoundation/addFoundations')
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final messages = snapshot.data.documents.reversed;
+                            print(messages);
+                            foundationContent = [];
+                            for (var message in messages) {
+                              final title = message.data['title'];
+                              final description = message.data['description'];
+                              final featureType = message.data['featureType'];
+                              final ID = message.documentID;
 
+                              final card = ContentBcAddFoundation(
+                                title: title,
+                                description: description,
+                                featureType: featureType,
+                                ID: ID,
+                              );
+                              foundationContent.add(card);
+                            }
+                          }
 
-          SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      "Add details of the foundational aspects of the business",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  StreamBuilder<QuerySnapshot>(
-                    stream:
-                        _firestore.collection(userUid+'/Bc1_buildTheFoundation/addFoundations').snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-
-
-                        final messages = snapshot.data.documents.reversed;
-                        print(messages);
-                        foundationContent = [];
-                        for (var message in messages) {
-                          final title = message.data['title'];
-                          final description = message.data['description'];
-                          final featureType = message.data['featureType'];
-                          final ID = message.documentID;
-
-                          final card = ContentBcAddFoundation(
-                            title: title,
-                            description: description,
-                            featureType: featureType,
-                            ID: ID,
-                          );
-                          foundationContent.add(card);
-                        }
-                      }
-
-                      return (foundationContent.length != 0)
-                          ? ListView.builder(
-                              itemCount: foundationContent.length,
-                              shrinkWrap: true,
-                              padding: EdgeInsets.only(top: 10.0),
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: <Widget>[
-                                    SmallOrangeCardWithTitle(
-                                      title: foundationContent[index].title,
-                                      description:
-                                          foundationContent[index].description,
-                                      index: index,
-                                      removingat: foundationContent,
-                                      Dialogue: AddFoundationalDetail(
-                                        index: index,
-                                      ),
-                                      CollectionName: userUid+'/Bc1_buildTheFoundation/addFoundations',
-                                      ID: foundationContent[index].ID,
-                                    )
-                                  ],
+                          return (foundationContent.length != 0)
+                              ? ListView.builder(
+                                  itemCount: foundationContent.length,
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.only(top: 10.0),
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: <Widget>[
+                                        SmallOrangeCardWithTitle(
+                                          title: foundationContent[index].title,
+                                          description: foundationContent[index]
+                                              .description,
+                                          index: index,
+                                          removingat: foundationContent,
+                                          Dialogue: AddFoundationalDetail(
+                                            index: index,
+                                          ),
+                                          CollectionName: userUid +
+                                              '/Bc1_buildTheFoundation/addFoundations',
+                                          ID: foundationContent[index].ID,
+                                        )
+                                      ],
+                                    );
+                                  },
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(25.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Click on '+' to add the Pain Points",
+                                        style: TextStyle(color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
                                 );
-                              },
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.all(25.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Click on '+' to add the Pain Points",
-                                    style: TextStyle(color: Colors.grey),
-                                  )
-                                ],
-                              ),
-                            );
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        headBackButtton(),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            //documentExists = false;
-                            bcStepsContent[0].bcCompletionValidator = true;
-                            print(bcStepsContent[0].bcCompletionValidator);
-                            Navigator.pushNamed(context, '/BCHomeView');
-                          },
-                        ),
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            headBackButtton(),
+                            SizedBox(
+                              width: 50,
+                            ),
+                            CompleteStepButton(
+                              routeName: '/BCHomeView',
+                              step: 0,
+                              stepBool: true,
+
+//                          OnTap: () {
+//
+//                            //documentExists = false;
+
+//                            //print(bcStepsContent[0].bcCompletionValidator);
+//                            Navigator.pushNamed(context, '/BCHomeView');
+//                          },
+                            ),
 //                        goNextButton(
 //                          OnTap: () {
 ////                            bcpData[0].CompletionValidator = false;
@@ -260,11 +262,11 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
 //                          //routeName: '/BCStep3WireFrameLink',
 //                          // write here
 //                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
         ),
       ),
       floatingActionButton: Container(
@@ -284,5 +286,3 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
     );
   }
 }
-
-
