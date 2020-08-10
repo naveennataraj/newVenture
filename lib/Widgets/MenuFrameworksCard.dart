@@ -12,8 +12,8 @@ class MenuFrameworkCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * .50,
-        width: MediaQuery.of(context).size.width * .50,
+        height: 400,
+        width: 650,
         decoration: BoxDecoration(
           color: Colors.white,
           //shape: BoxShape.rectangle,
@@ -83,6 +83,7 @@ class ReusableButton extends StatelessWidget {
       child: Text(
         buttonTitle,
         style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        textAlign: TextAlign.center,
       ),
     );
   }

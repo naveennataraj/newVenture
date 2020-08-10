@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
@@ -34,119 +35,142 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
         preferredSize: Size.fromHeight(60.0),
         child: NavigationBar(),
       ),
-      body: Center(
-        child: Container(
-          //height: MediaQuery.of(context).size.height * .40,
-          margin: EdgeInsets.only(top: 40.0),
-          width: MediaQuery.of(context).size.width * .40,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            //shape: BoxShape.rectangle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 1.0), //(x,y)
-                blurRadius: 2.0,
-              ),
-            ],
-          ),
-          child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      "Let's capture some user stories",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  //height: MediaQuery.of(context).size.height * .40,
+                  margin: EdgeInsets.only(top: 40.0),
+                  width: MediaQuery.of(context).size.width * .40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    //shape: BoxShape.rectangle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0.0, 1.0), //(x,y)
+                        blurRadius: 2.0,
+                      ),
+                    ],
                   ),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: _firestore
-                        .collection('$currentUser/StudyingTheUser/userStory')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final messsages = snapshot.data.documents.reversed;
-                        AddingNewUserStory = [];
-                        for (var message in messsages) {
-                          final Asa = message.data['Asa'];
-                          final IWantTo = message.data['IWantTo'];
-                          final SoThat = message.data['SoThat'];
-                          final ID = message.documentID;
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          "Let's capture some user stories",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      StreamBuilder<QuerySnapshot>(
+                        stream: _firestore
+                            .collection(
+                                '$currentUser/StudyingTheUser/userStory')
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final messsages = snapshot.data.documents.reversed;
+                            AddingNewUserStory = [];
+                            for (var message in messsages) {
+                              final Asa = message.data['Asa'];
+                              final IWantTo = message.data['IWantTo'];
+                              final SoThat = message.data['SoThat'];
+                              final ID = message.documentID;
 
-                          final card = addUserStories(
-                              Asa: Asa,
-                              IWantTo: IWantTo,
-                              SoThat: SoThat,
-                              ID: ID);
-                          AddingNewUserStory.add(card);
-                        }
-                      }
+                              final card = addUserStories(
+                                  Asa: Asa,
+                                  IWantTo: IWantTo,
+                                  SoThat: SoThat,
+                                  ID: ID);
+                              AddingNewUserStory.add(card);
+                            }
+                          }
 
-                      return (AddingNewUserStory.length != 0)
-                          ? ListView.builder(
-                              itemCount: AddingNewUserStory.length,
-                              shrinkWrap: true,
-                              padding: EdgeInsets.only(top: 10.0),
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: AddingNewUserStory != null
-                                      ? <Widget>[
-                                          SmallOrangeCardWithoutTitle(
-                                            description: UserStory(index),
-                                            index: index,
-                                            removingat: AddingNewUserStory,
-                                            Dialogue: userStoryDialogue(
-                                              index: index,
-                                            ),
-                                            CollectionName:
-                                                '$currentUser/StudyingTheUser/userStory',
-                                            ID: AddingNewUserStory[index].ID,
-                                          )
-                                        ]
-                                      : null,
+                          return (AddingNewUserStory.length != 0)
+                              ? ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+//                                scrollDirection: Axis.vertical,
+                                  itemCount: AddingNewUserStory.length,
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.only(top: 10.0),
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: AddingNewUserStory != null
+                                          ? <Widget>[
+                                              SmallOrangeCardWithoutTitle(
+                                                description: UserStory(index),
+                                                index: index,
+                                                removingat: AddingNewUserStory,
+                                                Dialogue: userStoryDialogue(
+                                                  index: index,
+                                                ),
+                                                CollectionName:
+                                                    '$currentUser/StudyingTheUser/userStory',
+                                                ID: AddingNewUserStory[index]
+                                                    .ID,
+                                              )
+                                            ]
+                                          : null,
+                                    );
+                                  },
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(25.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "There are no user stories at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                        style: TextStyle(color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
                                 );
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            headBackButtton(),
+                            SizedBox(
+                              width: 50,
+                            ),
+                            CompleteStepButton(
+                              OnTap: () {
+                                bcpData[1].CompletionValidator = true;
+                                print(bcpData[1].CompletionValidator);
+                                Navigator.pushNamed(
+                                    context, '/BlitzInnovationFramework');
                               },
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.all(25.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "There are no user stories at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                    style: TextStyle(color: Colors.grey),
-                                  )
-                                ],
-                              ),
-                            );
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        headBackButtton(),
-                        SizedBox(
-                          width: 50,
+                            ),
+                          ],
                         ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            bcpData[1].CompletionValidator = true;
-                            print(bcpData[1].CompletionValidator);
-                            Navigator.pushNamed(
-                                context, '/BlitzInnovationFramework');
-                          },
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              )),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                DotsIndicator(
+                  decorator: DotsDecorator(
+                    activeColor: const Color(0xFFE95420),
+                  ),
+                  dotsCount: 3,
+                  position: 2,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
       floatingActionButton: Container(

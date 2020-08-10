@@ -39,18 +39,21 @@ class _FrameworkCardsState extends State<FrameworkCards> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(widget.frameworkicon),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      widget.frameworkStep,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Icon(widget.frameworkicon),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        widget.frameworkStep,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ],
+                  ),
                 ),
                 Flexible(
                   child: SizedBox(
