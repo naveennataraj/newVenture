@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
@@ -98,78 +99,93 @@ class _AddDistributionMediumState extends State<AddDistributionMedium> {
       body: ModalProgressHUD(
         inAsyncCall: spinner,
         child: Center(
-          child: Container(
-            //height: MediaQuery.of(context).size.height * .40,
-            margin: EdgeInsets.only(top: 40.0),
-            width: MediaQuery.of(context).size.width * .40,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              //shape: BoxShape.rectangle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 2.0,
-                ),
-              ],
-            ),
-            child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "What medium will we be using to share the product concept?",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    TextFieldWidget(
-                      labelText:
-                          "What medium would you choose to share the wireframes with users?",
-                      maxLines: 1,
-                      validText: validMedium,
-                      myFocusNode: MediumFocus,
-                      myTextController: MediumTextController,
-                      textCollecter: Medium,
-                      helperText:
-                          ' *An appropriate medium, if selected will help the early adopters and other users with quicker access to the solution concept\nand subsequently provide feedback more quickly',
-                      labelcolour: PersonNamelabelColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          headBackButtton(),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CompleteStepButton(
-                            OnTap: (MediumTextController.text == '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    if (addMediumArray.length != 0) {
-                                      update();
-                                    } else {
-                                      add();
-                                    }
-                                    bcpData[4].CompletionValidator = true;
-                                    print(bcpData[4].CompletionValidator);
-                                    Navigator.pushNamed(
-                                        context, '/BlitzInnovationFramework');
-                                  },
-                          ),
-                        ],
-                      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                //height: MediaQuery.of(context).size.height * .40,
+                margin: EdgeInsets.only(top: 40.0),
+                width: MediaQuery.of(context).size.width * .40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  //shape: BoxShape.rectangle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 2.0,
                     ),
                   ],
-                )),
+                ),
+                child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 40),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            "What medium will we be using to share the product concept?",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        TextFieldWidget(
+                          labelText:
+                              "What medium would you choose to share the wireframes with users?",
+                          maxLines: 1,
+                          validText: validMedium,
+                          myFocusNode: MediumFocus,
+                          myTextController: MediumTextController,
+                          textCollecter: Medium,
+                          helperText:
+                              ' *An appropriate medium, if selected will help the early adopters and other users with quicker access to the solution concept\nand subsequently provide feedback more quickly',
+                          labelcolour: PersonNamelabelColor,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              headBackButtton(),
+                              SizedBox(
+                                width: 50,
+                              ),
+                              CompleteStepButton(
+                                OnTap: (MediumTextController.text == '')
+                                    ? () {
+                                        validator();
+                                      }
+                                    : () {
+                                        if (addMediumArray.length != 0) {
+                                          update();
+                                        } else {
+                                          add();
+                                        }
+                                        bcpData[4].CompletionValidator = true;
+                                        print(bcpData[4].CompletionValidator);
+                                        Navigator.pushNamed(context,
+                                            '/BlitzInnovationFramework');
+                                      },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DotsIndicator(
+                decorator: DotsDecorator(
+                  activeColor: const Color(0xFFE95420),
+                ),
+                dotsCount: 2,
+                position: 1,
+              ),
+            ],
           ),
         ),
       ),

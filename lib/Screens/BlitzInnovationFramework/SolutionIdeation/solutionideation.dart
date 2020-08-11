@@ -33,10 +33,10 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
         preferredSize: Size.fromHeight(60.0),
         child: NavigationBar(),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Center(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +59,8 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10),
                         child: Text(
                           "How do you plan to resolve the customer pain points? Let's add possible solutions:",
                           style: TextStyle(

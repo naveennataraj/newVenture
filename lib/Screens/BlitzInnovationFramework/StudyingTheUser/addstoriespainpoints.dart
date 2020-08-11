@@ -35,10 +35,10 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
         preferredSize: Size.fromHeight(60.0),
         child: NavigationBar(),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Center(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -126,9 +126,12 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "There are no user stories at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                        style: TextStyle(color: Colors.grey),
+                                      Expanded(
+                                        child: Text(
+                                          "There are no user stories at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                          style: TextStyle(color: Colors.grey),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       )
                                     ],
                                   ),

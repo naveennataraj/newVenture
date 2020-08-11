@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
@@ -103,79 +104,94 @@ class _handlingScaleState extends State<handlingScale> {
       body: ModalProgressHUD(
         inAsyncCall: spinner,
         child: Center(
-          child: Container(
-            //height: MediaQuery.of(context).size.height * .40,
-            margin: EdgeInsets.only(top: 40.0),
-            width: MediaQuery.of(context).size.width * .40,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              //shape: BoxShape.rectangle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.0), //(x,y)
-                  blurRadius: 2.0,
-                ),
-              ],
-            ),
-            child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "How would we handle scale (as the product grows)",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    NoteCard(
-                        Note:
-                            'Tip: If the product sells well, How would you handle scale?\nA few typical responses include:\n"I intend to use a cloud service provider such as AWS, Firebase or Azure."\n"I intend to hire a team dedicated to handle server infrastructure."\n"I intend to outsource all tasks concerning this matter."'),
-                    TextFieldWidget(
-                      labelText: "How would you handle scale?",
-                      maxLines: 2,
-                      validText: validHandlingScale,
-                      myFocusNode: HandlingScaleFocus,
-                      myTextController: HandlingScaleTextController,
-                      textCollecter: HandlingScale,
-                      helperText: '',
-                      labelcolour: HandlingScalelabelColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          headBackButtton(),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          goNextButton(
-                            OnTap: (HandlingScaleTextController.text == '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    if (HandlingScaleArray.length != 0) {
-                                      update();
-                                    } else {
-                                      add();
-                                    }
-                                    bcpData[6].CompletionValidator = false;
-                                    print(bcpData[6].CompletionValidator);
-                                    Navigator.pushNamed(
-                                        context, '/addparallelinnovations');
-                                  },
-                          ),
-                        ],
-                      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                //height: MediaQuery.of(context).size.height * .40,
+                margin: EdgeInsets.only(top: 40.0),
+                width: MediaQuery.of(context).size.width * .40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  //shape: BoxShape.rectangle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 2.0,
                     ),
                   ],
-                )),
+                ),
+                child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 40),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            "How would we handle scale (as the product grows)",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        NoteCard(
+                            Note:
+                                'Tip: If the product sells well, How would you handle scale?\nA few typical responses include:\n"I intend to use a cloud service provider such as AWS, Firebase or Azure."\n"I intend to hire a team dedicated to handle server infrastructure."\n"I intend to outsource all tasks concerning this matter."'),
+                        TextFieldWidget(
+                          labelText: "How would you handle scale?",
+                          maxLines: 2,
+                          validText: validHandlingScale,
+                          myFocusNode: HandlingScaleFocus,
+                          myTextController: HandlingScaleTextController,
+                          textCollecter: HandlingScale,
+                          helperText: '',
+                          labelcolour: HandlingScalelabelColor,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              headBackButtton(),
+                              SizedBox(
+                                width: 50,
+                              ),
+                              goNextButton(
+                                OnTap: (HandlingScaleTextController.text == '')
+                                    ? () {
+                                        validator();
+                                      }
+                                    : () {
+                                        if (HandlingScaleArray.length != 0) {
+                                          update();
+                                        } else {
+                                          add();
+                                        }
+                                        bcpData[6].CompletionValidator = false;
+                                        print(bcpData[6].CompletionValidator);
+                                        Navigator.pushNamed(
+                                            context, '/addparallelinnovations');
+                                      },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DotsIndicator(
+                decorator: DotsDecorator(
+                  activeColor: const Color(0xFFE95420),
+                ),
+                dotsCount: 2,
+                position: 0,
+              ),
+            ],
           ),
         ),
       ),
