@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
@@ -38,8 +39,6 @@ bool validSolutionOffering = true;
 var SolutionOfferingTextController = TextEditingController();
 final SolutionOfferingFocusNode = new FocusNode();
 String SolutionOffering;
-
-const userUid = "tester@gmail.com";
 
 class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue> {
   final _firestore = Firestore.instance;
@@ -149,12 +148,12 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                                 if (index == null) {
                                   AddingNewCompetingProduct.add(
                                       NewComponentProduct);
-                                  _firestore.collection(userUid+'/Bc6_studyingTheCompetition/addPlayers').add({
+                                  _firestore.collection('$currentUser/Bc6_studyingTheCompetition/addPlayers').add({
                                     'ProductName': ProductNameTextController.text,
                                     'OrgName': OrgNameTextController.text,
                                     'Features': CompetingOfferingTextController.text,
                                     'CurrentOffering': SolutionOfferingTextController.text,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
 
 
@@ -163,14 +162,14 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
 //                                  AddingNewCompetingProduct.insert(
 //                                      index, NewComponentProduct);
                                   _firestore
-                                      .collection(userUid+'/Bc6_studyingTheCompetition/addPlayers')
+                                      .collection('$currentUser/Bc6_studyingTheCompetition/addPlayers')
                                       .document(AddingNewCompetingProduct[index].ID)
                                       .updateData({
                                     'ProductName': ProductNameTextController.text,
                                     'OrgName': OrgNameTextController.text,
                                     'Features': CompetingOfferingTextController.text,
                                     'CurrentOffering': SolutionOfferingTextController.text,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   },);
                                 }
 

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentParallelSolution.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step9_ManagingGrowth/BcCreatingEcosystems.dart';
 import 'package:iventure001/Widgets/AddMetricButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
@@ -29,8 +29,6 @@ bool validSolutionDescription = true;
 var SolutionDescriptionTextController = TextEditingController();
 final SolutionDescriptionFocusNode = new FocusNode();
 String SolutionDescription;
-
-const userUid = "tester@gmail.com";
 
 class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
   final _firestore = Firestore.instance;
@@ -129,11 +127,11 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
                                 if (index == null) {
                                   AddingNewParallelInnovations.add(
                                       NewParallelInnovation);
-                                  _firestore.collection(userUid+'/Bc9_managingGrowth/addConcepts').add({
+                                  _firestore.collection('$currentUser/Bc9_managingGrowth/addConcepts').add({
                                     'Name': SolutionNameTextController.text,
                                     'Description': SolutionDescriptionTextController.text,
                                     'CheckedSolution': SolutionChecked,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
 
                                 } else {
@@ -141,13 +139,13 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
 //                                  AddingNewParallelInnovations.insert(
 //                                      index, NewParallelInnovation);
                                   _firestore
-                                      .collection(userUid+'/Bc9_managingGrowth/addConcepts')
+                                      .collection('$currentUser/Bc9_managingGrowth/addConcepts')
                                       .document(AddingNewParallelInnovations[index].ID)
                                       .updateData({
                                     'Name': SolutionNameTextController.text,
                                     'Description': SolutionDescriptionTextController.text,
                                     'CheckedSolution': SolutionChecked,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
 
                                 }

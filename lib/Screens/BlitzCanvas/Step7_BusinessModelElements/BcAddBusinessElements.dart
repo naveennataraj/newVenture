@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcElements.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcBusinessElementsDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
@@ -13,11 +14,9 @@ class BcBusinessElements extends StatefulWidget {
   @override
   _BcBusinessElementsState createState() => _BcBusinessElementsState();
 }
-const userUid = "tester@gmail.com";
 
 class _BcBusinessElementsState extends State<BcBusinessElements> {
   final _firestore = Firestore.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +59,7 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
                         .collection(
-                        userUid + '/Bc7_businessModelElements/addElements')
+                        '$currentUser/Bc7_businessModelElements/addElements')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -106,8 +105,8 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                                 BcBusinessElementsDialogue(
                                   index: index,
                                 ),
-                                CollectionName: userUid +
-                                    '/Bc7_businessModelElements/addElements',
+                                CollectionName:
+                                    '$currentUser/Bc7_businessModelElements/addElements',
                                 ID: addingNewBusinessElement[index]
                                     .ID,
                               )
@@ -179,14 +178,17 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
-                            bcStepsContent[6].bcCompletionValidator = false;
-//                            print(bcpData[0].CompletionValidator);
-                            Navigator.pushNamed(context, '/BCStep7IntellectualAssets');
-                          },
-                          //routeName: '/BCStep3WireFrameLink',
-                          // write here
+                        GenericStepButton(
+                          buttonName: 'GO NEXT',
+                          routeName: '/BCStep7IntellectualAssets',
+                          step: 6,
+                          stepBool: false,
+//                          OnTap: () {
+//                            bcStepsContent[6].bcCompletionValidator = false;
+////                            print(bcpData[0].CompletionValidator);
+//                            Navigator.pushNamed(context, '/BCStep7IntellectualAssets');
+//                          },
+
                         ),
                       ],
                     ),

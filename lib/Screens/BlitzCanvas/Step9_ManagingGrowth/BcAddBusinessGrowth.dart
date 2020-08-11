@@ -1,9 +1,9 @@
-//import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
@@ -22,10 +22,9 @@ final handleScaleLFocusNode = new FocusNode();
 String handleScaleLText;
 
 String ID;
-const userUid = "tester@gmail.com";
 
 class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
-  final _firestore = Firestore.instance.collection(userUid).document('Bc9_managingGrowth');
+  final _firestore = Firestore.instance.collection(currentUser).document('Bc9_managingGrowth');
   String selectedStrategyOption;
   String fireStrategyData;
   String fireOptionSelected;
@@ -167,24 +166,30 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
+                        GenericStepButton(
+                          buttonName: 'GO NEXT',
+                          routeName: '/BCStep9CreatingEcosystems',
+                          step: 8,
+                          stepBool: false,
+                          widget: onTap,
 
-                            if (fireStrategyData != handleScaleLTextController.text || fireOptionSelected != selectedStrategyOption  ) {
-                              _firestore.setData({
-                                'handleScaleLText': handleScaleLTextController.text,
-                                'selectedStrategyOption': selectedStrategyOption,
-                                'Sender': "tester@gmail.com",
-
-                              });
-                            }
-                            fireOptionSelected = selectedStrategyOption;
-                            fireStrategyData= handleScaleLTextController.text;
-                            bcStepsContent[8].bcCompletionValidator = false;
-//                            print(bcpData[6].CompletionValidator);
-                            Navigator.pushNamed(
-                                context, '/BCStep9CreatingEcosystems');
-                          },
+//                          OnTap: () {
+//
+//                            if (fireStrategyData != handleScaleLTextController.text || fireOptionSelected != selectedStrategyOption  ) {
+//                              _firestore.setData({
+//                                'handleScaleLText': handleScaleLTextController.text,
+//                                'selectedStrategyOption': selectedStrategyOption,
+//                                'Sender': "tester@gmail.com",
+//
+//                              });
+//                            }
+//                            fireOptionSelected = selectedStrategyOption;
+//                            fireStrategyData= handleScaleLTextController.text;
+//                            //bcStepsContent[8].bcCompletionValidator = false;
+////                            print(bcpData[6].CompletionValidator);
+////                            Navigator.pushNamed(
+////                                context, '/BCStep9CreatingEcosystems');
+//                          },
                         ),
                       ],
                     ),
@@ -195,4 +200,17 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
       ),
     );
   }
+  void onTap() {
+    if (fireStrategyData != handleScaleLTextController.text || fireOptionSelected != selectedStrategyOption  ) {
+      _firestore.setData({
+        'handleScaleLText': handleScaleLTextController.text,
+        'selectedStrategyOption': selectedStrategyOption,
+        'Sender': "tester@gmail.com",
+
+      });
+    }
+    fireOptionSelected = selectedStrategyOption;
+    fireStrategyData= handleScaleLTextController.text;
+  }
+
 }

@@ -6,6 +6,7 @@ import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcAs
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Widgets/AddGenericButton.dart';
 
 
@@ -41,7 +42,6 @@ var taskTextController = TextEditingController();
 final taskFocusNode = new FocusNode();
 String taskText;
 
-const userUid = "tester@gmail.com";
 
 class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
   final _firestore = Firestore.instance;
@@ -69,10 +69,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
 
     }
 
-//    serviceTypeDropDown = buildDropDownMenuItems(ServiceType);
-//    serviceUsageDropDown = buildDropDownMenuItems(ServiceUsage);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -256,14 +253,14 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                 if (index == null) {
                                   addingAsaService.add(
                                       NewComponentProduct);
-                                  _firestore.collection(userUid+'/Bc7_businessModelElements/addServices').add({
+                                  _firestore.collection('$currentUser/Bc7_businessModelElements/addServices').add({
                                     'serviceName': serviceTextController.text,
                                     'serviceDescription': descriptionTextController.text,
                                     'serviceType': selectedServiceTypeName,
                                     'parentCompany': parentCompanyTextController.text,
                                     'serviceTaskDescription': taskTextController.text,
                                     'servicePercentage': selectedServiceUsagePercentage,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
 
 
@@ -272,7 +269,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
 //                                  addingAsaService.insert(
 //                                      index, NewComponentProduct);
                                   _firestore
-                                      .collection(userUid+'/Bc7_businessModelElements/addServices')
+                                      .collection('$currentUser/Bc7_businessModelElements/addServices')
                                       .document(addingAsaService[index].ID)
                                       .updateData({
                                     'serviceName': serviceTextController.text,
@@ -281,7 +278,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                     'parentCompany': parentCompanyTextController.text,
                                     'serviceTaskDescription': taskTextController.text,
                                     'servicePercentage': selectedServiceUsagePercentage,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 }
 

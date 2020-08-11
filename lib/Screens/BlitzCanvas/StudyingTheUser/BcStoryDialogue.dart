@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
@@ -31,8 +32,6 @@ bool validSoThat = true;
 var SoThatTextController = TextEditingController();
 final SoThatFocusNode = new FocusNode();
 String SoThat;
-
-const userUid = "tester@gmail.com";
 
 class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
   final _firestore = Firestore.instance;
@@ -125,11 +124,11 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
                               );
                               if (index == null) {
                                 userStoriesContent.add(NewUserStory);
-                                _firestore.collection(userUid+'/Bc2_studyingTheUser/addFoundations').add({
+                                _firestore.collection('$currentUser/Bc2_studyingTheUser/addFoundations').add({
                                   'Asa': AsaTextController.text,
                                   'IWantTo': IWantToTextController.text,
                                   'SoThat': SoThatTextController.text,
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
 
                               } else {
@@ -137,13 +136,13 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
 //                                userStoriesContent.insert(
 //                                    index, NewUserStory);
                                 _firestore
-                                    .collection(userUid+'/Bc2_studyingTheUser/addFoundations')
+                                    .collection('$currentUser/Bc2_studyingTheUser/addFoundations')
                                     .document(userStoriesContent[index].ID)
                                     .updateData({
                                   'Asa': AsaTextController.text,
                                   'IWantTo': IWantToTextController.text,
                                   'SoThat':  SoThatTextController.text,
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 },);
                               }
 //

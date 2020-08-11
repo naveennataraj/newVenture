@@ -6,8 +6,9 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Widgets/testCompleteButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class BcAddWireframeLink extends StatefulWidget {
   @override
@@ -21,11 +22,10 @@ final WireFrameLinkFocusNode = new FocusNode();
 String WireFrameLink;
 
 String ID;
-const userUid = "tester@gmail.com";
 
 class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
   final _firestore = Firestore.instance
-      .collection(userUid)
+      .collection(currentUser)
       .document('Bc3_definingTheSolution');
   String linkWireframe;
 
@@ -116,15 +116,12 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
+                        GenericStepButton(
+                            buttonName: 'COMPLETE STEP 3',
                           routeName: '/BCHomeView',
                           step: 2,
                           stepBool: true,
-
-                          widget: _firestore.setData({
-                            'wireFrameLink':
-                            WireFrameLinkTextController.text,
-                          }),
+                          widget:  futureValue
 
 //                          OnTap: () {
 //                            if (linkWireframe !=
@@ -147,4 +144,14 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
       ),
     );
   }
+
+  void futureValue() {
+    if (linkWireframe != WireFrameLinkTextController.text) {
+      _firestore.setData({'wireFrameLink': WireFrameLinkTextController.text,
+                              });
+                            }
+  }
+
 }
+
+

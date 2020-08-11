@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcIntellectualAssets.dart';
@@ -26,8 +27,6 @@ bool validAdditionalDetails = true;
 var AdditionalDetailsTextController = TextEditingController();
 final AdditionalDetailsFocusNode = new FocusNode();
 String AdditionalDetailsDescription;
-
-const userUid = "tester@gmail.com";
 
 class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
   int index;
@@ -169,10 +168,11 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                               addingIntellectualAssets.add(
                                   NewProductFeature);
 
-                              _firestore.collection(userUid+'/Bc7_businessModelElements/addIntellectualProperties').add({
+                              _firestore.collection('$currentUser/Bc7_businessModelElements/addIntellectualProperties').add({
                                 'intellectualProperty': selectedIntellectualAsset,
                                 'intellectualCode': CodeDescriptionTextController.text,
                                 'intellectualDetails': AdditionalDetailsTextController.text,
+                                'Sender': currentUser,
                               });
 
                             } else {
@@ -180,13 +180,13 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
 //                              addingIntellectualAssets.insert(
 //                                  index, NewProductFeature);
                               _firestore
-                                  .collection(userUid+'/Bc7_businessModelElements/addIntellectualProperties')
+                                  .collection('$currentUser/Bc7_businessModelElements/addIntellectualProperties')
                                   .document(addingIntellectualAssets[index].ID)
                                   .updateData({
                                 'intellectualProperty': selectedIntellectualAsset,
                                 'intellectualCode': CodeDescriptionTextController.text,
                                 'intellectualDetails': AdditionalDetailsTextController.text,
-                                'Sender': "tester@gmail.com",
+                                'Sender': currentUser,
                               });
                             }
 

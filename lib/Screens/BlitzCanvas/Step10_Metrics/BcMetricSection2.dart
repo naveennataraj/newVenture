@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentBcMetrics.dart';
-import 'package:iventure001/Widgets/AddGenericButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+
 
 class BcMetricsSection2 extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ String ParallelSolution;
 
 String ID;
 bool spinner = false;
-const userUid = "tester@gmail.com";
+
 
 class _BcMetricsSection2State extends State<BcMetricsSection2> {
   final _firestore =
@@ -355,255 +355,261 @@ class _BcMetricsSection2State extends State<BcMetricsSection2> {
                         SizedBox(
                           width: 50,
                         ),
-                        AddGenericButton(
+                        GenericStepButton(
                           buttonName: 'ADD ADDITIONAL METRICS',
-                          onTap: () {
-                            bcStepsContent[9].bcCompletionValidator = false;
-
-//                            final NewMetric1 = ContentBcMetrics(
-//                                Name: 'Problem Space',
-//                                Description: CustomerProblemTextController.text,
-//                               );
-//                            final NewMetric2 = ContentBcMetrics(
-//                                Name: 'Solution Space',
-//                                Description: SolutionTextController.text,
-//                                );
-//                            final NewMetic3 = ContentBcMetrics(
-//                                Name: 'Evangelism',
-//                                Description: EvangelismTextController.text,
-//                                );
-//                            final NewMetic4 = ContentBcMetrics(
-//                                Name: 'Scale',
-//                                Description: ScaleTextController.text,
-//                                );
-//                            final NewMetic5 = ContentBcMetrics(
-//                                Name: 'Evolution',
-//                                Description: EvolutionTextController.text,
-//                                );
-//                            final NewMetic6 = ContentBcMetrics(
-//                                Name: 'Ecosystem',
-//                                Description:
-//                                    ParallelSolutionTextController.text,
-//                                );
+                          routeName: '/BCStep10AddMoreMetrics',
+                          step: 9,
+                          stepBool: false,
+                          widget: onTap,
 
 
-                            _firestore
-                                .collection(
-                                '$currentUser/Bc10_metrics/addMoreMetrics')
-                                .document('ProblemSpace')
-                                .setData({
-                              'Name': 'Problem Space',
-                              'Description':
-                              CustomerProblemTextController.text,
-                              'Sender': currentUser,
-                            });
-
-                            _firestore
-                                .collection(
-                                '$currentUser/Bc10_metrics/addMoreMetrics')
-                                .document('SolutionSpace')
-                                .setData({
-                              'Name': 'Solution Space',
-                              'Description':
-                              SolutionTextController.text,
-                              'Sender': currentUser,
-                            });
-
-                            _firestore
-                                .collection(
-                                '$currentUser/Bc10_metrics/addMoreMetrics')
-                                .document('Evangelism')
-                                .setData({
-                              'Name': 'Evangelism',
-                              'Description':
-                              EvangelismTextController.text,
-
-                              'Sender': currentUser,
-                            });
-
-                            _firestore
-                                .collection(
-                                '$currentUser/Bc10_metrics/addMoreMetrics')
-                                .document('Scale')
-                                .setData({
-                              'Name': 'Scale',
-                              'Description': ScaleTextController.text,
-                              'Sender': currentUser,
-                            });
-                            _firestore
-                                .collection(
-                                '$currentUser/Bc10_metrics/addMoreMetrics')
-                                .document('Evolution')
-                                .setData({
-                              'Name': 'Evolution',
-                              'Description':
-                              EvolutionTextController.text,
-                              'Sender': currentUser,
-                            });
-                            _firestore
-                                .collection(
-                                '$currentUser/Bc10_metrics/addMoreMetrics')
-                                .document('Ecosystem')
-                                .setData({
-                              'Name': 'Ecosystem',
-                              'Description':
-                              ParallelSolutionTextController.text,
-                              'Sender': currentUser,
-                            });
-
-                            setState(() {
-                              if (CustomerProblemTextController.text !=
-                                  null) {
-//                                AddingNewMetrics.removeAt(0);
-//                                AddingNewMetrics.insert(0, NewMetric1);
-                                _firestore
-                                    .collection(
-                                    '$currentUser/Bc10_metrics/addMoreMetrics')
-                                    .document('ProblemSpace')
-                                    .updateData({
-                                  'Name': 'Problem Space',
-                                  'Description':
-                                  CustomerProblemTextController
-                                      .text,
-                                  'Sender': currentUser,
-                                });
-                              }
-                              if (SolutionTextController.text != null) {
-//                                AddingNewMetrics.removeAt(1);
-//                                AddingNewMetrics.insert(1, NewMetric2);
-                                _firestore
-                                    .collection(
-                                    '$currentUser/Bc10_metrics/addMoreMetrics')
-                                    .document('SolutionSpace')
-                                    .updateData({
-                                  'Name': 'Solution Space',
-                                  'Description':
-                                  SolutionTextController.text,
-                                  'Sender': currentUser,
-                                });
-                              }
-                              if (EvangelismTextController.text !=
-                                  null) {
-//                                AddingNewMetrics.removeAt(2);
-//                                AddingNewMetrics.insert(2, NewMetic3);
-                                _firestore
-                                    .collection(
-                                    '$currentUser/Bc10_metrics/addMoreMetrics')
-                                    .document('Evangelism')
-                                    .updateData({
-                                  'Name': 'Evangelism',
-                                  'Description':
-                                  EvangelismTextController.text,
-
-                                  'Sender': currentUser,
-                                });
-                              }
-                              if (ScaleTextController.text != null) {
-//                                AddingNewMetrics.removeAt(3);
-//                                AddingNewMetrics.insert(3, NewMetic4);
-                                _firestore
-                                    .collection(
-                                    '$currentUser/Bc10_metrics/addMoreMetrics')
-                                    .document('Scale')
-                                    .updateData({
-                                  'Name': 'Scale',
-                                  'Description':
-                                  ScaleTextController.text,
-
-                                  'Sender': currentUser,
-                                });
-                              }
-                              if (EvolutionTextController.text !=
-                                  null) {
-//                                AddingNewMetrics.removeAt(4);
-//                                AddingNewMetrics.insert(4, NewMetic5);
-                                _firestore
-                                    .collection(
-                                    '$currentUser/Bc10_metrics/addMoreMetrics')
-                                    .document('Evolution')
-                                    .updateData({
-                                  'Name': 'Evolution',
-                                  'Description':
-                                  EvolutionTextController.text,
-
-                                  'Sender': currentUser,
-                                });
-                              }
-                              if (ParallelSolutionTextController.text !=
-                                  null) {
-//                                AddingNewMetrics.removeAt(5);
-//                                AddingNewMetrics.insert(5, NewMetic6);
-                                _firestore
-                                    .collection(
-                                    '$currentUser/Bc10_metrics/addMoreMetrics')
-                                    .document('Ecosystem')
-                                    .updateData({
-                                  'Name': 'Ecosystem',
-                                  'Description':
-                                  ParallelSolutionTextController
-                                      .text,
-                                  'Sender': currentUser,
-                                });
-                              }
-
-                              Navigator.pushNamed(
-                                  context, '/BCStep10AddMoreMetrics');
-                            });
-
+//                          onTap: () {
+//                            //bcStepsContent[9].bcCompletionValidator = false;
+//
+////                            final NewMetric1 = ContentBcMetrics(
+////                                Name: 'Problem Space',
+////                                Description: CustomerProblemTextController.text,
+////                               );
+////                            final NewMetric2 = ContentBcMetrics(
+////                                Name: 'Solution Space',
+////                                Description: SolutionTextController.text,
+////                                );
+////                            final NewMetic3 = ContentBcMetrics(
+////                                Name: 'Evangelism',
+////                                Description: EvangelismTextController.text,
+////                                );
+////                            final NewMetic4 = ContentBcMetrics(
+////                                Name: 'Scale',
+////                                Description: ScaleTextController.text,
+////                                );
+////                            final NewMetic5 = ContentBcMetrics(
+////                                Name: 'Evolution',
+////                                Description: EvolutionTextController.text,
+////                                );
+////                            final NewMetic6 = ContentBcMetrics(
+////                                Name: 'Ecosystem',
+////                                Description:
+////                                    ParallelSolutionTextController.text,
+////                                );
+//
+//
+//                            _firestore
+//                                .collection(
+//                                '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                .document('ProblemSpace')
+//                                .setData({
+//                              'Name': 'Problem Space',
+//                              'Description':
+//                              CustomerProblemTextController.text,
+//                              'Sender': currentUser,
+//                            });
+//
+//                            _firestore
+//                                .collection(
+//                                '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                .document('SolutionSpace')
+//                                .setData({
+//                              'Name': 'Solution Space',
+//                              'Description':
+//                              SolutionTextController.text,
+//                              'Sender': currentUser,
+//                            });
+//
+//                            _firestore
+//                                .collection(
+//                                '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                .document('Evangelism')
+//                                .setData({
+//                              'Name': 'Evangelism',
+//                              'Description':
+//                              EvangelismTextController.text,
+//
+//                              'Sender': currentUser,
+//                            });
+//
+//                            _firestore
+//                                .collection(
+//                                '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                .document('Scale')
+//                                .setData({
+//                              'Name': 'Scale',
+//                              'Description': ScaleTextController.text,
+//                              'Sender': currentUser,
+//                            });
+//                            _firestore
+//                                .collection(
+//                                '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                .document('Evolution')
+//                                .setData({
+//                              'Name': 'Evolution',
+//                              'Description':
+//                              EvolutionTextController.text,
+//                              'Sender': currentUser,
+//                            });
+//                            _firestore
+//                                .collection(
+//                                '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                .document('Ecosystem')
+//                                .setData({
+//                              'Name': 'Ecosystem',
+//                              'Description':
+//                              ParallelSolutionTextController.text,
+//                              'Sender': currentUser,
+//                            });
+//
 //                            setState(() {
-//                              _firestore.updateData({
-//                                'CustomerProblem':
-//                                    CustomerProblemTextController.text,
-//                                'SolutionSpace': SolutionTextController.text,
-//                                'Evangelism': EvangelismTextController.text,
-//                                'Scale': ScaleTextController.text,
-//                                'Evolution': EvolutionTextController.text,
-//                                'Ecosystem': ParallelSolutionTextController.text,
-//
-//                              });
-//
-//                              if (CustomerProblemTextController.text != null) {
-//                                _firestore
-//                                    .collection(
-//                                    userUid +'/Bc10_metrics/metrics')
-//                                    .document('Problem Space')
-//                                    .setData({
-//                                  'Name': 'Problem Space',
-//                                  'Description':
-//                                  CustomerProblemTextController.text,
-//                                  //'Sender': currentUser,
-//                                });
-//
-//
-//
+//                              if (CustomerProblemTextController.text !=
+//                                  null) {
 ////                                AddingNewMetrics.removeAt(0);
 ////                                AddingNewMetrics.insert(0, NewMetric1);
+//                                _firestore
+//                                    .collection(
+//                                    '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                    .document('ProblemSpace')
+//                                    .updateData({
+//                                  'Name': 'Problem Space',
+//                                  'Description':
+//                                  CustomerProblemTextController
+//                                      .text,
+//                                  'Sender': currentUser,
+//                                });
 //                              }
 //                              if (SolutionTextController.text != null) {
-//                                AddingNewMetrics.removeAt(1);
-//                                AddingNewMetrics.insert(1, NewMetric2);
+////                                AddingNewMetrics.removeAt(1);
+////                                AddingNewMetrics.insert(1, NewMetric2);
+//                                _firestore
+//                                    .collection(
+//                                    '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                    .document('SolutionSpace')
+//                                    .updateData({
+//                                  'Name': 'Solution Space',
+//                                  'Description':
+//                                  SolutionTextController.text,
+//                                  'Sender': currentUser,
+//                                });
 //                              }
-//                              if (EvangelismTextController.text != null) {
-//                                AddingNewMetrics.removeAt(2);
-//                                AddingNewMetrics.insert(2, NewMetic3);
+//                              if (EvangelismTextController.text !=
+//                                  null) {
+////                                AddingNewMetrics.removeAt(2);
+////                                AddingNewMetrics.insert(2, NewMetic3);
+//                                _firestore
+//                                    .collection(
+//                                    '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                    .document('Evangelism')
+//                                    .updateData({
+//                                  'Name': 'Evangelism',
+//                                  'Description':
+//                                  EvangelismTextController.text,
+//
+//                                  'Sender': currentUser,
+//                                });
 //                              }
 //                              if (ScaleTextController.text != null) {
-//                                AddingNewMetrics.removeAt(3);
-//                                AddingNewMetrics.insert(3, NewMetic4);
+////                                AddingNewMetrics.removeAt(3);
+////                                AddingNewMetrics.insert(3, NewMetic4);
+//                                _firestore
+//                                    .collection(
+//                                    '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                    .document('Scale')
+//                                    .updateData({
+//                                  'Name': 'Scale',
+//                                  'Description':
+//                                  ScaleTextController.text,
+//
+//                                  'Sender': currentUser,
+//                                });
 //                              }
-//                              if (EvolutionTextController.text != null) {
-//                                AddingNewMetrics.removeAt(4);
-//                                AddingNewMetrics.insert(4, NewMetic5);
+//                              if (EvolutionTextController.text !=
+//                                  null) {
+////                                AddingNewMetrics.removeAt(4);
+////                                AddingNewMetrics.insert(4, NewMetic5);
+//                                _firestore
+//                                    .collection(
+//                                    '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                    .document('Evolution')
+//                                    .updateData({
+//                                  'Name': 'Evolution',
+//                                  'Description':
+//                                  EvolutionTextController.text,
+//
+//                                  'Sender': currentUser,
+//                                });
 //                              }
-//                              if (ParallelSolutionTextController.text != null) {
-//                                AddingNewMetrics.removeAt(5);
-//                                AddingNewMetrics.insert(5, NewMetic6);
+//                              if (ParallelSolutionTextController.text !=
+//                                  null) {
+////                                AddingNewMetrics.removeAt(5);
+////                                AddingNewMetrics.insert(5, NewMetic6);
+//                                _firestore
+//                                    .collection(
+//                                    '$currentUser/Bc10_metrics/addMoreMetrics')
+//                                    .document('Ecosystem')
+//                                    .updateData({
+//                                  'Name': 'Ecosystem',
+//                                  'Description':
+//                                  ParallelSolutionTextController
+//                                      .text,
+//                                  'Sender': currentUser,
+//                                });
 //                              }
 //
-//                              Navigator.pushNamed(
-//                                  context, '/BCStep10AddMoreMetrics');
+////                              Navigator.pushNamed(
+////                                  context, '/BCStep10AddMoreMetrics');
 //                            });
-                          },
+//
+////                            setState(() {
+////                              _firestore.updateData({
+////                                'CustomerProblem':
+////                                    CustomerProblemTextController.text,
+////                                'SolutionSpace': SolutionTextController.text,
+////                                'Evangelism': EvangelismTextController.text,
+////                                'Scale': ScaleTextController.text,
+////                                'Evolution': EvolutionTextController.text,
+////                                'Ecosystem': ParallelSolutionTextController.text,
+////
+////                              });
+////
+////                              if (CustomerProblemTextController.text != null) {
+////                                _firestore
+////                                    .collection(
+////                                    userUid +'/Bc10_metrics/metrics')
+////                                    .document('Problem Space')
+////                                    .setData({
+////                                  'Name': 'Problem Space',
+////                                  'Description':
+////                                  CustomerProblemTextController.text,
+////                                  //'Sender': currentUser,
+////                                });
+////
+////
+////
+//////                                AddingNewMetrics.removeAt(0);
+//////                                AddingNewMetrics.insert(0, NewMetric1);
+////                              }
+////                              if (SolutionTextController.text != null) {
+////                                AddingNewMetrics.removeAt(1);
+////                                AddingNewMetrics.insert(1, NewMetric2);
+////                              }
+////                              if (EvangelismTextController.text != null) {
+////                                AddingNewMetrics.removeAt(2);
+////                                AddingNewMetrics.insert(2, NewMetic3);
+////                              }
+////                              if (ScaleTextController.text != null) {
+////                                AddingNewMetrics.removeAt(3);
+////                                AddingNewMetrics.insert(3, NewMetic4);
+////                              }
+////                              if (EvolutionTextController.text != null) {
+////                                AddingNewMetrics.removeAt(4);
+////                                AddingNewMetrics.insert(4, NewMetic5);
+////                              }
+////                              if (ParallelSolutionTextController.text != null) {
+////                                AddingNewMetrics.removeAt(5);
+////                                AddingNewMetrics.insert(5, NewMetic6);
+////                              }
+////
+////                              Navigator.pushNamed(
+////                                  context, '/BCStep10AddMoreMetrics');
+////                            });
+//                          },
                         ),
                       ],
                     ),
@@ -613,5 +619,170 @@ class _BcMetricsSection2State extends State<BcMetricsSection2> {
         ),
       ),
     );
+  }
+
+  void onTap() {
+    _firestore
+        .collection(
+        '$currentUser/Bc10_metrics/addMoreMetrics')
+        .document('ProblemSpace')
+        .setData({
+      'Name': 'Problem Space',
+      'Description':
+      CustomerProblemTextController.text,
+      'Sender': currentUser,
+    });
+
+    _firestore
+        .collection(
+        '$currentUser/Bc10_metrics/addMoreMetrics')
+        .document('SolutionSpace')
+        .setData({
+      'Name': 'Solution Space',
+      'Description':
+      SolutionTextController.text,
+      'Sender': currentUser,
+    });
+
+    _firestore
+        .collection(
+        '$currentUser/Bc10_metrics/addMoreMetrics')
+        .document('Evangelism')
+        .setData({
+      'Name': 'Evangelism',
+      'Description':
+      EvangelismTextController.text,
+
+      'Sender': currentUser,
+    });
+
+    _firestore
+        .collection(
+        '$currentUser/Bc10_metrics/addMoreMetrics')
+        .document('Scale')
+        .setData({
+      'Name': 'Scale',
+      'Description': ScaleTextController.text,
+      'Sender': currentUser,
+    });
+    _firestore
+        .collection(
+        '$currentUser/Bc10_metrics/addMoreMetrics')
+        .document('Evolution')
+        .setData({
+      'Name': 'Evolution',
+      'Description':
+      EvolutionTextController.text,
+      'Sender': currentUser,
+    });
+    _firestore
+        .collection(
+        '$currentUser/Bc10_metrics/addMoreMetrics')
+        .document('Ecosystem')
+        .setData({
+      'Name': 'Ecosystem',
+      'Description':
+      ParallelSolutionTextController.text,
+      'Sender': currentUser,
+    });
+
+    setState(() {
+      if (CustomerProblemTextController.text !=
+          null) {
+//                                AddingNewMetrics.removeAt(0);
+//                                AddingNewMetrics.insert(0, NewMetric1);
+        _firestore
+            .collection(
+            '$currentUser/Bc10_metrics/addMoreMetrics')
+            .document('ProblemSpace')
+            .updateData({
+          'Name': 'Problem Space',
+          'Description':
+          CustomerProblemTextController
+              .text,
+          'Sender': currentUser,
+        });
+      }
+      if (SolutionTextController.text != null) {
+//                                AddingNewMetrics.removeAt(1);
+//                                AddingNewMetrics.insert(1, NewMetric2);
+        _firestore
+            .collection(
+            '$currentUser/Bc10_metrics/addMoreMetrics')
+            .document('SolutionSpace')
+            .updateData({
+          'Name': 'Solution Space',
+          'Description':
+          SolutionTextController.text,
+          'Sender': currentUser,
+        });
+      }
+      if (EvangelismTextController.text !=
+          null) {
+//                                AddingNewMetrics.removeAt(2);
+//                                AddingNewMetrics.insert(2, NewMetic3);
+        _firestore
+            .collection(
+            '$currentUser/Bc10_metrics/addMoreMetrics')
+            .document('Evangelism')
+            .updateData({
+          'Name': 'Evangelism',
+          'Description':
+          EvangelismTextController.text,
+
+          'Sender': currentUser,
+        });
+      }
+      if (ScaleTextController.text != null) {
+//                                AddingNewMetrics.removeAt(3);
+//                                AddingNewMetrics.insert(3, NewMetic4);
+        _firestore
+            .collection(
+            '$currentUser/Bc10_metrics/addMoreMetrics')
+            .document('Scale')
+            .updateData({
+          'Name': 'Scale',
+          'Description':
+          ScaleTextController.text,
+
+          'Sender': currentUser,
+        });
+      }
+      if (EvolutionTextController.text !=
+          null) {
+//                                AddingNewMetrics.removeAt(4);
+//                                AddingNewMetrics.insert(4, NewMetic5);
+        _firestore
+            .collection(
+            '$currentUser/Bc10_metrics/addMoreMetrics')
+            .document('Evolution')
+            .updateData({
+          'Name': 'Evolution',
+          'Description':
+          EvolutionTextController.text,
+
+          'Sender': currentUser,
+        });
+      }
+      if (ParallelSolutionTextController.text !=
+          null) {
+//                                AddingNewMetrics.removeAt(5);
+//                                AddingNewMetrics.insert(5, NewMetic6);
+        _firestore
+            .collection(
+            '$currentUser/Bc10_metrics/addMoreMetrics')
+            .document('Ecosystem')
+            .updateData({
+          'Name': 'Ecosystem',
+          'Description':
+          ParallelSolutionTextController
+              .text,
+          'Sender': currentUser,
+        });
+      }
+
+//                              Navigator.pushNamed(
+//                                  context, '/BCStep10AddMoreMetrics');
+    });
   }
 }

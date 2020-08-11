@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentParallelSolution.dart';
@@ -7,15 +8,12 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 
 class BcCreatingEcosystems extends StatefulWidget {
   @override
   _BcCreatingEcosystemsState createState() => _BcCreatingEcosystemsState();
 }
-
-const userUid = "tester@gmail.com";
 
 class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
   final _firestore = Firestore.instance;
@@ -63,7 +61,7 @@ class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
 
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
-                        .collection(userUid + '/Bc9_managingGrowth/addConcepts')
+                        .collection('$currentUser/Bc9_managingGrowth/addConcepts')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -109,8 +107,8 @@ class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
                                             Dialogue: BcEcosystemsDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: userUid +
-                                                '/Bc9_managingGrowth/addConcepts',
+                                            CollectionName:
+                                                '$currentUser/Bc9_managingGrowth/addConcepts',
                                             ID: AddingNewParallelInnovations[
                                                     index]
                                                 .ID,
@@ -182,11 +180,15 @@ class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            bcStepsContent[8].bcCompletionValidator = true;
-                            Navigator.pushNamed(context, '/BCHomeView');
-                          },
+                        GenericStepButton(
+                          buttonName: 'COMPLETE STEP 9',
+                          routeName: '/BCHomeView',
+                          step: 8,
+                          stepBool: true,
+//                          OnTap: () {
+//                            bcStepsContent[8].bcCompletionValidator = true;
+//                            Navigator.pushNamed(context, '/BCHomeView');
+//                          },
                         ),
                       ],
                     ),

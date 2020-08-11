@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import '../../../Widgets/HeadBackButton.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step4_UniqueSellingProposition/BcSellingProposition.dart';
 
 class BcConsumerTouchPoints extends StatefulWidget {
@@ -32,11 +33,10 @@ final growthFocusNode = new FocusNode();
 String growthText;
 
 String ID;
-const userUid = "tester@gmail.com";
 
 class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
   final _firestore = Firestore.instance
-      .collection(userUid)
+      .collection(currentUser)
       .document('Bc4_uniqueSellingProposition');
   String fireTouchData;
   String fireCapitalizeData;
@@ -159,23 +159,30 @@ class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            if (fireTouchData != keyTouchTextController.text ||
-                                fireCapitalizeData !=
-                                    capitalizeTextController.text ||
-                                fireGrowthData != growthTextController.text) {
-                              _firestore.updateData({
-                                'keyTouchText': keyTouchTextController.text,
-                                'capitalizeText': capitalizeTextController.text,
-                                'growthText': growthTextController.text,
-                                'Sender': "tester@gmail.com",
-                              });
-                            }
+                        GenericStepButton(
+                            buttonName: 'COMPLETE STEP 4',
+                            routeName: '/BCHomeView',
+                            step: 3,
+                            stepBool: true,
+                            widget:  futureValue
 
-                            bcStepsContent[3].bcCompletionValidator = true;
-                            Navigator.pushNamed(context, '/BCHomeView');
-                          },
+
+//                          OnTap: () {
+//                            if (fireTouchData != keyTouchTextController.text ||
+//                                fireCapitalizeData !=
+//                                    capitalizeTextController.text ||
+//                                fireGrowthData != growthTextController.text) {
+//                              _firestore.updateData({
+//                                'keyTouchText': keyTouchTextController.text,
+//                                'capitalizeText': capitalizeTextController.text,
+//                                'growthText': growthTextController.text,
+//                                'Sender': currentUser,
+//                              });
+//                            }
+//
+//                            //bcStepsContent[3].bcCompletionValidator = true;
+//                            //Navigator.pushNamed(context, '/BCHomeView');
+//                          },
                         ),
                       ],
                     ),
@@ -185,5 +192,19 @@ class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
         ),
       ),
     );
+  }
+
+  void futureValue() {
+    if (fireTouchData != keyTouchTextController.text ||
+        fireCapitalizeData !=
+            capitalizeTextController.text ||
+        fireGrowthData != growthTextController.text) {
+      _firestore.updateData({
+        'keyTouchText': keyTouchTextController.text,
+        'capitalizeText': capitalizeTextController.text,
+        'growthText': growthTextController.text,
+        'Sender': currentUser,
+      },);
+    }
   }
 }

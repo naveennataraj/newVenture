@@ -5,7 +5,8 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step5_CustomerQuotes/BcAddQu
 import 'package:iventure001/Widgets/AddQuoteButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step5_CustomerQuotes/CustomerQuotes.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+
 
 class BcQuoteDialogue extends StatefulWidget {
   final int index;
@@ -19,8 +20,6 @@ bool validQuoteContent = true;
 var quoteContentTextController = TextEditingController();
 final quoteContentFocusNode = new FocusNode();
 String quoteContent;
-
-const userUid = "tester@gmail.com";
 
 class _BcQuoteDialogueState extends State<BcQuoteDialogue> {
   final _firestore = Firestore.instance;
@@ -106,22 +105,22 @@ class _BcQuoteDialogueState extends State<BcQuoteDialogue> {
 
                                 if (index == null) {
                                   addingNewQuote.add(newQuote);
-                                  _firestore.collection(userUid+'/Bc5_userFeedback/addQuotes').add({
+                                  _firestore.collection('$currentUser/Bc5_userFeedback/addQuotes').add({
                                     'content': quoteContentTextController.text,
                                     'checkQuote': quoteChecked,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
 
                                 } else {
 //                                  addingNewQuote.removeAt(index);
 //                                  addingNewQuote.insert(index, newQuote);
                                   _firestore
-                                      .collection(userUid+'/Bc5_userFeedback/addQuotes')
+                                      .collection('$currentUser/Bc5_userFeedback/addQuotes')
                                       .document(addingNewQuote[index].ID)
                                       .updateData({
                                     'content': quoteContentTextController.text,
                                     'checkQuote': quoteChecked,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 }
 

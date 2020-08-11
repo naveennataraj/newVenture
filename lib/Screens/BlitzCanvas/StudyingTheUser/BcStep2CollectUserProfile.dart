@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+
 
 //String userProfile = '';
 
@@ -20,11 +22,11 @@ class BcStep2CollectUserProfile extends StatefulWidget {
   _BcStep2CollectUserProfileState createState() =>
       _BcStep2CollectUserProfileState();
 }
-const userUid = "tester@gmail.com";
+
 String ID;
 
 class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
-  final _firestore = Firestore.instance.collection(userUid).document('Bc2_studyingTheUser');
+  final _firestore = Firestore.instance.collection(currentUser).document('Bc2_studyingTheUser');
   String userProfileData;
 
   void initState() {
@@ -107,19 +109,25 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
-                             if (userProfileData != userProfileTextController.text ) {
-                              _firestore.setData({
-                                'userProfile': userProfileTextController.text,
-                                'Sender': "tester@gmail.com",
-                              });
-                            }
-                             userProfileData = userProfileTextController.text;
-                            bcStepsContent[1].bcCompletionValidator = false;
-                            Navigator.pushNamed(
-                                context, '/BCStep2CaptureUserStories');
-                          },
+                        GenericStepButton(
+                          buttonName: 'GO NEXT',
+                          routeName: '/BCStep2CaptureUserStories',
+                          step: 1,
+                          stepBool: false,
+                          widget: onTap,
+
+//                          OnTap: () {
+//                             if (userProfileData != userProfileTextController.text ) {
+//                              _firestore.setData({
+//                                'userProfile': userProfileTextController.text,
+//                                'Sender': "tester@gmail.com",
+//                              });
+//                            }
+//                             userProfileData = userProfileTextController.text;
+//                            //bcStepsContent[1].bcCompletionValidator = false;
+////                            Navigator.pushNamed(
+////                                context, '/BCStep2CaptureUserStories');
+//                          },
                         ),
                       ],
                     ),
@@ -130,4 +138,15 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
       ),
     );
   }
+
+  void onTap() {
+    if (userProfileData != userProfileTextController.text ) {
+      _firestore.setData({
+        'userProfile': userProfileTextController.text,
+        'Sender': currentUser,
+      });
+    }
+    userProfileData = userProfileTextController.text;
+  }
+
 }

@@ -9,7 +9,7 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 
 class BcAddMoreMetrics extends StatefulWidget {
   @override
@@ -220,13 +220,18 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            _showDialog();
-                            bcStepsContent[9].bcCompletionValidator = true;
-//                            Navigator.pushNamed(
-//                                context, '/BCHomeView');
-                          },
+                        GenericStepButton(
+                          buttonName: 'COMPLETE STEP 10',
+                          routeName: '/BCHomeView',
+                          step: 9,
+                          stepBool: true,
+
+//                          OnTap: () {
+//                            _showDialog();
+//                            bcStepsContent[9].bcCompletionValidator = true;
+////                            Navigator.pushNamed(
+////                                context, '/BCHomeView');
+//                          },
                         ),
                       ],
                     ),

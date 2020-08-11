@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcFeatureProduct.dart';
 import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
@@ -27,7 +28,6 @@ var FeatureDescriptionTextController = TextEditingController();
 final FeatureDescriptionFocusNode = new FocusNode();
 String FeatureDescription;
 
-const userUid = "tester@gmail.com";
 
 class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDialogue> {
   final _firestore = Firestore.instance;
@@ -252,12 +252,12 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                                 if (index == null) {
                                   addingNewProductFeature.add(
                                       NewProductFeature);
-                                  _firestore.collection(userUid+'/Bc3_definingTheSolution/addFeatures').add({
+                                  _firestore.collection('$currentUser/Bc3_definingTheSolution/addFeatures').add({
                                     'featureTitle': ProductFeatureTextController.text,
                                     'featureDescription': FeatureDescriptionTextController.text,
                                     'featureChecked': checked,
                                     'featureType': clickedRadio,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
 
                                 } else {
@@ -265,14 +265,14 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
 //                                  addingNewProductFeature.insert(
 //                                      index, NewProductFeature);
                                   _firestore
-                                      .collection(userUid+'/Bc3_definingTheSolution/addFeatures')
+                                      .collection('$currentUser/Bc3_definingTheSolution/addFeatures')
                                       .document(addingNewProductFeature[index].ID)
                                       .updateData({
                                     'featureTitle': ProductFeatureTextController.text,
                                     'featureDescription': FeatureDescriptionTextController.text,
                                     'featureChecked': checked,
                                     'featureType': clickedRadio,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
 
                                 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
@@ -8,15 +9,13 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 
 class BcStep6CompetingProducts extends StatefulWidget {
   @override
   _BcStep6CompetingProductsState createState() =>
       _BcStep6CompetingProductsState();
 }
-
-const userUid = "tester@gmail.com";
 
 class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
   final _firestore = Firestore.instance;
@@ -64,8 +63,7 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                   ),
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
-                        .collection(
-                            userUid + '/Bc6_studyingTheCompetition/addPlayers')
+                        .collection('$currentUser/Bc6_studyingTheCompetition/addPlayers')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -114,8 +112,8 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                                                 BcCompetingProductDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: userUid +
-                                                '/Bc6_studyingTheCompetition/addPlayers',
+                                            CollectionName:
+                                                '$currentUser/Bc6_studyingTheCompetition/addPlayers',
                                             ID: AddingNewCompetingProduct[index]
                                                 .ID,
                                           )
@@ -185,11 +183,15 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            bcStepsContent[5].bcCompletionValidator = true;
-                            Navigator.pushNamed(context, '/BCHomeView');
-                          },
+                        GenericStepButton(
+                          buttonName: 'COMPLETE STEP 6',
+                          routeName: '/BCHomeView',
+                          step: 5,
+                          stepBool: true,
+//                          OnTap: () {
+//                            bcStepsContent[5].bcCompletionValidator = true;
+//                            Navigator.pushNamed(context, '/BCHomeView');
+//                          },
                         ),
                       ],
                     ),

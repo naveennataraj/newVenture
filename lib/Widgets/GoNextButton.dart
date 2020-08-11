@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class goNextButton extends StatefulWidget {
+
   goNextButton({this.OnTap});
 
   final Function OnTap;

@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step4_UniqueSellingProposition/BcSellingProposition.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
@@ -24,7 +25,7 @@ String sellingProposition;
 
 class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
 
-  final _firestore = Firestore.instance.collection(userUid).document('Bc4_uniqueSellingProposition');
+  final _firestore = Firestore.instance.collection(currentUser).document('Bc4_uniqueSellingProposition');
   String propositionFirebaseData;
 
   void initState() {
@@ -112,32 +113,38 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
-                            if(sellingPropositionArray.length != 0) {
-                              _firestore
-                                  .updateData({
-                                'proposition': propositionTextController.text,
-                              });
-                            } else {
-                              if (propositionFirebaseData != propositionTextController.text ) {
-                                _firestore.setData({
-                                  'proposition': propositionTextController.text,
-                                  'keyTouchText': '',
-                                  'capitalizeText': '',
-                                  'growthText': '',
-                                  'Sender': "tester@gmail.com",
-                                });
-                              }
-                            }
+                        GenericStepButton(
+                          buttonName: 'GO NEXT',
+                          routeName: '/BCStep4ConsumerTouchPoints',
+                          step: 3,
+                          stepBool: false,
+                          widget: onTap,
 
-
-                            propositionFirebaseData =propositionTextController.text;
-                            bcStepsContent[3].bcCompletionValidator = false;
-//                            bcpData[0].CompletionValidator = false;
-//                            print(bcpData[0].CompletionValidator);
-                            Navigator.pushNamed(context, '/BCStep4ConsumerTouchPoints');
-                          },
+//                          OnTap: () {
+//                            if(sellingPropositionArray.length != 0) {
+//                              _firestore
+//                                  .updateData({
+//                                'proposition': propositionTextController.text,
+//                              });
+//                            } else {
+//                              if (propositionFirebaseData != propositionTextController.text ) {
+//                                _firestore.setData({
+//                                  'proposition': propositionTextController.text,
+//                                  'keyTouchText': '',
+//                                  'capitalizeText': '',
+//                                  'growthText': '',
+//                                  'Sender': currentUser,
+//                                });
+//                              }
+//                            }
+//
+//
+//                            propositionFirebaseData =propositionTextController.text;
+//                            //bcStepsContent[3].bcCompletionValidator = false;
+////                            bcpData[0].CompletionValidator = false;
+////                            print(bcpData[0].CompletionValidator);
+//                            //Navigator.pushNamed(context, '/BCStep4ConsumerTouchPoints');
+//                          },
                           //StepValidator: NotifyProgress(),
 
                           //routeName: '/BCStep4ConsumerTouchPoints',
@@ -151,5 +158,26 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
       ),
     );
   }
+
+  void onTap() {
+    if(sellingPropositionArray.length != 0) {
+      _firestore
+          .updateData({
+        'proposition': propositionTextController.text,
+      });
+    } else {
+      if (propositionFirebaseData != propositionTextController.text ) {
+        _firestore.setData({
+          'proposition': propositionTextController.text,
+          'keyTouchText': '',
+          'capitalizeText': '',
+          'growthText': '',
+          'Sender': currentUser,
+        });
+      }
+    }
+    propositionFirebaseData = propositionTextController.text;
+  }
+
 }
 

@@ -3,18 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcFeatureProduct.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class BcProductFeature extends StatefulWidget {
   @override
   _BcProductFeatureState createState() => _BcProductFeatureState();
 }
-
-const userUid = "tester@gmail.com";
 
 class _BcProductFeatureState extends State<BcProductFeature> {
   final _firestore = Firestore.instance;
@@ -61,7 +60,7 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
                         .collection(
-                            userUid + '/Bc3_definingTheSolution/addFeatures')
+                            '$currentUser/Bc3_definingTheSolution/addFeatures')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -109,8 +108,8 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                                                 Step3BCProductFeatureDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: userUid +
-                                                '/Bc3_definingTheSolution/addFeatures',
+                                            CollectionName:
+                                                '$currentUser/Bc3_definingTheSolution/addFeatures',
                                             ID: addingNewProductFeature[index]
                                                 .ID,
                                           )
@@ -182,12 +181,16 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
-                            bcStepsContent[2].bcCompletionValidator = false;
-                            Navigator.pushNamed(
-                                context, '/BCStep3WireFrameLink');
-                          },
+                        GenericStepButton(
+                          buttonName: 'GO NEXT',
+                          routeName: '/BCStep3WireFrameLink',
+                          step: 2,
+                          stepBool: false,
+//                          OnTap: () {
+//                            bcStepsContent[2].bcCompletionValidator = false;
+//                            Navigator.pushNamed(
+//                                context, '/BCStep3WireFrameLink');
+//                          },
                           //routeName: '/BCStep3WireFrameLink',
                           // write here
                         ),

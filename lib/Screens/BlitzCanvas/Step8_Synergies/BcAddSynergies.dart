@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step8_Synergies/ContentSynergies.dart';
@@ -7,14 +8,12 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 
 class BcAddSynergies extends StatefulWidget {
   @override
   _BcAddSynergiesState createState() => _BcAddSynergiesState();
 }
-
-const userUid = "tester@gmail.com";
 
 class _BcAddSynergiesState extends State<BcAddSynergies> {
   final _firestore = Firestore.instance;
@@ -59,7 +58,7 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
 
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
-                        .collection(userUid + '/Bc8_synergies/addSynergies')
+                        .collection('$currentUser/Bc8_synergies/addSynergies')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -109,8 +108,8 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                                             Dialogue: BcSynergiesDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: userUid +
-                                                '/Bc8_synergies/addSynergies',
+                                            CollectionName:
+                                                '$currentUser/Bc8_synergies/addSynergies',
                                             ID: addingNewSynergies[index].ID,
                                           )
                                         ]
@@ -181,11 +180,15 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            bcStepsContent[7].bcCompletionValidator = true;
-                            Navigator.pushNamed(context, '/BCHomeView');
-                          },
+                        GenericStepButton(
+                          buttonName: 'COMPLETE STEP 8',
+                          routeName: '/BCHomeView',
+                          step: 7,
+                          stepBool: true,
+//                          OnTap: () {
+//                            bcStepsContent[7].bcCompletionValidator = true;
+//                            Navigator.pushNamed(context, '/BCHomeView');
+//                          },
                         ),
                       ],
                     ),

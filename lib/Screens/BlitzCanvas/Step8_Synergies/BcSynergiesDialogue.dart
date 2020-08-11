@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step8_Synergies/ContentSynergies.dart';
@@ -32,7 +33,6 @@ var synergyValueTextController = TextEditingController();
 final synergyValueFocusNode = new FocusNode();
 String synergyValueText;
 
-const userUid = "tester@gmail.com";
 
 class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
   final _firestore = Firestore.instance;
@@ -55,10 +55,8 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
           text: addingNewSynergies[index].synergyValues);
 
     }
-    //bmcElementDropDown = buildDropDownMenuItems(BMCElements);
 
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -181,21 +179,21 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                               if (index == null) {
                                 addingNewSynergies.add(
                                     NewSynergies);
-                                _firestore.collection(userUid+'/Bc8_synergies/addSynergies').add({
+                                _firestore.collection('$currentUser/Bc8_synergies/addSynergies').add({
                                   'synergyName': synergyNameTextController.text,
                                   'synergyDescription': synergyDescriptionTextController.text,
 //                                  'serviceType': selectedServiceTypeName,
 //                                  'parentCompany': parentCompanyTextController.text,
 //                                  'serviceTaskDescription': taskTextController.text,
                                   'synergyValues': synergyDescriptionTextController.text,
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
                               } else {
 //                                addingNewSynergies.removeAt(index);
 //                                addingNewSynergies.insert(
 //                                    index, NewSynergies);
                                 _firestore
-                                    .collection(userUid+'/Bc8_synergies/addSynergies')
+                                    .collection('$currentUser/Bc8_synergies/addSynergies')
                                     .document(addingNewSynergies[index].ID)
                                     .updateData({
                                   'synergyName': synergyNameTextController.text,
@@ -204,7 +202,7 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
 //                                  'parentCompany': parentCompanyTextController.text,
 //                                  'serviceTaskDescription': taskTextController.text,
                                   'synergyValues': synergyDescriptionTextController.text,
-                                  'Sender': "tester@gmail.com",
+                                  'Sender': currentUser,
                                 });
                               }
 

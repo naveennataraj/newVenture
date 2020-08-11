@@ -22,8 +22,18 @@ class _BCScreenState extends State<BCScreen> {
   final _firestore = Firestore.instance
       .collection(userUid)
       .document('stepValidation');
-  int count = 0;
-
+  int i = 0;
+  bool firebaseStep0;
+  bool firebaseStep1;
+  bool firebaseStep2;
+  bool firebaseStep3;
+  bool firebaseStep4;
+  bool firebaseStep5;
+  bool firebaseStep6;
+  bool firebaseStep7;
+  bool firebaseStep8;
+  bool firebaseStep9;
+  //bool firebaseStep;
 
   @override
   void initState() {
@@ -31,25 +41,44 @@ class _BCScreenState extends State<BCScreen> {
     getDocuments();
   }
 
-
   void getDocuments() async {
     final document = await _firestore.get();
 
     if (document.exists) {
       try {
-        setState(() {
-          bcStepsContent[0].bcCompletionValidator = document.data['bcStepsContent0'];
-          bcStepsContent[1].bcCompletionValidator = document.data['bcStepsContent1'];
-          bcStepsContent[2].bcCompletionValidator = document.data['bcStepsContent2'];
-          bcStepsContent[3].bcCompletionValidator = document.data['bcStepsContent3'];
-          bcStepsContent[4].bcCompletionValidator = document.data['bcStepsContent4'];
-          bcStepsContent[5].bcCompletionValidator = document.data['bcStepsContent5'];
-          bcStepsContent[6].bcCompletionValidator = document.data['bcStepsContent6'];
-          bcStepsContent[7].bcCompletionValidator = document.data['bcStepsContent7'];
-          bcStepsContent[8].bcCompletionValidator = document.data['bcStepsContent8'];
-          bcStepsContent[9].bcCompletionValidator = document.data['bcStepsContent9'];
+        firebaseStep0 = document.data['bcStepsContent0'];
+        firebaseStep1 = document.data['bcStepsContent1'];
+        firebaseStep2 = document.data['bcStepsContent2'];
+        firebaseStep3 = document.data['bcStepsContent3'];
+        firebaseStep4 = document.data['bcStepsContent4'];
+        firebaseStep5 = document.data['bcStepsContent5'];
+        firebaseStep6 = document.data['bcStepsContent6'];
+        firebaseStep7 = document.data['bcStepsContent7'];
+        firebaseStep8 = document.data['bcStepsContent8'];
+        firebaseStep9 = document.data['bcStepsContent9'];
 
-          ID = document.documentID;
+        bcStepsContent[0].bcCompletionValidator = firebaseStep0;
+        bcStepsContent[1].bcCompletionValidator = firebaseStep1;
+        bcStepsContent[2].bcCompletionValidator = firebaseStep2;
+        bcStepsContent[3].bcCompletionValidator = firebaseStep3;
+        bcStepsContent[4].bcCompletionValidator = firebaseStep4;
+        bcStepsContent[5].bcCompletionValidator = firebaseStep5;
+        bcStepsContent[6].bcCompletionValidator = firebaseStep6;
+        bcStepsContent[7].bcCompletionValidator = firebaseStep7;
+        bcStepsContent[8].bcCompletionValidator = firebaseStep8;
+        bcStepsContent[9].bcCompletionValidator = firebaseStep9;
+        ID = document.documentID;
+
+        setState(() {
+//         for (int i=0; document.length; i++) {
+//            final firebaseStep$i = document.data['bcStepsContent$i'];
+//
+//        final card = BcFrameworkContent(
+//
+//        );
+//          bcStepsContent.add(card);
+      //}
+
         });
       } catch (e) {
         print(e);

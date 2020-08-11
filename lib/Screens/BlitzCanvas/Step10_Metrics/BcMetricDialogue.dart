@@ -142,7 +142,7 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                                   _firestore.collection('$currentUser/Bc10_metrics/addMoreMetrics').add({
                                     'Name': selectedMetric,
                                     'Description': MetricsNameTextController.text,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
 
                                 } else {
@@ -154,7 +154,7 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                                       .updateData({
                                     'Name': selectedMetric,
                                     'Description': MetricsNameTextController.text,
-                                    'Sender': "tester@gmail.com",
+                                    'Sender': currentUser,
                                   });
                                 }
 

@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Widgets/AddGenericButton.dart';
+//import 'package:iventure001/Widgets/AddGenericButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
-const userUid = "tester@gmail.com";
+
 String ID;
 
 class BcStep10MetricSection1 extends StatefulWidget {
@@ -22,7 +24,7 @@ final metricSectionOneFocusNode = new FocusNode();
 String metricSectionOneText;
 
 class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
-  final _firestore = Firestore.instance.collection(userUid).document('Bc10_metrics');
+  final _firestore = Firestore.instance.collection(currentUser).document('Bc10_metrics');
   String fireMetricData;
 
   void initState() {
@@ -105,27 +107,32 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
                         SizedBox(
                           width: 50,
                         ),
-                        AddGenericButton (
+                        GenericStepButton (
                           buttonName: 'PROCEED TO METRICS-SECTION2',
-                          onTap: () {
+                          routeName: '/BCStep10MetricSection2',
+                          step: 9,
+                          stepBool: false,
+                          widget: onTap,
 
-                            if (fireMetricData == null || fireMetricData == '') {
-                              _firestore.setData({
-                                'metricSectionOne': metricSectionOneTextController.text,
-                              });
-                            }
-
-                            if (fireMetricData != metricSectionOneTextController.text ) {
-                              _firestore.updateData({
-                                'metricSectionOne': metricSectionOneTextController.text,
-                              });
-                            }
-
-                            bcStepsContent[9].bcCompletionValidator = false;
-//                            print(bcpData[6].CompletionValidator);
-                            Navigator.pushNamed(
-                                context, '/BCStep10MetricSection2');
-                          },
+//                          onTap: () {
+//
+//                            if (fireMetricData == null || fireMetricData == '') {
+//                              _firestore.setData({
+//                                'metricSectionOne': metricSectionOneTextController.text,
+//                              });
+//                            }
+//
+//                            if (fireMetricData != metricSectionOneTextController.text ) {
+//                              _firestore.updateData({
+//                                'metricSectionOne': metricSectionOneTextController.text,
+//                              });
+//                            }
+//
+//                            //bcStepsContent[9].bcCompletionValidator = false;
+////                            print(bcpData[6].CompletionValidator);
+////                            Navigator.pushNamed(
+////                                context, '/BCStep10MetricSection2');
+//                          },
                         ),
                       ],
                     ),
@@ -136,4 +143,19 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
       ),
     );
   }
+  void onTap() {
+    if (fireMetricData == null || fireMetricData == '') {
+      _firestore.setData({
+        'metricSectionOne': metricSectionOneTextController.text,
+      });
+    }
+
+    if (fireMetricData != metricSectionOneTextController.text ) {
+      _firestore.updateData({
+        'metricSectionOne': metricSectionOneTextController.text,
+      });
+    }
+
+  }
+
 }

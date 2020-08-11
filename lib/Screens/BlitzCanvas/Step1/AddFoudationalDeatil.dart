@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
@@ -22,14 +22,13 @@ var foundationTextController = TextEditingController();
 final foundationFocusNode = new FocusNode();
 String foundationText;
 
-const userUid = "tester@gmail.com";
 
 class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
   int index;
   final _firestore = Firestore.instance;
   int clickedRadio;
   String clickRadioName;
-  var timestamp = FieldValue.serverTimestamp();
+  //var timestamp = FieldValue.serverTimestamp();
   var radio1Focus = new FocusNode();
   var radio2Focus = new FocusNode();
   var radio3Focus = new FocusNode();
@@ -205,26 +204,25 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
 
                                 if (index == null) {
                                   foundationContent.add(NewProductFeature);
-                                  _firestore.collection(userUid+'/Bc1_buildTheFoundation/addFoundations').add({
+                                  _firestore.collection('$currentUser/Bc1_buildTheFoundation/addFoundations').add({
                                     'title': clickRadioName,
                                     'featureType': clickedRadio,
                                     'description': foundationTextController.text,
-                                    'Sender': "tester@gmail.com",
-                                    'updatedAt': timestamp,
+                                    'Sender': currentUser,
+                                    //'updatedAt': timestamp,
                                   });
                                 } else {
 //                                  foundationContent.removeAt(index);
 //                                  foundationContent.insert(
 //                                      index, NewProductFeature);
                                   _firestore
-                                      .collection(userUid+'/Bc1_buildTheFoundation/addFoundations')
+                                      .collection('$currentUser/Bc1_buildTheFoundation/addFoundations')
                                       .document(foundationContent[index].ID)
                                       .updateData({
                                     'title': clickRadioName,
                                     'featureType': clickedRadio,
                                     'description': foundationTextController.text,
-                                    'Sender': "tester@gmail.com",
-                                    'updatedAt': timestamp,
+                                    'Sender': currentUser,
                                   });
                                 }
                                 foundationTextController.clear();

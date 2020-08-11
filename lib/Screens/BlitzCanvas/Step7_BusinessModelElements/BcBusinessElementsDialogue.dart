@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcElements.dart';
@@ -171,11 +172,11 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                             if (index == null) {
                               addingNewBusinessElement.add(
                                   NewProductFeature);
-                              _firestore.collection(userUid+'/Bc7_businessModelElements/addElements').add({
+                              _firestore.collection('$currentUser/Bc7_businessModelElements/addElements').add({
                                 'elementTitle': selectedElement,
                                 'elementDescription': FeatureDescriptionTextController.text,
                                 'elementChecked': checked,
-                                'Sender': "tester@gmail.com",
+                                'Sender': currentUser,
                               });
 
                             } else {
@@ -183,13 +184,13 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
 //                              addingNewBusinessElement.insert(
 //                                  index, NewProductFeature);
                               _firestore
-                                  .collection(userUid+'/Bc7_businessModelElements/addElements')
+                                  .collection('$currentUser/Bc7_businessModelElements/addElements')
                                   .document(addingNewBusinessElement[index].ID)
                                   .updateData({
                                 'elementTitle': selectedElement,
                                 'elementDescription': FeatureDescriptionTextController.text,
                                 'elementChecked': checked,
-                                'Sender': "tester@gmail.com",
+                                'Sender': currentUser,
                               });
                             }
 

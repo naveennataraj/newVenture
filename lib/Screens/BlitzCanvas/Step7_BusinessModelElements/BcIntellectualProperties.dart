@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcIntellectualAssets.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcIntellectualDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
@@ -14,8 +15,6 @@ class BcIntellectualPropertyAssets extends StatefulWidget {
   _BcIntellectualPropertyAssetsState createState() =>
       _BcIntellectualPropertyAssetsState();
 }
-
-const userUid = "tester@gmail.com";
 
 class _BcIntellectualPropertyAssetsState
     extends State<BcIntellectualPropertyAssets> {
@@ -61,8 +60,8 @@ class _BcIntellectualPropertyAssetsState
 
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
-                        .collection(userUid +
-                            '/Bc7_businessModelElements/addIntellectualProperties')
+                        .collection(
+                            '$currentUser/Bc7_businessModelElements/addIntellectualProperties')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -110,8 +109,8 @@ class _BcIntellectualPropertyAssetsState
                                             Dialogue: BcIntellectualDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: userUid +
-                                                '/Bc7_businessModelElements/addIntellectualProperties',
+                                            CollectionName:
+                                                '$currentUser/Bc7_businessModelElements/addIntellectualProperties',
                                             ID: addingIntellectualAssets[index]
                                                 .ID,
                                           )
@@ -183,13 +182,17 @@ class _BcIntellectualPropertyAssetsState
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
-                            bcStepsContent[6].bcCompletionValidator = false;
-//                            print(bcpData[0].CompletionValidator);
-                            Navigator.pushNamed(
-                                context, '/BCStep7ServiceOffering');
-                          },
+                        GenericStepButton(
+                          buttonName: 'GO NEXT',
+                          routeName: '/BCStep7ServiceOffering',
+                          step: 6,
+                          stepBool: false,
+//                          OnTap: () {
+//                            bcStepsContent[6].bcCompletionValidator = false;
+////                            print(bcpData[0].CompletionValidator);
+//                            Navigator.pushNamed(
+//                                context, '/BCStep7ServiceOffering');
+//                          },
                           //routeName: '/BCStep3WireFrameLink',
                           // write here
                         ),

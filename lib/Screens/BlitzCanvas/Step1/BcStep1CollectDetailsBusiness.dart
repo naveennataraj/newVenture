@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:dots_indicator/dots_indicator.dart';
+//import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 String customerProblems = '';
 //bool bcStepValidator;
@@ -30,11 +34,11 @@ String visionText;
 
 String ID;
 bool spinner = false;
-const userUid = "tester@gmail.com";
+
 
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> with SingleTickerProviderStateMixin {
-  final _firestore = Firestore.instance.collection(userUid).document('Bc1_buildTheFoundation');
- var timestamp = FieldValue.serverTimestamp();
+  final _firestore = Firestore.instance.collection(currentUser).document('Bc1_buildTheFoundation');
+
   //String missionTextFirebase;
   // variables to save mission and vision values
   String fireMissionData;
@@ -45,10 +49,11 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
 
   void initState() {
     super.initState();
-    (fireMissionData == null)? getDocuments() : print ('data exists') ;
+    getDocuments();
   }
 
   void getDocuments() async {
+    spinner = true;
     final document = await _firestore.get();
 
     if (document.exists) {
@@ -66,6 +71,11 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
         print(e);
       }
     }
+
+    setState(() {
+      spinner = false;
+    });
+
   }
 
   // validate Mission and vision exists
@@ -88,95 +98,126 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
         preferredSize: Size.fromHeight(60.0),
         child: NavigationBar(),
       ),
-      body: Center(
-        child: Container(
-          //height: MediaQuery.of(context).size.height * .40,
-          margin: EdgeInsets.only(top: 40.0),
-          width: MediaQuery.of(context).size.width * .40,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            //shape: BoxShape.rectangle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 1.0), //(x,y)
-                blurRadius: 2.0,
+      body: ModalProgressHUD(
+        inAsyncCall: spinner,
+        child: Center(
+          child: Column(
+            children: <Widget> [
+            Container(
+              margin: EdgeInsets.only(top: 40.0),
+              width: MediaQuery.of(context).size.width * .40,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.0), //(x,y)
+                    blurRadius: 2.0,
+                  ),
+                ],
+              ),
+
+              child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            "Let's collect some details on the foundational aspects of the business",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          )),
+                      TextFieldWidget(
+                        labelText:
+                            'Provide a mission statement for the business adventure',
+                        myTextController: missionTextController,
+                        myFocusNode: missionFocusNode,
+                        validText: validMission,
+                        maxLines: 1,
+                        textCollecter: missionText,
+                        helperText: '',
+                        labelcolour: missionLabelColor,
+                      ),
+                      TextFieldWidget(
+                        labelText:
+                            'Provide a vision for the business venture to work towards',
+                        myTextController: visionTextController,
+                        myFocusNode: visionFocusNode,
+                        validText: validVision,
+                        maxLines: 3,
+                        textCollecter: visionText,
+                        helperText: '',
+                        labelcolour: visionLabelColor,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            headBackButtton(),
+                            SizedBox(
+                              width: 50,
+                            ),
+                            GenericStepButton(
+                              buttonName: 'GO NEXT',
+                                routeName: '/BCStep1AddDetails',
+                                step: 0,
+                                stepBool: false,
+                                widget: onTap,
+
+//                          OnTap: () {
+//                             if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
+//                              _firestore.setData({
+//                                'mission': missionTextController.text,
+//                                'vision': visionTextController.text,
+//                                'Sender': "tester@gmail.com",
+//                                'updatedAt': timestamp,
+//                              });
+//                            }
+//
+//                            bcStepsContent[0].bcCompletionValidator = false;
+//                            fireMissionData = missionTextController.text;
+//                            fireVisionData = visionTextController.text;
+////                            bcpData[6].CompletionValidator = false;
+//                            //Navigator.pushNamed(context, '/BCStep1AddDetails');
+//                          },
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+              ),
+            ),
+              SizedBox(
+                height: 20,
+              ),
+              DotsIndicator(
+                decorator: DotsDecorator(
+                  activeColor: const Color(0xFFE95420),
+                ),
+                dotsCount: 2,
+                position: 0,
               ),
             ],
           ),
-
-
-
-          child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Column(
-
-                children: <Widget>[
-
-
-                  Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Let's collect some details on the foundational aspects of the business",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      )),
-                  TextFieldWidget(
-                    labelText:
-                        'Provide a mission statement for the business adventure',
-                    myTextController: missionTextController,
-                    myFocusNode: missionFocusNode,
-                    validText: validMission,
-                    maxLines: 1,
-                    textCollecter: missionText,
-                    helperText: '',
-                    labelcolour: missionLabelColor,
-                  ),
-                  TextFieldWidget(
-                    labelText:
-                        'Provide a vision for the business venture to work towards',
-                    myTextController: visionTextController,
-                    myFocusNode: visionFocusNode,
-                    validText: validVision,
-                    maxLines: 3,
-                    textCollecter: visionText,
-                    helperText: '',
-                    labelcolour: visionLabelColor,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        headBackButtton(),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        goNextButton(
-                          OnTap: () {
-                             if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
-                              _firestore.setData({
-                                'mission': missionTextController.text,
-                                'vision': visionTextController.text,
-                                'Sender': "tester@gmail.com",
-                                'updatedAt': timestamp,
-                              });
-                            }
-                            bcStepsContent[0].bcCompletionValidator = false;
-                            fireMissionData = missionTextController.text;
-                            fireVisionData = visionTextController.text;
-//                            bcpData[6].CompletionValidator = false;
-                            Navigator.pushNamed(context, '/BCStep1AddDetails');
-                          },
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              )),
         ),
       ),
     );
+  }
+
+
+  void onTap() {
+    if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
+      _firestore.setData({
+        'mission': missionTextController.text,
+        'vision': visionTextController.text,
+        'Sender': currentUser,
+      });
+    }
+    fireMissionData = missionTextController.text;
+    fireVisionData = visionTextController.text;
   }
 }

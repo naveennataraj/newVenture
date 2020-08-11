@@ -7,14 +7,13 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 
 class BcAsaServiceOffering extends StatefulWidget {
   @override
   _BcAsaServiceOfferingState createState() => _BcAsaServiceOfferingState();
 }
-
-const userUid = "tester@gmail.com";
 
 class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
   final _firestore = Firestore.instance;
@@ -59,7 +58,7 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
                         .collection(
-                        userUid + '/Bc7_businessModelElements/addServices')
+                        '$currentUser/Bc7_businessModelElements/addServices')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -111,8 +110,8 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                                 BcAsaServiceDialogue(
                                   index: index,
                                 ),
-                                CollectionName: userUid +
-                                    '/Bc7_businessModelElements/addServices',
+                                CollectionName:
+                                    '$currentUser/Bc7_businessModelElements/addServices',
                                 ID: addingAsaService[index]
                                     .ID,
                               )
@@ -184,22 +183,18 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                          OnTap: () {
-                            bcStepsContent[6].bcCompletionValidator = true;
-                            Navigator.pushNamed(
-                                context, '/BCHomeView');
-                          },
-                        ),
-//                        goNextButton(
+                        GenericStepButton(
+                          buttonName: 'COMPLETE STEP 7',
+                          routeName: '/BCHomeView',
+                          step: 6,
+                          stepBool: true,
+
 //                          OnTap: () {
-////                            bcpData[0].CompletionValidator = false;
-////                            print(bcpData[0].CompletionValidator);
-//                            Navigator.pushNamed(context, '/BCStep7IntellectualAssets');
+//                            bcStepsContent[6].bcCompletionValidator = true;
+//                            Navigator.pushNamed(
+//                                context, '/BCHomeView');
 //                          },
-//                          //routeName: '/BCStep3WireFrameLink',
-//                          // write here
-//                        ),
+                        ),
                       ],
                     ),
                   ),

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/ContentBcProductGoals.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
@@ -14,7 +15,6 @@ class Step3GoalsTheSolution extends StatefulWidget {
   _Step3GoalsTheSolutionState createState() => _Step3GoalsTheSolutionState();
 }
 
-const userUid = "tester@gmail.com";
 
 class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
   final _firestore = Firestore.instance;
@@ -61,7 +61,7 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
                         .collection(
-                            userUid + '/Bc3_definingTheSolution/addGoals')
+                            '$currentUser/Bc3_definingTheSolution/addGoals')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -97,8 +97,8 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                                             Dialogue: GoalDialogue(
                                               index: index,
                                             ),
-                                            CollectionName: userUid +
-                                                '/Bc3_definingTheSolution/addGoals',
+                                            CollectionName:
+                                                '$currentUser/Bc3_definingTheSolution/addGoals',
                                             ID: productGoals[index].ID,
                                           )
                                         ]
@@ -166,12 +166,16 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                         SizedBox(
                           width: 50,
                         ),
-                        goNextButton(
-                          OnTap: () {
-                            bcStepsContent[2].bcCompletionValidator = false;
-                            Navigator.pushNamed(
-                                context, '/BCStep3FeatureProduct');
-                          },
+                        GenericStepButton(
+                          buttonName: 'GO NEXT',
+                          routeName: '/BCStep3FeatureProduct',
+                          step: 2,
+                          stepBool: false,
+//                          OnTap: () {
+//                            bcStepsContent[2].bcCompletionValidator = false;
+//                            Navigator.pushNamed(
+//                                context, '/BCStep3FeatureProduct');
+//                          },
                           //routeName: '/BCStep3FeatureProduct',
                           // write here
                         ),

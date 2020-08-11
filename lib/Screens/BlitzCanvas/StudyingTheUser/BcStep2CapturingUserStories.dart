@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStoryDialogue.dart';
-import 'package:iventure001/Widgets/testCompleteButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
@@ -15,8 +16,6 @@ class BcStep2CapturingUserStories extends StatefulWidget {
   _BcStep2CapturingUserStoriesState createState() =>
       _BcStep2CapturingUserStoriesState();
 }
-
-const userUid = "tester@gmail.com";
 
 class _BcStep2CapturingUserStoriesState
     extends State<BcStep2CapturingUserStories> {
@@ -70,7 +69,7 @@ class _BcStep2CapturingUserStoriesState
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
                         .collection(
-                            userUid + '/Bc2_studyingTheUser/addFoundations')
+                            '$currentUser/Bc2_studyingTheUser/addFoundations')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -109,8 +108,8 @@ class _BcStep2CapturingUserStoriesState
                                       Dialogue: BcUserStoryDialogue(
                                         index: index,
                                       ),
-                                      CollectionName: userUid +
-                                          '/Bc2_studyingTheUser/addFoundations',
+                                      CollectionName:
+                                          '$currentUser/Bc2_studyingTheUser/addFoundations',
                                       ID: userStoriesContent[index].ID,
                                     )
                                   ]
@@ -189,7 +188,8 @@ class _BcStep2CapturingUserStoriesState
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
+                        GenericStepButton(
+                          buttonName: 'COMPLETE STEP 2',
                           routeName: '/BCHomeView',
                           step: 1,
                           stepBool: true,

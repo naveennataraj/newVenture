@@ -8,15 +8,14 @@ import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step5_CustomerQuotes/QuotesDialogue.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 //import 'addQuotesDialogue.dart';
 
 class BcStep5CustomerQuotes extends StatefulWidget {
   @override
   _BcStep5CustomerQuotesState createState() => _BcStep5CustomerQuotesState();
 }
-
-const userUid = "tester@gmail.com";
 
 class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
   final _firestore = Firestore.instance;
@@ -64,7 +63,7 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore
                         .collection(
-                        userUid + '/Bc5_userFeedback/addQuotes')
+                        '$currentUser/Bc5_userFeedback/addQuotes')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -105,8 +104,7 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                                 BcQuoteDialogue(
                                   index: index,
                                 ),
-                                CollectionName: userUid +
-                                    '/Bc5_userFeedback/addQuotes',
+                                CollectionName: '$currentUser/Bc5_userFeedback/addQuotes',
                                 ID: addingNewQuote[index]
                                     .ID,
                               )
@@ -175,12 +173,16 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                         SizedBox(
                           width: 50,
                         ),
-                        CompleteStepButton(
-                        OnTap: () {
-                          bcStepsContent[4].bcCompletionValidator = true;
-                          Navigator.pushNamed(
-                              context, '/BCHomeView');
-                        },
+                        GenericStepButton(
+                          buttonName: 'COMPLETE STEP 5',
+                          routeName: '/BCHomeView',
+                          step: 4,
+                          stepBool: true,
+//                        OnTap: () {
+//                          bcStepsContent[4].bcCompletionValidator = true;
+//                          Navigator.pushNamed(
+//                              context, '/BCHomeView');
+//                        },
                         ),
                       ],
                     ),
