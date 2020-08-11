@@ -45,6 +45,8 @@ import 'Screens/BlitzInnovationFramework/Metrics/AddMetrics.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/ProblemStudy.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
+//delete
+import 'package:iventure001/Widgets/Stepper.dart';
 
 void main() {
   runApp(Vueapp());
@@ -134,6 +136,9 @@ class Vueapp extends StatelessWidget {
         '/BCStep10MetricSection1': (context) => BcStep10MetricSection1(),
         '/BCStep10MetricSection2': (context) => BcMetricsSection2(),
         '/BCStep10AddMoreMetrics': (context) => BcAddMoreMetrics(),
+
+    //Stepper
+    '/stepper': (context) => StepperDemo(),
 
 
       },

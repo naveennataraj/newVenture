@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class BlitzInnovationFramework extends StatelessWidget {
   @override
@@ -23,7 +24,8 @@ class BlitzInnovationFramework extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
                   'Blitz Innovation Framework',
-                  style: TextStyle(fontSize: 60),
+                  style: topHeadingTextStyle,
+                  //TextStyle(fontSize: 60),
                   textAlign: TextAlign.center,
                 ),
               ),

@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/ContentFrameworkMenu.dart';
 import 'package:iventure001/Widgets/BCanvasIntroCard.dart';
-import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/BCStepCard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
+import 'package:iventure001/Widgets/Stepper.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 
-const userUid = "tester@gmail.com";
 String ID;
 
 class BCScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class BCScreen extends StatefulWidget {
 class _BCScreenState extends State<BCScreen> {
   //final _firestore = Firestore.instance;
   final _firestore = Firestore.instance
-      .collection(userUid)
+      .collection(currentUser)
       .document('stepValidation');
   int i = 0;
   bool firebaseStep0;
@@ -107,7 +107,7 @@ class _BCScreenState extends State<BCScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: Text(
                   'Blitz Canvas',
-                  style: TextStyle(fontSize: 60),
+                  style: topHeadingTextStyle,
                 ),
               ),
               SizedBox(

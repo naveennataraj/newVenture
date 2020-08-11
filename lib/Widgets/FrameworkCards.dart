@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class FrameworkCards extends StatefulWidget {
   FrameworkCards(
@@ -49,8 +50,8 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                       ),
                       Text(
                         widget.frameworkStep,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                        style: cardTitleTextStyle,
+                        //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     ],
                   ),
@@ -62,7 +63,8 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                 ),
                 Text(
                   widget.frameworkdescrip,
-                  style: TextStyle(fontSize: 18),
+                  style: cardBodyTextStyle,
+                  //TextStyle(fontSize: 18),
                 ),
                 Flexible(
                   child: SizedBox(

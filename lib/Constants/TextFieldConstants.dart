@@ -19,3 +19,22 @@ const TextFieldsDecoration = InputDecoration(
 
 //String currentUser = 'Tester1@gmail.com';
 String currentUser = 'tester@gmail.com';
+
+const topHeadingTextStyle = TextStyle(
+  fontSize: 55,
+  fontFamily: 'Ubuntu',
+  //fontWeight: FontWeight.bold
+);
+
+const cardTitleTextStyle = TextStyle(
+  fontSize: 20,
+  fontFamily: 'Ubuntu',
+  fontWeight: FontWeight.bold
+);
+
+const cardBodyTextStyle = TextStyle(
+    fontSize: 18,
+    fontFamily: 'OpenSans',
+
+    //fontWeight: FontWeight.bold
+);
