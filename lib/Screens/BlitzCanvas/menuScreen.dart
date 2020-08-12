@@ -15,8 +15,6 @@ class BCScreen extends StatefulWidget {
   _BCScreenState createState() => _BCScreenState();
 }
 
-
-
 class _BCScreenState extends State<BCScreen> {
   //final _firestore = Firestore.instance;
   final _firestore = Firestore.instance
@@ -70,25 +68,18 @@ class _BCScreenState extends State<BCScreen> {
         ID = document.documentID;
 
         setState(() {
-//         for (int i=0; document.length; i++) {
-//            final firebaseStep$i = document.data['bcStepsContent$i'];
-//
-//        final card = BcFrameworkContent(
-//
-//        );
-//          bcStepsContent.add(card);
-      //}
-
+          print('I should update');
         });
       } catch (e) {
         print(e);
       }
-
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
+    //getDocuments();
     return Scaffold(
       appBar: AppBar(
         title: Text('iVENTURE'),
@@ -118,6 +109,7 @@ class _BCScreenState extends State<BCScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 100, right: 100),
                 child: GridView.builder(
+
                   shrinkWrap: true,
                   //physics: NeverScrollableScrollPhysics(),
                   itemCount: bcStepsContent.length,
@@ -130,7 +122,8 @@ class _BCScreenState extends State<BCScreen> {
 //                      childAspectRatio: 1.5,
                       crossAxisCount: 3),
                   itemBuilder: (BuildContext context, int index) {
-//
+
+
                     return FrameworkCards(
                         stepCompleteValidator:
                         bcStepsContent[index].bcCompletionValidator,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 
 class GenericStepButton extends StatefulWidget {
   final String routeName;
@@ -37,8 +38,6 @@ class _GenericStepButtonState extends State<GenericStepButton> {
 
   void getDocuments() async {
     final document = await _firestore.collection(currentUser).document('stepValidation').get();
-
-
     if (document.exists) {
       try {
         setState(() {
@@ -70,6 +69,7 @@ class _GenericStepButtonState extends State<GenericStepButton> {
       case 0 :
 
         if (stepBool == false) {
+          bcStepsContent[0].bcCompletionValidator = false;
           if (firebaseStep0 != true)
             _firestore.collection(currentUser).document('stepValidation').updateData({
               'bcStepsContent0': stepBool
