@@ -162,7 +162,9 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        headBackButtton(),
+                        headBackButtton(
+                          routeName: '/BCHomeView',
+                        ),
                         SizedBox(
                           width: 50,
                         ),

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-//import 'package:iventure001/Widgets/GoNextButton.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
@@ -10,9 +9,9 @@ import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 
 String customerProblems = '';
-//bool bcStepValidator;
 
 class BcStep1CollectionAspects extends StatefulWidget {
   @override
@@ -35,6 +34,11 @@ String visionText;
 String ID;
 bool spinner = false;
 
+List<Bread> breads = [
+  Bread(label: "Home ", route: '/'),
+  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+  Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
+];
 
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> with SingleTickerProviderStateMixin {
   final _firestore = Firestore.instance.collection(currentUser).document('Bc1_buildTheFoundation');
@@ -103,6 +107,7 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
         child: Center(
           child: Column(
             children: <Widget> [
+              Breadcrumb(breads: breads, color: Color(0xFFE95420),),
             Container(
               margin: EdgeInsets.only(top: 40.0),
               width: MediaQuery.of(context).size.width * .40,
@@ -156,7 +161,9 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            headBackButtton(),
+                            headBackButtton(
+                              routeName: '/BCHomeView',
+                            ),
                             SizedBox(
                               width: 50,
                             ),

@@ -109,7 +109,9 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        headBackButtton(),
+                        headBackButtton(
+                          routeName: '/BCHomeView',
+                        ),
                         SizedBox(
                           width: 50,
                         ),

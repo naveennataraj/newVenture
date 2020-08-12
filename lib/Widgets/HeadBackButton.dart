@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 
 class headBackButtton extends StatelessWidget {
-
   const headBackButtton({
     Key key,
   }) : super(key: key);
@@ -13,6 +12,7 @@ class headBackButtton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
+
       },
       child: Text(
         'HEAD BACK',

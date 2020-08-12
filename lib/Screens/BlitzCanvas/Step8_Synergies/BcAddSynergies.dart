@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step8_Synergies/ContentSynergies.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step8_Synergies/BcSynergiesDialogue.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
@@ -176,7 +176,9 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        headBackButtton(),
+                        headBackButtton(
+                          routeName: '/BCHomeView',
+                        ),
                         SizedBox(
                           width: 50,
                         ),

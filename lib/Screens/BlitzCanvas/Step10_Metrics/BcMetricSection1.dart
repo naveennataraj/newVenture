@@ -103,7 +103,9 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        headBackButtton(),
+                        headBackButtton(
+                          routeName: '/BCHomeView',
+                        ),
                         SizedBox(
                           width: 50,
                         ),

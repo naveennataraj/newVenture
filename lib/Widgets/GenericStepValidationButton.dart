@@ -59,17 +59,13 @@ class _GenericStepButtonState extends State<GenericStepButton> {
       _firestore.collection(currentUser).document('stepValidation').setData(
           {}
       );
-
     }
   }
-
 
   void switchStep(){
     switch(step){
       case 0 :
-
         if (stepBool == false) {
-          bcStepsContent[0].bcCompletionValidator = false;
           if (firebaseStep0 != true)
             _firestore.collection(currentUser).document('stepValidation').updateData({
               'bcStepsContent0': stepBool

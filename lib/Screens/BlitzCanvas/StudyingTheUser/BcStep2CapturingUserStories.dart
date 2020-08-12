@@ -8,14 +8,21 @@ import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 
 class BcStep2CapturingUserStories extends StatefulWidget {
   @override
   _BcStep2CapturingUserStoriesState createState() =>
       _BcStep2CapturingUserStoriesState();
 }
+
+List<Bread> breads = [
+  Bread(label: "Home ", route: '/'),
+  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+  Bread(label: "User Profile", route: '/BCStep2UserProfile'),
+  Bread(label: "User Stories", route: '/BCStep2CaptureUserStories'),
+];
+
 
 class _BcStep2CapturingUserStoriesState
     extends State<BcStep2CapturingUserStories> {
@@ -184,7 +191,9 @@ class _BcStep2CapturingUserStoriesState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        headBackButtton(),
+                        headBackButtton(
+                          routeName: '/BCHomeView',
+                        ),
                         SizedBox(
                           width: 50,
                         ),

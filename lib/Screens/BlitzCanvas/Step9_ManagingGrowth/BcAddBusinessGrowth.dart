@@ -162,7 +162,9 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        headBackButtton(),
+                        headBackButtton(
+                          routeName: '/BCHomeView',
+                        ),
                         SizedBox(
                           width: 50,
                         ),

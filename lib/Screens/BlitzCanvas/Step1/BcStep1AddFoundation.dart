@@ -12,11 +12,20 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+
 
 class Step1AddFoundation extends StatefulWidget {
   @override
   _Step1AddFoundationState createState() => _Step1AddFoundationState();
 }
+
+List<Bread> breads = [
+  Bread(label: "Home ", route: '/'),
+  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+  Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
+  Bread(label: "Add Foundational Aspects", route: '/BCStep1AddDetails'),
+];
 
 class _Step1AddFoundationState extends State<Step1AddFoundation> {
   bool spinner = false;
@@ -88,6 +97,7 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Breadcrumb(breads: breads, color: Color(0xFFE95420),),
                   Container(
                     //height: MediaQuery.of(context).size.height * .40,
                     margin: EdgeInsets.only(top: 40.0),

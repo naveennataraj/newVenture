@@ -47,10 +47,20 @@ import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
 //delete
 import 'package:iventure001/Widgets/Stepper.dart';
+// BreadCrumb
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 
 void main() {
   runApp(Vueapp());
 }
+
+List<Bread> breads = [
+  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+//  Bread(label: "Step 1- Foundational Aspects", route: '/BCStep1CollectAspects'),
+//  Bread(label: "Step 1- Add Foundational Aspects", route: '/BCStep1AddDetails'),
+//  Bread(label: "Step 2- Studying the user", route: '/BCStep1AddDetails'),
+];
+
 
 class Vueapp extends StatelessWidget {
   @override
@@ -143,5 +153,8 @@ class Vueapp extends StatelessWidget {
 
       },
     );
+
+
   }
 }
+

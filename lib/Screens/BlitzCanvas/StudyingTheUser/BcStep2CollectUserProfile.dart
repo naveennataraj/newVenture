@@ -7,9 +7,9 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 
 
-//String userProfile = '';
 
 var userProfileLabelColor = Color(0XFF919191);
 bool validUserProfile = true;
@@ -24,6 +24,12 @@ class BcStep2CollectUserProfile extends StatefulWidget {
 }
 
 String ID;
+
+List<Bread> breads = [
+  Bread(label: "Home ", route: '/'),
+  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+  Bread(label: "User Profile", route: '/BCStep2UserProfile'),
+];
 
 class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
   final _firestore = Firestore.instance.collection(currentUser).document('Bc2_studyingTheUser');

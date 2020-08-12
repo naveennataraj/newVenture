@@ -7,7 +7,8 @@ import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
 import 'package:iventure001/Widgets/Stepper.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
-
+// BreadCrumb
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 String ID;
 
 class BCScreen extends StatefulWidget {
@@ -15,8 +16,14 @@ class BCScreen extends StatefulWidget {
   _BCScreenState createState() => _BCScreenState();
 }
 
+List<Bread> breads = [
+  Bread(label: "Home ", route: '/'),
+  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+];
+
+
 class _BCScreenState extends State<BCScreen> {
-  //final _firestore = Firestore.instance;
+
   final _firestore = Firestore.instance
       .collection(currentUser)
       .document('stepValidation');
@@ -92,6 +99,7 @@ class _BCScreenState extends State<BCScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
+              Breadcrumb(breads: breads, color: Color(0xFFE95420)),
               //distance from the bar to the tittle
               SizedBox(height: 20),
               Padding(
