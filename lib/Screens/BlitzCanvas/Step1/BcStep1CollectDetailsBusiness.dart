@@ -145,13 +145,13 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                             "Let's collect some details on the foundational aspects of the business",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
+                            style: cardTitleTextStyle,
+                            //TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           )),
                       TextFieldWidget(
                         labelText:
-                            'Provide a mission statement for the business adventure',
+                            'Provide a mission statement for the business venture',
                         myTextController: missionTextController,
                         myFocusNode: missionFocusNode,
                         validText: validMission,

@@ -70,7 +70,7 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                           child: Text(
                             "Adding customer quotes",
                             style:
-                            TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                            cardTitleTextStyle,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -137,8 +137,9 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Click on '+' to add the Pain Points",
-                                    style: TextStyle(color: Colors.grey),
+                                    "There are no customer quotes at the moment. \n Would you like to add some? Use the '+’ button to get started.",
+                                    style: emptyStateTextStyle,
+                                    textAlign: TextAlign.center,
                                   )
                                 ],
                               ),

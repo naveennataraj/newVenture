@@ -70,7 +70,7 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                           child: Text(
                             "List of current competing players in the market",
                             style:
-                            TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                            cardTitleTextStyle,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -145,8 +145,8 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Click on '+' to add the Pain Points",
-                                    style: TextStyle(color: Colors.grey),
+                                    "There are no competing players at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                      style: emptyStateTextStyle, textAlign: TextAlign.center
                                   )
                                 ],
                               ),

@@ -52,6 +52,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         },
         controller: widget.myTextController,
         maxLines: widget.maxLines,
+       style: menuIntroTextStyle,
 
         decoration: TextFieldsDecoration.copyWith(
           labelText: widget.labelText,

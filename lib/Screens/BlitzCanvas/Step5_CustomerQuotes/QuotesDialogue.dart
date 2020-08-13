@@ -45,7 +45,7 @@ class _BcQuoteDialogueState extends State<BcQuoteDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.40,
+          height: MediaQuery.of(context).size.height * 0.50,
           width: MediaQuery.of(context).size.width * 0.4,
           child: Center(
             child: SingleChildScrollView(

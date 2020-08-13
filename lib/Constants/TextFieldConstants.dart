@@ -36,6 +36,25 @@ const cardTitleTextStyle = TextStyle(
 const cardBodyTextStyle = TextStyle(
     fontSize: 18,
     fontFamily: 'OpenSans',
-
     //fontWeight: FontWeight.bold
+);
+
+const emptyStateTextStyle = TextStyle(
+  fontSize: 15,
+  fontFamily: 'OpenSans',
+    color: Colors.grey,
+  //fontWeight: FontWeight.bold
+);
+
+const menuIntroTextStyle = TextStyle(
+  fontSize: 17,
+  fontFamily: 'OpenSans', color: Color(0xFF666666)
+  //fontWeight: FontWeight.bold
+);
+
+
+const menuIntroBoldTextStyle = TextStyle(
+  fontSize: 17,
+  fontFamily: 'OpenSans',
+  fontWeight: FontWeight.bold,
 );

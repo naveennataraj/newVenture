@@ -66,8 +66,7 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                             "Add business model elements \n (Based on the Business model canvas methodology)",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
+                            style: cardTitleTextStyle,
                             textAlign: TextAlign.center,
                           ),),
 
@@ -137,8 +136,8 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Click on '+' to add the Pain Points",
-                                    style: TextStyle(color: Colors.grey),
+                                    "There are no business model elements at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                    style: emptyStateTextStyle, textAlign: TextAlign.center,
                                   )
                                 ],
                               ),

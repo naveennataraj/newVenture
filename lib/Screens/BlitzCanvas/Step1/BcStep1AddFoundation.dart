@@ -116,8 +116,7 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                             "Add details of the foundational aspects of the business",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
+                            style: cardTitleTextStyle,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -178,8 +177,8 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Click on '+' to add the Pain Points",
-                                          style: TextStyle(color: Colors.grey),
+                                          "There are no Product Goals at the moment. \n Would you like to add some? Use the '+’ button to get started.",
+                                          style: emptyStateTextStyle, textAlign: TextAlign.center
                                         )
                                       ],
                                     ),

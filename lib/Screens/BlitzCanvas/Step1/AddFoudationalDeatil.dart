@@ -3,7 +3,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
-import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
+import 'package:iventure001/Widgets/AddGenericButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -69,7 +69,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.70,
+          height: MediaQuery.of(context).size.height * 0.50,
           width: MediaQuery.of(context).size.width * 0.5,
           child: Center(
             child: SingleChildScrollView(
@@ -83,8 +83,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: Text(
                         "Add a Foundational Detail:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
+                        style: cardTitleTextStyle,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -108,7 +107,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                             padding: const EdgeInsets.only(top:15.0, left: 15.0),
                             child: Text(
                               'The details is a:',
-                              style: TextStyle(fontSize: 18),
+                              style: menuIntroTextStyle
                             ),
                           ),
                           Row(
@@ -117,7 +116,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                             children: <Widget>[
                               Expanded(
                                 child: ListTile(
-                                  title: Text('Goal'),
+                                  title: Text('Goal', style: menuIntroTextStyle,),
                                   leading: Radio(
                                     focusNode: radio1Focus,
                                     activeColor: Color(0XFFE95420),
@@ -135,7 +134,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                               ),
                               Expanded(
                                 child: ListTile(
-                                  title: Text('Core competence'),
+                                  title: Text('Core competence', style: menuIntroTextStyle),
                                   leading: Radio(
                                     focusNode: radio2Focus,
                                     activeColor: Color(0XFFE95420),
@@ -153,7 +152,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                               ),
                               Expanded(
                                 child: ListTile(
-                                  title: Text('Core cultural aspect'),
+                                  title: Text('Core cultural aspect', style: menuIntroTextStyle),
                                   leading: Radio(
                                     focusNode: radio3Focus,
                                     activeColor: Color(0XFFE95420),
@@ -192,9 +191,12 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AddProductFeatureButton(
-                            routeName: '/BCStep1AddDetails',
+
+                          AddGenericButton(
+                            buttonName:  'ADD DETAIL',
                             onTap: () {
+                              Navigator.popAndPushNamed(context, '/BCStep1AddDetails');
+
                               setState(() {
                                 final NewProductFeature = ContentBcAddFoundation(
                                     title: clickRadioName,

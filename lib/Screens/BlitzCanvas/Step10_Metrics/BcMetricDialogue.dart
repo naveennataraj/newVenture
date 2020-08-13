@@ -5,7 +5,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentBcMetrics.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
-import 'package:iventure001/Widgets/AddMetricButton.dart';
+import 'package:iventure001/Widgets/AddGenericButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -92,7 +92,7 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                           mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Text(
-                              'What Type of environment do the users live in?',
+                              'What category does the metric fall under?',
                               style: TextStyle(
                                   color: Colors.grey.shade600, fontSize: 16),
                             ),
@@ -128,7 +128,9 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AddMetricButton(
+
+                          AddGenericButton(
+                            buttonName:   'Add metric',
                             onTap: () {
                               setState(() {
 //                                final NewMetrics = ContentBcMetrics(

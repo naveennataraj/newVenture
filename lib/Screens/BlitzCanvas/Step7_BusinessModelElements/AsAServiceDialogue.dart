@@ -77,17 +77,17 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.70,
+          height: MediaQuery.of(context).size.height * 0.93,
           width: MediaQuery.of(context).size.width * 0.5,
           child: Center(
             child: SingleChildScrollView(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
                         "Add an 'As a service' Offering:",
                         style: TextStyle(

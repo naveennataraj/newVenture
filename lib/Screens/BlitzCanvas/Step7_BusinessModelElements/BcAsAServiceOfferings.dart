@@ -68,8 +68,7 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                             "List of 'As a service' offerings",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
+                            style: cardTitleTextStyle,
                             textAlign: TextAlign.center,
                           ),),
 
@@ -144,8 +143,8 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Click on '+' to add the Pain Points",
-                                    style: TextStyle(color: Colors.grey),
+                                    "There are no offerings listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                    style: emptyStateTextStyle, textAlign: TextAlign.center,
                                   )
                                 ],
                               ),

@@ -67,7 +67,7 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                           child: Text(
                             "Can we spot any Synergies between the Business segments?",
                             style:
-                            TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                            cardTitleTextStyle,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -149,8 +149,8 @@ class _BcAddSynergiesState extends State<BcAddSynergies> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Click on '+' to add the Pain Points",
-                                    style: TextStyle(color: Colors.grey),
+                                    "There are no synergies listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                      style: emptyStateTextStyle, textAlign: TextAlign.center
                                   )
                                 ],
                               ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Data/ContentFrameworkMenu.dart';
 import 'package:iventure001/Widgets/SpaceHeight30.dart';
 import 'package:iventure001/Widgets/SpaceHeight20.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class BCanvasIntroCard extends StatelessWidget {
 
@@ -32,29 +33,34 @@ class BCanvasIntroCard extends StatelessWidget {
             children: [
               Text(
                 bcMenuContent.title,
-                style: TextStyle(fontSize: 17),
+                style: menuIntroTextStyle,
                 textAlign: TextAlign.center,
               ),
               Space20(),
               Text(
                 bcMenuContent.paragraph1,
-                style: TextStyle(fontSize: 17),
+                style: menuIntroTextStyle,
                 textAlign: TextAlign.center,
               ),
               Space20(),
               Text(
                 bcMenuContent.paragraph2,
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                style: menuIntroBoldTextStyle,
                 textAlign: TextAlign.center,
 
               ),
               Space20(),
-              Text(
-                bcMenuContent.paragraph3,
-                style: TextStyle(fontSize: 17),
-                textAlign: TextAlign.center,
-              ),
-              Space30(),
+
+             RichText(
+            text: new TextSpan(
+              style: menuIntroTextStyle,
+              children: <TextSpan>[
+                new TextSpan(text: "Please choose the",),
+                new TextSpan(text: " \"Let\'s get started\" ", style: new TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+                new TextSpan(text: "button in step 1 to get started with the process.", ),
+              ],
+            ),
+          ),
             ],
           ),
         ),

@@ -70,7 +70,7 @@ class _BcIntellectualPropertyAssetsState
                           child: Text(
                             "Let's add some Intellectual property assets:",
                             style:
-                            TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                            cardTitleTextStyle,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -142,8 +142,8 @@ class _BcIntellectualPropertyAssetsState
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Click on '+' to add the Pain Points",
-                                    style: TextStyle(color: Colors.grey),
+                                    "There are no IP Assets at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                      style: emptyStateTextStyle, textAlign: TextAlign.center
                                   )
                                 ],
                               ),

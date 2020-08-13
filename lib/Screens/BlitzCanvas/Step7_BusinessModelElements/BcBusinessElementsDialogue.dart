@@ -6,7 +6,7 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Widgets/AddDetailButton.dart';
+import 'package:iventure001/Widgets/AddGenericButton.dart';
 
 class BcBusinessElementsDialogue extends StatefulWidget {
   final int index;
@@ -156,9 +156,10 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      AddDetailButton(
-                        routeName: '/addproductgoals',
+                      AddGenericButton(
+                        buttonName:   'Add element',
                         onTap: () {
+                          Navigator.popAndPushNamed(context, '/addproductgoals');
                           setState(() {
                             final NewProductFeature = ContentBcElements(
                                 elementTitle:

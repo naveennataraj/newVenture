@@ -3,7 +3,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
-import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
+import 'package:iventure001/Widgets/AddGenericButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -133,9 +133,11 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AddProductFeatureButton(
-                            routeName: '/addproductgoals',
+
+                          AddGenericButton(
+                            buttonName:   'Add Competing Product',
                             onTap: () {
+                              Navigator.popAndPushNamed(context, '/addproductgoals');
                               setState(() {
                                 final NewComponentProduct = BcCompetingProduct(
                                     ProductName: ProductNameTextController.text,

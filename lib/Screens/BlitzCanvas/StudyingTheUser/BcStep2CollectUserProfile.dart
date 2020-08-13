@@ -103,9 +103,8 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                         Padding(
                             padding: EdgeInsets.symmetric(vertical: 10.0),
                             child: Text(
-                              "Let's collect some details on User's Profile",
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
+                              "Let's collect some details on the user's Profile",
+                              style: cardTitleTextStyle,
                               //textAlign: TextAlign.center,
                             )),
                         TextFieldWidget(
