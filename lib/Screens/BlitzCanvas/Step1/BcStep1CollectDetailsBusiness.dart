@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 
 String customerProblems = '';
 
@@ -19,20 +18,7 @@ class BcStep1CollectionAspects extends StatefulWidget {
       _BcStep1CollectionAspectsState();
 }
 
-var missionLabelColor = Color(0XFF919191);
-bool validMission = true;
-final missionTextController = TextEditingController();
-final missionFocusNode = new FocusNode();
-String missionText;
-
-var visionLabelColor = Color(0XFF919191);
-bool validVision = true;
-final visionTextController = TextEditingController();
-final visionFocusNode = new FocusNode();
-String visionText;
-
 String ID;
-bool spinner = false;
 
 List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
@@ -40,16 +26,45 @@ List<Bread> breads = [
   Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
 ];
 
-class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> with SingleTickerProviderStateMixin {
+class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
+  var missionLabelColor = Color(0XFF919191);
+  bool validMission = true;
+  final missionTextController = TextEditingController();
+  final missionFocusNode = new FocusNode();
+  String missionText;
+
+  var visionLabelColor = Color(0XFF919191);
+  bool validVision = true;
+  final visionTextController = TextEditingController();
+  final visionFocusNode = new FocusNode();
+  String visionText;
+
+
   final _firestore = Firestore.instance.collection(currentUser).document('Bc1_buildTheFoundation');
+  bool spinner = false;
 
   //String missionTextFirebase;
   // variables to save mission and vision values
   String fireMissionData;
   String fireVisionData;
   // animation controller
-  AnimationController controller;
+  //AnimationController controller;
 
+  validator() {
+    setState(() {
+      missionTextController.text.isEmpty ? validMission = false : validMission = true;
+      missionTextController.text.isEmpty
+          ? missionLabelColor = Color(0xFFF53E70)
+          : missionLabelColor = Color(0xFF919191);
+      visionTextController.text.isEmpty
+          ? validVision = false
+          : validVision = true;
+      visionTextController.text.isEmpty
+          ? visionLabelColor = Color(0xFFF53E70)
+          : visionLabelColor = Color(0xFF919191);
+      print("(Validator is called)");
+    });
+  }
 
   void initState() {
     super.initState();
@@ -81,7 +96,6 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
     });
 
   }
-
   // validate Mission and vision exists
 //  validator() {
 //    setState(() {
@@ -106,6 +120,8 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
         inAsyncCall: spinner,
         child: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
               Breadcrumb(breads: breads, color: Color(0xFFE95420),),
             Container(
@@ -121,7 +137,6 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
                   ),
                 ],
               ),
-
               child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                   child: Column(
@@ -169,10 +184,11 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
                             ),
                             GenericStepButton(
                               buttonName: 'GO NEXT',
-                                routeName: '/BCStep1AddDetails',
-                                step: 0,
-                                stepBool: false,
-                                widget: onTap,
+                              routeName: '/BCStep1AddDetails',
+                              //pageValidation: (missionTextController.text == '') ? true : false,
+                              step: 0,
+                              stepBool: false,
+                              widget:  onTap,
 
 //                          OnTap: () {
 //                             if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
@@ -217,7 +233,9 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
 
 
   void onTap() {
+
     if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
+
       _firestore.setData({
         'mission': missionTextController.text,
         'vision': visionTextController.text,
@@ -226,5 +244,23 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> wit
     }
     fireMissionData = missionTextController.text;
     fireVisionData = visionTextController.text;
+
+//    if (missionTextController.text == '' ||
+//        visionTextController.text == '')
+//    {
+//      validator();
+//    }
+//    else {
+//      if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
+//        _firestore.setData({
+//          'mission': missionTextController.text,
+//          'vision': visionTextController.text,
+//          'Sender': currentUser,
+//        });
+//      }
+//      fireMissionData = missionTextController.text;
+//      fireVisionData = visionTextController.text;
+//    }
+//
   }
 }

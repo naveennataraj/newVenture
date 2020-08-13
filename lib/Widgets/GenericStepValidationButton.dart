@@ -189,9 +189,7 @@ class _GenericStepButtonState extends State<GenericStepButton> {
           _firestore.collection(currentUser).document('stepValidation').updateData({
             'bcStepsContent9': true
           });
-
         break;
-
       default :
         print('Number Not Found');
 
@@ -204,16 +202,19 @@ class _GenericStepButtonState extends State<GenericStepButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, routeName);
-        switchStep();
-        widget.widget();
-      },
       child: Text(
         buttonName,
         //'GO NEXT',
         style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
       ),
+      onTap: () {
+        Navigator.pushNamed(context, routeName);
+        switchStep();
+        if (widget.widget !=null) {
+          widget.widget();
+        }
+
+      },
     );
   }
 }

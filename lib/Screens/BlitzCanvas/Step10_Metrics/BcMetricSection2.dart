@@ -2,66 +2,71 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
-import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentBcMetrics.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 
 class BcMetricsSection2 extends StatefulWidget {
   @override
   _BcMetricsSection2State createState() => _BcMetricsSection2State();
 }
 
-var CustomerProblemlabelColor = Color(0XFF919191);
-bool validCustomerProblem = true;
-var CustomerProblemTextController = TextEditingController();
-final CustomerProblemFocusNode = new FocusNode();
-String CustomerProblem;
-
-var SolutionlabelColor = Color(0XFF919191);
-bool validSolution = true;
-var SolutionTextController = TextEditingController();
-final SolutionFocusNode = new FocusNode();
-String Solution;
-
-var EvangelismlabelColor = Color(0XFF919191);
-bool validEvangelism = true;
-var EvangelismTextController = TextEditingController();
-final EvangelismFocusNode = new FocusNode();
-String Evangelism;
-
-var ScalelabelColor = Color(0XFF919191);
-bool validScale = true;
-var ScaleTextController = TextEditingController();
-final ScaleFocusNode = new FocusNode();
-String Scale;
-
-var EvolutionlabelColor = Color(0XFF919191);
-bool validEvolution = true;
-var EvolutionTextController = TextEditingController();
-final EvolutionFocusNode = new FocusNode();
-String Evolution;
-
-var ParallelSolutionlabelColor = Color(0XFF919191);
-bool validParallelSolution = true;
-var ParallelSolutionTextController = TextEditingController();
-final ParallelSolutionFocusNode = new FocusNode();
-String ParallelSolution;
+List<Bread> breads = [
+  Bread(label: "Home ", route: '/'),
+  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+  Bread(label: "Section 1", route: '/BCStep10MetricSection1'),
+  Bread(label: "Section 2", route: '/BCStep10MetricSection2'),
+];
 
 String ID;
-bool spinner = false;
-
 
 class _BcMetricsSection2State extends State<BcMetricsSection2> {
   final _firestore =
       Firestore.instance;
-
+  bool spinner = false;
   String fireProblemData;
   String fireSolutionData;
 
+  var CustomerProblemlabelColor = Color(0XFF919191);
+  bool validCustomerProblem = true;
+  var CustomerProblemTextController = TextEditingController();
+  final CustomerProblemFocusNode = new FocusNode();
+  String CustomerProblem;
+
+  var SolutionlabelColor = Color(0XFF919191);
+  bool validSolution = true;
+  var SolutionTextController = TextEditingController();
+  final SolutionFocusNode = new FocusNode();
+  String Solution;
+
+  var EvangelismlabelColor = Color(0XFF919191);
+  bool validEvangelism = true;
+  var EvangelismTextController = TextEditingController();
+  final EvangelismFocusNode = new FocusNode();
+  String Evangelism;
+
+  var ScalelabelColor = Color(0XFF919191);
+  bool validScale = true;
+  var ScaleTextController = TextEditingController();
+  final ScaleFocusNode = new FocusNode();
+  String Scale;
+
+  var EvolutionlabelColor = Color(0XFF919191);
+  bool validEvolution = true;
+  var EvolutionTextController = TextEditingController();
+  final EvolutionFocusNode = new FocusNode();
+  String Evolution;
+
+  var ParallelSolutionlabelColor = Color(0XFF919191);
+  bool validParallelSolution = true;
+  var ParallelSolutionTextController = TextEditingController();
+  final ParallelSolutionFocusNode = new FocusNode();
+  String ParallelSolution;
 
 
   void getDocument() async {
@@ -253,114 +258,122 @@ class _BcMetricsSection2State extends State<BcMetricsSection2> {
         preferredSize: Size.fromHeight(60.0),
         child: NavigationBar(),
       ),
-      body: Center(
-        child: Container(
-          //height: MediaQuery.of(context).size.height * .40,
-          margin: EdgeInsets.only(top: 40.0),
-          width: MediaQuery.of(context).size.width * .40,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            //shape: BoxShape.rectangle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 1.0), //(x,y)
-                blurRadius: 2.0,
-              ),
-            ],
-          ),
-          child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      body: ModalProgressHUD(
+        inAsyncCall: spinner,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
               child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      "Metrics - Provide one metric for each of the following:",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  TextFieldWidget(
-                    labelText:
-                        "Provide one metric which help track the customer problem:",
-                    maxLines: 2,
-                    validText: validCustomerProblem,
-                    myFocusNode: CustomerProblemFocusNode,
-                    myTextController: CustomerProblemTextController,
-                    textCollecter: CustomerProblem,
-                    helperText: '',
-                    labelcolour: CustomerProblemlabelColor,
-                  ),
-                  TextFieldWidget(
-                    labelText: "Provide one Metric for the solution",
-                    maxLines: 2,
-                    validText: validSolution,
-                    myFocusNode: SolutionFocusNode,
-                    myTextController: SolutionTextController,
-                    textCollecter: Solution,
-                    helperText:
-                        'Provide one metric which will help track the impact of the solution on the customer problem',
-                    labelcolour: SolutionlabelColor,
-                  ),
-                  TextFieldWidget(
-                    labelText: "Provide one metric to measure evangelism",
-                    maxLines: 2,
-                    validText: validEvangelism,
-                    myFocusNode: EvangelismFocusNode,
-                    myTextController: EvangelismTextController,
-                    textCollecter: Evangelism,
-                    helperText: '', //TODO helper text
-                    labelcolour: EvangelismlabelColor,
-                  ),
-                  TextFieldWidget(
-                    labelText: "Provide one metric to handle scale",
-                    maxLines: 2,
-                    validText: validScale,
-                    myFocusNode: ScaleFocusNode,
-                    myTextController: ScaleTextController,
-                    textCollecter: Scale,
-                    helperText: '', //TODO helper text
-                    labelcolour: ScalelabelColor,
-                  ),
-                  TextFieldWidget(
-                    labelText:
-                        "Provide one metric to measure the evolution of the customer problem",
-                    maxLines: 2,
-                    validText: validEvolution,
-                    myFocusNode: EvolutionFocusNode,
-                    myTextController: EvolutionTextController,
-                    textCollecter: Evolution,
-                    helperText: '',
-                    labelcolour: EvolutionlabelColor,
-                  ),
-                  TextFieldWidget(
-                    labelText:
-                        "(Optional) Provide one metric for new parallel solutions",
-                    maxLines: 2,
-                    validText: validParallelSolution,
-                    myFocusNode: ParallelSolutionFocusNode,
-                    myTextController: ParallelSolutionTextController,
-                    textCollecter: ParallelSolution,
-                    helperText: '',
-                    labelcolour: ParallelSolutionlabelColor,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        headBackButtton(),
-                        SizedBox(
-                          width: 50,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Breadcrumb(breads: breads, color: Color(0xFFE95420),),
+                  Container(
+                    //height: MediaQuery.of(context).size.height * .40,
+                    margin: EdgeInsets.only(top: 40.0),
+                    width: MediaQuery.of(context).size.width * .40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      //shape: BoxShape.rectangle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 1.0), //(x,y)
+                          blurRadius: 2.0,
                         ),
-                        GenericStepButton(
-                          buttonName: 'ADD ADDITIONAL METRICS',
-                          routeName: '/BCStep10AddMoreMetrics',
-                          step: 9,
-                          stepBool: false,
-                          widget: onTap,
+                      ],
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            "Metrics - Provide one metric for each of the following:",
+                            style:
+                            TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        TextFieldWidget(
+                          labelText:
+                          "Provide one metric which help track the customer problem:",
+                          maxLines: 2,
+                          validText: validCustomerProblem,
+                          myFocusNode: CustomerProblemFocusNode,
+                          myTextController: CustomerProblemTextController,
+                          textCollecter: CustomerProblem,
+                          helperText: '',
+                          labelcolour: CustomerProblemlabelColor,
+                        ),
+                        TextFieldWidget(
+                          labelText: "Provide one Metric for the solution",
+                          maxLines: 2,
+                          validText: validSolution,
+                          myFocusNode: SolutionFocusNode,
+                          myTextController: SolutionTextController,
+                          textCollecter: Solution,
+                          helperText:
+                          'Provide one metric which will help track the impact of the solution on the customer problem',
+                          labelcolour: SolutionlabelColor,
+                        ),
+                        TextFieldWidget(
+                          labelText: "Provide one metric to measure evangelism",
+                          maxLines: 2,
+                          validText: validEvangelism,
+                          myFocusNode: EvangelismFocusNode,
+                          myTextController: EvangelismTextController,
+                          textCollecter: Evangelism,
+                          helperText: '', //TODO helper text
+                          labelcolour: EvangelismlabelColor,
+                        ),
+                        TextFieldWidget(
+                          labelText: "Provide one metric to handle scale",
+                          maxLines: 2,
+                          validText: validScale,
+                          myFocusNode: ScaleFocusNode,
+                          myTextController: ScaleTextController,
+                          textCollecter: Scale,
+                          helperText: '', //TODO helper text
+                          labelcolour: ScalelabelColor,
+                        ),
+                        TextFieldWidget(
+                          labelText:
+                          "Provide one metric to measure the evolution of the customer problem",
+                          maxLines: 2,
+                          validText: validEvolution,
+                          myFocusNode: EvolutionFocusNode,
+                          myTextController: EvolutionTextController,
+                          textCollecter: Evolution,
+                          helperText: '',
+                          labelcolour: EvolutionlabelColor,
+                        ),
+                        TextFieldWidget(
+                          labelText:
+                          "(Optional) Provide one metric for new parallel solutions",
+                          maxLines: 2,
+                          validText: validParallelSolution,
+                          myFocusNode: ParallelSolutionFocusNode,
+                          myTextController: ParallelSolutionTextController,
+                          textCollecter: ParallelSolution,
+                          helperText: '',
+                          labelcolour: ParallelSolutionlabelColor,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              headBackButtton(),
+                              SizedBox(
+                                width: 50,
+                              ),
+                              GenericStepButton(
+                                buttonName: 'ADD ADDITIONAL METRICS',
+                                routeName: '/BCStep10AddMoreMetrics',
+                                step: 9,
+                                stepBool: false,
+                                widget: onTap,
 
 
 //                          onTap: () {
@@ -610,12 +623,27 @@ class _BcMetricsSection2State extends State<BcMetricsSection2> {
 ////                                  context, '/BCStep10AddMoreMetrics');
 ////                            });
 //                          },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  DotsIndicator(
+                    decorator: DotsDecorator(
+                      activeColor: const Color(0xFFE95420),
+                    ),
+                    dotsCount: 3,
+                    position: 1,
+                  ),
                 ],
-              )),
+              ),
+            ),
+          ),
         ),
       ),
     );

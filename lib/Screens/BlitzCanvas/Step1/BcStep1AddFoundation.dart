@@ -4,16 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/AddFoudationalDeatil.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
-
 
 class Step1AddFoundation extends StatefulWidget {
   @override
@@ -24,7 +21,7 @@ List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
   Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
   Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
-  Bread(label: "Add Foundational Aspects", route: '/BCStep1AddDetails'),
+  Bread(label: "Intellectual Property Assets", route: '/BCStep1AddDetails'),
 ];
 
 class _Step1AddFoundationState extends State<Step1AddFoundation> {

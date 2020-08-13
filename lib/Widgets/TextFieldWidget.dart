@@ -52,6 +52,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         },
         controller: widget.myTextController,
         maxLines: widget.maxLines,
+
         decoration: TextFieldsDecoration.copyWith(
           labelText: widget.labelText,
           helperText: widget.myFocusNode.hasFocus ? widget.helperText : null,

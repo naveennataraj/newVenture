@@ -32,6 +32,7 @@ const cardTitleTextStyle = TextStyle(
   fontWeight: FontWeight.bold
 );
 
+
 const cardBodyTextStyle = TextStyle(
     fontSize: 18,
     fontFamily: 'OpenSans',

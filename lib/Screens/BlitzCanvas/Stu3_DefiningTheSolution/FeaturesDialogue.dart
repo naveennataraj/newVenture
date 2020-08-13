@@ -16,20 +16,21 @@ class Step3BCProductFeatureDialogue extends StatefulWidget {
   _Step3BCProductFeatureDialogueState createState() => _Step3BCProductFeatureDialogueState(index);
 }
 
-var ProductFeaturelabelColor = Color(0XFF919191);
-bool validProductFeature = true;
-var ProductFeatureTextController = TextEditingController();
-final ProductFeatureFocusNode = new FocusNode();
-String ProductFeature;
-
-var FeatureDescriptionlabelColor = Color(0XFF919191);
-bool validFeatureDescription = true;
-var FeatureDescriptionTextController = TextEditingController();
-final FeatureDescriptionFocusNode = new FocusNode();
-String FeatureDescription;
-
 
 class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDialogue> {
+
+  var ProductFeaturelabelColor = Color(0XFF919191);
+  bool validProductFeature = true;
+  var ProductFeatureTextController = TextEditingController();
+  final ProductFeatureFocusNode = new FocusNode();
+  String ProductFeature;
+
+  var FeatureDescriptionlabelColor = Color(0XFF919191);
+  bool validFeatureDescription = true;
+  var FeatureDescriptionTextController = TextEditingController();
+  final FeatureDescriptionFocusNode = new FocusNode();
+  String FeatureDescription;
+
   final _firestore = Firestore.instance;
   int index;
   bool checked = false;

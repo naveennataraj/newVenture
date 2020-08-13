@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'DeleteDialog.dart';
 
 const cardColor = Color(0xFFF7C3B1);
@@ -103,7 +103,8 @@ class _SmallOrangeCardWithTitleState extends State<SmallOrangeCardWithTitle> {
               child: Text(
                 widget.title,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: cardTitleTextStyle,
+                //TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
@@ -111,9 +112,8 @@ class _SmallOrangeCardWithTitleState extends State<SmallOrangeCardWithTitle> {
               child: Text(
                 widget.description,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+                style: cardBodyTextStyle,
+                //TextStyle(fontSize: 20,),
               ),
             ),
             Flexible(

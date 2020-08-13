@@ -115,22 +115,36 @@ class _BCScreenState extends State<BCScreen> {
               BCanvasIntroCard(menuContents[1]),
               SizedBox(height:40.0),
               Padding(
-                padding: const EdgeInsets.only(left: 100, right: 100),
+                //padding: const EdgeInsets.only(left: 100, right: 100),
+                padding: EdgeInsets.only(
+                  left: (MediaQuery.of(context).size.width >= 1300)
+                      ? 50
+                      : (MediaQuery.of(context).size.width <= 600) ? 10 : 7,
+                  right: (MediaQuery.of(context).size.width >= 1300)
+                      ? 50
+                      : (MediaQuery.of(context).size.width <= 600) ? 10 : 7,
+                ),
                 child: GridView.builder(
-
                   shrinkWrap: true,
-                  //physics: NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: bcStepsContent.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 1.5,
+                      mainAxisSpacing: 1,
                       crossAxisSpacing: 1.5,
-                      childAspectRatio: 2.5,
-//                      mainAxisSpacing: 15,
-//                      crossAxisSpacing: 1,
-//                      childAspectRatio: 1.5,
-                      crossAxisCount: 3),
+                      //childAspectRatio: 2.5,
+                      //crossAxisCount: 3
+                      childAspectRatio:
+                      (MediaQuery.of(context).size.width >= 1200)
+                          ? 2.3
+                          : (MediaQuery.of(context).size.width <= 700)
+                          ? 1.6
+                          : 1.8,
+                      crossAxisCount: (MediaQuery.of(context).size.width >=
+                          1050)
+                          ? 3
+                          : (MediaQuery.of(context).size.width <= 600) ? 1 : 2
+                  ),
                   itemBuilder: (BuildContext context, int index) {
-
 
                     return FrameworkCards(
                         stepCompleteValidator:

@@ -118,9 +118,6 @@ class Vueapp extends StatelessWidget {
         '/BCStep2UserProfile': (context) => BcStep2CollectUserProfile(),
         '/BCStep2CaptureUserStories': (context) =>
             BcStep2CapturingUserStories(),
-        //Step2 Studying the user
-        '/BCStep2CaptureUserStories': (context) =>
-            BcStep2CapturingUserStories(),
         //Step3 Defining the solution
         '/BCStep3Goals': (context) => Step3GoalsTheSolution(),
         '/BCStep3FeatureProduct': (context) => BcProductFeature(),

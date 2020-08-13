@@ -1,14 +1,14 @@
 class ContentSynergies {
   final String synergyName;
-  final String synergyValueProposition;
-  final String synergyCustomerSegment;
-  final String synergyRevenueStream;
-  final String synergyDistributionChannel;
-  final String synergyCustomerRelationship;
-  final String synergyKeyActivity;
-  final String synergyKeyResource;
-  final String synergyKeyPartner;
-  final String synergyCostStructure;
+  final bool synergyValueProposition;
+  final bool synergyCustomerSegment;
+  final bool synergyRevenueStream;
+  final bool synergyDistributionChannel;
+  final bool synergyCustomerRelationship;
+  final bool synergyKeyActivity;
+  final bool synergyKeyResource;
+  final bool synergyKeyPartner;
+  final bool synergyCostStructure;
   final String synergyDescription;
   final String synergyValues;
   final ID;
