@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcMetricSection1.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcMetricSection2.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/CustomerTouchPoint.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step4_CustomerTouchPoints/SolutionStandOut.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step5_CustomerQuotes/CustomerQuotes.dart';
@@ -11,9 +15,6 @@ import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcIn
 import 'package:iventure001/Screens/BlitzCanvas/Step8_Synergies/BcAddSynergies.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step9_ManagingGrowth/BcAddBusinessGrowth.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step9_ManagingGrowth/BcCreatingEcosystems.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcMetricSection1.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcMetricSection2.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/BcAddFidelityWireframes.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesProduct.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTheSolution.dart';
@@ -35,7 +36,9 @@ import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionValidation/
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/addstoriespainpoints.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/adduserenvironmentdetails.dart';
+import 'package:iventure001/Screens/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
+import 'package:iventure001/Widgets/Stepper.dart';
 import 'package:iventure001/bifdashboard.dart';
 
 import 'Homepage.dart';
@@ -45,10 +48,6 @@ import 'Screens/BlitzInnovationFramework/Metrics/AddMetrics.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/ProblemStudy.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
-//delete
-import 'package:iventure001/Widgets/Stepper.dart';
-// BreadCrumb
-import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 
 void main() {
   runApp(Vueapp());
@@ -60,7 +59,6 @@ List<Bread> breads = [
 //  Bread(label: "Step 1- Add Foundational Aspects", route: '/BCStep1AddDetails'),
 //  Bread(label: "Step 2- Studying the user", route: '/BCStep1AddDetails'),
 ];
-
 
 class Vueapp extends StatelessWidget {
   @override
@@ -108,11 +106,13 @@ class Vueapp extends StatelessWidget {
         '/addproductmetrics': (context) => AddProductMetrics(),
         '/addmetrics': (context) => AddMetrics(),
 
+        '/conceptDashboard': (context) => ConceptDashBoard(),
+
         // BC- BlitzCanvas
-        '/BCHomeView': (context) => BCScreen(
-            ),
+        '/BCHomeView': (context) => BCScreen(),
         //Step1 Build the Foundation
-        '/BCStep1CollectAspects': (context) => BcStep1CollectionAspects(), //Mission and Vision statements
+        '/BCStep1CollectAspects': (context) =>
+            BcStep1CollectionAspects(), //Mission and Vision statements
         '/BCStep1AddDetails': (context) => Step1AddFoundation(), //OrangeCards
         //Step2
         '/BCStep2UserProfile': (context) => BcStep2CollectUserProfile(),
@@ -144,14 +144,9 @@ class Vueapp extends StatelessWidget {
         '/BCStep10MetricSection2': (context) => BcMetricsSection2(),
         '/BCStep10AddMoreMetrics': (context) => BcAddMoreMetrics(),
 
-    //Stepper
-    '/stepper': (context) => StepperDemo(),
-
-
+        //Stepper
+        '/stepper': (context) => StepperDemo(),
       },
     );
-
-
   }
 }
-

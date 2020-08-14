@@ -1,10 +1,78 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
-import 'package:iventure001/Constants/TextFieldConstants.dart';
 
-class BlitzInnovationFramework extends StatelessWidget {
+String ID;
+
+class BlitzInnovationFramework extends StatefulWidget {
+  @override
+  _BlitzInnovationFrameworkState createState() =>
+      _BlitzInnovationFrameworkState();
+}
+
+List<Bread> breads = [
+  Bread(label: "Home ", route: '/'),
+  Bread(
+      label: "Blitz Innovation Framework ", route: '/BlitzInnovationFramework'),
+];
+
+class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
+  final _firestore = Firestore.instance
+      .collection(currentUser)
+      .document('stepValidationInnovationFramework');
+  int i = 0;
+  bool firebaseStep0;
+  bool firebaseStep1;
+  bool firebaseStep2;
+  bool firebaseStep3;
+  bool firebaseStep4;
+  bool firebaseStep5;
+  bool firebaseStep6;
+  bool firebaseStep7;
+  void getDocuments() async {
+    final document = await _firestore.get();
+
+    if (document.exists) {
+      try {
+        firebaseStep0 = document.data['bcStepsContent0'];
+        firebaseStep1 = document.data['bcStepsContent1'];
+        firebaseStep2 = document.data['bcStepsContent2'];
+        firebaseStep3 = document.data['bcStepsContent3'];
+        firebaseStep4 = document.data['bcStepsContent4'];
+        firebaseStep5 = document.data['bcStepsContent5'];
+        firebaseStep6 = document.data['bcStepsContent6'];
+        firebaseStep7 = document.data['bcStepsContent7'];
+
+        bcpData[0].CompletionValidator = firebaseStep0;
+        bcpData[1].CompletionValidator = firebaseStep1;
+        bcpData[2].CompletionValidator = firebaseStep2;
+        bcpData[3].CompletionValidator = firebaseStep3;
+        bcpData[4].CompletionValidator = firebaseStep4;
+        bcpData[5].CompletionValidator = firebaseStep5;
+        bcpData[6].CompletionValidator = firebaseStep6;
+        bcpData[7].CompletionValidator = firebaseStep7;
+
+        ID = document.documentID;
+
+        setState(() {
+          print('I should update');
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    getDocuments();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +87,7 @@ class BlitzInnovationFramework extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
+              Breadcrumb(breads: breads, color: Color(0xFFE95420)),
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(10.0),

@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 
 class ConceptDashBoard extends StatefulWidget {
+  Widget dashboard;
+
+  ConceptDashBoard({this.dashboard});
   @override
   _ConceptDashBoardState createState() => _ConceptDashBoardState();
 }
 
 class _ConceptDashBoardState extends State<ConceptDashBoard> {
+  @override
+  void initState() {
+    if (widget.dashboard == null) {
+      setState(() {
+        widget.dashboard = Customer();
+      });
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,123 +41,273 @@ class _ConceptDashBoardState extends State<ConceptDashBoard> {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       bottomRight: Radius.circular(20)),
-                  color: const Color(0xFFE95420),
+                  color: const Color(0xEEE95420),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.dashboard,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        'Overview',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    SideButton(
+                      buttonName: 'Overview',
+                      dashboard: Overview(),
+                      onpressed: () {
+                        setState(() {
+                          ConceptDashBoard(
+                            dashboard: widget.dashboard,
+                          );
+                        });
+                      },
                     ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.dashboard,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        'Customer',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    SideButton(
+                      buttonName: 'Customer',
+                      dashboard: Customer(),
+                      onpressed: () {
+                        setState(() {
+                          ConceptDashBoard(
+                            dashboard: Customer(),
+                          );
+                        });
+                      },
                     ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.dashboard,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        'Solution',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    SideButton(
+                      buttonName: 'Solution',
                     ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.dashboard,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        'Feedback',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    SideButton(
+                      buttonName: 'Feedback',
                     ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.dashboard,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        'Next Steps',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    SideButton(
+                      buttonName: 'Next Steps',
                     ),
                   ],
                 ),
               )
             ],
           ),
-          StaggeredGridView.count(
-            crossAxisCount: 4,
-            staggeredTiles: _staggeredTiles,
-            children: _tiles,
-            mainAxisSpacing: 4.0,
-            crossAxisSpacing: 4.0,
-            padding: const EdgeInsets.all(4.0),
-          )
+          Customer()
         ],
       ),
     );
   }
 }
 
-List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
-  const StaggeredTile.count(2, 2),
-  const StaggeredTile.count(2, 1),
-  const StaggeredTile.count(1, 2),
-  const StaggeredTile.count(1, 1),
-  const StaggeredTile.count(2, 2),
-  const StaggeredTile.count(1, 2),
-  const StaggeredTile.count(1, 1),
-  const StaggeredTile.count(3, 1),
-  const StaggeredTile.count(1, 1),
-  const StaggeredTile.count(4, 1),
-];
-List<Widget> _tiles = const <Widget>[
-  const _Example01Tile(Colors.green, Icons.widgets),
-  const _Example01Tile(Colors.lightBlue, Icons.wifi),
-  const _Example01Tile(Colors.amber, Icons.panorama_wide_angle),
-  const _Example01Tile(Colors.brown, Icons.map),
-  const _Example01Tile(Colors.deepOrange, Icons.send),
-  const _Example01Tile(Colors.indigo, Icons.airline_seat_flat),
-  const _Example01Tile(Colors.red, Icons.bluetooth),
-  const _Example01Tile(Colors.pink, Icons.battery_alert),
-  const _Example01Tile(Colors.purple, Icons.desktop_windows),
-  const _Example01Tile(Colors.blue, Icons.radio),
-];
-
-class _Example01Tile extends StatelessWidget {
-  const _Example01Tile(this.backgroundColor, this.iconData);
-
-  final Color backgroundColor;
-  final IconData iconData;
+class Overview extends StatelessWidget {
+  const Overview({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Card(
-      color: backgroundColor,
-      child: new InkWell(
-        onTap: () {},
-        child: new Center(
-          child: new Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: new Icon(
-              iconData,
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Container(
+//              color: Colors.black,
+          child: Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      card(
+                        title:
+                            'Tasks using E-Method (Primary Solution Offering)',
+                        description:
+                            'A simple Task management solution for personal and professional use, influenced by the Eisenhower method.',
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      card(
+                        title: 'Customer Pain Point (Primary)',
+                        description:
+                            'The customer tends to have too many tasks to manage. There is no system in place to help them manage their tasks efficiently, at the moment.',
+                      ),
+                      card(
+                        title: 'List of planned features (for the solution)',
+                        description:
+                            'For the initial release, we plan to include the following features: Export tasks to csv , Filter based on priority',
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      card(
+                        title: 'The customer problem is resolved..',
+                        description:
+                            'When task management and personal planning is done through a streamlined system and task completion rate per month improves by 20%',
+                      ),
+                      card(
+                        title: 'Problem-Solution fit review',
+                        description:
+                            'The Customer problem always keeps evolving. We need to check back for relevance of problem-solution fit. The date for the next review is : 2nd Jun 2020',
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SideButton extends StatefulWidget {
+  const SideButton({this.buttonName, this.dashboard, this.onpressed});
+
+  final String buttonName;
+  final Widget dashboard;
+  final Function onpressed;
+
+  @override
+  _SideButtonState createState() => _SideButtonState();
+}
+
+class _SideButtonState extends State<SideButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: RaisedButton(
+        color: const Color(0xFFE95420),
+        onPressed: widget.onpressed,
+        child: Row(
+          children: [
+            Icon(
+              Icons.dashboard,
               color: Colors.white,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text(
+              widget.buttonName,
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class card extends StatefulWidget {
+  final String title;
+
+  card({this.title, this.description});
+
+  final String description;
+
+  @override
+  _cardState createState() => _cardState();
+}
+
+class _cardState extends State<card> {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 46.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10.0,
+                offset: Offset(0.0, 10.0)),
+          ],
+        ),
+        child: RaisedButton(
+          hoverElevation: 20,
+          onPressed: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  widget.title,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  widget.description,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Customer extends StatelessWidget {
+  const Customer({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Container(
+//              color: Colors.black,
+          child: Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      card(
+                        title: 'Who are our customers?',
+                        description:
+                            'Urban dwellers who are employed and aged between 18 and 34 years . Solution is aimed at Both Enterprise and Consumer market segment(s).',
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      card(
+                        title: 'Customer Pain Point (Primary)',
+                        description:
+                            'The customer tends to have too many tasks to manage. There is no system in place to help them manage their tasks efficiently, at the moment.',
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      card(
+                        title: 'Needs of our user(s)',
+                        description:
+                            '"As a casual user, I want to add a task in the least amount of steps possible so that I can collect all tasks to be managed in a single location"',
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),

@@ -2,20 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/problemStudy.dart';
-import 'package:iventure001/Data/CardData.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-
-import '../../../Widgets/GoNextButton.dart';
-import '../../../Widgets/HeadBackButton.dart';
 
 class ProblemStudy extends StatefulWidget {
   @override
   _ProblemStudyState createState() => _ProblemStudyState();
 }
+
+List<Bread> breads = [
+  Bread(label: "Home ", route: '/'),
+  Bread(
+      label: "Blitz Innovation Framework ", route: '/BlitzInnovationFramework'),
+  Bread(label: "Problem Study ", route: '/Problemstudy'),
+];
 
 class _ProblemStudyState extends State<ProblemStudy> {
   var TitlelabelColor = Color(0XFF919191);
@@ -113,152 +119,175 @@ class _ProblemStudyState extends State<ProblemStudy> {
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                //height: MediaQuery.of(context).size.height * .40,
-                margin: EdgeInsets.only(top: 40.0),
-                width: MediaQuery.of(context).size.width * .40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  //shape: BoxShape.rectangle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 2.0,
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Breadcrumb(breads: breads, color: Color(0xFFE95420)),
+            ),
+            Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text(
-                          "Let's collect some details on the Customer's Problem",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      TextFieldWidget(
-                        labelText: 'Provide a title for your project',
-                        myTextController: TitleTextController,
-                        myFocusNode: TitleFocusNode,
-                        validText: validTitle,
-                        maxLines: 1,
-                        textCollecter: Title,
-                        helperText: '',
-                        labelcolour: TitlelabelColor,
-                      ),
-                      TextFieldWidget(
-                        labelText:
-                            'Describe the problem that the customer is facing',
-                        myTextController: ProblemTextController,
-                        myFocusNode: ProblemFocusNode,
-                        validText: validProblem,
-                        maxLines: 3,
-                        textCollecter: Problem,
-                        helperText: '',
-                        labelcolour: ProblemlabelColor,
-                      ),
-                      TextFieldWidget(
-                        labelText:
-                            'Why is the problem important to the customer?',
-                        myTextController: ImportanceTextController,
-                        myFocusNode: ImportanceFocusNode,
-                        validText: validImportance,
-                        maxLines: 3,
-                        textCollecter: Importance,
-                        helperText: '',
-                        labelcolour: ImportancelabelColor,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            headBackButtton(),
-                            SizedBox(
-                              width: 50,
+                      Container(
+                        //height: MediaQuery.of(context).size.height * .40,
+                        margin: EdgeInsets.only(top: 40.0),
+                        width: MediaQuery.of(context).size.width * .40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          //shape: BoxShape.rectangle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 2.0,
                             ),
-                            goNextButton(
-                              OnTap: (TitleTextController.text == '' ||
-                                      ProblemTextController.text == '' ||
-                                      ImportanceTextController.text == '')
-                                  ? () {
-                                      validator();
-                                    }
-                                  : () {
-                                      if (ProblemStudyArray.length != 0) {
-                                        print("Update method called");
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/StudyTheProblem/problemStudy')
-                                            .document(ProblemStudyArray[0].ID)
-                                            .updateData({
-                                          'Title': TitleTextController.text,
-                                          'Problem': ProblemTextController.text,
-                                          'Importance':
-                                              ImportanceTextController.text,
-                                          'Sender': currentUser,
-                                          'Sender': currentUser,
-                                        });
+                          ],
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              child: Text(
+                                "Let's collect some details on the Customer's Problem",
+                                style: TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            TextFieldWidget(
+                              labelText: 'Provide a title for your project',
+                              myTextController: TitleTextController,
+                              myFocusNode: TitleFocusNode,
+                              validText: validTitle,
+                              maxLines: 1,
+                              textCollecter: Title,
+                              helperText: '',
+                              labelcolour: TitlelabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText:
+                                  'Describe the problem that the customer is facing',
+                              myTextController: ProblemTextController,
+                              myFocusNode: ProblemFocusNode,
+                              validText: validProblem,
+                              maxLines: 3,
+                              textCollecter: Problem,
+                              helperText: '',
+                              labelcolour: ProblemlabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText:
+                                  'Why is the problem important to the customer?',
+                              myTextController: ImportanceTextController,
+                              myFocusNode: ImportanceFocusNode,
+                              validText: validImportance,
+                              maxLines: 3,
+                              textCollecter: Importance,
+                              helperText: '',
+                              labelcolour: ImportancelabelColor,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  headBackButtton(
+                                    routeName: '/BlitzInnovationFramework',
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                  ),
+                                  GenericStepButtonBIF(
+                                    buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                    step: 0,
+                                    stepBool: false,
+                                    widget: (TitleTextController.text == '' ||
+                                            ProblemTextController.text == '' ||
+                                            ImportanceTextController.text == '')
+                                        ? () {
+                                            validator();
+                                          }
+                                        : () {
+                                            if (ProblemStudyArray.length != 0) {
+                                              print("Update method called");
+                                              _firestore
+                                                  .collection(
+                                                      '$currentUser/StudyTheProblem/problemStudy')
+                                                  .document(
+                                                      ProblemStudyArray[0].ID)
+                                                  .updateData({
+                                                'Title':
+                                                    TitleTextController.text,
+                                                'Problem':
+                                                    ProblemTextController.text,
+                                                'Importance':
+                                                    ImportanceTextController
+                                                        .text,
+                                                'Sender': currentUser,
+                                                'Sender': currentUser,
+                                              });
 //                                      ProblemStudyArray[0].title =
 //                                          TitleTextController.text;
 //                                      ProblemStudyArray[0].problem =
 //                                          ProblemTextController.text;
 //                                      ProblemStudyArray[0].importance =
 //                                          ImportanceTextController.text;
-                                      } else {
-                                        print("add method called");
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/StudyTheProblem/problemStudy')
-                                            .add({
-                                          'Title': TitleTextController.text,
-                                          'Problem': ProblemTextController.text,
-                                          'Importance':
-                                              ImportanceTextController.text,
-                                          'Sender': currentUser,
-                                        });
+                                            } else {
+                                              print("add method called");
+                                              _firestore
+                                                  .collection(
+                                                      '$currentUser/StudyTheProblem/problemStudy')
+                                                  .add({
+                                                'Title':
+                                                    TitleTextController.text,
+                                                'Problem':
+                                                    ProblemTextController.text,
+                                                'Importance':
+                                                    ImportanceTextController
+                                                        .text,
+                                                'Sender': currentUser,
+                                              });
 //                                      final _field = problemStudy(
 //                                          title: TitleTextController.text,
 //                                          problem: ProblemTextController.text,
 //                                          importance:
 //                                              ImportanceTextController.text);
 //                                      ProblemStudyArray.add(_field);
-                                      }
-                                      bcpData[0].CompletionValidator = false;
-                                      Navigator.pushNamed(
-                                          context, '/addpainpoints');
-                                    },
-                            ),
+                                            }
+//                                            bcpData[0].CompletionValidator =
+//                                                false;
+                                            Navigator.pushNamed(
+                                                context, '/addpainpoints');
+                                          },
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
-                      )
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      DotsIndicator(
+                        decorator: DotsDecorator(
+                          activeColor: const Color(0xFFE95420),
+                        ),
+                        dotsCount: 2,
+                        position: 0,
+                      ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              DotsIndicator(
-                decorator: DotsDecorator(
-                  activeColor: const Color(0xFFE95420),
-                ),
-                dotsCount: 2,
-                position: 0,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
