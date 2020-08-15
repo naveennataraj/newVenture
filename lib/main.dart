@@ -80,7 +80,7 @@ class Vueapp extends StatelessWidget {
         '/bifdashboard': (context) => bifdashboard(),
         '/editingScreen': (context) => Editingscreen(),
         //Studying the User
-        '/Adduserpersona': (context) => AddUserPersona(),
+        '/adduserpersona': (context) => AddUserPersona(),
         '/adduserenvironmentdetails': (context) => AddUserEnvironmentDetails(),
         '/addstoriespainpoints': (context) => AddStoriesPainPoints(),
         //Ideate and Conceptuallize

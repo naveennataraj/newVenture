@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Data/CardData.dart';
@@ -22,6 +23,14 @@ DateTime selectedDate;
 
 class _ReviewCustomerRequirementsState
     extends State<ReviewCustomerRequirements> {
+  List<Bread> breads = [
+    Bread(label: "Home ", route: '/'),
+    Bread(
+        label: "Blitz Innovation Framework ",
+        route: '/BlitzInnovationFramework'),
+    Bread(label: "Add Quotes ", route: '/addquotes'),
+    Bread(label: "Schedule Review ", route: '/reviewcustomerrequirements'),
+  ];
 //  Date picker
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -121,126 +130,135 @@ class _ReviewCustomerRequirementsState
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                //height: MediaQuery.of(context).size.height * .40,
-                margin: EdgeInsets.only(top: 40.0),
-                width: MediaQuery.of(context).size.width * .40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  //shape: BoxShape.rectangle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 2.0,
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 40),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            "Schedule a Review of Problem-Solution fit",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Breadcrumb(breads: breads, color: Color(0xFFE95420)),
+              ),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      //height: MediaQuery.of(context).size.height * .40,
+                      margin: EdgeInsets.only(top: 40.0),
+                      width: MediaQuery.of(context).size.width * .40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        //shape: BoxShape.rectangle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 2.0,
                           ),
-                        ),
-                        NoteCard(
-                          Note:
-                              'Tip: Customer pain points can change over time and the solution will need to evolve accordingly to stay relevant. Additionally, It might be a good idea to have a review of the problem-solution fit after some time, to see if the current solution concept is still the best option to resolve the customer pain points. These can be done after a 3 month, 6 month or 1 year window.',
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: GestureDetector(
-                            onTap: () => _selectDate(context),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(
-                                  width: 1,
-                                  color: Color(0XFFABABAB),
+                        ],
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                            child: Text(
+                              "Schedule a Review of Problem-Solution fit",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          NoteCard(
+                            Note:
+                                'Tip: Customer pain points can change over time and the solution will need to evolve accordingly to stay relevant. Additionally, It might be a good idea to have a review of the problem-solution fit after some time, to see if the current solution concept is still the best option to resolve the customer pain points. These can be done after a 3 month, 6 month or 1 year window.',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: GestureDetector(
+                              onTap: () => _selectDate(context),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Color(0XFFABABAB),
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Icon(Icons.calendar_today),
-                                    SizedBox(width: 20),
-                                    (selectedDate != null)
-                                        ? Text(
-                                            "${selectDate.toLocal()}"
-                                                .split(' ')[0],
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20),
-                                          )
-                                        : Text(
-                                            'Pick a date',
-                                            style: TextStyle(color: dateColor),
-                                          ),
-                                  ],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Icon(Icons.calendar_today),
+                                      SizedBox(width: 20),
+                                      (selectedDate != null)
+                                          ? Text(
+                                              "${selectDate.toLocal()}"
+                                                  .split(' ')[0],
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            )
+                                          : Text(
+                                              'Pick a date',
+                                              style:
+                                                  TextStyle(color: dateColor),
+                                            ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              headBackButtton(),
-                              SizedBox(
-                                width: 50,
-                              ),
-                              CompleteStepButton(
-                                OnTap: (selectDate == null)
-                                    ? () {
-                                        validator();
-                                      }
-                                    : () {
-                                        if (addRequirementsArray.length != 0) {
-                                          update();
-                                        } else {
-                                          add();
+                          Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                headBackButtton(),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                CompleteStepButton(
+                                  OnTap: (selectDate == null)
+                                      ? () {
+                                          validator();
                                         }
-                                        selectedDate = null;
-                                        bcpData[5].CompletionValidator = true;
-                                        print(bcpData[5].CompletionValidator);
-                                        Navigator.pushNamed(context,
-                                            '/BlitzInnovationFramework');
-                                      },
-                              ),
-                            ],
+                                      : () {
+                                          if (addRequirementsArray.length !=
+                                              0) {
+                                            update();
+                                          } else {
+                                            add();
+                                          }
+                                          selectedDate = null;
+                                          bcpData[5].CompletionValidator = true;
+                                          print(bcpData[5].CompletionValidator);
+                                          Navigator.pushNamed(context,
+                                              '/BlitzInnovationFramework');
+                                        },
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    )),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              DotsIndicator(
-                decorator: DotsDecorator(
-                  activeColor: const Color(0xFFE95420),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    DotsIndicator(
+                      decorator: DotsDecorator(
+                        activeColor: const Color(0xFFE95420),
+                      ),
+                      dotsCount: 2,
+                      position: 1,
+                    ),
+                  ],
                 ),
-                dotsCount: 2,
-                position: 1,
               ),
             ],
           ),

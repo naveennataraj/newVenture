@@ -44,13 +44,16 @@ class _AddPainPointsState extends State<AddPainPoints> {
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
-        child: Column(
-          children: <Widget>[
-            Wrap(children: [
-              Breadcrumb(breads: breads, color: Color(0xFFE95420))
-            ]),
-            Center(
-              child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(children: [
+                  Breadcrumb(breads: breads, color: Color(0xFFE95420))
+                ]),
+              ),
+              Center(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -206,8 +209,8 @@ class _AddPainPointsState extends State<AddPainPoints> {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: Container(
