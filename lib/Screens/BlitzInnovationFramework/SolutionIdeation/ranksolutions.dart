@@ -146,12 +146,10 @@ class _RankSolutionsState extends State<RankSolutions> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 8),
-                                child: Row(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       'First Preference or Ideal solution',
@@ -159,33 +157,29 @@ class _RankSolutionsState extends State<RankSolutions> {
                                           color: Colors.grey.shade600,
                                           fontSize: 16),
                                     ),
-                                    Flexible(
-                                      child: SizedBox(
-                                        width: 100,
-                                      ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 20),
-                                      child: DropdownButton(
-                                        hint: Text(
-                                          'Choose',
-                                          style: TextStyle(
-                                            color: Color(0XFFE95420),
-                                          ),
+                                    DropdownButton(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        'Choose',
+                                        style: TextStyle(
+                                          color: Color(0XFFE95420),
                                         ),
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            SelectedFirstSolution = newValue;
-                                          });
-                                        },
-                                        items: FirstDropDown.map(
-                                            (String singleItem) {
-                                          return DropdownMenuItem<String>(
-                                              value: singleItem,
-                                              child: Text(singleItem));
-                                        }).toList(),
-                                        value: SelectedFirstSolution,
                                       ),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          SelectedFirstSolution = newValue;
+                                        });
+                                      },
+                                      items: FirstDropDown.map(
+                                          (String singleItem) {
+                                        return DropdownMenuItem<String>(
+                                            value: singleItem,
+                                            child: Text(singleItem));
+                                      }).toList(),
+                                      value: SelectedFirstSolution,
                                     ),
                                   ],
                                 ),
@@ -200,12 +194,10 @@ class _RankSolutionsState extends State<RankSolutions> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 8),
-                                child: Row(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       'Second Preference',
@@ -213,33 +205,29 @@ class _RankSolutionsState extends State<RankSolutions> {
                                           color: Colors.grey.shade600,
                                           fontSize: 16),
                                     ),
-                                    Flexible(
-                                      child: SizedBox(
-                                        width: 100,
-                                      ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 20),
-                                      child: DropdownButton(
-                                        hint: Text(
-                                          'Choose',
-                                          style: TextStyle(
-                                            color: Color(0XFFE95420),
-                                          ),
+                                    DropdownButton(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        'Choose',
+                                        style: TextStyle(
+                                          color: Color(0XFFE95420),
                                         ),
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            SelectedSecondSolution = newValue;
-                                          });
-                                        },
-                                        items: SecondDropDown.map(
-                                            (String singleItem) {
-                                          return DropdownMenuItem<String>(
-                                              value: singleItem,
-                                              child: Text(singleItem));
-                                        }).toList(),
-                                        value: SelectedSecondSolution,
                                       ),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          SelectedSecondSolution = newValue;
+                                        });
+                                      },
+                                      items: SecondDropDown.map(
+                                          (String singleItem) {
+                                        return DropdownMenuItem<String>(
+                                            value: singleItem,
+                                            child: Text(singleItem));
+                                      }).toList(),
+                                      value: SelectedSecondSolution,
                                     ),
                                   ],
                                 ),
@@ -254,12 +242,10 @@ class _RankSolutionsState extends State<RankSolutions> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 8),
-                                child: Row(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       'Third Preference',
@@ -267,33 +253,29 @@ class _RankSolutionsState extends State<RankSolutions> {
                                           color: Colors.grey.shade600,
                                           fontSize: 16),
                                     ),
-                                    Flexible(
-                                      child: SizedBox(
-                                        width: 100,
-                                      ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 20),
-                                      child: DropdownButton(
-                                        hint: Text(
-                                          'Choose',
-                                          style: TextStyle(
-                                            color: Color(0XFFE95420),
-                                          ),
+                                    DropdownButton(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        'Choose',
+                                        style: TextStyle(
+                                          color: Color(0XFFE95420),
                                         ),
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            SelectedThirdSolution = newValue;
-                                          });
-                                        },
-                                        items: ThirdDropDown.map(
-                                            (String singleItem) {
-                                          return DropdownMenuItem<String>(
-                                              value: singleItem,
-                                              child: Text(singleItem));
-                                        }).toList(),
-                                        value: SelectedThirdSolution,
                                       ),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          SelectedThirdSolution = newValue;
+                                        });
+                                      },
+                                      items: ThirdDropDown.map(
+                                          (String singleItem) {
+                                        return DropdownMenuItem<String>(
+                                            value: singleItem,
+                                            child: Text(singleItem));
+                                      }).toList(),
+                                      value: SelectedThirdSolution,
                                     ),
                                   ],
                                 ),

@@ -186,12 +186,12 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  left: (MediaQuery.of(context).size.width >= 1300)
+                  left: (MediaQuery.of(context).size.width >= 1400)
                       ? 50
-                      : (MediaQuery.of(context).size.width <= 600) ? 10 : 7,
-                  right: (MediaQuery.of(context).size.width >= 1300)
+                      : (MediaQuery.of(context).size.width <= 750) ? 50 : 30,
+                  right: (MediaQuery.of(context).size.width >= 1400)
                       ? 50
-                      : (MediaQuery.of(context).size.width <= 600) ? 10 : 7,
+                      : (MediaQuery.of(context).size.width <= 750) ? 50 : 30,
                 ),
                 child: GridView.builder(
                   shrinkWrap: true,
@@ -201,15 +201,15 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                       mainAxisSpacing: 1,
                       crossAxisSpacing: 1.5,
                       childAspectRatio:
-                          (MediaQuery.of(context).size.width >= 1200)
+                          (MediaQuery.of(context).size.width >= 1400)
                               ? 2.3
-                              : (MediaQuery.of(context).size.width <= 700)
+                              : (MediaQuery.of(context).size.width <= 800)
                                   ? 1.6
                                   : 1.8,
                       crossAxisCount: (MediaQuery.of(context).size.width >=
-                              1050)
+                              1400)
                           ? 3
-                          : (MediaQuery.of(context).size.width <= 600) ? 1 : 2),
+                          : (MediaQuery.of(context).size.width <= 800) ? 1 : 2),
                   itemBuilder: (BuildContext context, int index) {
                     return ModalProgressHUD(
                       inAsyncCall: spinner,
