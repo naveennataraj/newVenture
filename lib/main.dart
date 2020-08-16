@@ -36,7 +36,7 @@ import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionValidation/
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/addstoriespainpoints.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/adduserenvironmentdetails.dart';
-import 'package:iventure001/Screens/ConceptDashboard.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
 import 'package:iventure001/Widgets/Stepper.dart';
 import 'package:iventure001/bifdashboard.dart';
