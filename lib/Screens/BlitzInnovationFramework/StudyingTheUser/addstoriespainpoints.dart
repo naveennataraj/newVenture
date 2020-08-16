@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/UserStoryDialogue.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 
@@ -168,14 +167,29 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/adduserenvironmentdetails',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                CompleteStepButton(
-                                  OnTap: () {
-                                    bcpData[1].CompletionValidator = true;
-                                    print(bcpData[1].CompletionValidator);
+//                                CompleteStepButton(
+//                                  OnTap: () {
+//                                    bcpData[1].CompletionValidator = true;
+//                                    print(bcpData[1].CompletionValidator);
+//                                    Navigator.pushNamed(
+//                                        context, '/BlitzInnovationFramework');
+//                                  },
+//
+//                                ),
+                                GenericStepButtonBIF(
+                                  buttonName: 'COMPLETE STEP',
+//                                    routeName: '/addpainpoints',
+                                  step: 1,
+                                  stepBool: true,
+                                  widget: () {
+//                                    bcpData[1].CompletionValidator = true;
+//                                    print(bcpData[1].CompletionValidator);
                                     Navigator.pushNamed(
                                         context, '/BlitzInnovationFramework');
                                   },

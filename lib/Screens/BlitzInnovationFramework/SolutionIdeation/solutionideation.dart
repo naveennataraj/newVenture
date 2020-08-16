@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideationDialogue.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
-import 'package:iventure001/Widgets/RankSolutionsButton.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitleForDropdown.dart';
 
 class SolutionIdeation extends StatefulWidget {
@@ -157,7 +156,7 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Click on '+' to add the solutions",
+                                            "There are no solutions at the moment. Would you like to add some? Use the '+’ button to get started.",
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           )
@@ -171,14 +170,26 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/BlitzInnovationFramework',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                RankSolutionsButton(
-                                  OnTap: () {
-                                    bcpData[2].CompletionValidator = false;
-                                    print(bcpData[2].CompletionValidator);
+//                                RankSolutionsButton(
+//                                  OnTap: () {
+//                                    bcpData[2].CompletionValidator = false;
+//                                    print(bcpData[2].CompletionValidator);
+//                                    Navigator.pushNamed(
+//                                        context, '/ranksolutions');
+//                                  },
+//                                ),
+                                GenericStepButtonBIF(
+                                  buttonName: 'RANK SOLUTIONS',
+//                                    routeName: '/addpainpoints',
+                                  step: 2,
+                                  stepBool: false,
+                                  widget: () {
                                     Navigator.pushNamed(
                                         context, '/ranksolutions');
                                   },

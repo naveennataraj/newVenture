@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addContact.dart';
-import 'package:iventure001/Widgets/AddProductGoalButton.dart';
+import 'package:iventure001/Widgets/AddContactButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -175,7 +175,7 @@ class _addEvangelistsAndEarlyAdoptersDialogueState
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AddProductGoalButton(
+                          AddContactButton(
                             onTap: () {
                               setState(() {
 //                                final NewContacts = addContact(

@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
-import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -161,7 +160,7 @@ class _ReviewCustomerRequirementsState
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 10.0),
                             child: Text(
-                              "Schedule a Review of Problem-Solution fit",
+                              "Schedule a Review of the Problem-Solution fit",
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
@@ -218,12 +217,37 @@ class _ReviewCustomerRequirementsState
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/addquotes',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                CompleteStepButton(
-                                  OnTap: (selectDate == null)
+//                                CompleteStepButton(
+//                                  OnTap: (selectDate == null)
+//                                      ? () {
+//                                          validator();
+//                                        }
+//                                      : () {
+//                                          if (addRequirementsArray.length !=
+//                                              0) {
+//                                            update();
+//                                          } else {
+//                                            add();
+//                                          }
+//                                          selectedDate = null;
+//                                          bcpData[5].CompletionValidator = true;
+//                                          print(bcpData[5].CompletionValidator);
+//                                          Navigator.pushNamed(context,
+//                                              '/BlitzInnovationFramework');
+//                                        },
+//                                ),
+                                GenericStepButtonBIF(
+                                  buttonName: 'COMPLETE STEP',
+//                                    routeName: '/addpainpoints',
+                                  step: 5,
+                                  stepBool: true,
+                                  widget: (selectDate == null)
                                       ? () {
                                           validator();
                                         }
@@ -235,8 +259,8 @@ class _ReviewCustomerRequirementsState
                                             add();
                                           }
                                           selectedDate = null;
-                                          bcpData[5].CompletionValidator = true;
-                                          print(bcpData[5].CompletionValidator);
+//                                    bcpData[5].CompletionValidator = true;
+//                                    print(bcpData[5].CompletionValidator);
                                           Navigator.pushNamed(context,
                                               '/BlitzInnovationFramework');
                                         },

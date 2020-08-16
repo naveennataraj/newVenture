@@ -71,7 +71,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                       ),
                     ),
                     TextFieldWidget(
-                      labelText: "Wnter a name Briefly describing the metric",
+                      labelText: "Enter a name Briefly describing the metric",
                       maxLines: 2,
                       validText: validSMetricsName,
                       myFocusNode: MetricsNameFocusNode,
@@ -93,7 +93,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                           mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Text(
-                              'What Type of environment do the users live in?',
+                              'What category does the metric fall under?',
                               style: TextStyle(
                                   color: Colors.grey.shade600, fontSize: 16),
                             ),

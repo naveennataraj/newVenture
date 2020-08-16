@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/addParallelInnovationsDialogue.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
@@ -152,7 +151,7 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Click on '+' to add the solution concept",
+                                            "Click on ‘+’ to add the solution concept' please add ‘There are no solution concepts listed at the moment. Would you like to add some? Use the '+’ button to get started.",
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           )
@@ -166,14 +165,28 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/handlingscale',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                CompleteStepButton(
-                                  OnTap: () {
-                                    bcpData[6].CompletionValidator = true;
-                                    print(bcpData[6].CompletionValidator);
+//                                CompleteStepButton(
+//                                  OnTap: () {
+//                                    bcpData[6].CompletionValidator = true;
+//                                    print(bcpData[6].CompletionValidator);
+//                                    Navigator.pushNamed(
+//                                        context, '/BlitzInnovationFramework');
+//                                  },
+//                                ),
+                                GenericStepButtonBIF(
+                                  buttonName: 'COMPLETE STEP',
+//                                    routeName: '/addpainpoints',
+                                  step: 6,
+                                  stepBool: true,
+                                  widget: () {
+//                                    bcpData[6].CompletionValidator = true;
+//                                    print(bcpData[6].CompletionValidator);
                                     Navigator.pushNamed(
                                         context, '/BlitzInnovationFramework');
                                   },

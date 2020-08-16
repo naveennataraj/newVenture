@@ -6,9 +6,8 @@ import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserEnvironment.dart';
-import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -417,35 +416,44 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  headBackButtton(),
+                                  headBackButtton(
+                                    routeName: '/adduserpersona',
+                                  ),
                                   SizedBox(
                                     width: 50,
                                   ),
-                                  goNextButton(
-                                    OnTap: (UserIssuesTextController.text ==
-                                                '' ||
-                                            UserDetailsTextController.text ==
-                                                '' ||
-                                            SelectedUserEnvironment == null ||
-                                            SelectedProblemDomain == null)
-                                        ? () {
-                                            validator();
-                                          }
-                                        : () {
-                                            if (UserEnvironmentArray.length !=
-                                                0) {
-                                              update();
-                                            } else {
-                                              add();
-                                            }
+                                  GenericStepButtonBIF(
+                                    buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                    step: 1,
+                                    stepBool: false,
+                                    widget:
+                                        (UserIssuesTextController.text == '' ||
+                                                UserDetailsTextController
+                                                        .text ==
+                                                    '' ||
+                                                SelectedUserEnvironment ==
+                                                    null ||
+                                                SelectedProblemDomain == null)
+                                            ? () {
+                                                validator();
+                                              }
+                                            : () {
+                                                if (UserEnvironmentArray
+                                                        .length !=
+                                                    0) {
+                                                  update();
+                                                } else {
+                                                  add();
+                                                }
 
-                                            bcpData[1].CompletionValidator =
-                                                false;
-                                            print(
-                                                bcpData[1].CompletionValidator);
-                                            Navigator.pushNamed(context,
-                                                '/addstoriespainpoints');
-                                          },
+//                                                bcpData[1].CompletionValidator =
+//                                                    false;
+//                                                print(bcpData[1]
+//                                                    .CompletionValidator);
+                                                Navigator.pushNamed(context,
+                                                    '/addstoriespainpoints');
+                                              },
                                   ),
                                 ],
                               ),

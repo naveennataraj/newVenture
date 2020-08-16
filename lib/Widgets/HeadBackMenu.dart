@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
 
 class headBackButtton extends StatefulWidget {
   final String routeName;
@@ -20,8 +19,9 @@ class _headBackButttonState extends State<headBackButtton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
-        Navigator.popAndPushNamed(context, routeName);
+        Navigator.popAndPushNamed(context, routeName).then(
+          (value) => setState(() {}),
+        );
 
 //        Navigator.push(context, new MaterialPageRoute(builder: (context) => BCScreen()),)
 //            .then((value) => setState(() {}),);

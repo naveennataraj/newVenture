@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addWirframeLink.dart';
-import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
@@ -177,8 +176,12 @@ class _AddWireframeLinkState extends State<AddWireframeLink> {
                                 SizedBox(
                                   width: 50,
                                 ),
-                                CompleteStepButton(
-                                  OnTap: (WireFrameLinkTextController.text ==
+                                GenericStepButtonBIF(
+                                  buttonName: 'COMPLETE STEP',
+//                                    routeName: '/addpainpoints',
+                                  step: 3,
+                                  stepBool: true,
+                                  widget: (WireFrameLinkTextController.text ==
                                           '')
                                       ? () {
                                           validator();
@@ -190,12 +193,12 @@ class _AddWireframeLinkState extends State<AddWireframeLink> {
                                           } else {
                                             add();
                                           }
-                                          bcpData[3].CompletionValidator = true;
-                                          print(bcpData[3].CompletionValidator);
+//                                          bcpData[3].CompletionValidator = true;
+//                                          print(bcpData[3].CompletionValidator);
                                           Navigator.pushNamed(context,
                                               '/BlitzInnovationFramework');
                                         },
-                                )
+                                ),
                               ],
                             ),
                           ),

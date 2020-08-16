@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addProductFeaturesDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 
@@ -23,7 +22,7 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
     Bread(
         label: "Blitz Innovation Framework ",
         route: '/BlitzInnovationFramework'),
-    Bread(label: "Add Product Goals ", route: '/addproductgoals'),
+    Bread(label: "Add Product Goals ", route: '/addproductfeatures'),
     Bread(label: "Add Product Feature ", route: '/addproductfeatures'),
   ];
 
@@ -151,7 +150,7 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Click on '+' to add the Product Features",
+                                            "There are no Product Features at the moment. Would you like to add some? Use the '+’ button to get started.",
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           )
@@ -165,15 +164,27 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/addproductfeatures',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                goNextButton(
-//                          routeName: '/currentmarketplayers',
-                                  OnTap: () {
-                                    bcpData[3].CompletionValidator = false;
-                                    print(bcpData[3].CompletionValidator);
+//                                goNextButton(
+////                          routeName: '/currentmarketplayers',
+//                                  OnTap: () {
+//                                    bcpData[3].CompletionValidator = false;
+//                                    print(bcpData[3].CompletionValidator);
+//                                    Navigator.pushNamed(
+//                                        context, '/currentmarketplayers');
+//                                  },
+//                                ),
+                                GenericStepButtonBIF(
+                                  buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                  step: 3,
+                                  stepBool: false,
+                                  widget: () {
                                     Navigator.pushNamed(
                                         context, '/currentmarketplayers');
                                   },

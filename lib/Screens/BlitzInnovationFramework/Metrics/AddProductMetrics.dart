@@ -9,8 +9,8 @@ import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -275,12 +275,18 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  headBackButtton(),
+                                  headBackButtton(
+                                    routeName: '/BlitzInnovationFramework',
+                                  ),
                                   SizedBox(
                                     width: 50,
                                   ),
-                                  goNextButton(
-                                    OnTap: (CustomerProblemTextController.text ==
+                                  GenericStepButtonBIF(
+                                    buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                    step: 7,
+                                    stepBool: false,
+                                    widget: (CustomerProblemTextController.text ==
                                                 '' ||
                                             SolutionTextController.text == '' ||
                                             EvangelismTextController.text ==

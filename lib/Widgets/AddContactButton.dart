@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class AddMetricButton extends StatelessWidget {
-  AddMetricButton({@required this.onTap});
+class AddContactButton extends StatelessWidget {
+  AddContactButton({@required this.onTap});
 
   final Function onTap;
   @override
@@ -9,7 +9,7 @@ class AddMetricButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Text(
-        'ADD METRICS',
+        'ADD CONTACT',
         style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
       ),
     );

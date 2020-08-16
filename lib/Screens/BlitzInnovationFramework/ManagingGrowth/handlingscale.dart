@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/handlingScale.dart';
-import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
@@ -29,7 +28,7 @@ class _handlingScaleState extends State<handlingScale> {
     Bread(label: "Handling Scale ", route: '/handlingscale'),
   ];
 
-  var HandlingScalelabelColor = Color(0XFF919191);
+  Color HandlingScalelabelColor = Color(0XFF919191);
   bool validHandlingScale = true;
   var HandlingScaleTextController = TextEditingController();
   final HandlingScaleFocus = new FocusNode();
@@ -167,12 +166,37 @@ class _handlingScaleState extends State<handlingScale> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/BlitzInnovationFramework',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                goNextButton(
-                                  OnTap: (HandlingScaleTextController.text ==
+//                                goNextButton(
+//                                  OnTap: (HandlingScaleTextController.text ==
+//                                          '')
+//                                      ? () {
+//                                          validator();
+//                                        }
+//                                      : () {
+//                                          if (HandlingScaleArray.length != 0) {
+//                                            update();
+//                                          } else {
+//                                            add();
+//                                          }
+//                                          bcpData[6].CompletionValidator =
+//                                              false;
+//                                          print(bcpData[6].CompletionValidator);
+//                                          Navigator.pushNamed(context,
+//                                              '/addparallelinnovations');
+//                                        },
+//                                ),
+                                GenericStepButtonBIF(
+                                  buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                  step: 6,
+                                  stepBool: false,
+                                  widget: (HandlingScaleTextController.text ==
                                           '')
                                       ? () {
                                           validator();
@@ -183,9 +207,9 @@ class _handlingScaleState extends State<handlingScale> {
                                           } else {
                                             add();
                                           }
-                                          bcpData[6].CompletionValidator =
-                                              false;
-                                          print(bcpData[6].CompletionValidator);
+//                                    bcpData[6].CompletionValidator =
+//                                    false;
+//                                    print(bcpData[6].CompletionValidator);
                                           Navigator.pushNamed(context,
                                               '/addparallelinnovations');
                                         },

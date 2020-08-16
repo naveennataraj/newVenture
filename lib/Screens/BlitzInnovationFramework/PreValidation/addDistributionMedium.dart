@@ -7,8 +7,8 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addDistributionMedium.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -164,12 +164,35 @@ class _AddDistributionMediumState extends State<AddDistributionMedium> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/addevangelistsandearlyadopters',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                CompleteStepButton(
-                                  OnTap: (MediumTextController.text == '')
+//                                CompleteStepButton(
+//                                  OnTap: (MediumTextController.text == '')
+//                                      ? () {
+//                                          validator();
+//                                        }
+//                                      : () {
+//                                          if (addMediumArray.length != 0) {
+//                                            update();
+//                                          } else {
+//                                            add();
+//                                          }
+//                                          bcpData[4].CompletionValidator = true;
+//                                          print(bcpData[4].CompletionValidator);
+//                                          Navigator.pushNamed(context,
+//                                              '/BlitzInnovationFramework');
+//                                        },
+//                                ),
+                                GenericStepButtonBIF(
+                                  buttonName: 'COMPLETE STEP',
+//                                    routeName: '/addpainpoints',
+                                  step: 4,
+                                  stepBool: true,
+                                  widget: (MediumTextController.text == '')
                                       ? () {
                                           validator();
                                         }

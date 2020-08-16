@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserPersona.dart';
-import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -163,12 +162,18 @@ class _AddUserPersonaState extends State<AddUserPersona> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/BlitzInnovationFramework',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                goNextButton(
-                                  OnTap: (UserPersonaTextController.text == '')
+                                GenericStepButtonBIF(
+                                  buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                  step: 1,
+                                  stepBool: false,
+                                  widget: (UserPersonaTextController.text == '')
                                       ? () {
                                           validator();
                                         }
@@ -178,8 +183,8 @@ class _AddUserPersonaState extends State<AddUserPersona> {
                                           } else {
                                             add();
                                           }
-                                          bcpData[1].CompletionValidator =
-                                              false;
+//                                          bcpData[1].CompletionValidator =
+//                                              false;
 
                                           Navigator.pushNamed(context,
                                               '/adduserenvironmentdetails');

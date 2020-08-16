@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductGoal.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addProductGoalsDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 
@@ -135,7 +134,7 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              "Click on '+' to add the Product Goals",
+                                              "There are no Product Goals at the moment. Would you like to add some? Use the '+’ button to get started.",
                                               style:
                                                   TextStyle(color: Colors.grey),
                                             )
@@ -149,14 +148,26 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  headBackButtton(),
+                                  headBackButtton(
+                                    routeName: '/BlitzInnovationFramework',
+                                  ),
                                   SizedBox(
                                     width: 50,
                                   ),
-                                  goNextButton(
-                                    OnTap: () {
-                                      bcpData[3].CompletionValidator = false;
-                                      print(bcpData[3].CompletionValidator);
+//                                  goNextButton(
+//                                    OnTap: () {
+//                                      bcpData[3].CompletionValidator = false;
+//                                      print(bcpData[3].CompletionValidator);
+//                                      Navigator.pushNamed(
+//                                          context, '/addproductfeatures');
+//                                    },
+//                                  ),
+                                  GenericStepButtonBIF(
+                                    buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                    step: 3,
+                                    stepBool: false,
+                                    widget: () {
                                       Navigator.pushNamed(
                                           context, '/addproductfeatures');
                                     },

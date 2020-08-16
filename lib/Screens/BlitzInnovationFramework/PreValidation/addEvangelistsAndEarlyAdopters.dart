@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addContact.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
@@ -152,7 +151,7 @@ class _AddEvangelistsAndEarlyAdoptersState
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Click on '+' to add the Quote",
+                                            "There are no contacts listed at the moment. Would you like to add some? Use the '+’ button to get started.",
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           )
@@ -166,14 +165,18 @@ class _AddEvangelistsAndEarlyAdoptersState
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/BlitzInnovationFramework',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                goNextButton(
-                                  OnTap: () {
-                                    bcpData[4].CompletionValidator = false;
-                                    print(bcpData[4].CompletionValidator);
+                                GenericStepButtonBIF(
+                                  buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                  step: 4,
+                                  stepBool: false,
+                                  widget: () {
                                     Navigator.pushNamed(
                                         context, '/adddistributionmedium');
                                   },

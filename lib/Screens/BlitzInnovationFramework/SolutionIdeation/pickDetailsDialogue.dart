@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
-import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
-import 'package:iventure001/Widgets/CompleteStepButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -289,8 +288,33 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                             SizedBox(
                               width: 50,
                             ),
-                            CompleteStepButton(
-                              OnTap: (TopPickTextController.text == '' ||
+//                            CompleteStepButton(
+//                              OnTap: (TopPickTextController.text == '' ||
+//                                      PVPTextController.text == '' ||
+//                                      EventTextController.text == '' ||
+//                                      TraitsTextController.text == '' ||
+//                                      MonetizeTextController.text == '')
+//                                  ? () {
+//                                      validator();
+//                                    }
+//                                  : () {
+//                                      if (PickDetailsArray.length != 0) {
+//                                        update();
+//                                      } else {
+//                                        add();
+//                                      }
+//                                      bcpData[2].CompletionValidator = true;
+//
+//                                      Navigator.pushNamed(
+//                                          context, '/BlitzInnovationFramework');
+//                                    },
+//                            ),
+                            GenericStepButtonBIF(
+                              buttonName: 'COMPLETE STEP',
+//                                    routeName: '/addpainpoints',
+                              step: 2,
+                              stepBool: true,
+                              widget: (TopPickTextController.text == '' ||
                                       PVPTextController.text == '' ||
                                       EventTextController.text == '' ||
                                       TraitsTextController.text == '' ||
@@ -304,7 +328,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                                       } else {
                                         add();
                                       }
-                                      bcpData[2].CompletionValidator = true;
+//                                bcpData[2].CompletionValidator = true;
 
                                       Navigator.pushNamed(
                                           context, '/BlitzInnovationFramework');

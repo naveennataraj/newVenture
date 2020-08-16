@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
-import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Widgets/GoNextButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
@@ -69,7 +68,7 @@ class _AddQuotesState extends State<AddQuotes> {
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 10.0),
                             child: Text(
-                              "Add the contact list, with whom the product wireframe will need to be shared (for validation)",
+                              "Let's add some customer quotes (after they have reviewed the product concept)",
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
@@ -138,7 +137,7 @@ class _AddQuotesState extends State<AddQuotes> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Click on '+' to add the solutions",
+                                            "There are no Quotes listed at the moment. Would you like to add some? Use the '+’ button to get started.",
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           )
@@ -152,14 +151,18 @@ class _AddQuotesState extends State<AddQuotes> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                headBackButtton(),
+                                headBackButtton(
+                                  routeName: '/BlitzInnovationFramework',
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
-                                goNextButton(
-                                  OnTap: () {
-                                    bcpData[5].CompletionValidator = false;
-                                    print(bcpData[5].CompletionValidator);
+                                GenericStepButtonBIF(
+                                  buttonName: 'GO NEXT',
+//                                    routeName: '/addpainpoints',
+                                  step: 5,
+                                  stepBool: false,
+                                  widget: () {
                                     Navigator.pushNamed(
                                         context, '/reviewcustomerrequirements');
                                   },

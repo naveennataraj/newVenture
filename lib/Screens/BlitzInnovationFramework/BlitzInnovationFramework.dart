@@ -5,6 +5,7 @@ import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 String ID;
 
@@ -14,6 +15,7 @@ class BlitzInnovationFramework extends StatefulWidget {
       _BlitzInnovationFrameworkState();
 }
 
+bool spinner = false;
 List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
   Bread(
@@ -34,6 +36,9 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   bool firebaseStep6;
   bool firebaseStep7;
   void getDocuments() async {
+    setState(() {
+      spinner = true;
+    });
     final document = await _firestore.get();
 
     if (document.exists) {
@@ -55,7 +60,9 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
         bcpData[5].CompletionValidator = firebaseStep5;
         bcpData[6].CompletionValidator = firebaseStep6;
         bcpData[7].CompletionValidator = firebaseStep7;
-
+        setState(() {
+          spinner = false;
+        });
         ID = document.documentID;
 
         setState(() {
@@ -63,6 +70,9 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
         });
       } catch (e) {
         print(e);
+        setState(() {
+          spinner = false;
+        });
       }
     }
   }
@@ -201,14 +211,17 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                           ? 3
                           : (MediaQuery.of(context).size.width <= 600) ? 1 : 2),
                   itemBuilder: (BuildContext context, int index) {
-                    return FrameworkCards(
-                        stepCompleteValidator:
-                            bcpData[index].CompletionValidator,
-                        frameworkicon: bcpData[index].frameworkicon,
-                        frameworkStep: bcpData[index].frameworkStep,
-                        frameworkdescrip: bcpData[index].frameworkdescrip,
-                        buttonText: bcpData[index].buttonText,
-                        navigateTo: bcpData[index].navigateTo);
+                    return ModalProgressHUD(
+                      inAsyncCall: spinner,
+                      child: FrameworkCards(
+                          stepCompleteValidator:
+                              bcpData[index].CompletionValidator,
+                          frameworkicon: bcpData[index].frameworkicon,
+                          frameworkStep: bcpData[index].frameworkStep,
+                          frameworkdescrip: bcpData[index].frameworkdescrip,
+                          buttonText: bcpData[index].buttonText,
+                          navigateTo: bcpData[index].navigateTo),
+                    );
                   },
                 ),
               ),

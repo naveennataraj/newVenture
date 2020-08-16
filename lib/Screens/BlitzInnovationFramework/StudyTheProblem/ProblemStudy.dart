@@ -232,7 +232,6 @@ class _ProblemStudyState extends State<ProblemStudy> {
                                                     ImportanceTextController
                                                         .text,
                                                 'Sender': currentUser,
-                                                'Sender': currentUser,
                                               });
 //                                      ProblemStudyArray[0].title =
 //                                          TitleTextController.text;
