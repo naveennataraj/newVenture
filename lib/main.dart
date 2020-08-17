@@ -64,7 +64,7 @@ class Vueapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/conceptDashboard',
 //      home: Homepage(),
       routes: {
         // Menu with 3 options

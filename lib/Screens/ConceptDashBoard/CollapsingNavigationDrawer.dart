@@ -15,7 +15,7 @@ class _CollapsinNavigationDrawerState extends State<CollapsinNavigationDrawer>
     with SingleTickerProviderStateMixin {
   double maxWidth = 200;
   double minWidth = 90;
-  bool isCollapsed = false;
+  bool isCollapsed = true;
   AnimationController _animationController;
   Animation<double> widthAnimation;
 
