@@ -25,7 +25,9 @@ class _DashboardCardsState extends State<DashboardCards> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(60.0),
+      padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+          ? 50
+          : (MediaQuery.of(context).size.width <= 750) ? 20 : 30.0),
       child: Container(
         width: 300,
         color: Colors.white,

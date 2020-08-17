@@ -80,10 +80,13 @@ class ReusableButton extends StatelessWidget {
       onPressed: () {
         Navigator.pushNamed(context, buttonPushView);
       },
-      child: Text(
-        buttonTitle,
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        textAlign: TextAlign.center,
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Text(
+          buttonTitle,
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }

@@ -188,10 +188,10 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                 padding: EdgeInsets.only(
                   left: (MediaQuery.of(context).size.width >= 1400)
                       ? 50
-                      : (MediaQuery.of(context).size.width <= 750) ? 50 : 30,
+                      : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
                   right: (MediaQuery.of(context).size.width >= 1400)
                       ? 50
-                      : (MediaQuery.of(context).size.width <= 750) ? 50 : 30,
+                      : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
                 ),
                 child: GridView.builder(
                   shrinkWrap: true,
