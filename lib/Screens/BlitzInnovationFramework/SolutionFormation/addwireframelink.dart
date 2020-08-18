@@ -11,6 +11,7 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AddWireframeLink extends StatefulWidget {
   @override
@@ -153,7 +154,10 @@ class _AddWireframeLinkState extends State<AddWireframeLink> {
                                 "Tip: For the prefered solution concept, a wireframe can be developed using a service such as AdobeXD or Marvel App. The purpose of this is to have the End user(s) interact with it, with the goal of eventually collecting feedback from them.",
                           ),
                           FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              launch(
+                                  ' https://www.smashingmagazine.com/2018/03/guide-wireframing-prototyping/');
+                            },
                             child: Text('Learn More About Wireframes'),
                           ),
                           TextFieldWidget(

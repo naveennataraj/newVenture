@@ -57,30 +57,25 @@ class _DashboardCardsState extends State<DashboardCards> {
                     ],
                   ),
                 ),
-                Flexible(
-                  child: SizedBox(
-                    height: 30,
-                  ),
+                SizedBox(
+                  height: 30,
                 ),
                 Text(
                   widget.cardNote,
                   style: cardBodyTextStyle,
                   //TextStyle(fontSize: 18),
                 ),
-                Flexible(
-                  child: SizedBox(
-                    height: 30,
-                  ),
+                SizedBox(
+                  height: 30,
                 ),
                 (widget.cardButtonName != null)
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Spacer(),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(right: 20.0, bottom: 20),
-                            child: GestureDetector(
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 20.0, bottom: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Spacer(),
+                            GestureDetector(
                               onTap: widget.onTap,
                               child: Text(
                                 widget.cardButtonName,
@@ -90,8 +85,8 @@ class _DashboardCardsState extends State<DashboardCards> {
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )
                     : Container()
               ],

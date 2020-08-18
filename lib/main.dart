@@ -21,7 +21,6 @@ import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTh
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
-import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboard.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/addParallelInnovations.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/handlingscale.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/Metrics/AddProductMetrics.dart';
@@ -37,6 +36,7 @@ import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionValidation/
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/addstoriespainpoints.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/adduserenvironmentdetails.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
 import 'package:iventure001/bifdashboard.dart';
@@ -64,7 +64,7 @@ class Vueapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/conceptDashboard',
+      initialRoute: '/',
 //      home: Homepage(),
       routes: {
         // Menu with 3 options
