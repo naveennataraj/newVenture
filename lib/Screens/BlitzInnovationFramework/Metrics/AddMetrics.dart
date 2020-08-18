@@ -12,6 +12,7 @@ import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
+import 'package:iventure001/Widgets/CongratsBifDialog.dart';
 
 class AddMetrics extends StatefulWidget {
   @override
@@ -171,15 +172,20 @@ class _AddMetricsState extends State<AddMetrics> {
                                   width: 50,
                                 ),
                                 GenericStepButtonBIF(
-                                  buttonName: 'COMPLETE STEP',
+                                  buttonName: 'FINALIZE DESIGN',
 //                                    routeName: '/addpainpoints',
                                   step: 7,
                                   stepBool: true,
                                   widget: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) => CongratsBIFDialog(
+                                      ),
+                                    ).then((_) => setState(() {}));
 //                                    bcpData[7].CompletionValidator = true;
 //                                    print(bcpData[7].CompletionValidator);
-                                    Navigator.pushNamed(
-                                        context, '/BlitzInnovationFramework');
+//                                    Navigator.pushNamed(
+//                                        context, '/BlitzInnovationFramework');
                                   },
                                 ),
                               ],

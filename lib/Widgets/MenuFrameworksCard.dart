@@ -57,7 +57,7 @@ class MenuFrameworkCard extends StatelessWidget {
               ReusableButton(
                   buttonTitle:
                       'I just starting out. Let\'s create a startup from scratch :)',
-                  buttonPushView: '/stepper'),
+                  buttonPushView: '/BlitzInnovationFramework'),
             ],
           ),
         ),

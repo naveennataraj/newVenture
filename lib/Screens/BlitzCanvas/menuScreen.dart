@@ -5,15 +5,17 @@ import 'package:iventure001/Widgets/BCanvasIntroCard.dart';
 import 'package:iventure001/Widgets/BCStepCard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
-import 'package:iventure001/Widgets/Stepper.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 // BreadCrumb
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 String ID;
 
 class BCScreen extends StatefulWidget {
+  final bool bifModel;
+  BCScreen({this.bifModel});
+
   @override
-  _BCScreenState createState() => _BCScreenState();
+  _BCScreenState createState() => _BCScreenState(bifModel);
 }
 
 List<Bread> breads = [
@@ -23,7 +25,10 @@ List<Bread> breads = [
 
 
 class _BCScreenState extends State<BCScreen> {
+  bool bifModel;
+  _BCScreenState(this.bifModel);
 
+  List<int> bifStepList = [0, 2, 3, 6, 7, 9];
   final _firestore = Firestore.instance
       .collection(currentUser)
       .document('stepValidation');
@@ -44,6 +49,7 @@ class _BCScreenState extends State<BCScreen> {
   void initState() {
     super.initState();
     getDocuments();
+
   }
 
   void getDocuments() async {
@@ -124,7 +130,42 @@ class _BCScreenState extends State<BCScreen> {
                       ? 50
                       : (MediaQuery.of(context).size.width <= 600) ? 10 : 7,
                 ),
-                child: GridView.builder(
+                child: (bifModel == true ) ?
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: bifStepList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: 1,
+                      crossAxisSpacing: 1.5,
+                      //childAspectRatio: 2.5,
+                      //crossAxisCount: 3
+                      childAspectRatio:
+                      (MediaQuery.of(context).size.width >= 1200)
+                          ? 2.3
+                          : (MediaQuery.of(context).size.width <= 700)
+                          ? 1.6
+                          : 1.8,
+                      crossAxisCount: (MediaQuery.of(context).size.width >=
+                          1050)
+                          ? 3
+                          : (MediaQuery.of(context).size.width <= 600) ? 1 : 2
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    final item= bifStepList[index];
+                    return FrameworkCards (
+                        stepCompleteValidator:
+                        bcStepsContent[item].bcCompletionValidator,
+                        //completeStep1: completeStep1,
+                        frameworkicon: bcStepsContent[item].frameWorkIcon,
+                        frameworkStep:  'Step '+ (index+1).toString() + bcStepsContent[item].frameworkStep,
+                        frameworkdescrip: bcStepsContent[item].frameWorkDescription,
+                        buttonText: bcStepsContent[item].buttonText + (index+1).toString(),
+                        navigateTo: bcStepsContent[item].navigateTo);
+                  },
+                )
+                :
+                GridView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: bcStepsContent.length,
@@ -146,17 +187,20 @@ class _BCScreenState extends State<BCScreen> {
                   ),
                   itemBuilder: (BuildContext context, int index) {
 
+
                     return FrameworkCards(
                         stepCompleteValidator:
                         bcStepsContent[index].bcCompletionValidator,
                         //completeStep1: completeStep1,
                         frameworkicon: bcStepsContent[index].frameWorkIcon,
-                        frameworkStep: bcStepsContent[index].frameworkStep,
+                        frameworkStep:  'Step '+ (index+1).toString() + bcStepsContent[index].frameworkStep,
                         frameworkdescrip: bcStepsContent[index].frameWorkDescription,
-                        buttonText: bcStepsContent[index].buttonText,
+                        buttonText: bcStepsContent[index].buttonText + (index+1).toString(),
                         navigateTo: bcStepsContent[index].navigateTo);
                   },
                 ),
+
+
               ),
               SizedBox(height:20.0),
 //            Row(

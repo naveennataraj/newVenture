@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BcFrameworkContent {
+ bool bifModel;
   final IconData frameWorkIcon;
   final String frameworkStep;
   final String frameWorkDescription;
@@ -19,88 +20,89 @@ class BcFrameworkContent {
         this.navigateTo,
         this.bcCompletionValidator,
         this.ID,
+        //this.bifModel,
       this.index});
 }
 
 List<BcFrameworkContent> bcStepsContent = [
   BcFrameworkContent(
-    frameworkStep: 'Step 1 - Build the Foundation',
+    frameworkStep: ' - Build the Foundation',
     frameWorkIcon: Icons.build,
     frameWorkDescription:
     'Defining the organization\'s mission, vision and other foudational elements.',
     buttonText: "LET'S GET STARTED",
-    navigateTo: '/BCStep1CollectAspects',
+    navigateTo:  '/BCStep1CollectAspects'
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 2 - Studying the user',
+    frameworkStep: ' - Studying the user',
     frameWorkIcon: Icons.person,
     frameWorkDescription:
     'Studying the user, who they are and understanding their pain points.',
-    buttonText: 'Begin Step 2',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep2UserProfile',
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 3 - Defining the solution',
+    frameworkStep: ' - Defining the solution',
     frameWorkIcon: Icons.mouse,
     frameWorkDescription:
     'Defining product goals, the features of the product and Creating a solution outline.',
-    buttonText: 'Begin Step 3',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep3Goals',
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 4 - Unique selling proposition',
+    frameworkStep: ' - Unique selling proposition',
     frameWorkIcon: Icons.important_devices,
     frameWorkDescription:
     'Highlighting what makes the solution unique and the customer touchpoints in focus.',
-    buttonText: 'Begin Step 4',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep4SellingProposition',
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 5 - The User\'s feedback',
+    frameworkStep: ' - The User\'s feedback',
     frameWorkIcon: Icons.feedback,
     frameWorkDescription:
     "Capturing the user's initial thoughts after they have tried out the solution.",
-    buttonText: 'Begin Step 5',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep5CustomersQuotes',
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 6 - Studying the competition',
+    frameworkStep: ' - Studying the competition',
     frameWorkIcon: Icons.supervised_user_circle,
     frameWorkDescription:
     "Studying the current market players and the solutions/features they offer.",
-    buttonText: 'Begin Step 6',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep6CompetingProduct',
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 7 - Business model elements',
+    frameworkStep: ' - Business model elements',
     frameWorkIcon: Icons.pie_chart,
     frameWorkDescription:
     'Define the business model elements, the IP and the services used.',
-    buttonText: 'Begin Step 7',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep7BusinessModelElements',
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 8 - Synergies',
+    frameworkStep: ' - Synergies',
     frameWorkIcon: Icons.compare_arrows,
     frameWorkDescription:
     'Spot potential synergies between different parts of the business model.',
-    buttonText: 'Begin Step 8',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep8Synergies',
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 9 - Managing Growth',
+    frameworkStep: ' - Managing Growth',
     frameWorkIcon: Icons.trending_up,
     frameWorkDescription:
     'Outlining how the business intends to scale with growth and plan parallel products.',
-    buttonText: 'Begin Step 9',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep9Growth',
   ),
   BcFrameworkContent(
-    frameworkStep: 'Step 10 - Metrics',
+    frameworkStep: ' - Metrics',
     frameWorkIcon: Icons.track_changes,
     frameWorkDescription:
     'List out the metrics which will be used to keep track of the business.',
-    buttonText: 'Begin Step 10',
+    buttonText: 'Begin Step ',
     navigateTo: '/BCStep10MetricSection1',
   ),
 ];

@@ -38,7 +38,6 @@ import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/add
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/adduserenvironmentdetails.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
-import 'package:iventure001/Widgets/Stepper.dart';
 import 'package:iventure001/bifdashboard.dart';
 
 import 'Homepage.dart';
@@ -145,7 +144,7 @@ class Vueapp extends StatelessWidget {
         '/BCStep10AddMoreMetrics': (context) => BcAddMoreMetrics(),
 
         //Stepper
-        '/stepper': (context) => StepperDemo(),
+
       },
     );
   }
