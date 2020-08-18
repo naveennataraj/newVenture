@@ -21,6 +21,7 @@ import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/GoalsTh
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CapturingUserStories.dart';
 import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStep2CollectUserProfile.dart';
 import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboard.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/addParallelInnovations.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/ManagingGrowth/handlingscale.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/Metrics/AddProductMetrics.dart';
@@ -143,8 +144,8 @@ class Vueapp extends StatelessWidget {
         '/BCStep10MetricSection2': (context) => BcMetricsSection2(),
         '/BCStep10AddMoreMetrics': (context) => BcAddMoreMetrics(),
 
-        //Stepper
-
+        //dashboard
+        '/BusinessModelDashboard': (context) => BusinessModelDashBoard(),
       },
     );
   }
