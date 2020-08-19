@@ -26,7 +26,7 @@ List<Bread> breads = [
   Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
 ];
 
-class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
+class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
   var missionLabelColor = Color(0XFF919191);
   bool validMission = true;
   final missionTextController = TextEditingController();
@@ -39,8 +39,9 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
   final visionFocusNode = new FocusNode();
   String visionText;
 
-
-  final _firestore = Firestore.instance.collection(currentUser).document('Bc1_buildTheFoundation');
+  final _firestore = Firestore.instance
+      .collection(currentUser)
+      .document('Bc1_buildTheFoundation');
   bool spinner = false;
 
   //String missionTextFirebase;
@@ -52,7 +53,9 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
 
   validator() {
     setState(() {
-      missionTextController.text.isEmpty ? validMission = false : validMission = true;
+      missionTextController.text.isEmpty
+          ? validMission = false
+          : validMission = true;
       missionTextController.text.isEmpty
           ? missionLabelColor = Color(0xFFF53E70)
           : missionLabelColor = Color(0xFF919191);
@@ -62,7 +65,6 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
       visionTextController.text.isEmpty
           ? visionLabelColor = Color(0xFFF53E70)
           : visionLabelColor = Color(0xFF919191);
-      print("(Validator is called)");
     });
   }
 
@@ -89,24 +91,17 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
       } catch (e) {
         print(e);
       }
+    } else{
+      _firestore.collection(currentUser).document('Bc1_buildTheFoundation').setData(
+          {}
+      );
     }
 
     setState(() {
       spinner = false;
     });
-
   }
-  // validate Mission and vision exists
-//  validator() {
-//    setState(() {
-//      controller = AnimationController(duration: const Duration(seconds: 2), vsync: this);
-//      missionTextController.text.isEmpty ? validMission = false : validMission = true;
-//      missionTextController.text.isEmpty
-//          ? missionLabelColor = Color(0xFFF53E70)
-//          : missionLabelColor = Color(0xFF919191);
-//      print("(Validator is called)");
-//    });
-//  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -122,23 +117,27 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             //mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget> [
-              Breadcrumb(breads: breads, color: Color(0xFFE95420),),
-            Container(
-              margin: EdgeInsets.only(top: 40.0),
-              width: MediaQuery.of(context).size.width * .40,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 2.0,
-                  ),
-                ],
+            children: <Widget>[
+              Breadcrumb(
+                breads: breads,
+                color: Color(0xFFE95420),
               ),
-              child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              Container(
+                margin: EdgeInsets.only(top: 40.0),
+                width: MediaQuery.of(context).size.width * .40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 2.0,
+                    ),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -177,43 +176,42 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             headBackButtton(
-                              routeName: '/BCHomeView',
+                                routeName: '/BCHomeView',
+                                widget: updateFirebase,
                             ),
                             SizedBox(
                               width: 50,
                             ),
                             GenericStepButton(
                               buttonName: 'GO NEXT',
-                              routeName: '/BCStep1AddDetails',
                               //pageValidation: (missionTextController.text == '') ? true : false,
                               step: 0,
                               stepBool: false,
-                              widget:  onTap,
+                              widget:
+                                (missionTextController.text == '' ||
+                                    visionTextController.text == '' )
+                                    ? () {
+                                        validator();
+                                      }
+                                    : () {
+                                (missionTextController.text != '' || visionTextController.text != '') ? Navigator.pushNamed(context, '/BCStep1AddDetails'): print('works');
 
-//                          OnTap: () {
-//                             if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
-//                              _firestore.setData({
-//                                'mission': missionTextController.text,
-//                                'vision': visionTextController.text,
-//                                'Sender': "tester@gmail.com",
-//                                'updatedAt': timestamp,
-//                              });
-//                            }
-//
-//                            bcStepsContent[0].bcCompletionValidator = false;
-//                            fireMissionData = missionTextController.text;
-//                            fireVisionData = visionTextController.text;
-////                            bcpData[6].CompletionValidator = false;
-//                            //Navigator.pushNamed(context, '/BCStep1AddDetails');
-//                          },
+                                  if (fireMissionData != missionTextController.text ||
+                                      fireVisionData != visionTextController.text) {
+                                    updateFirebase();
+                                  }
+
+                                }
+                                  //onTap,
+
                             ),
                           ],
                         ),
                       )
                     ],
                   ),
+                ),
               ),
-            ),
               SizedBox(
                 height: 20,
               ),
@@ -232,35 +230,15 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects>  {
   }
 
 
-  void onTap() {
-
-    if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
-
-      _firestore.setData({
-        'mission': missionTextController.text,
-        'vision': visionTextController.text,
-        'Sender': currentUser,
-      });
-    }
+  void updateFirebase() {
+    _firestore.updateData({
+      'mission': missionTextController.text,
+      'vision': visionTextController.text,
+      'Sender': currentUser,
+    });
     fireMissionData = missionTextController.text;
     fireVisionData = visionTextController.text;
 
-//    if (missionTextController.text == '' ||
-//        visionTextController.text == '')
-//    {
-//      validator();
-//    }
-//    else {
-//      if (fireMissionData != missionTextController.text || fireVisionData != visionTextController.text ) {
-//        _firestore.setData({
-//          'mission': missionTextController.text,
-//          'vision': visionTextController.text,
-//          'Sender': currentUser,
-//        });
-//      }
-//      fireMissionData = missionTextController.text;
-//      fireVisionData = visionTextController.text;
-//    }
-//
   }
+
 }

@@ -201,12 +201,14 @@ class _GenericStepButtonBIFState extends State<GenericStepButtonBIF> {
         style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
       ),
       onTap: () {
+
         if (widget.routeName != null) {
           Navigator.pushNamed(context, routeName);
         }
         switchStep();
         if (widget.widget != null) {
           widget.widget();
+
         }
       },
     );

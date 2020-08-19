@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
@@ -10,6 +11,44 @@ class BcOverviewDashboard extends StatefulWidget with ConceptDashboardStates {
 }
 
 class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
+
+//  void initState() {
+//    super.initState();
+//    getDocuments();
+//  }
+//
+//
+//  void getDocuments() async {
+//    spinner = true;
+//    final document = await _firestore.get();
+//
+//    if (document.exists) {
+//      try {
+//        setState(() {
+//          missionText = document.data['mission'];
+//          visionText = document.data['vision'];
+//          fireMissionData = document.data['mission'];
+//          fireVisionData = document.data['vision'];
+//          ID = document.documentID;
+//          missionTextController.text = missionText;
+//          visionTextController.text = visionText;
+//        });
+//      } catch (e) {
+//        print(e);
+//      }
+//    } else{
+//      _firestore.collection(currentUser).document('Bc1_buildTheFoundation').setData(
+//          {}
+//      );
+//    }
+//
+//    setState(() {
+//      spinner = false;
+//    });
+//  }
+//
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -21,60 +21,12 @@ List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
   Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
   Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
-  Bread(label: "Intellectual Property Assets", route: '/BCStep1AddDetails'),
+  Bread(label: "Aspects of the business", route: '/BCStep1AddDetails'),
 ];
 
 class _Step1AddFoundationState extends State<Step1AddFoundation> {
   bool spinner = false;
   final _firestore = Firestore.instance;
-  //bool documentExists = false;
-  //int count = 0;
-//  @override
-//  void initState() {
-////    spinner = true;
-//    //(foundationContent.length== 0) ? getDocument() : print('not needed');
-//    super.initState();
-//  }
-
-//  void getDocument() async {
-//    //spinner = true;
-//    final document = await _firestore.collection('/Bc1_buildFoundation/MissionStatement/addFoundations').getDocuments();
-//
-//    if (document.documents.isNotEmpty) {
-//      print("the length is $document.documents.length");
-//      for (var message in document.documents) {
-//        //foundationContent = [];
-//        final title = message.data['title'];
-//        final description = message.data['description'];
-//        final featureType = message.data['featureType'];
-//        final ID = message.documentID;
-//
-//
-//        final card = ContentBcAddFoundation(
-//          title: title,
-//          description: description,
-//          featureType: featureType,
-//          ID: ID,
-//          index: count
-//        );
-//        count +=1;
-//        foundationContent.add(card);
-//        print(count);
-//      }
-//    }
-//    count = 0;
-////    setState(() {
-////      //spinner = false;
-//////      if (foundationContent.length != 0) {
-//////        title =
-//////            foundationContent[index].title);
-//////        ProblemTextController =
-//////            TextEditingController(text: ProblemStudyArray[0].problem);
-//////        ImportanceTextController =
-//////            TextEditingController(text: ProblemStudyArray[0].importance);
-//////      }
-////    });
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -201,24 +153,7 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                                 routeName: '/BCHomeView',
                                 step: 0,
                                 stepBool: true,
-
-//                          OnTap: () {
-//
-//                            //documentExists = false;
-
-//                            //print(bcStepsContent[0].bcCompletionValidator);
-//                            Navigator.pushNamed(context, '/BCHomeView');
-//                          },
                               ),
-//                        goNextButton(
-//                          OnTap: () {
-////                            bcpData[0].CompletionValidator = false;
-////                            print(bcpData[0].CompletionValidator);
-//                            Navigator.pushNamed(context, '/BCStep7IntellectualAssets');
-//                          },
-//                          //routeName: '/BCStep3WireFrameLink',
-//                          // write here
-//                        ),
                             ],
                           ),
                         ),

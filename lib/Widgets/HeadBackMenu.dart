@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class headBackButtton extends StatefulWidget {
   final String routeName;
-  const headBackButtton({@required this.routeName});
+  final Function widget;
+  const headBackButtton({@required this.routeName, this.widget});
 //  const headBackButtton({
 //    Key key,
 //  }) : super(key: key);
@@ -19,17 +20,15 @@ class _headBackButttonState extends State<headBackButtton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.popAndPushNamed(context, routeName).then(
-          (value) => setState(() {}),
-        );
+        if (widget.routeName != null) {
+          Navigator.popAndPushNamed(context, routeName).then(
+                (value) => setState(() {}),
+          );
+          if (widget.widget !=null) {
+            widget.widget();
+          }
+        }
 
-//        Navigator.push(context, new MaterialPageRoute(builder: (context) => BCScreen()),)
-//            .then((value) => setState(() {}),);
-
-//        setState(() {
-//          Navigator.pop(context);
-//
-//        });
       },
       child: Text(
         'HEAD BACK',

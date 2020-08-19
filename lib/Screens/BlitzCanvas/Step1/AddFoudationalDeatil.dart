@@ -16,13 +16,6 @@ class AddFoundationalDetail extends StatefulWidget {
       _AddFoundationalDetailState(index);
 }
 
-var foundationDescriptionLabelColor = Color(0XFF919191);
-bool validFoundation = true;
-var foundationTextController = TextEditingController();
-final foundationFocusNode = new FocusNode();
-String foundationText;
-
-
 class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
   int index;
   final _firestore = Firestore.instance;
@@ -32,6 +25,13 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
   var radio1Focus = new FocusNode();
   var radio2Focus = new FocusNode();
   var radio3Focus = new FocusNode();
+
+  var foundationDescriptionLabelColor = Color(0XFF919191);
+  bool validFoundation = true;
+  var foundationTextController = TextEditingController();
+  final foundationFocusNode = new FocusNode();
+  String foundationText;
+
 
   requestFocus(FocusNode myFocusNode) {
     setState(() {
@@ -59,6 +59,31 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
     radio3Focus.dispose();
     radio2Focus.dispose();
     super.dispose();
+  }
+
+  validator() {
+    setState(() {
+
+      foundationTextController.text.isEmpty
+          ? validFoundation = false
+          : validFoundation = true;
+
+      (!radio1Focus.hasFocus &&
+          !radio2Focus.hasFocus &&
+          !radio3Focus.hasFocus
+      )
+          ?  radio2Focus.requestFocus()
+          : Border.all(width: 1, color: Color(0xFFF53E70));
+//      clickedRadio = 0
+//          ? activeColor = Color(0xFFF53E70)
+//          : activeColor = Color(0xFF919191);
+//      visionTextController.text.isEmpty
+//          ? validVision = false
+//          : validVision = true;
+//      visionTextController.text.isEmpty
+//          ? visionLabelColor = Color(0xFFF53E70)
+//          : visionLabelColor = Color(0xFF919191);
+    });
   }
 
 
@@ -195,43 +220,49 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                           AddGenericButton(
                             buttonName:  'ADD DETAIL',
                             onTap: () {
-                              Navigator.popAndPushNamed(context, '/BCStep1AddDetails');
 
-                              setState(() {
-                                final NewProductFeature = ContentBcAddFoundation(
-                                    title: clickRadioName,
-                                    description: foundationTextController.text,
-                                    featureType: clickedRadio
-                                );
+                              if (foundationTextController.text != '') {
+                                Navigator.popAndPushNamed(context, '/BCStep1AddDetails');
 
-                                if (index == null) {
-                                  foundationContent.add(NewProductFeature);
-                                  _firestore.collection('$currentUser/Bc1_buildTheFoundation/addFoundations').add({
-                                    'title': clickRadioName,
-                                    'featureType': clickedRadio,
-                                    'description': foundationTextController.text,
-                                    'Sender': currentUser,
-                                    //'updatedAt': timestamp,
-                                  });
-                                } else {
+                                setState(() {
+                                  final NewProductFeature = ContentBcAddFoundation(
+                                      title: clickRadioName,
+                                      description: foundationTextController.text,
+                                      featureType: clickedRadio
+                                  );
+
+                                  if (index == null) {
+                                    foundationContent.add(NewProductFeature);
+                                    _firestore.collection('$currentUser/Bc1_buildTheFoundation/addFoundations').add({
+                                      'title': clickRadioName,
+                                      'featureType': clickedRadio,
+                                      'description': foundationTextController.text,
+                                      'Sender': currentUser,
+                                      //'updatedAt': timestamp,
+                                    });
+                                  } else {
 //                                  foundationContent.removeAt(index);
 //                                  foundationContent.insert(
 //                                      index, NewProductFeature);
-                                  _firestore
-                                      .collection('$currentUser/Bc1_buildTheFoundation/addFoundations')
-                                      .document(foundationContent[index].ID)
-                                      .updateData({
-                                    'title': clickRadioName,
-                                    'featureType': clickedRadio,
-                                    'description': foundationTextController.text,
-                                    'Sender': currentUser,
-                                  });
-                                }
-                                foundationTextController.clear();
-                                clickedRadio = 0;
-                                clickRadioName = '';
-                                Navigator.pop(context);
-                              });
+                                    _firestore
+                                        .collection('$currentUser/Bc1_buildTheFoundation/addFoundations')
+                                        .document(foundationContent[index].ID)
+                                        .updateData({
+                                      'title': clickRadioName,
+                                      'featureType': clickedRadio,
+                                      'description': foundationTextController.text,
+                                      'Sender': currentUser,
+                                    });
+                                  }
+                                  foundationTextController.clear();
+                                  clickedRadio = 0;
+                                  clickRadioName = '';
+                                  Navigator.pop(context);
+                                });
+                              } else {
+                                validator();
+                              }
+
                             },
                           ),
                           SizedBox(

@@ -208,7 +208,10 @@ class _GenericStepButtonState extends State<GenericStepButton> {
         style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
       ),
       onTap: () {
-        Navigator.pushNamed(context, routeName);
+        if (widget.routeName != null) {
+          Navigator.pushNamed(context, routeName);
+        }
+
         switchStep();
         if (widget.widget !=null) {
           widget.widget();
