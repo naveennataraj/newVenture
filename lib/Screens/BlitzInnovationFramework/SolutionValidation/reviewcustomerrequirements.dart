@@ -39,7 +39,7 @@ class _ReviewCustomerRequirementsState
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: (selectedDate == null) ? DateTime.now() : selectedDate,
-      firstDate: DateTime.now(),
+      firstDate: (selectedDate == null) ? DateTime.now() : selectedDate,
       lastDate: DateTime(2101),
       builder: (BuildContext context, Widget child) {
         return Theme(
