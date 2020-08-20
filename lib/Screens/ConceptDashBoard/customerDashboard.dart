@@ -8,7 +8,6 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserPe
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'conceptDashboardNavigationBloc.dart';
@@ -54,9 +53,8 @@ class _customerDashBoardState extends State<customerDashBoard> {
           .collection('$currentUser/StudyingTheUser/UserEnvironment')
           .getDocuments();
 //    print("GEt method called");
-
+      UserEnvironmentArray = [];
       for (var UserEnvironmentmessage in UserEnvironmentdocument.documents) {
-        UserEnvironmentArray = [];
         final double Start = UserEnvironmentmessage.data['AgeStart'];
         final double End = UserEnvironmentmessage.data['AgeEnd'];
         final ProblemDropdownValue =
@@ -93,9 +91,8 @@ class _customerDashBoardState extends State<customerDashBoard> {
           .collection('$currentUser/StudyTheProblem/problemStudy')
           .getDocuments();
 //      print("GEt method called");
-
+      ProblemStudyArray = [];
       for (var problemStudymessage in problemStudydocument.documents) {
-        ProblemStudyArray = [];
         final Title = problemStudymessage.data['Title'];
         final Problem = problemStudymessage.data['Problem'];
         final Importance = problemStudymessage.data['Importance'];
@@ -116,10 +113,9 @@ class _customerDashBoardState extends State<customerDashBoard> {
       final userStorydocument = await _firestore
           .collection('$currentUser/StudyingTheUser/userStory')
           .getDocuments();
-      print("GEt method called");
-
+//      print("GEt method called");
+      AddingNewUserStory = [];
       for (var userStorydocumentmessage in userStorydocument.documents) {
-        AddingNewUserStory = [];
         final Asa = userStorydocumentmessage.data['Asa'];
         final IWantTo = userStorydocumentmessage.data['IWantTo'];
         final SoThat = userStorydocumentmessage.data['SoThat'];
@@ -140,16 +136,15 @@ class _customerDashBoardState extends State<customerDashBoard> {
           .collection('$currentUser/StudyingTheUser/UserPersona')
           .getDocuments();
 //    print("GEt method called");
-
+      UserPersonaArray = [];
       for (var message in document.documents) {
-        UserPersonaArray = [];
         final Link = message.data['Link'];
         final ID = message.documentID;
 
         final fields = addUserPersona(link: Link, ID: ID);
 
         UserPersonaArray.add(fields);
-        print('Get Method called');
+//        print('Get Method called');
       }
       setState(() {
         if (UserPersonaArray.length != 0) {
@@ -181,42 +176,33 @@ class _customerDashBoardState extends State<customerDashBoard> {
           (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'Studying the customer and the problem space',
       dashboardcards: <Widget>[
-        ModalProgressHUD(
-          inAsyncCall: customercard1spinner,
-          child: DashboardCards(
-            cardIcon: Icons.person,
-            cardTitle: 'Who are our customers?',
-            cardNote:
-                'Urban dwellers who are employed and aged between $ageStart and $ageEnd years . Solution is aimed at $problemDomain market segment(s).',
-            cardButtonName: 'VIEW PERSONA',
-            onTap: () {
-              launch(personaLink);
-            },
-          ),
+        DashboardCards(
+          cardIcon: Icons.person,
+          cardTitle: 'Who are our customers?',
+          cardNote:
+              'Urban dwellers who are employed and aged between $ageStart and $ageEnd years . Solution is aimed at $problemDomain market segment(s).',
+          cardButtonName: 'VIEW PERSONA',
+          onTap: () {
+            launch(personaLink);
+          },
         ),
-        ModalProgressHUD(
-          inAsyncCall: customercard1spinner,
-          child: DashboardCards(
-            cardIcon: Icons.person,
-            cardTitle: 'Customer Pain Point (Primary)',
-            cardNote: problem,
-            cardButtonName: 'EXPLORE OTHER PAIN POINTS',
-            onTap: () {
-              Navigator.pushNamed(context, '/addpainpoints');
-            },
-          ),
+        DashboardCards(
+          cardIcon: Icons.person,
+          cardTitle: 'Customer Pain Point (Primary)',
+          cardNote: problem,
+          cardButtonName: 'EXPLORE OTHER PAIN POINTS',
+          onTap: () {
+            Navigator.pushNamed(context, '/addpainpoints');
+          },
         ),
-        ModalProgressHUD(
-          inAsyncCall: customercard1spinner,
-          child: DashboardCards(
-            cardIcon: Icons.person,
-            cardTitle: 'Needs of our user(s)',
-            cardNote: userStory,
-            cardButtonName: 'VIEW OTHER USER STORIES',
-            onTap: () {
-              Navigator.pushNamed(context, '/addstoriespainpoints');
-            },
-          ),
+        DashboardCards(
+          cardIcon: Icons.person,
+          cardTitle: 'Needs of our user(s)',
+          cardNote: userStory,
+          cardButtonName: 'VIEW OTHER USER STORIES',
+          onTap: () {
+            Navigator.pushNamed(context, '/addstoriespainpoints');
+          },
         ),
       ],
     );

@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:intl/intl.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
@@ -17,11 +18,13 @@ class ReviewCustomerRequirements extends StatefulWidget {
       _ReviewCustomerRequirementsState();
 }
 
-DateTime selectDate = DateTime.now();
-DateTime selectedDate;
+//DateTime selectDate = DateTime.now();
 
 class _ReviewCustomerRequirementsState
     extends State<ReviewCustomerRequirements> {
+  final df = new DateFormat('dd-MMM-yyyy');
+  DateTime selectedDate;
+  String date = '';
   List<Bread> breads = [
     Bread(label: "Home ", route: '/'),
     Bread(
@@ -30,6 +33,7 @@ class _ReviewCustomerRequirementsState
     Bread(label: "Add Quotes ", route: '/addquotes'),
     Bread(label: "Schedule Review ", route: '/reviewcustomerrequirements'),
   ];
+
 //  Date picker
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -50,10 +54,11 @@ class _ReviewCustomerRequirementsState
       },
     );
 
-    if (picked != null && picked != selectedDate)
+    if (picked != null)
       setState(() {
         selectedDate = picked;
-        selectDate = selectedDate;
+//        selectDate = selectedDate;
+        date = df.format(selectedDate);
       });
   }
 
@@ -63,7 +68,7 @@ class _ReviewCustomerRequirementsState
 
   validator() {
     setState(() {
-      (selectDate == null)
+      (selectedDate == null)
           ? dateColor = Color(0xFFF53E70)
           : dateColor = Color(0xFFE95420);
     });
@@ -90,6 +95,7 @@ class _ReviewCustomerRequirementsState
       spinner = false;
       if (addRequirementsArray.length != 0) {
         selectedDate = addRequirementsArray[0].SelectedDate;
+        date = df.format(selectedDate);
       }
     });
   }
@@ -100,7 +106,7 @@ class _ReviewCustomerRequirementsState
         .collection('$currentUser/SolutionValidation/reviewDate')
         .document(addRequirementsArray[0].ID)
         .updateData({
-      'ReviewDate': selectDate,
+      'ReviewDate': selectedDate,
       'Sender': currentUser,
     });
   }
@@ -108,7 +114,7 @@ class _ReviewCustomerRequirementsState
   add() {
     print("add method called");
     _firestore.collection('$currentUser/SolutionValidation/reviewDate').add({
-      'ReviewDate': selectDate,
+      'ReviewDate': selectedDate,
       'Sender': currentUser,
     });
   }
@@ -195,8 +201,7 @@ class _ReviewCustomerRequirementsState
                                       SizedBox(width: 20),
                                       (selectedDate != null)
                                           ? Text(
-                                              "${selectDate.toLocal()}"
-                                                  .split(' ')[0],
+                                              date,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20),
@@ -247,7 +252,7 @@ class _ReviewCustomerRequirementsState
 //                                    routeName: '/addpainpoints',
                                   step: 5,
                                   stepBool: true,
-                                  widget: (selectDate == null)
+                                  widget: (selectedDate == null)
                                       ? () {
                                           validator();
                                         }
