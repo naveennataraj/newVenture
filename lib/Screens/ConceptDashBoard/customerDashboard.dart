@@ -14,6 +14,16 @@ import 'package:url_launcher/url_launcher.dart';
 import 'conceptDashboardNavigationBloc.dart';
 
 class customerDashBoard extends StatefulWidget with ConceptDashboardStates {
+  final TextStyle headingStyle;
+  final CrossAxisAlignment headingAlignment;
+  final double sizedboxwidth;
+  final double sizedboxheight;
+  customerDashBoard(
+      {this.headingStyle,
+      this.sizedboxwidth,
+      this.headingAlignment,
+      this.sizedboxheight});
+
   @override
   _customerDashBoardState createState() => _customerDashBoardState();
 }
@@ -158,12 +168,22 @@ class _customerDashBoardState extends State<customerDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: customercard1spinner,
-      child: SubdivisionalDashBoardLayout(
-        dashboardTitle: 'Studying the customer and the problem space',
-        dashboardcards: <Widget>[
-          DashboardCards(
+    return SubdivisionalDashBoardLayout(
+      sizedboxwidth:
+          (widget.sizedboxwidth != null) ? widget.sizedboxwidth : 100,
+      headingAlignment: (widget.headingAlignment != null)
+          ? widget.headingAlignment
+          : CrossAxisAlignment.center,
+      headingStyle: (widget.headingStyle != null)
+          ? widget.headingStyle
+          : topHeadingTextStyle,
+      sizedboxheight:
+          (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
+      dashboardTitle: 'Studying the customer and the problem space',
+      dashboardcards: <Widget>[
+        ModalProgressHUD(
+          inAsyncCall: customercard1spinner,
+          child: DashboardCards(
             cardIcon: Icons.person,
             cardTitle: 'Who are our customers?',
             cardNote:
@@ -173,7 +193,10 @@ class _customerDashBoardState extends State<customerDashBoard> {
               launch(personaLink);
             },
           ),
-          DashboardCards(
+        ),
+        ModalProgressHUD(
+          inAsyncCall: customercard1spinner,
+          child: DashboardCards(
             cardIcon: Icons.person,
             cardTitle: 'Customer Pain Point (Primary)',
             cardNote: problem,
@@ -182,7 +205,10 @@ class _customerDashBoardState extends State<customerDashBoard> {
               Navigator.pushNamed(context, '/addpainpoints');
             },
           ),
-          DashboardCards(
+        ),
+        ModalProgressHUD(
+          inAsyncCall: customercard1spinner,
+          child: DashboardCards(
             cardIcon: Icons.person,
             cardTitle: 'Needs of our user(s)',
             cardNote: userStory,
@@ -191,8 +217,8 @@ class _customerDashBoardState extends State<customerDashBoard> {
               Navigator.pushNamed(context, '/addstoriespainpoints');
             },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

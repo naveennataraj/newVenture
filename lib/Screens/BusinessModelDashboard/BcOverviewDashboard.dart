@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
@@ -11,7 +10,6 @@ class BcOverviewDashboard extends StatefulWidget with ConceptDashboardStates {
 }
 
 class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
-
 //  void initState() {
 //    super.initState();
 //    getDocuments();
@@ -47,7 +45,6 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
 //    });
 //  }
 //
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +97,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.menu_book),
+                                      Icon(Icons.person),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -219,8 +216,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                         ),
                         DashboardCards(
                           cardIcon: Icons.trending_up,
-                          cardTitle:
-                              'Other offerings planned',
+                          cardTitle: 'Other offerings planned',
                           cardNote:
                               'Calendar Sync - Syncs ToDo items with a calendar and allows for meeting scheduling and meeting notes',
                           cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
@@ -249,7 +245,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                     child: Wrap(
                       children: <Widget>[
                         DashboardCards(
-                          cardIcon: Icons.work_off,
+                          cardIcon: Icons.person,
                           cardTitle: 'How we reduce rework',
                           cardNote:
                               'We intend to use Google Apps suite for the purpose of Collaboration when working on joint tasks.',
@@ -257,11 +253,10 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                           onTap: () {},
                         ),
                         DashboardCards(
-                          cardIcon: Icons.flip_camera_android_rounded,
-                          cardTitle:
-                              'How we Synergize',
+                          cardIcon: Icons.person,
+                          cardTitle: 'How we Synergize',
                           cardNote:
-                          '"A key resource (developer/designer) working with tech support personnel to create a new feature called \'task clipper\', based on studying user feedback. "',
+                              '"A key resource (developer/designer) working with tech support personnel to create a new feature called \'task clipper\', based on studying user feedback. "',
                           onTap: () {},
                         ),
                         DashboardCards(
@@ -276,7 +271,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                           cardIcon: Icons.leak_add,
                           cardTitle: 'What we learnt from our competition',
                           cardNote:
-                          'Our competitor Todoist, offers features such as backup tasks to the cloud, labeling of tasks, smart schedule of tasks',
+                              'Our competitor Todoist, offers features such as backup tasks to the cloud, labeling of tasks, smart schedule of tasks',
                           cardButtonName: 'REVIEW OTHER COMPETITORS',
                           onTap: () {},
                         ),
@@ -319,8 +314,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                         ),
                         DashboardCards(
                           cardIcon: Icons.rate_review,
-                          cardTitle:
-                              'How we handle Growth',
+                          cardTitle: 'How we handle Growth',
                           cardNote:
                               'I intend to use a cloud service provider such as AWS, Firebase or Azure.',
                           onTap: () {},

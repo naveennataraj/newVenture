@@ -1,13 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class SubdivisionalDashBoardLayout extends StatelessWidget {
   const SubdivisionalDashBoardLayout({
     this.dashboardTitle,
     this.dashboardcards,
+    this.headingStyle,
+    this.sizedboxwidth,
+    this.headingAlignment,
+    this.sizedboxheight,
   });
   final String dashboardTitle;
   final List<Widget> dashboardcards;
+  final TextStyle headingStyle;
+  final double sizedboxwidth;
+  final double sizedboxheight;
+  final CrossAxisAlignment headingAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -18,35 +25,41 @@ class SubdivisionalDashBoardLayout extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             SizedBox(
-              width: 100,
+              width: sizedboxwidth,
             ),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: headingAlignment,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   SizedBox(
-                    height: 50,
+                    height: sizedboxheight,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Text(
                       dashboardTitle,
-                      style: topHeadingTextStyle,
+                      style: headingStyle,
                       //TextStyle(fontSize: 60),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(
-                    height: 100,
-                  ),
+//                  SizedBox(
+//                    height: 100,
+//                  ),
 //                  GridView.count(
 //                    crossAxisCount: 2,
 //                    shrinkWrap: true,
 //                    children: dashboardcards,
 //                  )
-                  Wrap(
-                    children: dashboardcards,
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Center(
+                      child: Wrap(
+                        children: dashboardcards,
+                      ),
+                    ),
                   )
                 ],
               ),
