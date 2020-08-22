@@ -138,7 +138,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                       Container(
                         //height: MediaQuery.of(context).size.height * .40,
                         margin: EdgeInsets.only(top: 40.0),
-                        width: MediaQuery.of(context).size.width * .40,
+                        width: 600,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           //shape: BoxShape.rectangle,
@@ -263,8 +263,16 @@ class _ProblemStudyState extends State<ProblemStudy> {
                                             }
 //                                            bcpData[0].CompletionValidator =
 //                                                false;
-                                            Navigator.pushNamed(
-                                                context, '/addpainpoints');
+                                            (TitleTextController.text != '' &&
+                                                    ProblemTextController
+                                                            .text !=
+                                                        '' &&
+                                                    ImportanceTextController
+                                                            .text !=
+                                                        '')
+                                                ? Navigator.pushNamed(
+                                                    context, '/addpainpoints')
+                                                : print('works');
                                           },
                                   ),
                                 ],

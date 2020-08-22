@@ -46,14 +46,14 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     return Container(
       margin: EdgeInsets.all(15),
       child: TextField(
+//        expands: true,
         focusNode: widget.myFocusNode,
         onTap: () {
           requestFocus(widget.myFocusNode);
         },
         controller: widget.myTextController,
         maxLines: widget.maxLines,
-       style: menuIntroTextStyle,
-
+        style: menuIntroTextStyle,
         decoration: TextFieldsDecoration.copyWith(
           labelText: widget.labelText,
           helperText: widget.myFocusNode.hasFocus ? widget.helperText : null,

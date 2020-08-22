@@ -63,7 +63,7 @@ class _AddPainPointsState extends State<AddPainPoints> {
                       Container(
                         //height: MediaQuery.of(context).size.height * .40,
                         margin: EdgeInsets.only(top: 40.0),
-                        width: MediaQuery.of(context).size.width * .40,
+                        width: 600,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           //shape: BoxShape.rectangle,

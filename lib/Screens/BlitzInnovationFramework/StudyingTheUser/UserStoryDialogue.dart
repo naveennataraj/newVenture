@@ -37,6 +37,29 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
   int index;
   final _firestore = Firestore.instance;
 
+  validator() {
+    setState(() {
+      AsaTextController.text.isEmpty ? validAsa = false : validAsa = true;
+      AsaTextController.text.isEmpty
+          ? AsalabelColor = Color(0xFFF53E70)
+          : AsalabelColor = Color(0xFF919191);
+      SoThatTextController.text.isEmpty
+          ? validSoThat = false
+          : validSoThat = true;
+      SoThatTextController.text.isEmpty
+          ? SoThatlabelColor = Color(0xFFF53E70)
+          : SoThatlabelColor = Color(0xFF919191);
+      IWantToTextController.text.isEmpty
+          ? validIWantTo = false
+          : validIWantTo = true;
+      IWantToTextController.text.isEmpty
+          ? IWantTolabelColor = Color(0xFFF53E70)
+          : IWantTolabelColor = Color(0xFF919191);
+
+      print("(Validator is called)");
+    });
+  }
+
   _userStoryDialogueState(this.index);
   @override
   void initState() {
@@ -48,6 +71,10 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
           TextEditingController(text: AddingNewUserStory[index].IWantTo);
       SoThatTextController =
           TextEditingController(text: AddingNewUserStory[index].SoThat);
+    } else {
+      AsaTextController.clear();
+      SoThatTextController.clear();
+      IWantToTextController.clear();
     }
   }
 
@@ -57,8 +84,8 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.60,
-          width: MediaQuery.of(context).size.width * 0.4,
+          height: 600,
+          width: 800,
           child: Center(
             child: SingleChildScrollView(
                 padding:
@@ -108,52 +135,61 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
                       labelcolour: SoThatlabelColor,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddDetailButton(
                             routeName: '/addpainpoints',
-                            onTap: () {
-                              setState(() {
+                            onTap: (AsaTextController.text == '' ||
+                                    SoThatTextController.text == '' ||
+                                    IWantToTextController.text == '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    setState(() {
 //                                final NewUserStory = addUserStories(
 //                                  Asa: AsaTextController.text,
 //                                  IWantTo: SoThatTextController.text,
 //                                  SoThat: IWantToTextController.text,
 //                                );
-                                if (index == null) {
+                                      if (index == null) {
 //                                  AddingNewUserStory.add(NewUserStory);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/StudyingTheUser/userStory')
-                                      .add({
-                                    'Asa': AsaTextController.text,
-                                    'IWantTo': SoThatTextController.text,
-                                    'SoThat': IWantToTextController.text,
-                                    'Sender': "tester@gmail.com",
-                                  });
-                                } else {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/StudyingTheUser/userStory')
+                                            .add({
+                                          'Asa': AsaTextController.text,
+                                          'IWantTo': SoThatTextController.text,
+                                          'SoThat': IWantToTextController.text,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      } else {
 //                                  AddingNewUserStory.removeAt(index);
 //                                  AddingNewUserStory.insert(
 //                                      index, NewUserStory);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/StudyingTheUser/userStory')
-                                      .document(AddingNewUserStory[index].ID)
-                                      .updateData({
-                                    'Asa': AsaTextController.text,
-                                    'IWantTo': SoThatTextController.text,
-                                    'SoThat': IWantToTextController.text,
-                                    'Sender': "tester@gmail.com",
-                                  });
-                                }
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/StudyingTheUser/userStory')
+                                            .document(
+                                                AddingNewUserStory[index].ID)
+                                            .updateData({
+                                          'Asa': AsaTextController.text,
+                                          'IWantTo': SoThatTextController.text,
+                                          'SoThat': IWantToTextController.text,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      }
 //
-                                AsaTextController.clear();
-                                SoThatTextController.clear();
-                                IWantToTextController.clear();
-                                Navigator.pop(context);
-                              });
-                            },
+
+                                      (AsaTextController.text != '' &&
+                                              SoThatTextController.text != '' &&
+                                              IWantToTextController.text != '')
+                                          ? Navigator.pop(context)
+                                          : {};
+                                    });
+                                  },
                           ),
                           SizedBox(
                             width: 50,

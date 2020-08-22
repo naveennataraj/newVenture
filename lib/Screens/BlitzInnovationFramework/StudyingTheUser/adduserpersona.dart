@@ -124,7 +124,7 @@ class _AddUserPersonaState extends State<AddUserPersona> {
                     Container(
                       //height: MediaQuery.of(context).size.height * .40,
                       margin: EdgeInsets.only(top: 40.0),
-                      width: MediaQuery.of(context).size.width * .40,
+                      width: 600,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         //shape: BoxShape.rectangle,
@@ -186,8 +186,10 @@ class _AddUserPersonaState extends State<AddUserPersona> {
 //                                          bcpData[1].CompletionValidator =
 //                                              false;
 
-                                          Navigator.pushNamed(context,
-                                              '/adduserenvironmentdetails');
+                                          (UserPersonaTextController.text != '')
+                                              ? Navigator.pushNamed(context,
+                                                  '/adduserenvironmentdetails')
+                                              : null;
                                         },
                                 ),
                               ],

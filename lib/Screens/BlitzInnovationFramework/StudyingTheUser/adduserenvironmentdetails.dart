@@ -54,9 +54,16 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
   var UserDetailsTextController = TextEditingController();
   final UserDetailsFocusNode = new FocusNode();
   String UserDetails;
+  var problemDroplabelColor = Colors.grey.shade600;
+  var environmentDroplabelColor = Colors.grey.shade600;
+  var problemDropBorderColor = Color(0xFFABABAB);
+  var environmentDropBorderColor = Color(0xFFABABAB);
+  var problemDropValuerColor = Color(0xFFE95420);
+  var environmentDropValueColor = Color(0xFFE95420);
 
   validator() {
     setState(() {
+      print('vali called');
       UserIssuesTextController.text.isEmpty
           ? validUserIssues = false
           : validUserIssues = true;
@@ -69,6 +76,24 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
       UserDetailsTextController.text.isEmpty
           ? UserDetailslabelColor = Color(0xFFF53E70)
           : UserDetailslabelColor = Color(0xFF919191);
+      (SelectedUserEnvironment == null)
+          ? environmentDroplabelColor = Color(0xFFF53E70)
+          : environmentDroplabelColor = Colors.grey.shade600;
+      (SelectedUserEnvironment == null)
+          ? environmentDropBorderColor = Color(0xFFF53E70)
+          : environmentDropBorderColor = Color(0xFFABABAB);
+      (SelectedUserEnvironment == null)
+          ? environmentDropValueColor = Color(0xFFF53E70)
+          : environmentDropValueColor = Color(0xFFE95420);
+      (SelectedProblemDomain == null)
+          ? problemDroplabelColor = Color(0xFFF53E70)
+          : problemDroplabelColor = Colors.grey.shade600;
+      (SelectedProblemDomain == null)
+          ? problemDropBorderColor = Color(0xFFF53E70)
+          : problemDropBorderColor = Color(0xFFABABAB);
+      (SelectedProblemDomain == null)
+          ? problemDropValuerColor = Color(0xFFF53E70)
+          : problemDropValuerColor = Color(0xFFE95420);
     });
   }
 
@@ -187,7 +212,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                       Container(
                         //height: MediaQuery.of(context).size.height * .40,
                         margin: EdgeInsets.only(top: 40.0),
-                        width: MediaQuery.of(context).size.width * .50,
+                        width: 600,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           //shape: BoxShape.rectangle,
@@ -215,7 +240,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
-                                      width: 1, color: Color(0XFFABABAB)),
+                                      width: 1, color: Color(0xFFABABAB)),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: Padding(
@@ -297,7 +322,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
-                                      width: 1, color: Color(0XFFABABAB)),
+                                      width: 1, color: problemDropBorderColor),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: Padding(
@@ -309,7 +334,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                                     Text(
                                       'Which domain does this Problem fall in?',
                                       style: TextStyle(
-                                          color: Colors.grey.shade600,
+                                          color: problemDroplabelColor,
                                           fontSize: 16),
                                     ),
                                     SizedBox(
@@ -321,7 +346,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                                       hint: Text(
                                         'Choose',
                                         style: TextStyle(
-                                          color: Color(0XFFE95420),
+                                          color: problemDropValuerColor,
                                         ),
                                       ),
                                       onChanged: (newValue) {
@@ -346,7 +371,8 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
-                                      width: 1, color: Color(0XFFABABAB)),
+                                      width: 1,
+                                      color: environmentDropBorderColor),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: Padding(
@@ -358,7 +384,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                                     Text(
                                       'What Type of environment do the users live in?',
                                       style: TextStyle(
-                                          color: Colors.grey.shade600,
+                                          color: environmentDroplabelColor,
                                           fontSize: 16),
                                     ),
                                     SizedBox(
@@ -369,7 +395,7 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                                       hint: Text(
                                         'Choose',
                                         style: TextStyle(
-                                          color: Color(0XFFE95420),
+                                          color: environmentDropValueColor,
                                         ),
                                       ),
                                       onChanged: (newValue) {
@@ -451,8 +477,19 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
 //                                                    false;
 //                                                print(bcpData[1]
 //                                                    .CompletionValidator);
-                                                Navigator.pushNamed(context,
-                                                    '/addstoriespainpoints');
+                                                (UserIssuesTextController
+                                                                .text !=
+                                                            '' ||
+                                                        UserDetailsTextController.text !=
+                                                                '' &&
+                                                            SelectedUserEnvironment !=
+                                                                null &&
+                                                            SelectedProblemDomain !=
+                                                                null)
+                                                    ? Navigator.pushNamed(
+                                                        context,
+                                                        '/addstoriespainpoints')
+                                                    : null;
                                               },
                                   ),
                                 ],
