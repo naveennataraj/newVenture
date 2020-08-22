@@ -176,8 +176,8 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.90,
-          width: MediaQuery.of(context).size.width * 0.4,
+          height: 700,
+          width: 800,
           child: Center(
             child: ModalProgressHUD(
               inAsyncCall: spinner,
@@ -198,7 +198,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                       ),
                       TextFieldWidget(
                         labelText: "Why choose this solution as your top pick?",
-                        maxLines: 3,
+                        maxLines: 1,
                         validText: validTopPick,
                         myFocusNode: TopPickFocusNode,
                         myTextController: TopPickTextController,
@@ -209,7 +209,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                       TextFieldWidget(
                         labelText:
                             "How would you briefly describe the primary value proposition for this solution?",
-                        maxLines: 3,
+                        maxLines: 1,
                         validText: validPVP,
                         myFocusNode: PVPFocusNode,
                         myTextController: PVPTextController,
@@ -221,7 +221,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                       TextFieldWidget(
                         labelText:
                             "After the occurance of which event, would you suggest that the customer pain point is resolved?",
-                        maxLines: 3,
+                        maxLines: 1,
                         validText: validEvent,
                         myFocusNode: EventFocusNode,
                         myTextController: EventTextController,
@@ -232,7 +232,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                       TextFieldWidget(
                         labelText:
                             "What are the traits of the early adopters who will be testing the solution concept?",
-                        maxLines: 3,
+                        maxLines: 1,
                         validText: validTraits,
                         myFocusNode: TraitsFocusNode,
                         myTextController: TraitsTextController,
@@ -243,7 +243,7 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                       TextFieldWidget(
                         labelText:
                             "How would you plan to monetize the solution concept?",
-                        maxLines: 3,
+                        maxLines: 1,
                         validText: validMonetize,
                         myFocusNode: MonetizeFocusNode,
                         myTextController: MonetizeTextController,
@@ -323,15 +323,20 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
                                       validator();
                                     }
                                   : () {
+                                      (TopPickTextController.text != '' &&
+                                              PVPTextController.text != '' &&
+                                              EventTextController.text != '' &&
+                                              TraitsTextController.text != '' &&
+                                              MonetizeTextController.text != '')
+                                          ? Navigator.pushNamed(context,
+                                              '/BlitzInnovationFramework')
+                                          : {};
                                       if (PickDetailsArray.length != 0) {
                                         update();
                                       } else {
                                         add();
                                       }
 //                                bcpData[2].CompletionValidator = true;
-
-                                      Navigator.pushNamed(
-                                          context, '/BlitzInnovationFramework');
                                     },
                             ),
                           ],

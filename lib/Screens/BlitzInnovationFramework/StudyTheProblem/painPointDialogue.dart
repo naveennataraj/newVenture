@@ -205,6 +205,13 @@ class _painpointDialogueState extends State<painpointDialogue> {
                                 validator();
                               }
                             : () {
+                                (ChallengeTextController.text != '' &&
+                                        MoreDetailsTextController.text != '' &&
+                                        ConsequenceTextController.text != '' &&
+                                        addressppTextController.text != '' &&
+                                        expectationsTextController.text != '')
+                                    ? Navigator.pop(context)
+                                    : {};
                                 setState(() {
                                   final NewPainpoint = addPainPoints(
                                     Challenge: ChallengeTextController.text,
@@ -250,16 +257,6 @@ class _painpointDialogueState extends State<painpointDialogue> {
                                       'cardWithTitle': "true",
                                     });
                                   }
-
-                                  (ChallengeTextController.text != '' &&
-                                          MoreDetailsTextController.text !=
-                                              '' &&
-                                          ConsequenceTextController.text !=
-                                              '' &&
-                                          addressppTextController.text != '' &&
-                                          expectationsTextController.text != '')
-                                      ? Navigator.pop(context)
-                                      : {};
                                 });
                               },
                       ),

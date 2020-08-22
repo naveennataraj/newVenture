@@ -92,11 +92,11 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
           ? ScalelabelColor = Color(0xFFF53E70)
           : ScalelabelColor = Color(0xFF919191);
       EvolutionTextController.text.isEmpty
-          ? validCustomerProblem = false
-          : validCustomerProblem = true;
+          ? validEvolution = false
+          : validEvolution = true;
       EvolutionTextController.text.isEmpty
-          ? CustomerProblemlabelColor = Color(0xFFF53E70)
-          : CustomerProblemlabelColor = Color(0xFF919191);
+          ? EvolutionlabelColor = Color(0xFFF53E70)
+          : EvolutionlabelColor = Color(0xFF919191);
       ParallelSolutionTextController.text.isEmpty
           ? ParallelSolutionlabelColor = Color(0xFFF53E70)
           : ParallelSolutionlabelColor = Color(0xFF919191);
@@ -182,7 +182,7 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                       Container(
                         //height: MediaQuery.of(context).size.height * .40,
                         margin: EdgeInsets.only(top: 40.0),
-                        width: MediaQuery.of(context).size.width * .40,
+                        width: 600,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           //shape: BoxShape.rectangle,
@@ -261,7 +261,7 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                             ),
                             TextFieldWidget(
                               labelText:
-                                  "(Optional) Provide one metric for new parallel solutions",
+                                  "Provide one metric for new parallel solutions",
                               maxLines: 2,
                               validText: validParallelSolution,
                               myFocusNode: ParallelSolutionFocusNode,
@@ -541,8 +541,24 @@ class _AddProductMetricsState extends State<AddProductMetrics> {
                                                 });
                                               }
 
-                                              Navigator.pushNamed(
-                                                  context, '/addmetrics');
+                                              (CustomerProblemTextController.text != '' &&
+                                                      SolutionTextController
+                                                              .text !=
+                                                          '' &&
+                                                      EvangelismTextController.text !=
+                                                          '' &&
+                                                      ScaleTextController
+                                                              .text !=
+                                                          '' &&
+                                                      EvolutionTextController
+                                                              .text !=
+                                                          '' &&
+                                                      ParallelSolutionTextController
+                                                              .text !=
+                                                          '')
+                                                  ? Navigator.pushNamed(
+                                                      context, '/addmetrics')
+                                                  : {};
                                             });
                                           },
                                   ),

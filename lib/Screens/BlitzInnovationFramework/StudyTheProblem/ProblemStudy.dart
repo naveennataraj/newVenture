@@ -216,6 +216,16 @@ class _ProblemStudyState extends State<ProblemStudy> {
                                             validator();
                                           }
                                         : () {
+                                            (TitleTextController.text != '' &&
+                                                    ProblemTextController
+                                                            .text !=
+                                                        '' &&
+                                                    ImportanceTextController
+                                                            .text !=
+                                                        '')
+                                                ? Navigator.pushNamed(
+                                                    context, '/addpainpoints')
+                                                : {};
                                             if (ProblemStudyArray.length != 0) {
                                               print("Update method called");
                                               _firestore
@@ -263,16 +273,6 @@ class _ProblemStudyState extends State<ProblemStudy> {
                                             }
 //                                            bcpData[0].CompletionValidator =
 //                                                false;
-                                            (TitleTextController.text != '' &&
-                                                    ProblemTextController
-                                                            .text !=
-                                                        '' &&
-                                                    ImportanceTextController
-                                                            .text !=
-                                                        '')
-                                                ? Navigator.pushNamed(
-                                                    context, '/addpainpoints')
-                                                : print('works');
                                           },
                                   ),
                                 ],

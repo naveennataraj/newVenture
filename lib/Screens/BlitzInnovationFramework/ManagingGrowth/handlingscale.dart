@@ -125,7 +125,7 @@ class _handlingScaleState extends State<handlingScale> {
                     Container(
                       //height: MediaQuery.of(context).size.height * .40,
                       margin: EdgeInsets.only(top: 40.0),
-                      width: MediaQuery.of(context).size.width * .40,
+                      width: 600,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         //shape: BoxShape.rectangle,
@@ -202,6 +202,11 @@ class _handlingScaleState extends State<handlingScale> {
                                           validator();
                                         }
                                       : () {
+                                          (HandlingScaleTextController.text !=
+                                                  '')
+                                              ? Navigator.pushNamed(context,
+                                                  '/addparallelinnovations')
+                                              : {};
                                           if (HandlingScaleArray.length != 0) {
                                             update();
                                           } else {
@@ -210,8 +215,6 @@ class _handlingScaleState extends State<handlingScale> {
 //                                    bcpData[6].CompletionValidator =
 //                                    false;
 //                                    print(bcpData[6].CompletionValidator);
-                                          Navigator.pushNamed(context,
-                                              '/addparallelinnovations');
                                         },
                                 ),
                               ],

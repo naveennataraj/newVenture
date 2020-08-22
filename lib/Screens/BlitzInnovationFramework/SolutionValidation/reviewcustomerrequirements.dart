@@ -65,12 +65,16 @@ class _ReviewCustomerRequirementsState
   bool spinner = false;
   final _firestore = Firestore.instance;
   var dateColor = Color(0xFFE95420);
+  var borderColor = Color(0xFFABABAB);
 
   validator() {
     setState(() {
       (selectedDate == null)
           ? dateColor = Color(0xFFF53E70)
           : dateColor = Color(0xFFE95420);
+      (selectedDate == null)
+          ? borderColor = Color(0xFFF53E70)
+          : borderColor = Color(0xFFABABAB);
     });
   }
 
@@ -149,7 +153,7 @@ class _ReviewCustomerRequirementsState
                     Container(
                       //height: MediaQuery.of(context).size.height * .40,
                       margin: EdgeInsets.only(top: 40.0),
-                      width: MediaQuery.of(context).size.width * .40,
+                      width: 600,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         //shape: BoxShape.rectangle,
@@ -185,7 +189,7 @@ class _ReviewCustomerRequirementsState
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
                                     width: 1,
-                                    color: Color(0XFFABABAB),
+                                    color: borderColor,
                                   ),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(5),
@@ -257,6 +261,10 @@ class _ReviewCustomerRequirementsState
                                           validator();
                                         }
                                       : () {
+                                          (selectedDate != null)
+                                              ? Navigator.pushNamed(context,
+                                                  '/BlitzInnovationFramework')
+                                              : {};
                                           if (addRequirementsArray.length !=
                                               0) {
                                             update();
@@ -266,8 +274,6 @@ class _ReviewCustomerRequirementsState
                                           selectedDate = null;
 //                                    bcpData[5].CompletionValidator = true;
 //                                    print(bcpData[5].CompletionValidator);
-                                          Navigator.pushNamed(context,
-                                              '/BlitzInnovationFramework');
                                         },
                                 ),
                               ],

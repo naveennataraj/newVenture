@@ -16,18 +16,6 @@ class addProductFeaturesDialogue extends StatefulWidget {
       _addProductFeaturesDialogueState(index);
 }
 
-var ProductFeaturelabelColor = Color(0XFF919191);
-bool validProductFeature = true;
-var ProductFeatureTextController = TextEditingController();
-final ProductFeatureFocusNode = new FocusNode();
-String ProductFeature;
-
-var FeatureDescriptionlabelColor = Color(0XFF919191);
-bool validFeatureDescription = true;
-var FeatureDescriptionTextController = TextEditingController();
-final FeatureDescriptionFocusNode = new FocusNode();
-String FeatureDescription;
-
 class _addProductFeaturesDialogueState
     extends State<addProductFeaturesDialogue> {
   int index;
@@ -41,6 +29,18 @@ class _addProductFeaturesDialogueState
   var radio3Focus = new FocusNode();
   var radio4Focus = new FocusNode();
 
+  var ProductFeaturelabelColor = Color(0XFF919191);
+  bool validProductFeature = true;
+  var ProductFeatureTextController = TextEditingController();
+  final ProductFeatureFocusNode = new FocusNode();
+  String ProductFeature;
+
+  var FeatureDescriptionlabelColor = Color(0XFF919191);
+  bool validFeatureDescription = true;
+  var FeatureDescriptionTextController = TextEditingController();
+  final FeatureDescriptionFocusNode = new FocusNode();
+  String FeatureDescription;
+
   requestFocus(FocusNode myFocusNode) {
     setState(() {
       FocusScope.of(context).requestFocus(myFocusNode);
@@ -49,7 +49,30 @@ class _addProductFeaturesDialogueState
 
   _addProductFeaturesDialogueState(this.index);
 
+  var radioButtonBorderColor = Color(0xFFABABAB);
+
   final _firestore = Firestore.instance;
+
+  validator() {
+    setState(() {
+      ProductFeatureTextController.text.isEmpty
+          ? validProductFeature = false
+          : validProductFeature = true;
+      ProductFeatureTextController.text.isEmpty
+          ? ProductFeaturelabelColor = Color(0xFFF53E70)
+          : ProductFeaturelabelColor = Color(0xFF919191);
+      FeatureDescriptionTextController.text.isEmpty
+          ? validFeatureDescription = false
+          : validFeatureDescription = true;
+      FeatureDescriptionTextController.text.isEmpty
+          ? FeatureDescriptionlabelColor = Color(0xFFF53E70)
+          : FeatureDescriptionlabelColor = Color(0xFF919191);
+      (clickedRadio == null)
+          ? radioButtonBorderColor = Color(0xFFF53E70)
+          : radioButtonBorderColor = Color(0xFFE95420);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,6 +84,11 @@ class _addProductFeaturesDialogueState
           text: AddingNewProductFeature[index].FeatureDescription);
       checked = AddingNewProductFeature[index].FeatureChecked;
       clickedRadio = AddingNewProductFeature[index].FeatureType;
+    } else {
+      ProductFeatureTextController.clear();
+      FeatureDescriptionTextController.clear();
+      checked = false;
+      clickedRadio = null;
     }
   }
 
@@ -79,8 +107,8 @@ class _addProductFeaturesDialogueState
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.70,
-          width: MediaQuery.of(context).size.width * 0.5,
+          height: 600,
+          width: 800,
           child: Center(
             child: SingleChildScrollView(
                 padding:
@@ -129,8 +157,9 @@ class _addProductFeaturesDialogueState
                                   radio2Focus.hasFocus ||
                                   radio3Focus.hasFocus ||
                                   radio4Focus.hasFocus)
-                              ? Border.all(width: 1.2, color: Color(0XFFE95420))
-                              : Border.all(width: 1, color: Color(0XFFABABAB)),
+                              ? Border.all(width: 1.2, color: Color(0xFFE95420))
+                              : Border.all(
+                                  width: 1.2, color: radioButtonBorderColor),
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,59 +269,56 @@ class _addProductFeaturesDialogueState
                         children: [
                           AddProductFeatureButton(
                             routeName: '/addproductgoals',
-                            onTap: () {
-                              setState(() {
-//                                final NewProductFeature = addProductFeature(
-//                                    FeatureTitle:
-//                                        ProductFeatureTextController.text,
-//                                    FeatureDescription:
-//                                        FeatureDescriptionTextController.text,
-//                                    FeatureChecked: checked,
-//                                    FeatureType: clickedRadio);
-
-                                if (index == null) {
-//                                  AddingNewProductFeature.add(
-//                                      NewProductFeature);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionFormulation/productFeatures')
-                                      .add({
-                                    'FeatureTitle':
-                                        ProductFeatureTextController.text,
-                                    'FeatureDescription':
-                                        FeatureDescriptionTextController.text,
-                                    'FeatureChecked': checked,
-                                    'FeatureType': clickedRadio,
-                                    'Sender': currentUser,
-                                  });
-                                } else {
-//                                  AddingNewProductFeature.removeAt(index);
-//                                  AddingNewProductFeature.insert(
-//                                      index, NewProductFeature);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionFormulation/productFeatures')
-                                      .document(
-                                          AddingNewProductFeature[index].ID)
-                                      .updateData({
-                                    'FeatureTitle':
-                                        ProductFeatureTextController.text,
-                                    'FeatureDescription':
-                                        FeatureDescriptionTextController.text,
-                                    'FeatureChecked': checked,
-                                    'FeatureType': clickedRadio,
-                                    'Sender': currentUser,
-                                  });
-                                }
-
-                                ProductFeatureTextController.clear();
-                                FeatureDescriptionTextController.clear();
-                                checked = false;
-                                clickedRadio = 0;
-
-                                Navigator.pop(context);
-                              });
-                            },
+                            onTap: (ProductFeatureTextController.text == '' ||
+                                    FeatureDescriptionTextController.text ==
+                                        '' ||
+                                    clickedRadio == null)
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    (ProductFeatureTextController.text != '' &&
+                                            FeatureDescriptionTextController
+                                                    .text !=
+                                                '' &&
+                                            clickedRadio != 0)
+                                        ? Navigator.pop(context)
+                                        : {};
+                                    setState(() {
+                                      if (index == null) {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionFormulation/productFeatures')
+                                            .add({
+                                          'FeatureTitle':
+                                              ProductFeatureTextController.text,
+                                          'FeatureDescription':
+                                              FeatureDescriptionTextController
+                                                  .text,
+                                          'FeatureChecked': checked,
+                                          'FeatureType': clickedRadio,
+                                          'Sender': currentUser,
+                                        });
+                                      } else {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionFormulation/productFeatures')
+                                            .document(
+                                                AddingNewProductFeature[index]
+                                                    .ID)
+                                            .updateData({
+                                          'FeatureTitle':
+                                              ProductFeatureTextController.text,
+                                          'FeatureDescription':
+                                              FeatureDescriptionTextController
+                                                  .text,
+                                          'FeatureChecked': checked,
+                                          'FeatureType': clickedRadio,
+                                          'Sender': currentUser,
+                                        });
+                                      }
+                                    });
+                                  },
                           ),
                           SizedBox(
                             width: 50,
@@ -302,7 +328,7 @@ class _addProductFeaturesDialogueState
                               ProductFeatureTextController.clear();
                               FeatureDescriptionTextController.clear();
                               checked = false;
-                              clickedRadio = 0;
+                              clickedRadio = null;
 
                               Navigator.pop(context);
                             },

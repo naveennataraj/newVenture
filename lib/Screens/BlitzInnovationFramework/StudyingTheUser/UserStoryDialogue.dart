@@ -148,6 +148,11 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
                                     validator();
                                   }
                                 : () {
+                                    (AsaTextController.text != '' &&
+                                            SoThatTextController.text != '' &&
+                                            IWantToTextController.text != '')
+                                        ? Navigator.pop(context)
+                                        : {};
                                     setState(() {
 //                                final NewUserStory = addUserStories(
 //                                  Asa: AsaTextController.text,
@@ -182,12 +187,6 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
                                         });
                                       }
 //
-
-                                      (AsaTextController.text != '' &&
-                                              SoThatTextController.text != '' &&
-                                              IWantToTextController.text != '')
-                                          ? Navigator.pop(context)
-                                          : {};
                                     });
                                   },
                           ),

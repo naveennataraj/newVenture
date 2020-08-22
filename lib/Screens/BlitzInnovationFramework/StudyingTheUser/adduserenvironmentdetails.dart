@@ -465,18 +465,6 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                                                 validator();
                                               }
                                             : () {
-                                                if (UserEnvironmentArray
-                                                        .length !=
-                                                    0) {
-                                                  update();
-                                                } else {
-                                                  add();
-                                                }
-
-//                                                bcpData[1].CompletionValidator =
-//                                                    false;
-//                                                print(bcpData[1]
-//                                                    .CompletionValidator);
                                                 (UserIssuesTextController
                                                                 .text !=
                                                             '' ||
@@ -490,6 +478,18 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
                                                         context,
                                                         '/addstoriespainpoints')
                                                     : null;
+                                                if (UserEnvironmentArray
+                                                        .length !=
+                                                    0) {
+                                                  update();
+                                                } else {
+                                                  add();
+                                                }
+
+//                                                bcpData[1].CompletionValidator =
+//                                                    false;
+//                                                print(bcpData[1]
+//                                                    .CompletionValidator);
                                               },
                                   ),
                                 ],

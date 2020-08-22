@@ -50,7 +50,7 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                       Container(
                         //height: MediaQuery.of(context).size.height * .40,
                         margin: EdgeInsets.only(top: 40.0),
-                        width: MediaQuery.of(context).size.width * .40,
+                        width: 600,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           //shape: BoxShape.rectangle,
@@ -133,10 +133,13 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              "There are no Product Goals at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                              style:
-                                                  TextStyle(color: Colors.grey),
+                                            Expanded(
+                                              child: Text(
+                                                "There are no Product Goals at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                                textAlign: TextAlign.center,
+                                              ),
                                             )
                                           ],
                                         ),
@@ -154,17 +157,8 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                                   SizedBox(
                                     width: 50,
                                   ),
-//                                  goNextButton(
-//                                    OnTap: () {
-//                                      bcpData[3].CompletionValidator = false;
-//                                      print(bcpData[3].CompletionValidator);
-//                                      Navigator.pushNamed(
-//                                          context, '/addproductfeatures');
-//                                    },
-//                                  ),
                                   GenericStepButtonBIF(
                                     buttonName: 'GO NEXT',
-//                                    routeName: '/addpainpoints',
                                     step: 3,
                                     stepBool: false,
                                     widget: () {

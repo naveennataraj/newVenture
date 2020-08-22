@@ -178,6 +178,10 @@ class _AddUserPersonaState extends State<AddUserPersona> {
                                           validator();
                                         }
                                       : () {
+                                          (UserPersonaTextController.text != '')
+                                              ? Navigator.pushNamed(context,
+                                                  '/adduserenvironmentdetails')
+                                              : null;
                                           if (UserPersonaArray.length != 0) {
                                             update();
                                           } else {
@@ -185,11 +189,6 @@ class _AddUserPersonaState extends State<AddUserPersona> {
                                           }
 //                                          bcpData[1].CompletionValidator =
 //                                              false;
-
-                                          (UserPersonaTextController.text != '')
-                                              ? Navigator.pushNamed(context,
-                                                  '/adduserenvironmentdetails')
-                                              : null;
                                         },
                                 ),
                               ],
