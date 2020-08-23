@@ -47,112 +47,107 @@ class _customerDashBoardState extends State<customerDashBoard> {
   }
 
   void getDocument() async {
-    if (UserEnvironmentArray.length == 0) {
-      customercard1spinner = true;
-      final UserEnvironmentdocument = await _firestore
-          .collection('$currentUser/StudyingTheUser/UserEnvironment')
-          .getDocuments();
+    customercard1spinner = true;
+    final UserEnvironmentdocument = await _firestore
+        .collection('$currentUser/StudyingTheUser/UserEnvironment')
+        .getDocuments();
 //    print("GEt method called");
-      UserEnvironmentArray = [];
-      for (var UserEnvironmentmessage in UserEnvironmentdocument.documents) {
-        final double Start = UserEnvironmentmessage.data['AgeStart'];
-        final double End = UserEnvironmentmessage.data['AgeEnd'];
-        final ProblemDropdownValue =
-            UserEnvironmentmessage.data['ProblemDropdownValue'];
+    UserEnvironmentArray = [];
+    for (var UserEnvironmentmessage in UserEnvironmentdocument.documents) {
+      final double Start = UserEnvironmentmessage.data['AgeStart'];
+      final double End = UserEnvironmentmessage.data['AgeEnd'];
+      final ProblemDropdownValue =
+          UserEnvironmentmessage.data['ProblemDropdownValue'];
 
-        final EnvironmentDropdownValue =
-            UserEnvironmentmessage.data['EnvironmentDropdownValue'];
+      final EnvironmentDropdownValue =
+          UserEnvironmentmessage.data['EnvironmentDropdownValue'];
 
-        final Issues = UserEnvironmentmessage.data['Issues'];
-        final Details = UserEnvironmentmessage.data['Details'];
-        final ID = UserEnvironmentmessage.documentID;
+      final Issues = UserEnvironmentmessage.data['Issues'];
+      final Details = UserEnvironmentmessage.data['Details'];
+      final ID = UserEnvironmentmessage.documentID;
 
-        final fields = addUserEnvironment(
-            ageRangeStart: Start,
-            ageRangeEnd: End,
-            ProblemDrop: ProblemDropdownValue,
-            EnvironmentDrop: EnvironmentDropdownValue,
-            issues: Issues,
-            detail: Details,
-            ID: ID);
+      final fields = addUserEnvironment(
+          ageRangeStart: Start,
+          ageRangeEnd: End,
+          ProblemDrop: ProblemDropdownValue,
+          EnvironmentDrop: EnvironmentDropdownValue,
+          issues: Issues,
+          detail: Details,
+          ID: ID);
 
-        UserEnvironmentArray.add(fields);
+      UserEnvironmentArray.add(fields);
 //        print('Get Method called');
-      }
-
-      setState(() {
-        ageStart = UserEnvironmentArray[0].ageRangeStart.toInt().toString();
-        ageEnd = UserEnvironmentArray[0].ageRangeEnd.toInt().toString();
-        problemDomain = UserEnvironmentArray[0].ProblemDrop;
-      });
     }
-    if (ProblemStudyArray.length == 0) {
-      final problemStudydocument = await _firestore
-          .collection('$currentUser/StudyTheProblem/problemStudy')
-          .getDocuments();
+
+    setState(() {
+      ageStart = UserEnvironmentArray[0].ageRangeStart.toInt().toString();
+      ageEnd = UserEnvironmentArray[0].ageRangeEnd.toInt().toString();
+      problemDomain = UserEnvironmentArray[0].ProblemDrop;
+    });
+
+    final problemStudydocument = await _firestore
+        .collection('$currentUser/StudyTheProblem/problemStudy')
+        .getDocuments();
 //      print("GEt method called");
-      ProblemStudyArray = [];
-      for (var problemStudymessage in problemStudydocument.documents) {
-        final Title = problemStudymessage.data['Title'];
-        final Problem = problemStudymessage.data['Problem'];
-        final Importance = problemStudymessage.data['Importance'];
-        final ID = problemStudymessage.documentID;
+    ProblemStudyArray = [];
+    for (var problemStudymessage in problemStudydocument.documents) {
+      final Title = problemStudymessage.data['Title'];
+      final Problem = problemStudymessage.data['Problem'];
+      final Importance = problemStudymessage.data['Importance'];
+      final ID = problemStudymessage.documentID;
 
-        final fields = problemStudy(
-            title: Title, problem: Problem, importance: Importance, ID: ID);
+      final fields = problemStudy(
+          title: Title, problem: Problem, importance: Importance, ID: ID);
 
-        ProblemStudyArray.add(fields);
-      }
-      setState(() {
-        if (ProblemStudyArray.length != 0) {
-          problem = ProblemStudyArray[0].problem;
-        }
-      });
+      ProblemStudyArray.add(fields);
     }
-    if (AddingNewUserStory.length == 0) {
-      final userStorydocument = await _firestore
-          .collection('$currentUser/StudyingTheUser/userStory')
-          .getDocuments();
+    setState(() {
+      if (ProblemStudyArray.length != 0) {
+        problem = ProblemStudyArray[0].problem;
+      }
+    });
+
+    final userStorydocument = await _firestore
+        .collection('$currentUser/StudyingTheUser/userStory')
+        .getDocuments();
 //      print("GEt method called");
-      AddingNewUserStory = [];
-      for (var userStorydocumentmessage in userStorydocument.documents) {
-        final Asa = userStorydocumentmessage.data['Asa'];
-        final IWantTo = userStorydocumentmessage.data['IWantTo'];
-        final SoThat = userStorydocumentmessage.data['SoThat'];
-        final ID = userStorydocumentmessage.documentID;
+    AddingNewUserStory = [];
+    for (var userStorydocumentmessage in userStorydocument.documents) {
+      final Asa = userStorydocumentmessage.data['Asa'];
+      final IWantTo = userStorydocumentmessage.data['IWantTo'];
+      final SoThat = userStorydocumentmessage.data['SoThat'];
+      final ID = userStorydocumentmessage.documentID;
 
-        final card =
-            addUserStories(Asa: Asa, IWantTo: IWantTo, SoThat: SoThat, ID: ID);
-        AddingNewUserStory.add(card);
-      }
-      setState(() {
-        if (AddingNewUserStory.length != 0) {
-          userStory = UserStory(0);
-        }
-      });
+      final card =
+          addUserStories(Asa: Asa, IWantTo: IWantTo, SoThat: SoThat, ID: ID);
+      AddingNewUserStory.add(card);
     }
-    if (UserPersonaArray.length == 0) {
-      final document = await _firestore
-          .collection('$currentUser/StudyingTheUser/UserPersona')
-          .getDocuments();
+    setState(() {
+      if (AddingNewUserStory.length != 0) {
+        userStory = UserStory(0);
+      }
+    });
+
+    final document = await _firestore
+        .collection('$currentUser/StudyingTheUser/UserPersona')
+        .getDocuments();
 //    print("GEt method called");
-      UserPersonaArray = [];
-      for (var message in document.documents) {
-        final Link = message.data['Link'];
-        final ID = message.documentID;
+    UserPersonaArray = [];
+    for (var message in document.documents) {
+      final Link = message.data['Link'];
+      final ID = message.documentID;
 
-        final fields = addUserPersona(link: Link, ID: ID);
+      final fields = addUserPersona(link: Link, ID: ID);
 
-        UserPersonaArray.add(fields);
+      UserPersonaArray.add(fields);
 //        print('Get Method called');
-      }
-      setState(() {
-        if (UserPersonaArray.length != 0) {
-          personaLink = UserPersonaArray[0].link;
-        }
-        customercard1spinner = false;
-      });
     }
+    setState(() {
+      if (UserPersonaArray.length != 0) {
+        personaLink = UserPersonaArray[0].link;
+      }
+      customercard1spinner = false;
+    });
   }
 
   @override

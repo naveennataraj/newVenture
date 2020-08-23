@@ -37,84 +37,80 @@ bool feedbackspinner = false;
 class _feedbackDashBoardState extends State<feedbackDashBoard> {
   final _firestore = Firestore.instance;
   void getDocument() async {
-    if (PickDetailsArray.length == 0) {
-      feedbackspinner = true;
-      final Detailsdocument = await _firestore
-          .collection('$currentUser/SolutionIdeation/pickDetails')
-          .getDocuments();
+    feedbackspinner = true;
+    final Detailsdocument = await _firestore
+        .collection('$currentUser/SolutionIdeation/pickDetails')
+        .getDocuments();
 //    print("GEt method called");
 
-      for (var Detailsmessage in Detailsdocument.documents) {
-        PickDetailsArray = [];
-        final checked = Detailsmessage.data['checked'];
-        final Event = Detailsmessage.data['Event'];
-        final Monetize = Detailsmessage.data['Monetize'];
-        final PVP = Detailsmessage.data['PVP'];
-        final Traits = Detailsmessage.data['Traits'];
-        final TopPick = Detailsmessage.data['TopPick'];
-        final ID = Detailsmessage.documentID;
+    for (var Detailsmessage in Detailsdocument.documents) {
+      PickDetailsArray = [];
+      final checked = Detailsmessage.data['checked'];
+      final Event = Detailsmessage.data['Event'];
+      final Monetize = Detailsmessage.data['Monetize'];
+      final PVP = Detailsmessage.data['PVP'];
+      final Traits = Detailsmessage.data['Traits'];
+      final TopPick = Detailsmessage.data['TopPick'];
+      final ID = Detailsmessage.documentID;
 
-        final fields = pickDetails(
-            checked: checked,
-            Event: Event,
-            Monetize: Monetize,
-            PVP: PVP,
-            Traits: Traits,
-            TopPick: TopPick,
-            ID: ID);
+      final fields = pickDetails(
+          checked: checked,
+          Event: Event,
+          Monetize: Monetize,
+          PVP: PVP,
+          Traits: Traits,
+          TopPick: TopPick,
+          ID: ID);
 
-        PickDetailsArray.add(fields);
-      }
-      setState(() {
-        if (PickDetailsArray.length != 0) {
-          event = PickDetailsArray[0].Event;
-          monetize = PickDetailsArray[0].Monetize;
-          pvp = PickDetailsArray[0].PVP;
-        }
-      });
+      PickDetailsArray.add(fields);
     }
-    if (addMediumArray.length == 0) {
-      final mediumdocument = await _firestore
-          .collection('$currentUser/PreValidation/addMedium')
-          .getDocuments();
+    setState(() {
+      if (PickDetailsArray.length != 0) {
+        event = PickDetailsArray[0].Event;
+        monetize = PickDetailsArray[0].Monetize;
+        pvp = PickDetailsArray[0].PVP;
+      }
+    });
+
+    final mediumdocument = await _firestore
+        .collection('$currentUser/PreValidation/addMedium')
+        .getDocuments();
 //    print("GEt method called");
 
-      for (var mediummessage in mediumdocument.documents) {
-        addMediumArray = [];
-        final Medium = mediummessage.data['Medium'];
-        final ID = mediummessage.documentID;
+    for (var mediummessage in mediumdocument.documents) {
+      addMediumArray = [];
+      final Medium = mediummessage.data['Medium'];
+      final ID = mediummessage.documentID;
 
-        final fields = addDistributionMedium(medium: Medium, ID: ID);
+      final fields = addDistributionMedium(medium: Medium, ID: ID);
 
-        addMediumArray.add(fields);
-      }
-      setState(() {
-        if (addMediumArray.length != 0) {
-          medium = addMediumArray[0].medium;
-        }
-      });
+      addMediumArray.add(fields);
     }
-    if (AddingNewQuote.length == 0) {
-      final quotedocument = await _firestore
-          .collection('$currentUser/SolutionValidation/Quote')
-          .getDocuments();
+    setState(() {
+      if (addMediumArray.length != 0) {
+        medium = addMediumArray[0].medium;
+      }
+    });
+
+    final quotedocument = await _firestore
+        .collection('$currentUser/SolutionValidation/Quote')
+        .getDocuments();
 //    print("GEt method called");
 
-      for (var quotemessage in quotedocument.documents) {
-        final Content = quotemessage.data['Content'];
-        final CheckQuote = quotemessage.data['CheckQuote'];
-        final ID = quotemessage.documentID;
+    for (var quotemessage in quotedocument.documents) {
+      final Content = quotemessage.data['Content'];
+      final CheckQuote = quotemessage.data['CheckQuote'];
+      final ID = quotemessage.documentID;
 
-        final card = addQuote(Content: Content, CheckQuote: CheckQuote, ID: ID);
-        AddingNewQuote.add(card);
-      }
-      setState(() {
-        feedbackspinner = false;
-        if (AddingNewQuote.length != 0) {
-          content = AddingNewQuote[0].Content;
-        }
-      });
+      final card = addQuote(Content: Content, CheckQuote: CheckQuote, ID: ID);
+      AddingNewQuote.add(card);
     }
+    setState(() {
+      feedbackspinner = false;
+      if (AddingNewQuote.length != 0) {
+        content = AddingNewQuote[0].Content;
+      }
+    });
   }
 
   @override

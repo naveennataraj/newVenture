@@ -20,42 +20,40 @@ String pvp = '';
 class _overViewDashBoardState extends State<overViewDashBoard> {
   final _firestore = Firestore.instance;
   void getDocument() async {
-    if (PickDetailsArray.length == 0) {
-      feedbackspinner = true;
-      final Detailsdocument = await _firestore
-          .collection('$currentUser/SolutionIdeation/pickDetails')
-          .getDocuments();
+    feedbackspinner = true;
+    final Detailsdocument = await _firestore
+        .collection('$currentUser/SolutionIdeation/pickDetails')
+        .getDocuments();
 //    print("GEt method called");
 
-      for (var Detailsmessage in Detailsdocument.documents) {
-        PickDetailsArray = [];
-        final checked = Detailsmessage.data['checked'];
-        final Event = Detailsmessage.data['Event'];
-        final Monetize = Detailsmessage.data['Monetize'];
-        final PVP = Detailsmessage.data['PVP'];
-        final Traits = Detailsmessage.data['Traits'];
-        final TopPick = Detailsmessage.data['TopPick'];
-        final ID = Detailsmessage.documentID;
+    for (var Detailsmessage in Detailsdocument.documents) {
+      PickDetailsArray = [];
+      final checked = Detailsmessage.data['checked'];
+      final Event = Detailsmessage.data['Event'];
+      final Monetize = Detailsmessage.data['Monetize'];
+      final PVP = Detailsmessage.data['PVP'];
+      final Traits = Detailsmessage.data['Traits'];
+      final TopPick = Detailsmessage.data['TopPick'];
+      final ID = Detailsmessage.documentID;
 
-        final fields = pickDetails(
-            checked: checked,
-            Event: Event,
-            Monetize: Monetize,
-            PVP: PVP,
-            Traits: Traits,
-            TopPick: TopPick,
-            ID: ID);
+      final fields = pickDetails(
+          checked: checked,
+          Event: Event,
+          Monetize: Monetize,
+          PVP: PVP,
+          Traits: Traits,
+          TopPick: TopPick,
+          ID: ID);
 
-        PickDetailsArray.add(fields);
-      }
-      setState(() {
-        if (PickDetailsArray.length != 0) {
-          event = PickDetailsArray[0].Event;
-          monetize = PickDetailsArray[0].Monetize;
-          pvp = PickDetailsArray[0].PVP;
-        }
-      });
+      PickDetailsArray.add(fields);
     }
+    setState(() {
+      if (PickDetailsArray.length != 0) {
+        event = PickDetailsArray[0].Event;
+        monetize = PickDetailsArray[0].Monetize;
+        pvp = PickDetailsArray[0].PVP;
+      }
+    });
   }
 
   @override

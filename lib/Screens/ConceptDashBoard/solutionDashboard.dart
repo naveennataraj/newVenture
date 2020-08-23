@@ -39,105 +39,100 @@ bool solutionspinner = false;
 class _solutionDashBoardState extends State<solutionDashBoard> {
   final _firestore = Firestore.instance;
   void getDocument() async {
-    if (AddingNewCompetingProduct.length == 0) {
-      solutionspinner = true;
-      final competingProductdocument = await _firestore
-          .collection('$currentUser/SolutionFormulation/competingProducts')
-          .getDocuments();
+    solutionspinner = true;
+    final competingProductdocument = await _firestore
+        .collection('$currentUser/SolutionFormulation/competingProducts')
+        .getDocuments();
 //    print("GEt method called");
 
-      for (var competingProductmessage in competingProductdocument.documents) {
-        AddingNewCompetingProduct = [];
-        final ProductName = competingProductmessage.data['ProductName'];
-        final OrgName = competingProductmessage.data['OrgName'];
-        final Features = competingProductmessage.data['Features'];
-        final CurrentOffering = competingProductmessage.data['CurrentOffering'];
-        final ID = competingProductmessage.documentID;
+    for (var competingProductmessage in competingProductdocument.documents) {
+      AddingNewCompetingProduct = [];
+      final ProductName = competingProductmessage.data['ProductName'];
+      final OrgName = competingProductmessage.data['OrgName'];
+      final Features = competingProductmessage.data['Features'];
+      final CurrentOffering = competingProductmessage.data['CurrentOffering'];
+      final ID = competingProductmessage.documentID;
 
-        final card = addCompetingProduct(
-            CurrentOffering: CurrentOffering,
-            Features: Features,
-            OrgName: OrgName,
-            ProductName: ProductName,
-            ID: ID);
-        AddingNewCompetingProduct.add(card);
-      }
-
-      setState(() {
-        productName = AddingNewCompetingProduct[0].ProductName;
-        features = AddingNewCompetingProduct[0].ProductName;
-      });
+      final card = addCompetingProduct(
+          CurrentOffering: CurrentOffering,
+          Features: Features,
+          OrgName: OrgName,
+          ProductName: ProductName,
+          ID: ID);
+      AddingNewCompetingProduct.add(card);
     }
-    if (AddingNewProductFeature.length == 0) {
-      solutionspinner = true;
-      final productFeaturesdocument = await _firestore
-          .collection('$currentUser/SolutionFormulation/productFeatures')
-          .getDocuments();
+
+    setState(() {
+      productName = AddingNewCompetingProduct[0].ProductName;
+      features = AddingNewCompetingProduct[0].ProductName;
+    });
+
+    solutionspinner = true;
+    final productFeaturesdocument = await _firestore
+        .collection('$currentUser/SolutionFormulation/productFeatures')
+        .getDocuments();
 //    print("GEt method called");
-      AddingNewProductFeature = [];
-      for (var productFeaturesmessage in productFeaturesdocument.documents) {
-        final FeatureTitle = productFeaturesmessage.data['FeatureTitle'];
-        final FeatureDescription =
-            productFeaturesmessage.data['FeatureDescription'];
-        final FeatureChecked = productFeaturesmessage.data['FeatureChecked'];
-        final FeatureType = productFeaturesmessage.data['FeatureType'];
-        final ID = productFeaturesmessage.documentID;
+    AddingNewProductFeature = [];
+    for (var productFeaturesmessage in productFeaturesdocument.documents) {
+      final FeatureTitle = productFeaturesmessage.data['FeatureTitle'];
+      final FeatureDescription =
+          productFeaturesmessage.data['FeatureDescription'];
+      final FeatureChecked = productFeaturesmessage.data['FeatureChecked'];
+      final FeatureType = productFeaturesmessage.data['FeatureType'];
+      final ID = productFeaturesmessage.documentID;
 
-        final card = addProductFeature(
-            FeatureTitle: FeatureTitle,
-            FeatureDescription: FeatureDescription,
-            FeatureChecked: FeatureChecked,
-            FeatureType: FeatureType,
-            ID: ID);
-        AddingNewProductFeature.add(card);
-      }
-
-      setState(() {
-        solutionspinner = false;
-        if (AddingNewProductFeature.length == 1) {
-          featureName1 = AddingNewProductFeature[0].FeatureTitle;
-        } else {
-          featureName1 = AddingNewProductFeature[0].FeatureTitle;
-          featureName2 = AddingNewProductFeature[1].FeatureTitle;
-        }
-      });
+      final card = addProductFeature(
+          FeatureTitle: FeatureTitle,
+          FeatureDescription: FeatureDescription,
+          FeatureChecked: FeatureChecked,
+          FeatureType: FeatureType,
+          ID: ID);
+      AddingNewProductFeature.add(card);
     }
 
-    if (PickDetailsArray.length == 0) {
-      final Detailsdocument = await _firestore
-          .collection('$currentUser/SolutionIdeation/pickDetails')
-          .getDocuments();
+    setState(() {
+      solutionspinner = false;
+      if (AddingNewProductFeature.length == 1) {
+        featureName1 = AddingNewProductFeature[0].FeatureTitle;
+      } else {
+        featureName1 = AddingNewProductFeature[0].FeatureTitle;
+        featureName2 = AddingNewProductFeature[1].FeatureTitle;
+      }
+    });
+
+    final Detailsdocument = await _firestore
+        .collection('$currentUser/SolutionIdeation/pickDetails')
+        .getDocuments();
 //    print("GEt method called");
 
-      for (var Detailsmessage in Detailsdocument.documents) {
-        PickDetailsArray = [];
-        final checked = Detailsmessage.data['checked'];
-        final Event = Detailsmessage.data['Event'];
-        final Monetize = Detailsmessage.data['Monetize'];
-        final PVP = Detailsmessage.data['PVP'];
-        final Traits = Detailsmessage.data['Traits'];
-        final TopPick = Detailsmessage.data['TopPick'];
-        final ID = Detailsmessage.documentID;
+    for (var Detailsmessage in Detailsdocument.documents) {
+      PickDetailsArray = [];
+      final checked = Detailsmessage.data['checked'];
+      final Event = Detailsmessage.data['Event'];
+      final Monetize = Detailsmessage.data['Monetize'];
+      final PVP = Detailsmessage.data['PVP'];
+      final Traits = Detailsmessage.data['Traits'];
+      final TopPick = Detailsmessage.data['TopPick'];
+      final ID = Detailsmessage.documentID;
 
-        final fields = pickDetails(
-            checked: checked,
-            Event: Event,
-            Monetize: Monetize,
-            PVP: PVP,
-            Traits: Traits,
-            TopPick: TopPick,
-            ID: ID);
+      final fields = pickDetails(
+          checked: checked,
+          Event: Event,
+          Monetize: Monetize,
+          PVP: PVP,
+          Traits: Traits,
+          TopPick: TopPick,
+          ID: ID);
 
-        PickDetailsArray.add(fields);
-      }
-      setState(() {
-        if (PickDetailsArray.length != 0) {
-          monetize = PickDetailsArray[0].Monetize;
-          event = PickDetailsArray[0].Event;
-          pvp = PickDetailsArray[0].PVP;
-        }
-      });
+      PickDetailsArray.add(fields);
     }
+    setState(() {
+      if (PickDetailsArray.length != 0) {
+        monetize = PickDetailsArray[0].Monetize;
+        event = PickDetailsArray[0].Event;
+        pvp = PickDetailsArray[0].PVP;
+      }
+    });
   }
 
   @override

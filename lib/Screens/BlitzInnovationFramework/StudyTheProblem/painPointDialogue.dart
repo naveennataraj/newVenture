@@ -117,7 +117,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: 580,
+        height: 620,
         width: 800,
         child: SingleChildScrollView(
           child: Padding(

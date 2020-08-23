@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
 import 'package:iventure001/Widgets/AddSolutionButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
+import 'package:iventure001/Widgets/SolutionExistsDialog.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 class solutionIdeationDialogue extends StatefulWidget {
@@ -43,6 +43,7 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
       BriefTextController.text.isEmpty
           ? BrieflabelColor = Color(0xFFF53E70)
           : BrieflabelColor = Color(0xFF919191);
+
       print("(Validator is called)");
     });
   }
@@ -127,6 +128,14 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                                             BriefTextController.text != '')
                                         ? Navigator.pop(context)
                                         : {};
+
+                                    (AddingNewSolutions.contains(Name))
+                                        ? showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                SolutionExistsDialogue(),
+                                          )
+                                        : {};
                                     setState(() {
 //                                final NewSolutionIdeation = addSolutions(
 //                                  Name: NameTextController.text,
@@ -161,18 +170,18 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                                         });
                                       }
 
-                                      //Adding solutions to dropdown
-                                      final AddingSolutinstoDropdown =
-                                          NameTextController.text;
-
-                                      if (index == null) {
-                                        SolutionRankingList.add(
-                                            AddingSolutinstoDropdown);
-                                      } else {
-                                        SolutionRankingList.removeAt(index);
-                                        SolutionRankingList.insert(
-                                            index, AddingSolutinstoDropdown);
-                                      }
+//                                      //Adding solutions to dropdown
+//                                      final AddingSolutinstoDropdown =
+//                                          NameTextController.text;
+//
+//                                      if (index == null) {
+//                                        SolutionRankingList.add(
+//                                            AddingSolutinstoDropdown);
+//                                      } else {
+//                                        SolutionRankingList.removeAt(index);
+//                                        SolutionRankingList.insert(
+//                                            index, AddingSolutinstoDropdown);
+//                                      }
                                     });
                                   },
                           ),

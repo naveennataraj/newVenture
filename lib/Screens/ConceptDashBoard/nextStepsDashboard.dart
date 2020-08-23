@@ -34,61 +34,58 @@ bool nextstepsspinner = false;
 class _nextStepsDashBoardState extends State<nextStepsDashBoard> {
   final _firestore = Firestore.instance;
   void getDocument() async {
-    if (addRequirementsArray.length == 0) {
-      nextstepsspinner = true;
-      final reviewdocument = await _firestore
-          .collection('$currentUser/SolutionValidation/reviewDate')
-          .getDocuments();
+    nextstepsspinner = true;
+    final reviewdocument = await _firestore
+        .collection('$currentUser/SolutionValidation/reviewDate')
+        .getDocuments();
 //    print("GEt method called");
 
-      for (var reviewmessage in reviewdocument.documents) {
-        addRequirementsArray = [];
-        final selectedDate = reviewmessage.data['ReviewDate'];
-        final ID = reviewmessage.documentID;
+    for (var reviewmessage in reviewdocument.documents) {
+      addRequirementsArray = [];
+      final selectedDate = reviewmessage.data['ReviewDate'];
+      final ID = reviewmessage.documentID;
 
-        final fields = reviewCustomerrequirements(
-            SelectedDate: selectedDate.toDate(), ID: ID);
+      final fields = reviewCustomerrequirements(
+          SelectedDate: selectedDate.toDate(), ID: ID);
 
-        addRequirementsArray.add(fields);
-      }
-      setState(() {
-        if (addRequirementsArray.length != 0) {
-          selectedDate = addRequirementsArray[0].SelectedDate;
-          final df = new DateFormat('dd-MMM-yyyy');
-          date = df.format(selectedDate);
-        }
-      });
+      addRequirementsArray.add(fields);
     }
-    if (AddingNewParallelInnovations.length == 0) {
-      final parallelInnovationsdocument = await _firestore
-          .collection('$currentUser/ManagingGrowth/parallelInnovations')
-          .getDocuments();
+    setState(() {
+      if (addRequirementsArray.length != 0) {
+        selectedDate = addRequirementsArray[0].SelectedDate;
+        final df = new DateFormat('dd-MMM-yyyy');
+        date = df.format(selectedDate);
+      }
+    });
+
+    final parallelInnovationsdocument = await _firestore
+        .collection('$currentUser/ManagingGrowth/parallelInnovations')
+        .getDocuments();
 //    print("GEt method called");
 
-      for (var parallelInnovationsmessage
-          in parallelInnovationsdocument.documents) {
-        AddingNewParallelInnovations = [];
-        final Name = parallelInnovationsmessage.data['Name'];
-        final Description = parallelInnovationsmessage.data['Description'];
-        final CheckedSolution =
-            parallelInnovationsmessage.data['CheckedSolution'];
-        final ID = parallelInnovationsmessage.documentID;
+    for (var parallelInnovationsmessage
+        in parallelInnovationsdocument.documents) {
+      AddingNewParallelInnovations = [];
+      final Name = parallelInnovationsmessage.data['Name'];
+      final Description = parallelInnovationsmessage.data['Description'];
+      final CheckedSolution =
+          parallelInnovationsmessage.data['CheckedSolution'];
+      final ID = parallelInnovationsmessage.documentID;
 
-        final card = addparallelinnovations(
-            Name: Name,
-            Description: Description,
-            CheckedSolution: CheckedSolution,
-            ID: ID);
-        AddingNewParallelInnovations.add(card);
-      }
-      setState(() {
-        nextstepsspinner = false;
-        if (AddingNewParallelInnovations.length != 0) {
-          ppName = AddingNewParallelInnovations[0].Name;
-          ppDescription = AddingNewParallelInnovations[0].Description;
-        }
-      });
+      final card = addparallelinnovations(
+          Name: Name,
+          Description: Description,
+          CheckedSolution: CheckedSolution,
+          ID: ID);
+      AddingNewParallelInnovations.add(card);
     }
+    setState(() {
+      nextstepsspinner = false;
+      if (AddingNewParallelInnovations.length != 0) {
+        ppName = AddingNewParallelInnovations[0].Name;
+        ppDescription = AddingNewParallelInnovations[0].Description;
+      }
+    });
   }
 
   @override
