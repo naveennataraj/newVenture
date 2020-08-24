@@ -26,6 +26,17 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
   int index;
   final _firestore = Firestore.instance;
 
+  validator() {
+    setState(() {
+      ProductGoalTextController.text.isEmpty
+          ? validProductGoal = false
+          : validProductGoal = true;
+      ProductGoalTextController.text.isEmpty
+          ? ProductGoallabelColor = Color(0xFFF53E70)
+          : ProductGoallabelColor = Color(0xFF919191);
+    });
+  }
+
   _addProductGoalsDialogueState(this.index);
   @override
   void initState() {
@@ -33,6 +44,8 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
     if (index != null) {
       ProductGoalTextController =
           TextEditingController(text: AddingNewProductGoals[index].goal);
+    } else {
+      ProductGoalTextController.clear();
     }
   }
 
@@ -42,8 +55,8 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.40,
-          width: MediaQuery.of(context).size.width * 0.4,
+          height: 300,
+          width: 800,
           child: Center(
             child: SingleChildScrollView(
                 padding:
@@ -77,40 +90,38 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddProductGoalButton(
-                            onTap: () {
-                              setState(() {
-//                                final NewProductGoals = addProductGoal(
-//                                  goal: ProductGoalTextController.text,
-//                                );
-
-                                if (index == null) {
-//                                  AddingNewProductGoals.add(NewProductGoals);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionFormulation/productGoal')
-                                      .add({
-                                    'goal': ProductGoalTextController.text,
-                                    'Sender': currentUser,
-                                  });
-                                } else {
-//                                  AddingNewProductGoals.removeAt(index);
-//                                  AddingNewProductGoals.insert(
-//                                      index, NewProductGoals);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionFormulation/productGoal')
-                                      .document(AddingNewProductGoals[index].ID)
-                                      .updateData({
-                                    'goal': ProductGoalTextController.text,
-                                    'Sender': currentUser,
-                                  });
-                                }
-
-                                ProductGoalTextController.clear();
-
-                                Navigator.pop(context);
-                              });
-                            },
+                            onTap: (ProductGoalTextController.text == '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    (ProductGoalTextController.text != '')
+                                        ? Navigator.pop(context)
+                                        : {};
+                                    setState(() {
+                                      if (index == null) {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionFormulation/productGoal')
+                                            .add({
+                                          'goal':
+                                              ProductGoalTextController.text,
+                                          'Sender': currentUser,
+                                        });
+                                      } else {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionFormulation/productGoal')
+                                            .document(
+                                                AddingNewProductGoals[index].ID)
+                                            .updateData({
+                                          'goal':
+                                              ProductGoalTextController.text,
+                                          'Sender': currentUser,
+                                        });
+                                      }
+                                    });
+                                  },
                           ),
                           SizedBox(
                             width: 50,

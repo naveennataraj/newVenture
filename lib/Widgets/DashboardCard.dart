@@ -27,7 +27,7 @@ class _DashboardCardsState extends State<DashboardCards> {
     return Padding(
       padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
           ? 50
-          : (MediaQuery.of(context).size.width <= 750) ? 20 : 30.0),
+          : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
       child: Container(
         width: 300,
         color: Colors.white,
@@ -54,6 +54,10 @@ class _DashboardCardsState extends State<DashboardCards> {
                           //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(Icons.edit),
                     ],
                   ),
                 ),

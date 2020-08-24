@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
-import 'package:iventure001/Screens/BusinessModelDashboard/BcCustomerDashboard.dart';
 
 class BcOverviewDashboard extends StatefulWidget with ConceptDashboardStates {
   @override
@@ -12,7 +10,6 @@ class BcOverviewDashboard extends StatefulWidget with ConceptDashboardStates {
 }
 
 class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
-
 //  void initState() {
 //    super.initState();
 //    getDocuments();
@@ -48,7 +45,6 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
 //    });
 //  }
 //
-
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +97,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.menu_book),
+                                      Icon(Icons.person),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -186,48 +182,46 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                   Center(
                     child: Wrap(
                       children: [
-                        BcCustomerDashboard()
-//                        DashboardCards(
-//                          cardIcon: Icons.new_releases,
-//                          cardTitle: 'What is our Primary Value Proposition?',
-//                          cardNote:
-//                              'A simple Task management solution for personal and professional use, influenced by the Eisenhower method.',
-//                          cardButtonName: 'VIEW WIREFRAME',
-//                          onTap: () {},
-//                        ),
-//                        DashboardCards(
-//                          cardIcon: Icons.call_split,
-//                          cardTitle: 'How our solution stands out',
-//                          cardNote:
-//                              'Employment of the Eisenhower method to task management with an emphasis on the user experience',
-//                          onTap: () {},
-//                        ),
-//                        DashboardCards(
-//                          cardIcon: Icons.person,
-//                          cardTitle:
-//                              'Customer Quotes (on using the solution prototype)',
-//                          cardNote:
-//                              'When I need to remember a task, I type it in. When I am done, I strike it out. It is that simple.',
-//                          cardButtonName: 'VIEW MORE QUOTES',
-//                          onTap: () {},
-//                        ),
-//                        DashboardCards(
-//                          cardIcon: Icons.vpn_key,
-//                          cardTitle: 'We excel at:',
-//                          cardNote:
-//                              'Developing models for prediction based on relevant data',
-//                          cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
-//                          onTap: () {},
-//                        ),
-//                        DashboardCards(
-//                          cardIcon: Icons.trending_up,
-//                          cardTitle:
-//                              'Other offerings planned',
-//                          cardNote:
-//                              'Calendar Sync - Syncs ToDo items with a calendar and allows for meeting scheduling and meeting notes',
-//                          cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
-//                          onTap: () {},
-//                        )
+                        DashboardCards(
+                          cardIcon: Icons.new_releases,
+                          cardTitle: 'What is our Primary Value Proposition?',
+                          cardNote:
+                              'A simple Task management solution for personal and professional use, influenced by the Eisenhower method.',
+                          cardButtonName: 'VIEW WIREFRAME',
+                          onTap: () {},
+                        ),
+                        DashboardCards(
+                          cardIcon: Icons.call_split,
+                          cardTitle: 'How our solution stands out',
+                          cardNote:
+                              'Employment of the Eisenhower method to task management with an emphasis on the user experience',
+                          onTap: () {},
+                        ),
+                        DashboardCards(
+                          cardIcon: Icons.person,
+                          cardTitle:
+                              'Customer Quotes (on using the solution prototype)',
+                          cardNote:
+                              'When I need to remember a task, I type it in. When I am done, I strike it out. It is that simple.',
+                          cardButtonName: 'VIEW MORE QUOTES',
+                          onTap: () {},
+                        ),
+                        DashboardCards(
+                          cardIcon: Icons.vpn_key,
+                          cardTitle: 'We excel at:',
+                          cardNote:
+                              'Developing models for prediction based on relevant data',
+                          cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
+                          onTap: () {},
+                        ),
+                        DashboardCards(
+                          cardIcon: Icons.trending_up,
+                          cardTitle: 'Other offerings planned',
+                          cardNote:
+                              'Calendar Sync - Syncs ToDo items with a calendar and allows for meeting scheduling and meeting notes',
+                          cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
+                          onTap: () {},
+                        )
                       ],
                     ),
                   ),
@@ -251,7 +245,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                     child: Wrap(
                       children: <Widget>[
                         DashboardCards(
-                          cardIcon: Icons.face,
+                          cardIcon: Icons.person,
                           cardTitle: 'How we reduce rework',
                           cardNote:
                               'We intend to use Google Apps suite for the purpose of Collaboration when working on joint tasks.',
@@ -259,11 +253,10 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                           onTap: () {},
                         ),
                         DashboardCards(
-                          cardIcon: Icons.flip_camera_android_rounded,
-                          cardTitle:
-                              'How we Synergize',
+                          cardIcon: Icons.person,
+                          cardTitle: 'How we Synergize',
                           cardNote:
-                          '"A key resource (developer/designer) working with tech support personnel to create a new feature called \'task clipper\', based on studying user feedback. "',
+                              '"A key resource (developer/designer) working with tech support personnel to create a new feature called \'task clipper\', based on studying user feedback. "',
                           onTap: () {},
                         ),
                         DashboardCards(
@@ -275,10 +268,10 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                           onTap: () {},
                         ),
                         DashboardCards(
-                          cardIcon: Icons.face,
+                          cardIcon: Icons.leak_add,
                           cardTitle: 'What we learnt from our competition',
                           cardNote:
-                          'Our competitor Todoist, offers features such as backup tasks to the cloud, labeling of tasks, smart schedule of tasks',
+                              'Our competitor Todoist, offers features such as backup tasks to the cloud, labeling of tasks, smart schedule of tasks',
                           cardButtonName: 'REVIEW OTHER COMPETITORS',
                           onTap: () {},
                         ),
@@ -321,8 +314,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                         ),
                         DashboardCards(
                           cardIcon: Icons.rate_review,
-                          cardTitle:
-                              'How we handle Growth',
+                          cardTitle: 'How we handle Growth',
                           cardNote:
                               'I intend to use a cloud service provider such as AWS, Firebase or Azure.',
                           onTap: () {},

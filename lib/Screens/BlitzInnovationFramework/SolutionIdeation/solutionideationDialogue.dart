@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
 import 'package:iventure001/Widgets/AddSolutionButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
+import 'package:iventure001/Widgets/SolutionExistsDialog.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 class solutionIdeationDialogue extends StatefulWidget {
@@ -33,6 +33,21 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
   int index;
   final _firestore = Firestore.instance;
 
+  validator() {
+    setState(() {
+      NameTextController.text.isEmpty ? validName = false : validName = true;
+      NameTextController.text.isEmpty
+          ? NamelabelColor = Color(0xFFF53E70)
+          : NamelabelColor = Color(0xFF919191);
+      BriefTextController.text.isEmpty ? validBrief = false : validBrief = true;
+      BriefTextController.text.isEmpty
+          ? BrieflabelColor = Color(0xFFF53E70)
+          : BrieflabelColor = Color(0xFF919191);
+
+      print("(Validator is called)");
+    });
+  }
+
   _solutionIdeationDialogueState(this.index);
   @override
   void initState() {
@@ -42,6 +57,9 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
           TextEditingController(text: AddingNewSolutions[index].Name);
       BriefTextController = TextEditingController(
           text: AddingNewSolutions[index].BriefDesctiption);
+    } else {
+      NameTextController.clear();
+      BriefTextController.clear();
     }
   }
 
@@ -56,8 +74,8 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.50,
-          width: MediaQuery.of(context).size.width * 0.4,
+          height: 500,
+          width: 800,
           child: Center(
             child: SingleChildScrollView(
                 padding:
@@ -100,57 +118,72 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddSolutionButton(
-                            onTap: () {
-                              setState(() {
+                            onTap: (NameTextController.text == '' ||
+                                    BriefTextController.text == '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    (NameTextController.text != '' &&
+                                            BriefTextController.text != '')
+                                        ? Navigator.pop(context)
+                                        : {};
+
+                                    (AddingNewSolutions.contains(Name))
+                                        ? showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                SolutionExistsDialogue(),
+                                          )
+                                        : {};
+                                    setState(() {
 //                                final NewSolutionIdeation = addSolutions(
 //                                  Name: NameTextController.text,
 //                                  BriefDesctiption: BriefTextController.text,
 //                                );
 
-                                if (index == null) {
+                                      if (index == null) {
 //                                  AddingNewSolutions.add(NewSolutionIdeation);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionIdeation/solutionIdeation')
-                                      .add({
-                                    'Name': NameTextController.text,
-                                    'BriefDesctiption':
-                                        BriefTextController.text,
-                                    'Sender': "tester@gmail.com",
-                                  });
-                                } else {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionIdeation/solutionIdeation')
+                                            .add({
+                                          'Name': NameTextController.text,
+                                          'BriefDesctiption':
+                                              BriefTextController.text,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      } else {
 //                                  AddingNewSolutions.removeAt(index);
 //                                  AddingNewSolutions.insert(
 //                                      index, NewSolutionIdeation);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionIdeation/solutionIdeation')
-                                      .document(AddingNewSolutions[index].ID)
-                                      .updateData({
-                                    'Name': NameTextController.text,
-                                    'BriefDesctiption':
-                                        BriefTextController.text,
-                                    'Sender': "tester@gmail.com",
-                                  });
-                                }
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionIdeation/solutionIdeation')
+                                            .document(
+                                                AddingNewSolutions[index].ID)
+                                            .updateData({
+                                          'Name': NameTextController.text,
+                                          'BriefDesctiption':
+                                              BriefTextController.text,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      }
 
-                                //Adding solutions to dropdown
-                                final AddingSolutinstoDropdown =
-                                    NameTextController.text;
-
-                                if (index == null) {
-                                  SolutionRankingList.add(
-                                      AddingSolutinstoDropdown);
-                                } else {
-                                  SolutionRankingList.removeAt(index);
-                                  SolutionRankingList.insert(
-                                      index, AddingSolutinstoDropdown);
-                                }
-                                NameTextController.clear();
-                                BriefTextController.clear();
-                                Navigator.pop(context);
-                              });
-                            },
+//                                      //Adding solutions to dropdown
+//                                      final AddingSolutinstoDropdown =
+//                                          NameTextController.text;
+//
+//                                      if (index == null) {
+//                                        SolutionRankingList.add(
+//                                            AddingSolutinstoDropdown);
+//                                      } else {
+//                                        SolutionRankingList.removeAt(index);
+//                                        SolutionRankingList.insert(
+//                                            index, AddingSolutinstoDropdown);
+//                                      }
+                                    });
+                                  },
                           ),
                           SizedBox(
                             width: 50,

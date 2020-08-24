@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ranksolutions.dart';
 
-import 'DeleteDialog.dart';
+import 'DeleteDialogDropDown.dart';
 
 const cardColor = Color(0xFFF7C3B1);
 
@@ -103,9 +103,10 @@ class _SmallOrangeCardWithoutTitleForDropDownState
                       SolutionRankingList.removeAt(widget.index);
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => DeleteDialogue(
+                        builder: (BuildContext context) => DeleteDialogDropDown(
                           ID: widget.ID,
                           CollectionName: widget.CollectionName,
+                          description: widget.description,
                         ),
                       ).then((_) => setState(() {}));
                     },

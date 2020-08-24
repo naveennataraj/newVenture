@@ -124,7 +124,7 @@ class _AddDistributionMediumState extends State<AddDistributionMedium> {
                     Container(
                       //height: MediaQuery.of(context).size.height * .40,
                       margin: EdgeInsets.only(top: 40.0),
-                      width: MediaQuery.of(context).size.width * .40,
+                      width: 600,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         //shape: BoxShape.rectangle,
@@ -157,7 +157,7 @@ class _AddDistributionMediumState extends State<AddDistributionMedium> {
                             textCollecter: Medium,
                             helperText:
                                 ' *An appropriate medium, if selected will help the early adopters and other users with quicker access to the solution concept\nand subsequently provide feedback more quickly',
-                            labelcolour: PersonNamelabelColor,
+                            labelcolour: MediumlabelColor,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(30.0),
@@ -197,6 +197,10 @@ class _AddDistributionMediumState extends State<AddDistributionMedium> {
                                           validator();
                                         }
                                       : () {
+                                          (MediumTextController.text != '')
+                                              ? Navigator.pushNamed(context,
+                                                  '/BlitzInnovationFramework')
+                                              : {};
                                           if (addMediumArray.length != 0) {
                                             update();
                                           } else {
@@ -204,8 +208,6 @@ class _AddDistributionMediumState extends State<AddDistributionMedium> {
                                           }
                                           bcpData[4].CompletionValidator = true;
                                           print(bcpData[4].CompletionValidator);
-                                          Navigator.pushNamed(context,
-                                              '/BlitzInnovationFramework');
                                         },
                                 ),
                               ],

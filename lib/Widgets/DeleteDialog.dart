@@ -58,4 +58,3 @@ class _DeleteDialogueState extends State<DeleteDialogue> {
     );
   }
 }
-

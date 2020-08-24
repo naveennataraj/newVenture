@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:intl/intl.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
@@ -17,11 +18,13 @@ class ReviewCustomerRequirements extends StatefulWidget {
       _ReviewCustomerRequirementsState();
 }
 
-DateTime selectDate = DateTime.now();
-DateTime selectedDate;
+//DateTime selectDate = DateTime.now();
 
 class _ReviewCustomerRequirementsState
     extends State<ReviewCustomerRequirements> {
+  final df = new DateFormat('dd-MMM-yyyy');
+  DateTime selectedDate;
+  String date = '';
   List<Bread> breads = [
     Bread(label: "Home ", route: '/'),
     Bread(
@@ -30,12 +33,13 @@ class _ReviewCustomerRequirementsState
     Bread(label: "Add Quotes ", route: '/addquotes'),
     Bread(label: "Schedule Review ", route: '/reviewcustomerrequirements'),
   ];
+
 //  Date picker
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: (selectedDate == null) ? DateTime.now() : selectedDate,
-      firstDate: DateTime.now(),
+      firstDate: (selectedDate == null) ? DateTime.now() : selectedDate,
       lastDate: DateTime(2101),
       builder: (BuildContext context, Widget child) {
         return Theme(
@@ -50,22 +54,27 @@ class _ReviewCustomerRequirementsState
       },
     );
 
-    if (picked != null && picked != selectedDate)
+    if (picked != null)
       setState(() {
         selectedDate = picked;
-        selectDate = selectedDate;
+//        selectDate = selectedDate;
+        date = df.format(selectedDate);
       });
   }
 
   bool spinner = false;
   final _firestore = Firestore.instance;
   var dateColor = Color(0xFFE95420);
+  var borderColor = Color(0xFFABABAB);
 
   validator() {
     setState(() {
-      (selectDate == null)
+      (selectedDate == null)
           ? dateColor = Color(0xFFF53E70)
           : dateColor = Color(0xFFE95420);
+      (selectedDate == null)
+          ? borderColor = Color(0xFFF53E70)
+          : borderColor = Color(0xFFABABAB);
     });
   }
 
@@ -90,6 +99,7 @@ class _ReviewCustomerRequirementsState
       spinner = false;
       if (addRequirementsArray.length != 0) {
         selectedDate = addRequirementsArray[0].SelectedDate;
+        date = df.format(selectedDate);
       }
     });
   }
@@ -100,7 +110,7 @@ class _ReviewCustomerRequirementsState
         .collection('$currentUser/SolutionValidation/reviewDate')
         .document(addRequirementsArray[0].ID)
         .updateData({
-      'ReviewDate': selectDate,
+      'ReviewDate': selectedDate,
       'Sender': currentUser,
     });
   }
@@ -108,7 +118,7 @@ class _ReviewCustomerRequirementsState
   add() {
     print("add method called");
     _firestore.collection('$currentUser/SolutionValidation/reviewDate').add({
-      'ReviewDate': selectDate,
+      'ReviewDate': selectedDate,
       'Sender': currentUser,
     });
   }
@@ -143,7 +153,7 @@ class _ReviewCustomerRequirementsState
                     Container(
                       //height: MediaQuery.of(context).size.height * .40,
                       margin: EdgeInsets.only(top: 40.0),
-                      width: MediaQuery.of(context).size.width * .40,
+                      width: 600,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         //shape: BoxShape.rectangle,
@@ -179,7 +189,7 @@ class _ReviewCustomerRequirementsState
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
                                     width: 1,
-                                    color: Color(0XFFABABAB),
+                                    color: borderColor,
                                   ),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(5),
@@ -195,8 +205,7 @@ class _ReviewCustomerRequirementsState
                                       SizedBox(width: 20),
                                       (selectedDate != null)
                                           ? Text(
-                                              "${selectDate.toLocal()}"
-                                                  .split(' ')[0],
+                                              date,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20),
@@ -247,11 +256,15 @@ class _ReviewCustomerRequirementsState
 //                                    routeName: '/addpainpoints',
                                   step: 5,
                                   stepBool: true,
-                                  widget: (selectDate == null)
+                                  widget: (selectedDate == null)
                                       ? () {
                                           validator();
                                         }
                                       : () {
+                                          (selectedDate != null)
+                                              ? Navigator.pushNamed(context,
+                                                  '/BlitzInnovationFramework')
+                                              : {};
                                           if (addRequirementsArray.length !=
                                               0) {
                                             update();
@@ -261,8 +274,6 @@ class _ReviewCustomerRequirementsState
                                           selectedDate = null;
 //                                    bcpData[5].CompletionValidator = true;
 //                                    print(bcpData[5].CompletionValidator);
-                                          Navigator.pushNamed(context,
-                                              '/BlitzInnovationFramework');
                                         },
                                 ),
                               ],

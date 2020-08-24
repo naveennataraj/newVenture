@@ -51,7 +51,7 @@ class _AddQuotesState extends State<AddQuotes> {
                     Container(
                       //height: MediaQuery.of(context).size.height * .40,
                       margin: EdgeInsets.only(top: 40.0),
-                      width: MediaQuery.of(context).size.width * .40,
+                      width: 600,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         //shape: BoxShape.rectangle,
@@ -136,10 +136,13 @@ class _AddQuotesState extends State<AddQuotes> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            "There are no Quotes listed at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                            style:
-                                                TextStyle(color: Colors.grey),
+                                          Expanded(
+                                            child: Text(
+                                              "There are no Quotes listed at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           )
                                         ],
                                       ),

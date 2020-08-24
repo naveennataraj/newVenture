@@ -57,7 +57,41 @@ class _addCompetingProductsDialogueState
           text: AddingNewCompetingProduct[index].Features);
       SolutionOfferingTextController = TextEditingController(
           text: AddingNewCompetingProduct[index].CurrentOffering);
+    } else {
+      ProductNameTextController.clear();
+      OrgNameTextController.clear();
+      CompetingOfferingTextController.clear();
+      SolutionOfferingTextController.clear();
     }
+  }
+
+  validator() {
+    setState(() {
+      ProductNameTextController.text.isEmpty
+          ? validPProductName = false
+          : validPProductName = true;
+      ProductNameTextController.text.isEmpty
+          ? ProductNamelabelColor = Color(0xFFF53E70)
+          : ProductNamelabelColor = Color(0xFF919191);
+      OrgNameTextController.text.isEmpty
+          ? validOrgName = false
+          : validOrgName = true;
+      OrgNameTextController.text.isEmpty
+          ? OrgNamelabelColor = Color(0xFFF53E70)
+          : OrgNamelabelColor = Color(0xFF919191);
+      CompetingOfferingTextController.text.isEmpty
+          ? validCompetingOffering = false
+          : validCompetingOffering = true;
+      CompetingOfferingTextController.text.isEmpty
+          ? CompetingOfferinglabelColor = Color(0xFFF53E70)
+          : CompetingOfferinglabelColor = Color(0xFF919191);
+      SolutionOfferingTextController.text.isEmpty
+          ? validSolutionOffering = false
+          : validSolutionOffering = true;
+      SolutionOfferingTextController.text.isEmpty
+          ? SolutionOfferinglabelColor = Color(0xFFF53E70)
+          : SolutionOfferinglabelColor = Color(0xFF919191);
+    });
   }
 
   final _firestore = Firestore.instance;
@@ -67,8 +101,8 @@ class _addCompetingProductsDialogueState
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.70,
-          width: MediaQuery.of(context).size.width * 0.5,
+          height: 600,
+          width: 800,
           child: Center(
             child: SingleChildScrollView(
                 padding:
@@ -137,61 +171,64 @@ class _addCompetingProductsDialogueState
                         children: [
                           AddProductFeatureButton(
                             routeName: '/addproductgoals',
-                            onTap: () {
-                              setState(() {
-//                                final NewComponentProduct = addCompetingProduct(
-//                                    ProductName: ProductNameTextController.text,
-//                                    OrgName: OrgNameTextController.text,
-//                                    Features:
-//                                        CompetingOfferingTextController.text,
-//                                    CurrentOffering:
-//                                        SolutionOfferingTextController.text);
-
-                                if (index == null) {
-//                                  AddingNewCompetingProduct.add(
-//                                      NewComponentProduct);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionFormulation/competingProducts')
-                                      .add({
-                                    'ProductName':
-                                        ProductNameTextController.text,
-                                    'OrgName': OrgNameTextController.text,
-                                    'Features':
-                                        CompetingOfferingTextController.text,
-                                    'CurrentOffering':
-                                        SolutionOfferingTextController.text,
-                                    'Sender': currentUser,
-                                  });
-                                } else {
-//                                  AddingNewCompetingProduct.removeAt(index);
-//                                  AddingNewCompetingProduct.insert(
-//                                      index, NewComponentProduct);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionFormulation/competingProducts')
-                                      .document(
-                                          AddingNewCompetingProduct[index].ID)
-                                      .updateData({
-                                    'ProductName':
-                                        ProductNameTextController.text,
-                                    'OrgName': OrgNameTextController.text,
-                                    'Features':
-                                        CompetingOfferingTextController.text,
-                                    'CurrentOffering':
-                                        SolutionOfferingTextController.text,
-                                    'Sender': currentUser,
-                                  });
-                                }
-
-                                ProductNameTextController.clear();
-                                OrgNameTextController.clear();
-                                CompetingOfferingTextController.clear();
-                                SolutionOfferingTextController.clear();
-
-                                Navigator.pop(context);
-                              });
-                            },
+                            onTap: (ProductNameTextController.text == '' ||
+                                    OrgNameTextController.text == '' ||
+                                    CompetingOfferingTextController.text ==
+                                        '' ||
+                                    SolutionOfferingTextController.text == '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    (ProductNameTextController.text != '' &&
+                                            OrgNameTextController.text != '' &&
+                                            CompetingOfferingTextController
+                                                    .text !=
+                                                '' &&
+                                            SolutionOfferingTextController
+                                                    .text !=
+                                                '')
+                                        ? Navigator.pop(context)
+                                        : {};
+                                    setState(() {
+                                      if (index == null) {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionFormulation/competingProducts')
+                                            .add({
+                                          'ProductName':
+                                              ProductNameTextController.text,
+                                          'OrgName': OrgNameTextController.text,
+                                          'Features':
+                                              CompetingOfferingTextController
+                                                  .text,
+                                          'CurrentOffering':
+                                              SolutionOfferingTextController
+                                                  .text,
+                                          'Sender': currentUser,
+                                        });
+                                      } else {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionFormulation/competingProducts')
+                                            .document(
+                                                AddingNewCompetingProduct[index]
+                                                    .ID)
+                                            .updateData({
+                                          'ProductName':
+                                              ProductNameTextController.text,
+                                          'OrgName': OrgNameTextController.text,
+                                          'Features':
+                                              CompetingOfferingTextController
+                                                  .text,
+                                          'CurrentOffering':
+                                              SolutionOfferingTextController
+                                                  .text,
+                                          'Sender': currentUser,
+                                        });
+                                      }
+                                    });
+                                  },
                           ),
                           SizedBox(
                             width: 50,

@@ -48,7 +48,29 @@ class _addParallelInnovationDialogueState
       SolutionDescriptionTextController = TextEditingController(
           text: AddingNewParallelInnovations[index].Description);
       SolutionChecked = AddingNewParallelInnovations[index].CheckedSolution;
+    } else {
+      SolutionNameTextController.clear();
+      SolutionDescriptionTextController.clear();
+      SolutionChecked = false;
     }
+  }
+
+  validator() {
+    setState(() {
+      SolutionNameTextController.text.isEmpty
+          ? validSolutionName = false
+          : validSolutionName = true;
+      SolutionNameTextController.text.isEmpty
+          ? SolutionNamelabelColor = Color(0xFFF53E70)
+          : SolutionNamelabelColor = Color(0xFF919191);
+      SolutionDescriptionTextController.text.isEmpty
+          ? validSolutionDescription = false
+          : validSolutionDescription = true;
+      SolutionDescriptionTextController.text.isEmpty
+          ? SolutionDescriptionlabelColor = Color(0xFFF53E70)
+          : SolutionDescriptionlabelColor = Color(0xFF919191);
+      print("(Validator is called)");
+    });
   }
 
   @override
@@ -57,8 +79,8 @@ class _addParallelInnovationDialogueState
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.50,
-          width: MediaQuery.of(context).size.width * 0.5,
+          height: 500,
+          width: 800,
           child: Center(
             child: SingleChildScrollView(
                 padding:
@@ -89,7 +111,7 @@ class _addParallelInnovationDialogueState
                       labelText: "Add solution description",
                       maxLines: 2,
                       validText: validSolutionDescription,
-                      myFocusNode: SolutionNameFocusNode,
+                      myFocusNode: SolutionDescriptionFocusNode,
                       myTextController: SolutionDescriptionTextController,
                       textCollecter: SolutionDescription,
                       helperText: '',
@@ -118,8 +140,20 @@ class _addParallelInnovationDialogueState
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddSolutionConceptButton(
-                            onTap: () {
-                              setState(() {
+                            onTap: (SolutionNameTextController.text == '' ||
+                                    SolutionDescriptionTextController.text ==
+                                        '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    (SolutionNameTextController.text != '' &&
+                                            SolutionDescriptionTextController
+                                                    .text !=
+                                                '')
+                                        ? Navigator.pop(context)
+                                        : {};
+                                    setState(() {
 //                                final NewParallelInnovation =
 //                                    addparallelinnovations(
 //                                        Name: SolutionNameTextController.text,
@@ -128,45 +162,44 @@ class _addParallelInnovationDialogueState
 //                                                .text,
 //                                        CheckedSolution: SolutionChecked);
 
-                                if (index == null) {
+                                      if (index == null) {
 //                                  AddingNewParallelInnovations.add(
 //                                      NewParallelInnovation);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/ManagingGrowth/parallelInnovations')
-                                      .add({
-                                    'Name': SolutionNameTextController.text,
-                                    'Description':
-                                        SolutionDescriptionTextController.text,
-                                    'CheckedSolution': SolutionChecked,
-                                    'Sender': "tester@gmail.com",
-                                  });
-                                } else {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/ManagingGrowth/parallelInnovations')
+                                            .add({
+                                          'Name':
+                                              SolutionNameTextController.text,
+                                          'Description':
+                                              SolutionDescriptionTextController
+                                                  .text,
+                                          'CheckedSolution': SolutionChecked,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      } else {
 //                                  AddingNewParallelInnovations.removeAt(index);
 //                                  AddingNewParallelInnovations.insert(
 //                                      index, NewParallelInnovation);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/ManagingGrowth/parallelInnovations')
-                                      .document(
-                                          AddingNewParallelInnovations[index]
-                                              .ID)
-                                      .updateData({
-                                    'Name': SolutionNameTextController.text,
-                                    'Description':
-                                        SolutionDescriptionTextController.text,
-                                    'CheckedSolution': SolutionChecked,
-                                    'Sender': "tester@gmail.com",
-                                  });
-                                }
-
-                                SolutionNameTextController.clear();
-                                SolutionDescriptionTextController.clear();
-                                SolutionChecked = false;
-
-                                Navigator.pop(context);
-                              });
-                            },
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/ManagingGrowth/parallelInnovations')
+                                            .document(
+                                                AddingNewParallelInnovations[
+                                                        index]
+                                                    .ID)
+                                            .updateData({
+                                          'Name':
+                                              SolutionNameTextController.text,
+                                          'Description':
+                                              SolutionDescriptionTextController
+                                                  .text,
+                                          'CheckedSolution': SolutionChecked,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      }
+                                    });
+                                  },
                           ),
                           SizedBox(
                             width: 50,

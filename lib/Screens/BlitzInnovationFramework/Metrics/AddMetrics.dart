@@ -7,12 +7,12 @@ import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/Metrics/addMetrics.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/Metrics/addMetricsDialogue.dart';
+import 'package:iventure001/Widgets/CongratsBifDialog.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
-import 'package:iventure001/Widgets/CongratsBifDialog.dart';
 
 class AddMetrics extends StatefulWidget {
   @override
@@ -58,7 +58,7 @@ class _AddMetricsState extends State<AddMetrics> {
                     Container(
                       //height: MediaQuery.of(context).size.height * .40,
                       margin: EdgeInsets.only(top: 40.0),
-                      width: MediaQuery.of(context).size.width * .40,
+                      width: 600,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         //shape: BoxShape.rectangle,
@@ -150,10 +150,13 @@ class _AddMetricsState extends State<AddMetrics> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            "Click on '+' to add the solution concept",
-                                            style:
-                                                TextStyle(color: Colors.grey),
+                                          Expanded(
+                                            child: Text(
+                                              "Click on '+' to add the solution concept",
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -179,8 +182,8 @@ class _AddMetricsState extends State<AddMetrics> {
                                   widget: () {
                                     showDialog(
                                       context: context,
-                                      builder: (BuildContext context) => CongratsBIFDialog(
-                                      ),
+                                      builder: (BuildContext context) =>
+                                          CongratsBIFDialog(),
                                     ).then((_) => setState(() {}));
 //                                    bcpData[7].CompletionValidator = true;
 //                                    print(bcpData[7].CompletionValidator);

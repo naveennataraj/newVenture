@@ -35,7 +35,23 @@ class _addQuotesDialogueState extends State<addQuotesDialogue> {
       QuoteContentTextController =
           TextEditingController(text: AddingNewQuote[index].Content);
       Quotechecked = AddingNewQuote[index].CheckQuote;
+    } else {
+      QuoteContentTextController.clear();
+      Quotechecked = false;
     }
+  }
+
+  validator() {
+    setState(() {
+      QuoteContentTextController.text.isEmpty
+          ? validQuoteContent = false
+          : validQuoteContent = true;
+      QuoteContentTextController.text.isEmpty
+          ? QuoteContentlabelColor = Color(0xFFF53E70)
+          : QuoteContentlabelColor = Color(0xFF919191);
+
+      print("(Validator is called)");
+    });
   }
 
   final _firestore = Firestore.instance;
@@ -45,8 +61,8 @@ class _addQuotesDialogueState extends State<addQuotesDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.40,
-          width: MediaQuery.of(context).size.width * 0.4,
+          height: 340,
+          width: 800,
           child: Center(
             child: SingleChildScrollView(
                 padding:
@@ -97,42 +113,46 @@ class _addQuotesDialogueState extends State<addQuotesDialogue> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AddQuoteButton(
-                            onTap: () {
-                              setState(() {
+                            onTap: (QuoteContentTextController.text == '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    (QuoteContentTextController.text != '')
+                                        ? Navigator.pop(context)
+                                        : {};
+                                    setState(() {
 //                                final NewQuote = addQuote(
 //                                    Content: QuoteContentTextController.text,
 //                                    CheckQuote: Quotechecked);
 
-                                if (index == null) {
+                                      if (index == null) {
 //                                  AddingNewQuote.add(NewQuote);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionValidation/Quote')
-                                      .add({
-                                    'Content': QuoteContentTextController.text,
-                                    'CheckQuote': Quotechecked,
-                                    'Sender': currentUser,
-                                  });
-                                } else {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionValidation/Quote')
+                                            .add({
+                                          'Content':
+                                              QuoteContentTextController.text,
+                                          'CheckQuote': Quotechecked,
+                                          'Sender': currentUser,
+                                        });
+                                      } else {
 //                                  AddingNewQuote.removeAt(index);
 //                                  AddingNewQuote.insert(index, NewQuote);
-                                  _firestore
-                                      .collection(
-                                          '$currentUser/SolutionValidation/Quote')
-                                      .document(AddingNewQuote[index].ID)
-                                      .updateData({
-                                    'Content': QuoteContentTextController.text,
-                                    'CheckQuote': Quotechecked,
-                                    'Sender': currentUser,
-                                  });
-                                }
-
-                                QuoteContentTextController.clear();
-                                Quotechecked = false;
-
-                                Navigator.pop(context);
-                              });
-                            },
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionValidation/Quote')
+                                            .document(AddingNewQuote[index].ID)
+                                            .updateData({
+                                          'Content':
+                                              QuoteContentTextController.text,
+                                          'CheckQuote': Quotechecked,
+                                          'Sender': currentUser,
+                                        });
+                                      }
+                                    });
+                                  },
                           ),
                           SizedBox(
                             width: 50,

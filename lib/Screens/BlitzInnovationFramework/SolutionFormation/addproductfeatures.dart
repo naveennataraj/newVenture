@@ -22,7 +22,7 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
     Bread(
         label: "Blitz Innovation Framework ",
         route: '/BlitzInnovationFramework'),
-    Bread(label: "Add Product Goals ", route: '/addproductfeatures'),
+    Bread(label: "Add Product Goals ", route: '/addproductgoals'),
     Bread(label: "Add Product Feature ", route: '/addproductfeatures'),
   ];
 
@@ -51,7 +51,7 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                     Container(
                       //height: MediaQuery.of(context).size.height * .40,
                       margin: EdgeInsets.only(top: 40.0),
-                      width: MediaQuery.of(context).size.width * .40,
+                      width: 600,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         //shape: BoxShape.rectangle,
@@ -149,10 +149,13 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            "There are no Product Features at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                            style:
-                                                TextStyle(color: Colors.grey),
+                                          Expanded(
+                                            child: Text(
+                                              "There are no Product Features at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -165,7 +168,7 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 headBackButtton(
-                                  routeName: '/addproductfeatures',
+                                  routeName: '/addproductgoals',
                                 ),
                                 SizedBox(
                                   width: 50,
