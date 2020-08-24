@@ -32,14 +32,13 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
 
   final _firestore = Firestore.instance;
   //======= What is our Primary Value Proposition? =======
-  String valueProposition;
+  String valueProposition= '';
   List valuePropositionList = [];
 //======= How our solution stands out =======
   String solutionStandOut;
   String ID;
 //======= Customer Quotes (on using the solution prototype) =======
-  String customerQuotes;
-  List customerQuotesList = [];
+  String customerQuotes = '';
 //======= We excel at =======
   String excelAt;
   List excelAtList = [];
@@ -81,10 +80,13 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         );
         addingNewBusinessElement.add(card);
       }
-      (valuePropositionList.length !=0) ?
-      valueProposition= valuePropositionList[0]
-          :
-      valueProposition= 'Missing value';
+      setState(() {
+        (valuePropositionList.length !=0 || valueProposition != '') ?
+        valueProposition= valuePropositionList[0]
+            :
+        valueProposition= 'Missing value';
+      });
+
     }
 
     //======= How our solution stands out =======
@@ -132,7 +134,6 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
     final documentCustomerQuotes = await _firestore.collection('$currentUser/Bc5_userFeedback/addQuotes')
         .getDocuments();
     if (documentCustomerQuotes != null) {
-
       addingNewQuote = [];
       for (var message in documentCustomerQuotes.documents) {
         final content = message.data['content'];
@@ -140,21 +141,25 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         message.data['checkQuote'];
         final ID = message.documentID;
 
-        customerQuotesList.add(content);
         final card = BcAddQuote(
           content: content,
           checkQuote: checkQuote,
           ID: ID,
         );
         addingNewQuote.add(card);
+        customerQuotes = addingNewQuote.first.content;
       }
-
-      print('content value $addingNewQuote[0].content');
-      if((customerQuotesList.length != 0)) {
-        customerQuotes = customerQuotesList[0];
-      } else {customerQuotes= 'Missing value';}
-
+      setState(() {
+        if (addingNewQuote.length != 0 || customerQuotes != '') {
+          customerQuotes = addingNewQuote[0].content;
+        } else {
+          customerQuotes = 'Missing value';
+        }
+      });
     }
+//    if((addingNewQuote.length != 0)) {
+//      customerQuotes = addingNewQuote.first.content;
+//    } else {customerQuotes= 'Missing value';}
 
     //======= We excel at =======
     final documentExcelAt = await _firestore.collection('$currentUser/Bc1_buildTheFoundation/addFoundations')
@@ -219,7 +224,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           cardIcon: Icons.person,
           cardTitle:
           'Customer Quotes (on using the solution prototype)',
-          cardNote: (customerQuotes!= null) ? '$customerQuotes' : 'Missing value',
+          cardNote: '$customerQuotes',
           cardButtonName: 'VIEW MORE QUOTES',
           onTap: () {},
         ),
