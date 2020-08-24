@@ -48,6 +48,7 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
     if (document.exists) {
       try {
         setState(() {
+          spinner = false;
           sellingProposition = document.data['proposition'];
           propositionFirebaseData = document.data['proposition'];
           ID = document.documentID;
@@ -60,12 +61,8 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
           proposition: sellingProposition,
           ID: ID);
 
-      sellingPropositionArray.add(fields);
+      sellingPropositionArray.insert(0,fields);
     }
-    setState(() {
-      spinner = false;
-    });
-
   }
 
   @override

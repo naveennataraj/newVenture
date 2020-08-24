@@ -56,3 +56,4 @@ const menuIntroBoldTextStyle = TextStyle(
   fontFamily: 'OpenSans',
   fontWeight: FontWeight.bold,
 );
+

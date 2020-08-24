@@ -79,7 +79,6 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final messages = snapshot.data.documents.reversed;
-                              print('these are the messages $messages');
                               addingNewBusinessElement = [];
                               for (var message in messages) {
                                 final elementTitle = message.data['elementTitle'];

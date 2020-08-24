@@ -80,7 +80,6 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final messages = snapshot.data.documents.reversed;
-                              print(messages);
                               foundationContent = [];
                               for (var message in messages) {
                                 final title = message.data['title'];

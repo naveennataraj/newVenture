@@ -21,7 +21,6 @@ var FeatureDescriptionTextController = TextEditingController();
 final FeatureDescriptionFocusNode = new FocusNode();
 String FeatureDescription;
 
-const userUid = "tester@gmail.com";
 
 class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue> {
   final _firestore = Firestore.instance;

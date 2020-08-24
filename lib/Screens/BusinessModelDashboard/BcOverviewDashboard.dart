@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcCollectFoundation.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/BcCustomerDashboard.dart';
 
 class BcOverviewDashboard extends StatefulWidget with ConceptDashboardStates {
   @override
@@ -10,41 +13,59 @@ class BcOverviewDashboard extends StatefulWidget with ConceptDashboardStates {
 }
 
 class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
-//  void initState() {
-//    super.initState();
-//    getDocuments();
-//  }
-//
-//
-//  void getDocuments() async {
-//    spinner = true;
-//    final document = await _firestore.get();
-//
-//    if (document.exists) {
-//      try {
-//        setState(() {
-//          missionText = document.data['mission'];
-//          visionText = document.data['vision'];
-//          fireMissionData = document.data['mission'];
-//          fireVisionData = document.data['vision'];
-//          ID = document.documentID;
-//          missionTextController.text = missionText;
-//          visionTextController.text = visionText;
-//        });
-//      } catch (e) {
-//        print(e);
-//      }
-//    } else{
-//      _firestore.collection(currentUser).document('Bc1_buildTheFoundation').setData(
-//          {}
-//      );
-//    }
-//
-//    setState(() {
-//      spinner = false;
-//    });
-//  }
-//
+  final _firestore = Firestore.instance
+      .collection(currentUser)
+      .document('Bc1_buildTheFoundation');
+  bool spinner = false;
+  String missionText;
+  String visionText;
+  String ID;
+
+  void initState() {
+    super.initState();
+    (collectionBcStep1Content.length != 0)
+        ? getContent()
+        : getDocuments();
+  }
+
+// Check if local file has data and it is hasn't change. Reduce reads.
+  void getContent()  {
+    String missionValidation = collectionBcStep1Content[0].descriptionMission;
+    String visionValidation = collectionBcStep1Content[0].descriptionVision;
+
+    if (missionText == missionValidation && visionText == visionValidation ) {
+      missionText = collectionBcStep1Content[0].descriptionMission;
+      visionText= collectionBcStep1Content[0].descriptionVision;
+    } else {
+      getDocuments();
+    }
+  }
+// Retrieve data from firebase
+  void getDocuments() async {
+    spinner = true;
+    final document = await _firestore.get();
+
+    if (document.exists) {
+      try {
+        setState(() {
+          spinner = false;
+          missionText = document.data['mission'];
+          visionText = document.data['vision'];
+          ID = document.documentID;
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+    final fields = ContentBcStep1CollectionFoundation(
+        descriptionMission: missionText,
+        descriptionVision: visionText,
+        ID: ID);
+    collectionBcStep1Content.insert(0, fields);
+  }
+
+  // Customer Quotes (on using the solution prototype)
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +97,9 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
+//                  SizedBox(
+//                    height: 0,
+//                  ),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(30.0),
@@ -92,6 +113,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -117,7 +139,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                                   ),
                                 ),
                                 Text(
-                                  'Our Mission: To empower people to become more productive with the help of IT enabled capabilities',
+                                  'Our Mission: $missionText',
                                   style: cardBodyTextStyle,
                                   //TextStyle(fontSize: 18),
                                 ),
@@ -127,7 +149,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                                   ),
                                 ),
                                 Text(
-                                  'Our Vision: To achieve an average of 20% efficiency improvement per customer by 2022.           ',
+                                  'Our Vision: $visionText           ',
                                   style: cardBodyTextStyle,
                                   //TextStyle(fontSize: 18),
                                 ),
@@ -136,26 +158,26 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                                     height: 20,
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Spacer(),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 20.0, bottom: 20),
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: Text(
-                                          'VIEW WIREFRAME',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0XFFE95420),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+//                                Row(
+//                                  mainAxisAlignment: MainAxisAlignment.end,
+//                                  children: [
+//                                    Spacer(),
+//                                    Padding(
+//                                      padding: const EdgeInsets.only(
+//                                          right: 20.0, bottom: 20),
+//                                      child: GestureDetector(
+//                                        onTap: () {},
+//                                        child: Text(
+//                                          'VIEW WIREFRAME',
+//                                          style: TextStyle(
+//                                            fontWeight: FontWeight.bold,
+//                                            color: Color(0XFFE95420),
+//                                          ),
+//                                        ),
+//                                      ),
+//                                    ),
+//                                  ],
+//                                ),
                               ],
                             ),
                           ),
@@ -170,61 +192,68 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                       thickness: 1,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      'Why our product matters to the customer:',
-                      style: sideHeadingTextStyle,
-                      //TextStyle(fontSize: 60),
-                      textAlign: TextAlign.left,
-                    ),
+//                  Padding(
+//                    padding: const EdgeInsets.all(15.0),
+//                    child: Text(
+//                      'Why our product matters to the customer:',
+//                      style: sideHeadingTextStyle,
+//                      //TextStyle(fontSize: 60),
+//                      textAlign: TextAlign.left,
+//                    ),
+//                  ),
+
+                  BcCustomerDashboard(
+                    sizedboxheight: 0,
+                    sizedboxwidth: 0,
+                    headingStyle: sideHeadingTextStyle,
+                    headingAlignment: CrossAxisAlignment.start,
                   ),
-                  Center(
-                    child: Wrap(
-                      children: [
-                        DashboardCards(
-                          cardIcon: Icons.new_releases,
-                          cardTitle: 'What is our Primary Value Proposition?',
-                          cardNote:
-                              'A simple Task management solution for personal and professional use, influenced by the Eisenhower method.',
-                          cardButtonName: 'VIEW WIREFRAME',
-                          onTap: () {},
-                        ),
-                        DashboardCards(
-                          cardIcon: Icons.call_split,
-                          cardTitle: 'How our solution stands out',
-                          cardNote:
-                              'Employment of the Eisenhower method to task management with an emphasis on the user experience',
-                          onTap: () {},
-                        ),
-                        DashboardCards(
-                          cardIcon: Icons.person,
-                          cardTitle:
-                              'Customer Quotes (on using the solution prototype)',
-                          cardNote:
-                              'When I need to remember a task, I type it in. When I am done, I strike it out. It is that simple.',
-                          cardButtonName: 'VIEW MORE QUOTES',
-                          onTap: () {},
-                        ),
-                        DashboardCards(
-                          cardIcon: Icons.vpn_key,
-                          cardTitle: 'We excel at:',
-                          cardNote:
-                              'Developing models for prediction based on relevant data',
-                          cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
-                          onTap: () {},
-                        ),
-                        DashboardCards(
-                          cardIcon: Icons.trending_up,
-                          cardTitle: 'Other offerings planned',
-                          cardNote:
-                              'Calendar Sync - Syncs ToDo items with a calendar and allows for meeting scheduling and meeting notes',
-                          cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
-                          onTap: () {},
-                        )
-                      ],
-                    ),
-                  ),
+//                  Center(
+//                    child: Wrap(
+//                      children: [
+//                        DashboardCards(
+//                          cardIcon: Icons.new_releases,
+//                          cardTitle: 'What is our Primary Value Proposition?',
+//                          cardNote:
+//                              'A simple Task management solution for personal and professional use, influenced by the Eisenhower method.',
+//                          cardButtonName: 'VIEW WIREFRAME',
+//                          onTap: () {},
+//                        ),
+//                        DashboardCards(
+//                          cardIcon: Icons.call_split,
+//                          cardTitle: 'How our solution stands out',
+//                          cardNote:
+//                              'Employment of the Eisenhower method to task management with an emphasis on the user experience',
+//                          onTap: () {},
+//                        ),
+//                        DashboardCards(
+//                          cardIcon: Icons.person,
+//                          cardTitle:
+//                              'Customer Quotes (on using the solution prototype)',
+//                          cardNote:
+//                              'When I need to remember a task, I type it in. When I am done, I strike it out. It is that simple.',
+//                          cardButtonName: 'VIEW MORE QUOTES',
+//                          onTap: () {},
+//                        ),
+//                        DashboardCards(
+//                          cardIcon: Icons.vpn_key,
+//                          cardTitle: 'We excel at:',
+//                          cardNote:
+//                              'Developing models for prediction based on relevant data',
+//                          cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
+//                          onTap: () {},
+//                        ),
+//                        DashboardCards(
+//                          cardIcon: Icons.trending_up,
+//                          cardTitle: 'Other offerings planned',
+//                          cardNote:
+//                              'Calendar Sync - Syncs ToDo items with a calendar and allows for meeting scheduling and meeting notes',
+//                          cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
+//                          onTap: () {},
+//                        )
+//                      ],
+//                    ),
+//                  ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Divider(

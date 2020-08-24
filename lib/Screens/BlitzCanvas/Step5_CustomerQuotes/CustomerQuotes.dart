@@ -7,7 +7,6 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step5_CustomerQuotes/QuotesDialogue.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
