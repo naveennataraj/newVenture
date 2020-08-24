@@ -40,7 +40,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
 //======= Customer Quotes (on using the solution prototype) =======
   String customerQuotes = '';
 //======= We excel at =======
-  String excelAt;
+  String excelAt = '';
   List excelAtList = [];
 
 
@@ -81,7 +81,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         addingNewBusinessElement.add(card);
       }
       setState(() {
-        (valuePropositionList.length !=0 || valueProposition != '') ?
+        (addingNewBusinessElement.length !=0 || valueProposition != '') ?
         valueProposition= valuePropositionList[0]
             :
         valueProposition= 'Missing value';
@@ -147,7 +147,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           ID: ID,
         );
         addingNewQuote.add(card);
-        customerQuotes = addingNewQuote.first.content;
+
       }
       setState(() {
         if (addingNewQuote.length != 0 || customerQuotes != '') {
@@ -157,9 +157,6 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         }
       });
     }
-//    if((addingNewQuote.length != 0)) {
-//      customerQuotes = addingNewQuote.first.content;
-//    } else {customerQuotes= 'Missing value';}
 
     //======= We excel at =======
     final documentExcelAt = await _firestore.collection('$currentUser/Bc1_buildTheFoundation/addFoundations')
@@ -184,7 +181,14 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         );
         foundationContent.add(card);
       }
+      setState(() {
+        (excelAtList.length !=0 || excelAt!='') ?
+        excelAt= excelAtList[0]
+            :
+        excelAt= 'Missing value';
+      });
     }
+
   }
 
 
@@ -232,7 +236,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           cardIcon: Icons.vpn_key,
           cardTitle: 'We excel at:',
           cardNote:
-          'Developing models for prediction based on relevant data',
+          '$excelAt',
           cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
           onTap: () {},
         ),
