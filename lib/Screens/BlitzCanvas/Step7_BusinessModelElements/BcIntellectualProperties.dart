@@ -83,7 +83,6 @@ class _BcIntellectualPropertyAssetsState
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final messages = snapshot.data.documents.reversed;
-                              print('these are the messages $messages');
                               addingIntellectualAssets = [];
                               for (var message in messages) {
                                 final intellectualProperty =

@@ -1,20 +1,121 @@
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
-
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcIntellectualAssets.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentBusinessGrowth.dart';
+
 
 class BcMoneyDashboard extends StatefulWidget with ConceptDashboardStates {
+  final TextStyle headingStyle;
+  final CrossAxisAlignment headingAlignment;
+  final double sizedboxwidth;
+  final double sizedboxheight;
+
+
+  BcMoneyDashboard(
+      {this.headingStyle,
+        this.sizedboxwidth,
+        this.headingAlignment,
+        this.sizedboxheight});
+
   @override
   _BcMoneyDashboardState createState() => _BcMoneyDashboardState();
 }
 
 class _BcMoneyDashboardState extends State<BcMoneyDashboard>  {
+  final _firestore = Firestore.instance;
+
+  void initState() {
+    super.initState();
+    getDocuments();
+  }
+  //======= IP Properties =======
+  String ipProperties= '';
+  //======= Handle Growth =======
+  String handleGrowth;
+
+  void getDocuments() async {
+
+    //======= Make Money =======
+
+
+
+
+
+    //======= IP Properties =======
+    final documentIpProperties = await _firestore
+        .collection('$currentUser/Bc7_businessModelElements/addIntellectualProperties')
+        .getDocuments();
+    if (documentIpProperties != null) {
+      addingIntellectualAssets = [];
+      for (var message in documentIpProperties.documents) {
+        final intellectualProperty =
+        message.data['intellectualProperty'];
+        final intellectualCode =
+        message.data['intellectualCode'];
+        final intellectualDetails =
+        message.data['intellectualDetails'];
+        final ID = message.documentID;
+
+        final card = ContentBcIntellectualAssets(
+          intellectualProperty: intellectualProperty,
+          intellectualCode: intellectualCode,
+          intellectualDetails: intellectualDetails,
+          ID: ID,
+        );
+        addingIntellectualAssets.add(card);
+      }
+      setState(() {
+
+        (addingIntellectualAssets.length !=0) ?
+        ipProperties= addingIntellectualAssets[0].intellectualCode
+            :
+        ipProperties= 'Missing value';
+      });
+    }
+
+    //======= Handle Growth =======
+    final documentHandleGrowth = await _firestore
+        .collection(currentUser).document('Bc9_managingGrowth').get();
+    if (documentHandleGrowth.exists) {
+      businessGrowthContent = [];
+      final handleScaleLText = documentHandleGrowth.data['handleScaleLText'];
+      final selectedStrategyOption = documentHandleGrowth.data['selectedStrategyOption'];
+      final ID = documentHandleGrowth.documentID;
+
+      final fields = ContentBusinessGrowth(
+          handleScaleLText: handleScaleLText,
+          selectedStrategyOption: selectedStrategyOption,
+          ID: ID);
+      businessGrowthContent.insert(0,fields);
+
+        setState(() {
+          handleGrowth = businessGrowthContent[0].handleScaleLText;
+        });
+
+
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SubdivisionalDashBoardLayout(
-      dashboardTitle: 'Studying the customer and the problem space',
+      sizedboxwidth:
+      (widget.sizedboxwidth != null) ? widget.sizedboxwidth : 100,
+      headingAlignment: (widget.headingAlignment != null)
+          ? widget.headingAlignment
+          : CrossAxisAlignment.center,
+      headingStyle: (widget.headingStyle != null)
+          ? widget.headingStyle
+          : topHeadingTextStyle,
+      sizedboxheight:
+      (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
+      dashboardTitle: 'How we make money and manage capital:',
       dashboardcards: <Widget>[
         DashboardCards(
           cardIcon: Icons.attach_money,
@@ -27,7 +128,7 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard>  {
           cardIcon: Icons.folder_special,
           cardTitle: 'IP Properties',
           cardNote:
-          'The code behind the application will be protected by means of Copyright',
+          '$ipProperties',
           cardButtonName: 'VIEW ALL IP PROPERTIES',
           onTap: () {},
         ),
@@ -36,7 +137,7 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard>  {
           cardTitle:
           'How we handle Growth',
           cardNote:
-          'I intend to use a cloud service provider such as AWS, Firebase or Azure.',
+          '$handleGrowth',
           onTap: () {},
         ),
       ],

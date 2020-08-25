@@ -11,6 +11,7 @@ import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentBusinessGrowth.dart';
 
 class BcStep9BusinessGrowth extends StatefulWidget {
   @override
@@ -63,11 +64,24 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
           ID = document.documentID;
           handleScaleLTextController.text = handleScaleLText;
           //visionTextController.text = visionText;
+
+          final fields = ContentBusinessGrowth(
+              handleScaleLText: handleScaleLText,
+              selectedStrategyOption: selectedStrategyOption,
+              ID: ID);
+          businessGrowthContent.insert(0, fields);
+
         });
       } catch (e) {
         print(e);
       }
+    }else{
+      _firestore.collection(currentUser).document('Bc9_managingGrowth').setData(
+          {}
+      );
     }
+
+
     setState(() {
       spinner = false;
     });

@@ -9,6 +9,8 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step4_UniqueSellingPropositi
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcElements.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step5_CustomerQuotes/BcAddQuote.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentParallelSolution.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class BcCustomerDashboard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -28,6 +30,8 @@ class BcCustomerDashboard extends StatefulWidget with ConceptDashboardStates {
   _BcCustomerDashboardState createState() => _BcCustomerDashboardState();
 }
 
+bool spinner = false;
+
 class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
 
   final _firestore = Firestore.instance;
@@ -40,9 +44,10 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
 //======= Customer Quotes (on using the solution prototype) =======
   String customerQuotes = '';
 //======= We excel at =======
-  String excelAt = '';
+  String excelAtDescription = '';
   List excelAtList = [];
-
+//======= Offering Planned  =======
+  String offeringPlanned = '';
 
   void initState() {
     super.initState();
@@ -81,7 +86,8 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         addingNewBusinessElement.add(card);
       }
       setState(() {
-        (addingNewBusinessElement.length !=0 || valueProposition != '') ?
+        spinner = false;
+        (addingNewBusinessElement.length !=0) ?
         valueProposition= valuePropositionList[0]
             :
         valueProposition= 'Missing value';
@@ -116,6 +122,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
       if (documentSolution.exists) {
         try {
           setState(() {
+            spinner = false;
             solutionStandOut = documentSolution.data['proposition'];
             ID = documentSolution.documentID;
           });
@@ -150,7 +157,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
 
       }
       setState(() {
-        if (addingNewQuote.length != 0 || customerQuotes != '') {
+        if (addingNewQuote.length != 0) {
           customerQuotes = addingNewQuote[0].content;
         } else {
           customerQuotes = 'Missing value';
@@ -173,6 +180,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           excelAtList.add(description);
         }
 
+
         final card = ContentBcAddFoundation(
           title: title,
           description: description,
@@ -182,15 +190,40 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         foundationContent.add(card);
       }
       setState(() {
-        (excelAtList.length !=0 || excelAt!='') ?
-        excelAt= excelAtList[0]
+        (foundationContent.length !=0) ?
+        excelAtDescription= excelAtList[0]
             :
-        excelAt= 'Missing value';
+        excelAtDescription= 'Missing value';
       });
     }
+    //======= Offering Planned  =======
+    final documentOfferingPlanned = await _firestore.collection('$currentUser/Bc9_managingGrowth/addConcepts')
+        .getDocuments();
+    if (documentOfferingPlanned != null) {
+      AddingNewParallelInnovations = [];
+      for (var message in documentOfferingPlanned.documents) {
+        final Name = message.data['Name'];
+        final Description = message.data['Description'];
+        final CheckedSolution =
+        message.data['CheckedSolution'];
+        final ID = message.documentID;
 
+        final card = ContentParallelSolution(
+          Name: Name,
+          Description: Description,
+          CheckedSolution: CheckedSolution,
+          ID: ID,
+        );
+        AddingNewParallelInnovations.add(card);
+      }
+      setState(() {
+        (AddingNewParallelInnovations.length !=0) ?
+        offeringPlanned= AddingNewParallelInnovations[0].Description
+            :
+        offeringPlanned= 'Missing value';
+      });
+    }
   }
-
 
   final missingText = Text('Missing value', style: TextStyle(fontSize: 15,
     fontFamily: 'OpenSans',
@@ -236,7 +269,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           cardIcon: Icons.vpn_key,
           cardTitle: 'We excel at:',
           cardNote:
-          '$excelAt',
+          '$excelAtDescription',
           cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
           onTap: () {},
         ),
@@ -245,7 +278,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           cardTitle:
           'Other offerings planned',
           cardNote:
-          'Calendar Sync - Syncs ToDo items with a calendar and allows for meeting scheduling and meeting notes',
+          '$offeringPlanned',
           cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
           onTap: () {},
         )

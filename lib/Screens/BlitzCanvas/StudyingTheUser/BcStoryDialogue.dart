@@ -57,7 +57,7 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.60,
+        height: MediaQuery.of(context).size.height * 0.8,
         width: MediaQuery.of(context).size.width * 0.4,
         child: Center(
           child: SingleChildScrollView(

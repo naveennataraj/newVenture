@@ -118,101 +118,113 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Breadcrumb(
-                breads: breads,
-                color: Color(0xFFE95420),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 40.0),
-                width: MediaQuery.of(context).size.width * .40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 2.0,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  children: [
+                    Breadcrumb(
+                      breads: breads,
+                      color: Color(0xFFE95420),
                     ),
                   ],
                 ),
-                child: SingleChildScrollView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            "Let's collect some details on the foundational aspects of the business",
-                            style: cardTitleTextStyle,
-                            //TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          )),
-                      TextFieldWidget(
-                        labelText:
-                            'Provide a mission statement for the business venture',
-                        myTextController: missionTextController,
-                        myFocusNode: missionFocusNode,
-                        validText: validMission,
-                        maxLines: 1,
-                        textCollecter: missionText,
-                        helperText: '',
-                        labelcolour: missionLabelColor,
-                      ),
-                      TextFieldWidget(
-                        labelText:
-                            'Provide a vision for the business venture to work towards',
-                        myTextController: visionTextController,
-                        myFocusNode: visionFocusNode,
-                        validText: validVision,
-                        maxLines: 3,
-                        textCollecter: visionText,
-                        helperText: '',
-                        labelcolour: visionLabelColor,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            headBackButtton(
-                                routeName: '/BCHomeView',
-                                widget: updateFirebase,
-                            ),
-                            SizedBox(
-                              width: 50,
-                            ),
-                            GenericStepButton(
-                              buttonName: 'GO NEXT',
-                              //pageValidation: (missionTextController.text == '') ? true : false,
-                              step: 0,
-                              stepBool: false,
-                              widget:
-                                (missionTextController.text == '' ||
-                                    visionTextController.text == '' )
-                                    ? () {
-                                        validator();
-                                      }
-                                    : () {
-                                (missionTextController.text != '' || visionTextController.text != '') ? Navigator.pushNamed(context, '/BCStep1AddDetails'): print('works');
-
-                                  if (fireMissionData != missionTextController.text ||
-                                      fireVisionData != visionTextController.text) {
-                                    updateFirebase();
-                                  }
-
-                                }
-                                  //onTap,
-
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 40.0),
+                        width: 600,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 2.0,
                             ),
                           ],
                         ),
-                      )
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10.0),
+                                child: Text(
+                                  "Let's collect some details on the foundational aspects of the business",
+                                  style: cardTitleTextStyle,
+                                  //TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                )),
+                            TextFieldWidget(
+                              labelText:
+                              'Provide a mission statement for the business venture',
+                              myTextController: missionTextController,
+                              myFocusNode: missionFocusNode,
+                              validText: validMission,
+                              maxLines: 1,
+                              textCollecter: missionText,
+                              helperText: '',
+                              labelcolour: missionLabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText:
+                              'Provide a vision for the business venture to work towards',
+                              myTextController: visionTextController,
+                              myFocusNode: visionFocusNode,
+                              validText: validVision,
+                              maxLines: 3,
+                              textCollecter: visionText,
+                              helperText: '',
+                              labelcolour: visionLabelColor,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  headBackButtton(
+                                    routeName: '/BCHomeView',
+                                    widget: updateFirebase,
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                  ),
+                                  GenericStepButton(
+                                      buttonName: 'GO NEXT',
+                                      //pageValidation: (missionTextController.text == '') ? true : false,
+                                      step: 0,
+                                      stepBool: false,
+                                      widget:
+                                      (missionTextController.text == '' ||
+                                          visionTextController.text == '' )
+                                          ? () {
+                                        validator();
+                                      }
+                                          : () {
+                                        (missionTextController.text != '' || visionTextController.text != '') ? Navigator.pushNamed(context, '/BCStep1AddDetails'): print('works');
+
+                                        if (fireMissionData != missionTextController.text ||
+                                            fireVisionData != visionTextController.text) {
+                                          updateFirebase();
+                                        }
+
+                                      }
+                                    //onTap,
+
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
