@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iventure001/Widgets/DeleteDialog.dart';
+import 'package:iventure001/Widgets/NavigationBar.dart';
 
 const cardColor = Color(0xFFF7C3B1);
 
@@ -36,9 +37,7 @@ class _SmallOrangeCardWithoutTitleState
 
   @override
   Widget build(BuildContext context) {
-    return
-
-        GestureDetector(
+    return GestureDetector(
       onTap: () {
         //Navigator.pushNamed(context, subject.pushView);
         print('working');
@@ -96,15 +95,17 @@ class _SmallOrangeCardWithoutTitleState
                     width: 15.0,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => DeleteDialogue(
-                          ID: widget.ID,
-                          CollectionName: widget.CollectionName,
-                        ),
-                      ).then((_) => setState(() {}));
-                    },
+                    onTap: (demoSelected == true)
+                        ? null
+                        : () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => DeleteDialogue(
+                                ID: widget.ID,
+                                CollectionName: widget.CollectionName,
+                              ),
+                            ).then((_) => setState(() {}));
+                          },
                     child: Icon(Icons.delete),
                   ),
                 ],
