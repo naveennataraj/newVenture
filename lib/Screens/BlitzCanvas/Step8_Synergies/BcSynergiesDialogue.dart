@@ -105,7 +105,7 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        height: MediaQuery.of(context).size.height * 0.70,
+        height: MediaQuery.of(context).size.height * 0.90,
         width: MediaQuery.of(context).size.width * 0.5,
         child: Center(
           child: CustomScrollView (

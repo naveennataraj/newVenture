@@ -85,7 +85,6 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final messages = snapshot.data.documents.reversed;
-                              print('these are the messages $messages');
                               AddingNewCompetingProduct = [];
                               for (var message in messages) {
                                 final ProductName = message.data['ProductName'];

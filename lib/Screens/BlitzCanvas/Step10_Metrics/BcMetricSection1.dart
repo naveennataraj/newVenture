@@ -9,6 +9,8 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentNorthStarMetric.dart';
+
 
 String ID;
 
@@ -50,6 +52,12 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
           ID = document.documentID;
           fireMetricData = document.data['metricSectionOne'];
           metricSectionOneTextController.text = metricSectionOneText;
+
+          final fields = ContentNorthStarMetric(
+              northStarMetric: metricSectionOneText,
+              ID: ID);
+          collectionNorthStarMetric.insert(0, fields);
+
         });
       } catch (e) {
         print(e);

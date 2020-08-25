@@ -91,7 +91,6 @@ class _BcStep2CapturingUserStoriesState
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final messages = snapshot.data.documents.reversed;
-                              print(messages);
                               userStoriesContent = [];
                               for (var message in messages) {
                                 final Asa = message.data['Asa'];
