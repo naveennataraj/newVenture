@@ -70,7 +70,7 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard>  {
         addingIntellectualAssets.add(card);
       }
       setState(() {
-        
+
         (addingIntellectualAssets.length !=0) ?
         ipProperties= addingIntellectualAssets[0].intellectualCode
             :

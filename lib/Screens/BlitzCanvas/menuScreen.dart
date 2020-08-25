@@ -123,12 +123,12 @@ class _BCScreenState extends State<BCScreen> {
               Padding(
                 //padding: const EdgeInsets.only(left: 100, right: 100),
                 padding: EdgeInsets.only(
-                  left: (MediaQuery.of(context).size.width >= 1300)
+                  left: (MediaQuery.of(context).size.width >= 1400)
                       ? 50
-                      : (MediaQuery.of(context).size.width <= 600) ? 10 : 7,
-                  right: (MediaQuery.of(context).size.width >= 1300)
+                      : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
+                  right: (MediaQuery.of(context).size.width >= 1400)
                       ? 50
-                      : (MediaQuery.of(context).size.width <= 600) ? 10 : 7,
+                      : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
                 ),
                 child: (bifModel == true ) ?
                 GridView.builder(
@@ -141,15 +141,15 @@ class _BCScreenState extends State<BCScreen> {
                       //childAspectRatio: 2.5,
                       //crossAxisCount: 3
                       childAspectRatio:
-                      (MediaQuery.of(context).size.width >= 1200)
+                      (MediaQuery.of(context).size.width >= 1400)
                           ? 2.3
-                          : (MediaQuery.of(context).size.width <= 700)
+                          : (MediaQuery.of(context).size.width <= 800)
                           ? 1.6
                           : 1.8,
                       crossAxisCount: (MediaQuery.of(context).size.width >=
-                          1050)
+                          1400)
                           ? 3
-                          : (MediaQuery.of(context).size.width <= 600) ? 1 : 2
+                          : (MediaQuery.of(context).size.width <= 800) ? 1 : 2
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     final item= bifStepList[index];
@@ -175,15 +175,15 @@ class _BCScreenState extends State<BCScreen> {
                       //childAspectRatio: 2.5,
                       //crossAxisCount: 3
                       childAspectRatio:
-                      (MediaQuery.of(context).size.width >= 1200)
+                      (MediaQuery.of(context).size.width >= 1400)
                           ? 2.3
-                          : (MediaQuery.of(context).size.width <= 700)
+                          : (MediaQuery.of(context).size.width <= 800)
                           ? 1.6
                           : 1.8,
                       crossAxisCount: (MediaQuery.of(context).size.width >=
-                          1050)
+                          1400)
                           ? 3
-                          : (MediaQuery.of(context).size.width <= 600) ? 1 : 2
+                          : (MediaQuery.of(context).size.width <= 800) ? 1 : 2
                   ),
                   itemBuilder: (BuildContext context, int index) {
 

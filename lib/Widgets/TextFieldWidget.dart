@@ -58,7 +58,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           labelText: widget.labelText,
           helperText: widget.myFocusNode.hasFocus ? widget.helperText : null,
           labelStyle: TextStyle(
-            fontSize: 15,
+            fontSize: (MediaQuery.of(context).size.width < 1400) ?  MediaQuery.of(context).size.width * .03: 16,
               fontFamily: 'OpenSans',
               color: widget.myFocusNode.hasFocus
                   ? Color(0XFFE95420)
