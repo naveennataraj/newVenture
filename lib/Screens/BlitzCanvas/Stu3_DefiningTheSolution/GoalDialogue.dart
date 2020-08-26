@@ -39,91 +39,90 @@ class _GoalDialogueState extends State<GoalDialogue> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.40,
-        width: MediaQuery.of(context).size.width * 0.4,
-        child: Center(
-          child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      "Add a Product Goal:",
-                      style:
-                      TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
+        height: 280,//MediaQuery.of(context).size.height * 0.40,
+        width: 800,//MediaQuery.of(context).size.width * 0.4,
+        child: SingleChildScrollView(
+            padding: EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "Add a Product Goal:",
+                    style:
+                    TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
-                  TextFieldWidget(
-                    labelText: "Add a product goal",
-                    maxLines: 1,
-                    validText: validGoal,
-                    myFocusNode: goalFocusNode,
-                    myTextController: goalTextController,
-                    textCollecter: goal,
-                    helperText: 'Adding a product goal for a solution concept can help validate the product concept, after it is used by the user',
-                    labelcolour: goalLabelColor,
-                  ),
+                ),
+                TextFieldWidget(
+                  labelText: "Add a product goal",
+                  maxLines: 1,
+                  validText: validGoal,
+                  myFocusNode: goalFocusNode,
+                  myTextController: goalTextController,
+                  textCollecter: goal,
+                  helperText: 'Adding a product goal for a solution concept can help validate the product concept, after it is used by the user',
+                  labelcolour: goalLabelColor,
+                ),
 
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AddProductGoalButton(
-                          onTap: ()
-                          {
-                            setState(() {
-                              //setState(() {});
-                              final newProductGoal = BcContentProductGoals(
-                                goals: goalTextController.text,
-                              );
-                              if (index == null) {
-                                productGoals.add(newProductGoal);
-                                _firestore.collection('$currentUser/Bc3_definingTheSolution/addGoals').add({
-                                  'goal': goalTextController.text,
-                                  'Sender': currentUser,
-                                });
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AddProductGoalButton(
+                        onTap: ()
+                        {
+                          setState(() {
+                            //setState(() {});
+                            final newProductGoal = BcContentProductGoals(
+                              goals: goalTextController.text,
+                            );
+                            if (index == null) {
+                              productGoals.add(newProductGoal);
+                              _firestore.collection('$currentUser/Bc3_definingTheSolution/addGoals').add({
+                                'goal': goalTextController.text,
+                                'Sender': currentUser,
+                              });
 
 
-                              } else {
+                            } else {
 //                                productGoals.removeAt(index);
 //                                productGoals.insert(index, newProductGoal);
-                                _firestore
-                                    .collection('$currentUser/Bc3_definingTheSolution/addGoals')
-                                    .document(productGoals[index].ID)
-                                    .updateData({
-                                  'goal': goalTextController.text,
-                                  'Sender': currentUser,
-                                },);
+                              _firestore
+                                  .collection('$currentUser/Bc3_definingTheSolution/addGoals')
+                                  .document(productGoals[index].ID)
+                                  .updateData({
+                                'goal': goalTextController.text,
+                                'Sender': currentUser,
+                              },);
 
-                              }
+                            }
 //
-                              goalTextController.clear();
-                              Navigator.pop(context);
+                            goalTextController.clear();
+                            Navigator.pop(context);
 //                              Navigator.push(context, new MaterialPageRoute(builder: (context) => Step3GoalsTheSolution()),
 //                              )
 //                              .then((value) => setState(() {}),);
-                            },);
-                          },
-                        ),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        CancelButtton(
-                          OnTap: () {
-                            goalTextController.clear();
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
+                          },);
+                        },
+                      ),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      CancelButtton(
+                        OnTap: () {
+                          goalTextController.clear();
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              )),
-        ),
+                ),
+              ],
+            )),
       ),
     );
   }

@@ -76,65 +76,72 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget> [
-              Breadcrumb(breads: breads, color: Color(0xFFE95420),),
-              Container(
-                //height: MediaQuery.of(context).size.height * .40,
-                margin: EdgeInsets.only(top: 8.0),
-                width: MediaQuery.of(context).size.width * .40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  //shape: BoxShape.rectangle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 2.0,
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                            child: Text(
-                              "Let's collect some details on the user's Profile",
-                              style: cardTitleTextStyle,
-                              //textAlign: TextAlign.center,
-                            )),
-                        TextFieldWidget(
-                          labelText:
-                          'Please provide a link to the User\'s (updated) Persona',
-                          myTextController: userProfileTextController,
-                          myFocusNode: userProfileFocusNode,
-                          validText: validUserProfile,
-                          maxLines: 1,
-                          textCollecter: userProfileText,
-                          helperText: '',
-                          labelcolour: userProfileLabelColor,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              headBackButtton(
-                                routeName: '/BCHomeView',
-                              ),
-                              SizedBox(
-                                width: 50,
-                              ),
-                              GenericStepButton(
-                                buttonName: 'GO NEXT',
-                                routeName: '/BCStep2CaptureUserStories',
-                                step: 1,
-                                stepBool: false,
-                                widget: onTap,
+              Padding(padding: const EdgeInsets.all(8.0),
+
+                  child: Wrap(children: [Breadcrumb(breads: breads, color: Color(0xFFE95420),),],),),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Container(
+                      //height: MediaQuery.of(context).size.height * .40,
+                      margin: EdgeInsets.only(top: 8.0),
+                      width:600,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        //shape: BoxShape.rectangle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 2.0,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              child: Text(
+                                "Let's collect some details on the user's Profile",
+                                style: cardTitleTextStyle,
+                                //textAlign: TextAlign.center,
+                              )),
+                          TextFieldWidget(
+                            labelText:
+                            'Please provide a link to the User\'s (updated) Persona',
+                            myTextController: userProfileTextController,
+                            myFocusNode: userProfileFocusNode,
+                            validText: validUserProfile,
+                            maxLines: 1,
+                            textCollecter: userProfileText,
+                            helperText: '',
+                            labelcolour: userProfileLabelColor,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                headBackButtton(
+                                  routeName: '/BCHomeView',
+                                ),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                GenericStepButton(
+                                  buttonName: 'GO NEXT',
+                                  routeName: '/BCStep2CaptureUserStories',
+                                  step: 1,
+                                  stepBool: false,
+                                  widget: onTap,
 
 //                          OnTap: () {
 //                             if (userProfileData != userProfileTextController.text ) {
@@ -148,12 +155,15 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
 ////                            Navigator.pushNamed(
 ////                                context, '/BCStep2CaptureUserStories');
 //                          },
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],)
+                ),
               ),
               SizedBox(
                 height: 20,

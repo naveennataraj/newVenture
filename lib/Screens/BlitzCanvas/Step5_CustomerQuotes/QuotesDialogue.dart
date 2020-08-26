@@ -45,112 +45,111 @@ class _BcQuoteDialogueState extends State<BcQuoteDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.50,
-          width: MediaQuery.of(context).size.width * 0.4,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Add a quote or excerpt of a conversation:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          height: 350, // MediaQuery.of(context).size.height * 0.50,
+          width: 800, //MediaQuery.of(context).size.width * 0.4,
+          child: SingleChildScrollView(
+              padding:
+              EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a quote or excerpt of a conversation:",
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "Add the content here:",
-                      maxLines: 2,
-                      validText: validQuoteContent,
-                      myFocusNode: quoteContentFocusNode,
-                      myTextController: quoteContentTextController,
-                      textCollecter: quoteContent,
-                      helperText: '',
-                      labelcolour: quoteContentLabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "Add the content here:",
+                    maxLines: 2,
+                    validText: validQuoteContent,
+                    myFocusNode: quoteContentFocusNode,
+                    myTextController: quoteContentTextController,
+                    textCollecter: quoteContent,
+                    helperText: '',
+                    labelcolour: quoteContentLabelColor,
+                  ),
+                  CheckboxListTile(
+                    title: Text(
+                      'One or more metric(s) can be added based on this quote',
+                      style: TextStyle(
+                          color: quoteChecked
+                              ? checkTextActive
+                              : checkTextInActive),
                     ),
-                    CheckboxListTile(
-                      title: Text(
-                        'One or more metric(s) can be added based on this quote',
-                        style: TextStyle(
-                            color: quoteChecked
-                                ? checkTextActive
-                                : checkTextInActive),
-                      ),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: quoteChecked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          quoteChecked = value;
-                        });
-                      },
-                      activeColor: Color(0XFFE95420),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddQuoteButton(
-                            onTap: () {
-                              setState(() {
-                                final newQuote = BcAddQuote(
-                                    content: quoteContentTextController.text,
-                                    checkQuote: quoteChecked);
+                    controlAffinity: ListTileControlAffinity.leading,
+                    value: quoteChecked,
+                    onChanged: (bool value) {
+                      setState(() {
+                        quoteChecked = value;
+                      });
+                    },
+                    activeColor: Color(0XFFE95420),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddQuoteButton(
+                          onTap: () {
+                            setState(() {
+                              final newQuote = BcAddQuote(
+                                  content: quoteContentTextController.text,
+                                  checkQuote: quoteChecked);
 
-                                if (index == null) {
-                                  addingNewQuote.add(newQuote);
-                                  _firestore.collection('$currentUser/Bc5_userFeedback/addQuotes').add({
-                                    'content': quoteContentTextController.text,
-                                    'checkQuote': quoteChecked,
-                                    'Sender': currentUser,
-                                  });
+                              if (index == null) {
+                                addingNewQuote.add(newQuote);
+                                _firestore.collection('$currentUser/Bc5_userFeedback/addQuotes').add({
+                                  'content': quoteContentTextController.text,
+                                  'checkQuote': quoteChecked,
+                                  'Sender': currentUser,
+                                });
 
-                                } else {
+                              } else {
 //                                  addingNewQuote.removeAt(index);
 //                                  addingNewQuote.insert(index, newQuote);
-                                  _firestore
-                                      .collection('$currentUser/Bc5_userFeedback/addQuotes')
-                                      .document(addingNewQuote[index].ID)
-                                      .updateData({
-                                    'content': quoteContentTextController.text,
-                                    'checkQuote': quoteChecked,
-                                    'Sender': currentUser,
-                                  });
-                                }
+                                _firestore
+                                    .collection('$currentUser/Bc5_userFeedback/addQuotes')
+                                    .document(addingNewQuote[index].ID)
+                                    .updateData({
+                                  'content': quoteContentTextController.text,
+                                  'checkQuote': quoteChecked,
+                                  'Sender': currentUser,
+                                });
+                              }
 
-                                quoteContentTextController.clear();
-                                quoteChecked = false;
-
-                                Navigator.pop(context);
-//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep5CustomerQuotes()),
-//                                )
-//                                    .then((value) => setState(() {}),);
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
                               quoteContentTextController.clear();
                               quoteChecked = false;
 
                               Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcStep5CustomerQuotes()),
+//                                )
+//                                    .then((value) => setState(() {}),);
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            quoteContentTextController.clear();
+                            quoteChecked = false;
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ),);
   }
 }

@@ -79,234 +79,233 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.70,
-          width: MediaQuery.of(context).size.width * 0.5,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Add a Product Feature:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          height: 700,//MediaQuery.of(context).size.height * 0.70,
+          width: 800,//MediaQuery.of(context).size.width * 0.5,
+          child: SingleChildScrollView(
+              padding:
+              EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a Product Feature:",
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "Provide a title to this feature",
-                      maxLines: 1,
-                      validText: validProductFeature,
-                      myFocusNode: ProductFeatureFocusNode,
-                      myTextController: ProductFeatureTextController,
-                      textCollecter: ProductFeature,
-                      helperText:
-                      'It is ideal to keep this feature title consise and brief, at the same time,\nit should clearly explain what the feature brings to the end user',
-                      labelcolour: ProductFeaturelabelColor,
-                    ),
-                    TextFieldWidget(
-                      labelText:
-                      "How would you describe this feature (briefly)?",
-                      maxLines: 1,
-                      validText: validFeatureDescription,
-                      myFocusNode: FeatureDescriptionFocusNode,
-                      myTextController: FeatureDescriptionTextController,
-                      textCollecter: FeatureDescription,
-                      helperText:
-                      'Adding a description can help designers and developers understand the feature better\nand therefore subsequently provide a better outcome.',
-                      labelcolour: FeatureDescriptionlabelColor,
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: (radio1Focus.hasFocus ||
-                              radio2Focus.hasFocus ||
-                              radio3Focus.hasFocus ||
-                              radio4Focus.hasFocus)
-                              ? Border.all(width: 1.2, color: Color(0XFFE95420))
-                              : Border.all(width: 1, color: Color(0XFFABABAB)),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text(
-                              'This feature is a:',
-                              style: TextStyle(fontSize: 18),
+                  ),
+                  TextFieldWidget(
+                    labelText: "Provide a title to this feature",
+                    maxLines: 1,
+                    validText: validProductFeature,
+                    myFocusNode: ProductFeatureFocusNode,
+                    myTextController: ProductFeatureTextController,
+                    textCollecter: ProductFeature,
+                    helperText:
+                    'It is ideal to keep this feature title consise and brief, at the same time,\nit should clearly explain what the feature brings to the end user',
+                    labelcolour: ProductFeaturelabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText:
+                    "How would you describe this feature (briefly)?",
+                    maxLines: 1,
+                    validText: validFeatureDescription,
+                    myFocusNode: FeatureDescriptionFocusNode,
+                    myTextController: FeatureDescriptionTextController,
+                    textCollecter: FeatureDescription,
+                    helperText:
+                    'Adding a description can help designers and developers understand the feature better\nand therefore subsequently provide a better outcome.',
+                    labelcolour: FeatureDescriptionlabelColor,
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        border: (radio1Focus.hasFocus ||
+                            radio2Focus.hasFocus ||
+                            radio3Focus.hasFocus ||
+                            radio4Focus.hasFocus)
+                            ? Border.all(width: 1.2, color: Color(0XFFE95420))
+                            : Border.all(width: 1, color: Color(0XFFABABAB)),
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text(
+                            'This feature is a:',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: ListTile(
+                                title: Text('Must have'),
+                                leading: Radio(
+                                  focusNode: radio1Focus,
+                                  activeColor: Color(0XFFE95420),
+                                  value: 1,
+                                  groupValue: clickedRadio,
+                                  onChanged: (selectedRadio) {
+                                    setState(() {
+                                      requestFocus(radio1Focus);
+                                      clickedRadio = selectedRadio;
+                                    });
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: ListTile(
-                                  title: Text('Must have'),
-                                  leading: Radio(
-                                    focusNode: radio1Focus,
-                                    activeColor: Color(0XFFE95420),
-                                    value: 1,
-                                    groupValue: clickedRadio,
-                                    onChanged: (selectedRadio) {
-                                      setState(() {
-                                        requestFocus(radio1Focus);
-                                        clickedRadio = selectedRadio;
-                                      });
-                                    },
-                                  ),
+                            Expanded(
+                              child: ListTile(
+                                title: Text('Should have'),
+                                leading: Radio(
+                                  focusNode: radio2Focus,
+                                  activeColor: Color(0XFFE95420),
+                                  value: 2,
+                                  groupValue: clickedRadio,
+                                  onChanged: (selectedRadio) {
+                                    setState(() {
+                                      requestFocus(radio2Focus);
+                                      clickedRadio = selectedRadio;
+                                    });
+                                  },
                                 ),
                               ),
-                              Expanded(
-                                child: ListTile(
-                                  title: Text('Should have'),
-                                  leading: Radio(
-                                    focusNode: radio2Focus,
-                                    activeColor: Color(0XFFE95420),
-                                    value: 2,
-                                    groupValue: clickedRadio,
-                                    onChanged: (selectedRadio) {
-                                      setState(() {
-                                        requestFocus(radio2Focus);
-                                        clickedRadio = selectedRadio;
-                                      });
-                                    },
-                                  ),
+                            ),
+                            Expanded(
+                              child: ListTile(
+                                title: Text('Could have'),
+                                leading: Radio(
+                                  focusNode: radio3Focus,
+                                  activeColor: Color(0XFFE95420),
+                                  value: 3,
+                                  groupValue: clickedRadio,
+                                  onChanged: (selectedRadio) {
+                                    setState(() {
+                                      requestFocus(radio3Focus);
+                                      clickedRadio = selectedRadio;
+                                    });
+                                  },
                                 ),
                               ),
-                              Expanded(
-                                child: ListTile(
-                                  title: Text('Could have'),
-                                  leading: Radio(
-                                    focusNode: radio3Focus,
-                                    activeColor: Color(0XFFE95420),
-                                    value: 3,
-                                    groupValue: clickedRadio,
-                                    onChanged: (selectedRadio) {
-                                      setState(() {
-                                        requestFocus(radio3Focus);
-                                        clickedRadio = selectedRadio;
-                                      });
-                                    },
-                                  ),
+                            ),
+                            Expanded(
+                              child: ListTile(
+                                title: Text('Would not have'),
+                                leading: Radio(
+                                  focusNode: radio4Focus,
+                                  activeColor: Color(0XFFE95420),
+                                  value: 4,
+                                  groupValue: clickedRadio,
+                                  onChanged: (selectedRadio) {
+                                    setState(() {
+                                      requestFocus(radio4Focus);
+                                      clickedRadio = selectedRadio;
+                                    });
+                                  },
                                 ),
                               ),
-                              Expanded(
-                                child: ListTile(
-                                  title: Text('Would not have'),
-                                  leading: Radio(
-                                    focusNode: radio4Focus,
-                                    activeColor: Color(0XFFE95420),
-                                    value: 4,
-                                    groupValue: clickedRadio,
-                                    onChanged: (selectedRadio) {
-                                      setState(() {
-                                        requestFocus(radio4Focus);
-                                        clickedRadio = selectedRadio;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    CheckboxListTile(
-                      title: Text(
-                        'This feature is currently offered by a competing product',
-                        style: TextStyle(
-                            color:
-                            checked ? CheckTextActive : CheckTextInActive),
-                      ),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: checked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          checked = value;
-                        });
-                      },
-                      activeColor: Color(0XFFE95420),
+                  ),
+                  CheckboxListTile(
+                    title: Text(
+                      'This feature is currently offered by a competing product',
+                      style: TextStyle(
+                          color:
+                          checked ? CheckTextActive : CheckTextInActive),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddProductFeatureButton(
-                            routeName: '/addproductgoals',
-                            onTap: () {
-                              setState(() {
-                                final NewProductFeature = ContentBcFeatureProduct(
-                                    FeatureTitle:
-                                    ProductFeatureTextController.text,
-                                    FeatureDescription:
-                                    FeatureDescriptionTextController.text,
-                                    FeatureChecked: checked,
-                                    FeatureType: clickedRadio);
+                    controlAffinity: ListTileControlAffinity.leading,
+                    value: checked,
+                    onChanged: (bool value) {
+                      setState(() {
+                        checked = value;
+                      });
+                    },
+                    activeColor: Color(0XFFE95420),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddProductFeatureButton(
+                          routeName: '/addproductgoals',
+                          onTap: () {
+                            setState(() {
+                              final NewProductFeature = ContentBcFeatureProduct(
+                                  FeatureTitle:
+                                  ProductFeatureTextController.text,
+                                  FeatureDescription:
+                                  FeatureDescriptionTextController.text,
+                                  FeatureChecked: checked,
+                                  FeatureType: clickedRadio);
 
-                                if (index == null) {
-                                  addingNewProductFeature.add(
-                                      NewProductFeature);
-                                  _firestore.collection('$currentUser/Bc3_definingTheSolution/addFeatures').add({
-                                    'featureTitle': ProductFeatureTextController.text,
-                                    'featureDescription': FeatureDescriptionTextController.text,
-                                    'featureChecked': checked,
-                                    'featureType': clickedRadio,
-                                    'Sender': currentUser,
-                                  });
+                              if (index == null) {
+                                addingNewProductFeature.add(
+                                    NewProductFeature);
+                                _firestore.collection('$currentUser/Bc3_definingTheSolution/addFeatures').add({
+                                  'featureTitle': ProductFeatureTextController.text,
+                                  'featureDescription': FeatureDescriptionTextController.text,
+                                  'featureChecked': checked,
+                                  'featureType': clickedRadio,
+                                  'Sender': currentUser,
+                                });
 
-                                } else {
+                              } else {
 //                                  addingNewProductFeature.removeAt(index);
 //                                  addingNewProductFeature.insert(
 //                                      index, NewProductFeature);
-                                  _firestore
-                                      .collection('$currentUser/Bc3_definingTheSolution/addFeatures')
-                                      .document(addingNewProductFeature[index].ID)
-                                      .updateData({
-                                    'featureTitle': ProductFeatureTextController.text,
-                                    'featureDescription': FeatureDescriptionTextController.text,
-                                    'featureChecked': checked,
-                                    'featureType': clickedRadio,
-                                    'Sender': currentUser,
-                                  });
+                                _firestore
+                                    .collection('$currentUser/Bc3_definingTheSolution/addFeatures')
+                                    .document(addingNewProductFeature[index].ID)
+                                    .updateData({
+                                  'featureTitle': ProductFeatureTextController.text,
+                                  'featureDescription': FeatureDescriptionTextController.text,
+                                  'featureChecked': checked,
+                                  'featureType': clickedRadio,
+                                  'Sender': currentUser,
+                                });
 
-                                }
-                                ProductFeatureTextController.clear();
-                                FeatureDescriptionTextController.clear();
-                                checked = false;
-                                clickedRadio = 0;
-                                Navigator.pop(context);
-//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcProductFeature()),
-//                                )
-//                                    .then((value) => setState(() {}),);
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
+                              }
                               ProductFeatureTextController.clear();
                               FeatureDescriptionTextController.clear();
                               checked = false;
                               clickedRadio = 0;
-
                               Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcProductFeature()),
+//                                )
+//                                    .then((value) => setState(() {}),);
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            ProductFeatureTextController.clear();
+                            FeatureDescriptionTextController.clear();
+                            checked = false;
+                            clickedRadio = 0;
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),),
-          ),
+                  ),
+                ],
+              ),),
         ),);
   }
 }

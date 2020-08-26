@@ -51,7 +51,7 @@ class _AddPainPointsState extends State<AddPainPoints> {
                 padding: const EdgeInsets.all(8.0),
                 child: Wrap(children: [
                   Breadcrumb(breads: breads, color: Color(0xFFE95420))
-                ]),
+                ],),
               ),
               Center(
                 child: Padding(

@@ -53,133 +53,132 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.60,
-          width: MediaQuery.of(context).size.width * 0.5,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Add a parallel solution concept:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          height: 500, // MediaQuery.of(context).size.height * 0.60,
+          width: 800, //MediaQuery.of(context).size.width * 0.5,
+          child: SingleChildScrollView(
+              padding:
+              EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a parallel solution concept:",
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "Add solution name",
-                      maxLines: 2,
-                      validText: validSolutionName,
-                      myFocusNode: SolutionNameFocusNode,
-                      myTextController: SolutionNameTextController,
-                      textCollecter: SolutionName,
-                      helperText: '',
-                      labelcolour: SolutionNamelabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "Add solution name",
+                    maxLines: 2,
+                    validText: validSolutionName,
+                    myFocusNode: SolutionNameFocusNode,
+                    myTextController: SolutionNameTextController,
+                    textCollecter: SolutionName,
+                    helperText: '',
+                    labelcolour: SolutionNamelabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "Add solution description",
+                    maxLines: 2,
+                    validText: validSolutionDescription,
+                    myFocusNode: SolutionNameFocusNode,
+                    myTextController: SolutionDescriptionTextController,
+                    textCollecter: SolutionDescription,
+                    helperText: '',
+                    labelcolour: SolutionDescriptionlabelColor,
+                  ),
+                  CheckboxListTile(
+                    title: Text(
+                      'This solution concept has disruptive qualities',
+                      style: TextStyle(
+                          color: SolutionChecked
+                              ? CheckTextActive
+                              : CheckTextInActive),
                     ),
-                    TextFieldWidget(
-                      labelText: "Add solution description",
-                      maxLines: 2,
-                      validText: validSolutionDescription,
-                      myFocusNode: SolutionNameFocusNode,
-                      myTextController: SolutionDescriptionTextController,
-                      textCollecter: SolutionDescription,
-                      helperText: '',
-                      labelcolour: SolutionDescriptionlabelColor,
-                    ),
-                    CheckboxListTile(
-                      title: Text(
-                        'This solution concept has disruptive qualities',
-                        style: TextStyle(
-                            color: SolutionChecked
-                                ? CheckTextActive
-                                : CheckTextInActive),
-                      ),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: SolutionChecked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          SolutionChecked = value;
-                        });
-                      },
-                      activeColor: Color(0XFFE95420),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddMetricButton(
-                            onTap: () {
-                              setState(() {
-                                final NewParallelInnovation =
-                                ContentParallelSolution(
-                                    Name: SolutionNameTextController.text,
-                                    Description:
-                                    SolutionDescriptionTextController
-                                        .text,
-                                    CheckedSolution: SolutionChecked);
+                    controlAffinity: ListTileControlAffinity.leading,
+                    value: SolutionChecked,
+                    onChanged: (bool value) {
+                      setState(() {
+                        SolutionChecked = value;
+                      });
+                    },
+                    activeColor: Color(0XFFE95420),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddMetricButton(
+                          onTap: () {
+                            setState(() {
+                              final NewParallelInnovation =
+                              ContentParallelSolution(
+                                  Name: SolutionNameTextController.text,
+                                  Description:
+                                  SolutionDescriptionTextController
+                                      .text,
+                                  CheckedSolution: SolutionChecked);
 
-                                if (index == null) {
-                                  AddingNewParallelInnovations.add(
-                                      NewParallelInnovation);
-                                  _firestore.collection('$currentUser/Bc9_managingGrowth/addConcepts').add({
-                                    'Name': SolutionNameTextController.text,
-                                    'Description': SolutionDescriptionTextController.text,
-                                    'CheckedSolution': SolutionChecked,
-                                    'Sender': currentUser,
-                                  });
+                              if (index == null) {
+                                AddingNewParallelInnovations.add(
+                                    NewParallelInnovation);
+                                _firestore.collection('$currentUser/Bc9_managingGrowth/addConcepts').add({
+                                  'Name': SolutionNameTextController.text,
+                                  'Description': SolutionDescriptionTextController.text,
+                                  'CheckedSolution': SolutionChecked,
+                                  'Sender': currentUser,
+                                });
 
-                                } else {
+                              } else {
 //                                  AddingNewParallelInnovations.removeAt(index);
 //                                  AddingNewParallelInnovations.insert(
 //                                      index, NewParallelInnovation);
-                                  _firestore
-                                      .collection('$currentUser/Bc9_managingGrowth/addConcepts')
-                                      .document(AddingNewParallelInnovations[index].ID)
-                                      .updateData({
-                                    'Name': SolutionNameTextController.text,
-                                    'Description': SolutionDescriptionTextController.text,
-                                    'CheckedSolution': SolutionChecked,
-                                    'Sender': currentUser,
-                                  });
+                                _firestore
+                                    .collection('$currentUser/Bc9_managingGrowth/addConcepts')
+                                    .document(AddingNewParallelInnovations[index].ID)
+                                    .updateData({
+                                  'Name': SolutionNameTextController.text,
+                                  'Description': SolutionDescriptionTextController.text,
+                                  'CheckedSolution': SolutionChecked,
+                                  'Sender': currentUser,
+                                });
 
-                                }
+                              }
 
-                                SolutionNameTextController.clear();
-                                SolutionDescriptionTextController.clear();
-                                SolutionChecked = false;
-
-                                Navigator.pop(context);
-//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcCreatingEcosystems()),
-//                                )
-//                                    .then((value) => setState(() {}),);
-
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
                               SolutionNameTextController.clear();
                               SolutionDescriptionTextController.clear();
                               SolutionChecked = false;
 
                               Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+//                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcCreatingEcosystems()),
+//                                )
+//                                    .then((value) => setState(() {}),);
+
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            SolutionNameTextController.clear();
+                            SolutionDescriptionTextController.clear();
+                            SolutionChecked = false;
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ),);
   }
 }

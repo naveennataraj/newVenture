@@ -75,99 +75,85 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              Breadcrumb(breads: breads, color: Color(0xFFE95420),),
-              Container(
-                //height: MediaQuery.of(context).size.height * .40,
-                margin: EdgeInsets.only(top: 40.0),
-                width: MediaQuery.of(context).size.width * .40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  //shape: BoxShape.rectangle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 2.0,
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                            child: Text(
-                              'How does this solution stand out?',
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            )),
-                        TextFieldWidget(
-                          labelText: "What is the unique selling proposition of this solution",
-                          maxLines: 1,
-                          validText: validProposition,
-                          myFocusNode: propositionFocusNode,
-                          myTextController: propositionTextController,
-                          textCollecter: sellingProposition,
-                          helperText: '',
-                          labelcolour: propositionLabelColor,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(children: [
+                  Breadcrumb(breads: breads, color: Color(0xFFE95420))
+                ],),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        //height: MediaQuery.of(context).size.height * .40,
+                        margin: EdgeInsets.only(top: 40.0),
+                        width: 600, //MediaQuery.of(context).size.width * .40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          //shape: BoxShape.rectangle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 2.0,
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              headBackButtton(
-                                routeName: '/BCHomeView',
-                              ),
-                              SizedBox(
-                                width: 50,
-                              ),
-                              GenericStepButton(
-                                buttonName: 'GO NEXT',
-                                routeName: '/BCStep4ConsumerTouchPoints',
-                                step: 3,
-                                stepBool: false,
-                                widget: onTap,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10.0),
+                                child: Text(
+                                  'How does this solution stand out?',
+                                  style: TextStyle(
+                                      fontSize: 22, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                )),
+                            TextFieldWidget(
+                              labelText: "What is the unique selling proposition of this solution",
+                              maxLines: 3,
+                              validText: validProposition,
+                              myFocusNode: propositionFocusNode,
+                              myTextController: propositionTextController,
+                              textCollecter: sellingProposition,
+                              helperText: '',
+                              labelcolour: propositionLabelColor,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  headBackButtton(
+                                    routeName: '/BCHomeView',
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                  ),
+                                  GenericStepButton(
+                                    buttonName: 'GO NEXT',
+                                    routeName: '/BCStep4ConsumerTouchPoints',
+                                    step: 3,
+                                    stepBool: false,
+                                    widget: onTap,
 
-//                          OnTap: () {
-//                            if(sellingPropositionArray.length != 0) {
-//                              _firestore
-//                                  .updateData({
-//                                'proposition': propositionTextController.text,
-//                              });
-//                            } else {
-//                              if (propositionFirebaseData != propositionTextController.text ) {
-//                                _firestore.setData({
-//                                  'proposition': propositionTextController.text,
-//                                  'keyTouchText': '',
-//                                  'capitalizeText': '',
-//                                  'growthText': '',
-//                                  'Sender': currentUser,
-//                                });
-//                              }
-//                            }
-//
-//
-//                            propositionFirebaseData =propositionTextController.text;
-//                            //bcStepsContent[3].bcCompletionValidator = false;
-////                            bcpData[0].CompletionValidator = false;
-////                            print(bcpData[0].CompletionValidator);
-//                            //Navigator.pushNamed(context, '/BCStep4ConsumerTouchPoints');
-//                          },
-                                //StepValidator: NotifyProgress(),
-
-                                //routeName: '/BCStep4ConsumerTouchPoints',
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ),
               ),
               SizedBox(
                 height: 20,

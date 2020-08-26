@@ -126,7 +126,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                 padding: const EdgeInsets.all(8.0),
                 child: Wrap(children: [
                   Breadcrumb(breads: breads, color: Color(0xFFE95420))
-                ]),
+                ],),
               ),
               Center(
                 child: Padding(
@@ -166,7 +166,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
                               myTextController: TitleTextController,
                               myFocusNode: TitleFocusNode,
                               validText: validTitle,
-                              maxLines: 1,
+                              maxLines: 3,
                               textCollecter: Title,
                               helperText: '',
                               labelcolour: TitlelabelColor,

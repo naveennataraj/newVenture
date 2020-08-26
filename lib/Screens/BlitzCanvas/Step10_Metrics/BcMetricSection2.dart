@@ -261,119 +261,122 @@ class _BcMetricsSection2State extends State<BcMetricsSection2> {
       body: ModalProgressHUD(
         inAsyncCall: spinner,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Breadcrumb(breads: breads, color: Color(0xFFE95420),),
-                  Container(
-                    //height: MediaQuery.of(context).size.height * .40,
-                    margin: EdgeInsets.only(top: 40.0),
-                    width: MediaQuery.of(context).size.width * .40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      //shape: BoxShape.rectangle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 2.0,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Breadcrumb(breads: breads, color: Color(0xFFE95420)),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        //height: MediaQuery.of(context).size.height * .40,
+                        margin: EdgeInsets.only(top: 40.0),
+                        width: 600, //MediaQuery.of(context).size.width * .40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          //shape: BoxShape.rectangle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 2.0,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            "Metrics - Provide one metric for each of the following:",
-                            style:
-                            TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        TextFieldWidget(
-                          labelText:
-                          "Provide one metric which help track the customer problem:",
-                          maxLines: 2,
-                          validText: validCustomerProblem,
-                          myFocusNode: CustomerProblemFocusNode,
-                          myTextController: CustomerProblemTextController,
-                          textCollecter: CustomerProblem,
-                          helperText: '',
-                          labelcolour: CustomerProblemlabelColor,
-                        ),
-                        TextFieldWidget(
-                          labelText: "Provide one Metric for the solution",
-                          maxLines: 2,
-                          validText: validSolution,
-                          myFocusNode: SolutionFocusNode,
-                          myTextController: SolutionTextController,
-                          textCollecter: Solution,
-                          helperText:
-                          'Provide one metric which will help track the impact of the solution on the customer problem',
-                          labelcolour: SolutionlabelColor,
-                        ),
-                        TextFieldWidget(
-                          labelText: "Provide one metric to measure evangelism",
-                          maxLines: 2,
-                          validText: validEvangelism,
-                          myFocusNode: EvangelismFocusNode,
-                          myTextController: EvangelismTextController,
-                          textCollecter: Evangelism,
-                          helperText: '', //TODO helper text
-                          labelcolour: EvangelismlabelColor,
-                        ),
-                        TextFieldWidget(
-                          labelText: "Provide one metric to handle scale",
-                          maxLines: 2,
-                          validText: validScale,
-                          myFocusNode: ScaleFocusNode,
-                          myTextController: ScaleTextController,
-                          textCollecter: Scale,
-                          helperText: '', //TODO helper text
-                          labelcolour: ScalelabelColor,
-                        ),
-                        TextFieldWidget(
-                          labelText:
-                          "Provide one metric to measure the evolution of the customer problem",
-                          maxLines: 2,
-                          validText: validEvolution,
-                          myFocusNode: EvolutionFocusNode,
-                          myTextController: EvolutionTextController,
-                          textCollecter: Evolution,
-                          helperText: '',
-                          labelcolour: EvolutionlabelColor,
-                        ),
-                        TextFieldWidget(
-                          labelText:
-                          "(Optional) Provide one metric for new parallel solutions",
-                          maxLines: 2,
-                          validText: validParallelSolution,
-                          myFocusNode: ParallelSolutionFocusNode,
-                          myTextController: ParallelSolutionTextController,
-                          textCollecter: ParallelSolution,
-                          helperText: '',
-                          labelcolour: ParallelSolutionlabelColor,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              headBackButtton(),
-                              SizedBox(
-                                width: 50,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              child: Text(
+                                "Metrics - Provide one metric for each of the following:",
+                                style:
+                                TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
                               ),
-                              GenericStepButton(
-                                buttonName: 'ADD ADDITIONAL METRICS',
-                                routeName: '/BCStep10AddMoreMetrics',
-                                step: 9,
-                                stepBool: false,
-                                widget: onTap,
+                            ),
+                            TextFieldWidget(
+                              labelText:
+                              "Provide one metric which help track the customer problem:",
+                              maxLines: 2,
+                              validText: validCustomerProblem,
+                              myFocusNode: CustomerProblemFocusNode,
+                              myTextController: CustomerProblemTextController,
+                              textCollecter: CustomerProblem,
+                              helperText: '',
+                              labelcolour: CustomerProblemlabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText: "Provide one Metric for the solution",
+                              maxLines: 2,
+                              validText: validSolution,
+                              myFocusNode: SolutionFocusNode,
+                              myTextController: SolutionTextController,
+                              textCollecter: Solution,
+                              helperText:
+                              'Provide one metric which will help track the impact of the solution on the customer problem',
+                              labelcolour: SolutionlabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText: "Provide one metric to measure evangelism",
+                              maxLines: 2,
+                              validText: validEvangelism,
+                              myFocusNode: EvangelismFocusNode,
+                              myTextController: EvangelismTextController,
+                              textCollecter: Evangelism,
+                              helperText: '', //TODO helper text
+                              labelcolour: EvangelismlabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText: "Provide one metric to handle scale",
+                              maxLines: 2,
+                              validText: validScale,
+                              myFocusNode: ScaleFocusNode,
+                              myTextController: ScaleTextController,
+                              textCollecter: Scale,
+                              helperText: '', //TODO helper text
+                              labelcolour: ScalelabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText:
+                              "Provide one metric to measure the evolution of the customer problem",
+                              maxLines: 2,
+                              validText: validEvolution,
+                              myFocusNode: EvolutionFocusNode,
+                              myTextController: EvolutionTextController,
+                              textCollecter: Evolution,
+                              helperText: '',
+                              labelcolour: EvolutionlabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText:
+                              "(Optional) Provide one metric for new parallel solutions",
+                              maxLines: 2,
+                              validText: validParallelSolution,
+                              myFocusNode: ParallelSolutionFocusNode,
+                              myTextController: ParallelSolutionTextController,
+                              textCollecter: ParallelSolution,
+                              helperText: '',
+                              labelcolour: ParallelSolutionlabelColor,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  headBackButtton(),
+                                  SizedBox(
+                                    width: 50,
+                                  ),
+                                  GenericStepButton(
+                                    buttonName: 'ADD ADDITIONAL METRICS',
+                                    routeName: '/BCStep10AddMoreMetrics',
+                                    step: 9,
+                                    stepBool: false,
+                                    widget: onTap,
 
 
 //                          onTap: () {
@@ -623,26 +626,28 @@ class _BcMetricsSection2State extends State<BcMetricsSection2> {
 ////                                  context, '/BCStep10AddMoreMetrics');
 ////                            });
 //                          },
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  DotsIndicator(
-                    decorator: DotsDecorator(
-                      activeColor: const Color(0xFFE95420),
-                    ),
-                    dotsCount: 3,
-                    position: 1,
-                  ),
-                ],
+                      ),
+                    ],
+                  )
+                ),
               ),
-            ),
+              SizedBox(
+                height: 20,
+              ),
+              DotsIndicator(
+                decorator: DotsDecorator(
+                  activeColor: const Color(0xFFE95420),
+                ),
+                dotsCount: 3,
+                position: 1,
+              ),
+            ],
           ),
         ),
       ),

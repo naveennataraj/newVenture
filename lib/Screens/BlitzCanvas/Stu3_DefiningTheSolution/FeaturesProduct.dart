@@ -21,8 +21,8 @@ class BcProductFeature extends StatefulWidget {
 List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
   Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
-  Bread(label: "Product Goals", route: '/BCStep3Goals'),
-  Bread(label: "Product Features", route: '/BCStep3FeatureProduct'),
+  Bread(label: "Goals", route: '/BCStep3Goals'),
+  Bread(label: "Features", route: '/BCStep3FeatureProduct'),
 ];
 
 class _BcProductFeatureState extends State<BcProductFeature> {
@@ -40,116 +40,126 @@ class _BcProductFeatureState extends State<BcProductFeature> {
       body: ModalProgressHUD(
         inAsyncCall: spinner,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Breadcrumb(breads: breads, color: Color(0xFFE95420),),
-                  Container(
-                    //height: MediaQuery.of(context).size.height * .40,
-                    margin: EdgeInsets.only(top: 40.0),
-                    width: MediaQuery.of(context).size.width * .40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      //shape: BoxShape.rectangle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 2.0,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            "List of the Product Features for the solution concept",
-                            style:
-                            TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
+          child: Column(
+//            crossAxisAlignment: CrossAxisAlignment.center,
+//            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(children: [
+                  Breadcrumb(breads: breads, color: Color(0xFFE95420))
+                ],),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child:
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Container(
+                      //height: MediaQuery.of(context).size.height * .40,
+                      margin: EdgeInsets.only(top: 40.0),
+                      width: 600,//MediaQuery.of(context).size.width * .40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        //shape: BoxShape.rectangle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 2.0,
                           ),
-                        ),
+                        ],
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                            child: Text(
+                              "List of the Product Features for the solution concept",
+                              style:
+                              TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
 
-                        StreamBuilder<QuerySnapshot>(
-                          stream: _firestore
-                              .collection(
-                              '$currentUser/Bc3_definingTheSolution/addFeatures')
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final messages = snapshot.data.documents.reversed;
-                              print('these are the messages $messages');
-                              addingNewProductFeature = [];
-                              for (var message in messages) {
-                                final FeatureTitle = message.data['featureTitle'];
-                                final FeatureDescription =
-                                message.data['featureDescription'];
-                                final FeatureChecked = message.data['featureChecked'];
-                                final FeatureType = message.data['featureType'];
-                                final ID = message.documentID;
+                          StreamBuilder<QuerySnapshot>(
+                            stream: _firestore
+                                .collection(
+                                '$currentUser/Bc3_definingTheSolution/addFeatures')
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final messages = snapshot.data.documents.reversed;
+                                print('these are the messages $messages');
+                                addingNewProductFeature = [];
+                                for (var message in messages) {
+                                  final FeatureTitle = message.data['featureTitle'];
+                                  final FeatureDescription =
+                                  message.data['featureDescription'];
+                                  final FeatureChecked = message.data['featureChecked'];
+                                  final FeatureType = message.data['featureType'];
+                                  final ID = message.documentID;
 
-                                final card = ContentBcFeatureProduct(
-                                  FeatureTitle: FeatureTitle,
-                                  FeatureDescription: FeatureDescription,
-                                  FeatureChecked: FeatureChecked,
-                                  FeatureType: FeatureType,
-                                  ID: ID,
-                                );
-                                addingNewProductFeature.add(card);
+                                  final card = ContentBcFeatureProduct(
+                                    FeatureTitle: FeatureTitle,
+                                    FeatureDescription: FeatureDescription,
+                                    FeatureChecked: FeatureChecked,
+                                    FeatureType: FeatureType,
+                                    ID: ID,
+                                  );
+                                  addingNewProductFeature.add(card);
+                                }
                               }
-                            }
 
-                            return (addingNewProductFeature.length != 0)
-                                ? ListView.builder(
-                              itemCount: addingNewProductFeature.length,
-                              shrinkWrap: true,
-                              padding: EdgeInsets.only(top: 10.0),
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: addingNewProductFeature != null
-                                      ? <Widget>[
-                                    SmallOrangeCardWithTitle(
-                                      title:
-                                      addingNewProductFeature[index]
-                                          .FeatureTitle,
-                                      description:
-                                      addingNewProductFeature[index]
-                                          .FeatureDescription,
-                                      index: index,
-                                      removingat: addingNewProductFeature,
-                                      Dialogue:
-                                      Step3BCProductFeatureDialogue(
+                              return (addingNewProductFeature.length != 0)
+                                  ? ListView.builder(
+                                itemCount: addingNewProductFeature.length,
+                                shrinkWrap: true,
+                                padding: EdgeInsets.only(top: 10.0),
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    children: addingNewProductFeature != null
+                                        ? <Widget>[
+                                      SmallOrangeCardWithTitle(
+                                        title:
+                                        addingNewProductFeature[index]
+                                            .FeatureTitle,
+                                        description:
+                                        addingNewProductFeature[index]
+                                            .FeatureDescription,
                                         index: index,
-                                      ),
-                                      CollectionName:
-                                      '$currentUser/Bc3_definingTheSolution/addFeatures',
-                                      ID: addingNewProductFeature[index]
-                                          .ID,
+                                        removingat: addingNewProductFeature,
+                                        Dialogue:
+                                        Step3BCProductFeatureDialogue(
+                                          index: index,
+                                        ),
+                                        CollectionName:
+                                        '$currentUser/Bc3_definingTheSolution/addFeatures',
+                                        ID: addingNewProductFeature[index]
+                                            .ID,
+                                      )
+                                    ]
+                                        : null,
+                                  );
+                                },
+                              )
+                                  : Padding(
+                                padding: const EdgeInsets.all(25.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Click on '+' to add the Pain Points",
+                                      style: TextStyle(color: Colors.grey),
                                     )
-                                  ]
-                                      : null,
-                                );
-                              },
-                            )
-                                : Padding(
-                              padding: const EdgeInsets.all(25.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Click on '+' to add the Pain Points",
-                                    style: TextStyle(color: Colors.grey),
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
 
 //                  (addingNewProductFeature.length == 0)
 //                      ? Padding(
@@ -190,47 +200,48 @@ class _BcProductFeatureState extends State<BcProductFeature> {
 //                      );
 //                    },
 //                  ),
-                        Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              headBackButtton(),
-                              SizedBox(
-                                width: 50,
-                              ),
-                              GenericStepButton(
-                                buttonName: 'GO NEXT',
-                                routeName: '/BCStep3WireFrameLink',
-                                step: 2,
-                                stepBool: false,
+                          Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                headBackButtton(),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                GenericStepButton(
+                                  buttonName: 'GO NEXT',
+                                  routeName: '/BCStep3WireFrameLink',
+                                  step: 2,
+                                  stepBool: false,
 //                          OnTap: () {
 //                            bcStepsContent[2].bcCompletionValidator = false;
 //                            Navigator.pushNamed(
 //                                context, '/BCStep3WireFrameLink');
 //                          },
-                                //routeName: '/BCStep3WireFrameLink',
-                                // write here
-                              ),
-                            ],
+                                  //routeName: '/BCStep3WireFrameLink',
+                                  // write here
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  DotsIndicator(
-                      decorator: DotsDecorator(
-                        activeColor: const Color(0xFFE95420),
+                        ],
                       ),
-                      dotsCount: 3,
-                      position: 1
-                  ),
-                ],
+                    ),
+                  ],)
+                ),
               ),
-            ),
+              SizedBox(
+                height: 20,
+              ),
+              DotsIndicator(
+                  decorator: DotsDecorator(
+                    activeColor: const Color(0xFFE95420),
+                  ),
+                  dotsCount: 3,
+                  position: 1
+              ),
+            ],
           ),
         ),
       ),

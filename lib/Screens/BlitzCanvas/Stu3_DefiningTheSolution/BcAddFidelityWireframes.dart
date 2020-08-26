@@ -7,7 +7,7 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/BcFrameworkData.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Stu3_DefiningTheSolution/BcWireframeLink.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -21,9 +21,9 @@ class BcAddWireframeLink extends StatefulWidget {
 List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
   Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
-  Bread(label: "Product Goals", route: '/BCStep3Goals'),
-  Bread(label: "Product Features", route: '/BCStep3FeatureProduct'),
-  Bread(label: "High Fidelity Wireframes", route: '/BCStep3WireFrameLink'),
+  Bread(label: "Goals", route: '/BCStep3Goals'),
+  Bread(label: "Features", route: '/BCStep3FeatureProduct'),
+  Bread(label: "Wireframes", route: '/BCStep3WireFrameLink'),
 ];
 
 
@@ -59,10 +59,21 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
           linkWireframe = document.data['wireFrameLink'];
           ID = document.documentID;
           WireFrameLinkTextController.text = WireFrameLink;
+
+          addWireframeLinkArray = [];
+          final fields = AddWireframeLink(
+              wireframeLink: WireFrameLink,
+              ID: ID);
+          addWireframeLinkArray.insert(0, fields);
+
         });
       } catch (e) {
         print(e);
       }
+    }else{
+      _firestore.collection(currentUser).document('Bc3_definingTheSolution').setData(
+          {}
+      );
     }
     setState(() {
       spinner = false;
@@ -80,73 +91,81 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
       body: ModalProgressHUD(
         inAsyncCall: spinner,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Breadcrumb(breads: breads, color: Color(0xFFE95420),),
-                  Container(
-                    //height: MediaQuery.of(context).size.height * .40,
-                    margin: EdgeInsets.only(top: 40.0),
-                    width: MediaQuery.of(context).size.width * .40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      //shape: BoxShape.rectangle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 2.0,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            "Adding High Fidelity Wireframes, if we have one handy:",
-                            style:
-                            TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(children: [
+                  Breadcrumb(breads: breads, color: Color(0xFFE95420))
+                ],),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Container(
+                      //height: MediaQuery.of(context).size.height * .40,
+                      margin: EdgeInsets.only(top: 40.0),
+                      width: 600,//MediaQuery.of(context).size.width * .40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        //shape: BoxShape.rectangle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 2.0,
                           ),
-                        ),
-                        NoteCard(
-                          Note:
-                          "Tip: For the prefered solution concept, a wireframe can be developed using a service such as AdobeXD or Marvel App. The purpose of this is to have the End user(s) interact with it, with the goal of eventually collecting feedback from them. In this section, please add the High Fidelity wireframe of the product concept, which will include details such as colors and graphics and will be representative of the final product that will be shipped to the customer.",
-                        ),
-                        FlatButton(
-                          onPressed: () {},
-                          child: Text('Learn More About Wireframes'),
-                        ),
-                        TextFieldWidget(
-                          labelText:
-                          "Please enter the link to the High Fidelity wireframe below",
-                          maxLines: 1,
-                          validText: validWireFrameLink,
-                          myFocusNode: WireFrameLinkFocusNode,
-                          myTextController: WireFrameLinkTextController,
-                          textCollecter: WireFrameLink,
-                          helperText: '',
-                          labelcolour: WireFrameLinklabelColor,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              headBackButtton(),
-                              SizedBox(
-                                width: 50,
-                              ),
-                              GenericStepButton(
-                                  buttonName: 'COMPLETE STEP 3',
-                                  routeName: '/BCHomeView',
-                                  step: 2,
-                                  stepBool: true,
-                                  widget:  futureValue
+                        ],
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                            child: Text(
+                              "Adding High Fidelity Wireframes, if we have one handy:",
+                              style:
+                              TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          NoteCard(
+                            Note:
+                            "Tip: For the prefered solution concept, a wireframe can be developed using a service such as AdobeXD or Marvel App. The purpose of this is to have the End user(s) interact with it, with the goal of eventually collecting feedback from them. In this section, please add the High Fidelity wireframe of the product concept, which will include details such as colors and graphics and will be representative of the final product that will be shipped to the customer.",
+                          ),
+                          FlatButton(
+                            onPressed: () {},
+                            child: Text('Learn More About Wireframes'),
+                          ),
+                          TextFieldWidget(
+                            labelText:
+                            "Please enter the link to the High Fidelity wireframe below",
+                            maxLines: 1,
+                            validText: validWireFrameLink,
+                            myFocusNode: WireFrameLinkFocusNode,
+                            myTextController: WireFrameLinkTextController,
+                            textCollecter: WireFrameLink,
+                            helperText: '',
+                            labelcolour: WireFrameLinklabelColor,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                headBackButtton(),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                GenericStepButton(
+                                    buttonName: 'COMPLETE STEP 3',
+                                    routeName: '/BCHomeView',
+                                    step: 2,
+                                    stepBool: true,
+                                    widget:  futureValue
 
 //                          OnTap: () {
 //                            if (linkWireframe !=
@@ -159,27 +178,28 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
 //                            bcStepsContent[2].bcCompletionValidator = true;
 //                            Navigator.pushNamed(context, '/BCHomeView');
 //                          },
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  DotsIndicator(
-                      decorator: DotsDecorator(
-                        activeColor: const Color(0xFFE95420),
+                        ],
                       ),
-                      dotsCount: 3,
-                      position: 2
-                  ),
-
-                ],
+                    ),
+                  ],),
+                )
               ),
-            ),
+              SizedBox(
+                height: 20,
+              ),
+              DotsIndicator(
+                  decorator: DotsDecorator(
+                    activeColor: const Color(0xFFE95420),
+                  ),
+                  dotsCount: 3,
+                  position: 2
+              ),
+
+            ],
           ),
         ),
       ),

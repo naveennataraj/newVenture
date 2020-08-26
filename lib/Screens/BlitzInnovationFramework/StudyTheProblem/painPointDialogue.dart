@@ -117,7 +117,7 @@ class _painpointDialogueState extends State<painpointDialogue> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: 620,
+        height: 500,
         width: 800,
         child: SingleChildScrollView(
           child: Padding(
@@ -126,9 +126,12 @@ class _painpointDialogueState extends State<painpointDialogue> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Add a Pain Point:',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    'Add a Pain Point:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  ),
                 ),
                 TextFieldWidget(
                   textCollecter: Challenge,

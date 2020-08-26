@@ -55,167 +55,166 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.70,
-        width: MediaQuery.of(context).size.width * 0.5,
-        child: Center(
-          child: SingleChildScrollView(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    "Add IP Asset:",
-                    style: TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+        height: 600, // MediaQuery.of(context).size.height * 0.70,
+        width: 800, // MediaQuery.of(context).size.width * 0.5,
+        child: SingleChildScrollView(
+          padding:
+          const EdgeInsets.all(12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0),
+                child: Text(
+                  "Add IP Asset:",
+                  style: TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
+              ),
 
-                Container(
-                  margin: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      border: Border.all(width: 1, color: Color(0XFFABABAB)),
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        Text(
-                          'What is the nature of intellectual property you are trying to protect?',
-                          style: TextStyle(
-                              color: Colors.grey.shade600, fontSize: 16),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: DropdownButton(
-                            hint: Text(
-                              'Choose',
-                              style: TextStyle(
-                                color: Color(0XFFE95420),
-                              ),
-                            ),
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedIntellectualAsset = newValue;
-                                //selectedIntellectualAsset = SelectedIntellectualAsset.name;
-                              });
-                            },
-                            items: IntellectualAssetsList.map((String singleItem) {
-                              return DropdownMenuItem<String>(
-                                  value: singleItem,
-                                  child: Text(singleItem));
-                            }).toList(),
-                            //intellectualAssetsDropDown,
-                            value: selectedIntellectualAsset,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                TextFieldWidget(
-                  labelText:
-                  "Provide proctectable assets",
-                  maxLines: 1,
-                  validText: validCodeDescription,
-                  myFocusNode: CodeDescriptionFocusNode,
-                  myTextController: CodeDescriptionTextController,
-                  textCollecter: CodeDescription,
-                  helperText:
-                  'Include all the proctectable assets one after another separted by coma',
-                  labelcolour: CodeDescriptionlabelColor,
-                ),
-                TextFieldWidget(
-                  labelText:
-                  "Additional details",
-                  maxLines: 1,
-                  validText: validAdditionalDetails,
-                  myFocusNode: AdditionalDetailsFocusNode,
-                  myTextController: AdditionalDetailsTextController,
-                  textCollecter: AdditionalDetailsDescription,
-                  helperText:
-                  'If any additional notes needs to be included, please add it in this section',
-                  labelcolour: AdditionalDetailslabelColor,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
+              Container(
+                margin: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(width: 1, color: Color(0XFFABABAB)),
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AddIpAssetDetailButton(
-                        routeName: '/addproductgoals',
-                        onTap: () {
-                          setState(() {
-                            final NewProductFeature = ContentBcIntellectualAssets(
-                              intellectualProperty:
-                              selectedIntellectualAsset,
-                              intellectualCode:
-                              CodeDescriptionTextController.text,
-                              intellectualDetails: AdditionalDetailsTextController.text,
-                              //FeatureType: clickedRadio)
-                            );
-
-                            if (index == null) {
-                              addingIntellectualAssets.add(
-                                  NewProductFeature);
-
-                              _firestore.collection('$currentUser/Bc7_businessModelElements/addIntellectualProperties').add({
-                                'intellectualProperty': selectedIntellectualAsset,
-                                'intellectualCode': CodeDescriptionTextController.text,
-                                'intellectualDetails': AdditionalDetailsTextController.text,
-                                'Sender': currentUser,
-                              });
-
-                            } else {
-//                              addingIntellectualAssets.removeAt(index);
-//                              addingIntellectualAssets.insert(
-//                                  index, NewProductFeature);
-                              _firestore
-                                  .collection('$currentUser/Bc7_businessModelElements/addIntellectualProperties')
-                                  .document(addingIntellectualAssets[index].ID)
-                                  .updateData({
-                                'intellectualProperty': selectedIntellectualAsset,
-                                'intellectualCode': CodeDescriptionTextController.text,
-                                'intellectualDetails': AdditionalDetailsTextController.text,
-                                'Sender': currentUser,
-                              });
-                            }
-
-                            CodeDescriptionTextController.clear();
-                            AdditionalDetailsTextController.clear();
-                            selectedIntellectualAsset = null;
-                            Navigator.pop(context);
-                          });
-                        },
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Text(
+                        'What is the nature of intellectual property you are trying to protect?',
+                        style: TextStyle(
+                            color: Colors.grey.shade600, fontSize: 16),
                       ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      CancelButtton(
-                        OnTap: () {
-                          CodeDescriptionTextController.clear();
-                          AdditionalDetailsTextController.clear();
-                          selectedIntellectualAsset = null;
-                          //clickedRadio = 0;
-
-                          Navigator.pop(context);
-                        },
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: DropdownButton(
+                          hint: Text(
+                            'Choose',
+                            style: TextStyle(
+                              color: Color(0XFFE95420),
+                            ),
+                          ),
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedIntellectualAsset = newValue;
+                              //selectedIntellectualAsset = SelectedIntellectualAsset.name;
+                            });
+                          },
+                          items: IntellectualAssetsList.map((String singleItem) {
+                            return DropdownMenuItem<String>(
+                                value: singleItem,
+                                child: Text(singleItem));
+                          }).toList(),
+                          //intellectualAssetsDropDown,
+                          value: selectedIntellectualAsset,
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),),
-        ),
+              ),
+
+              TextFieldWidget(
+                labelText:
+                "Provide proctectable assets",
+                maxLines: 1,
+                validText: validCodeDescription,
+                myFocusNode: CodeDescriptionFocusNode,
+                myTextController: CodeDescriptionTextController,
+                textCollecter: CodeDescription,
+                helperText:
+                'Include all the proctectable assets one after another separted by coma',
+                labelcolour: CodeDescriptionlabelColor,
+              ),
+              TextFieldWidget(
+                labelText:
+                "Additional details",
+                maxLines: 1,
+                validText: validAdditionalDetails,
+                myFocusNode: AdditionalDetailsFocusNode,
+                myTextController: AdditionalDetailsTextController,
+                textCollecter: AdditionalDetailsDescription,
+                helperText:
+                'If any additional notes needs to be included, please add it in this section',
+                labelcolour: AdditionalDetailslabelColor,
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AddIpAssetDetailButton(
+                      routeName: '/addproductgoals',
+                      onTap: () {
+                        setState(() {
+                          final NewProductFeature = ContentBcIntellectualAssets(
+                            intellectualProperty:
+                            selectedIntellectualAsset,
+                            intellectualCode:
+                            CodeDescriptionTextController.text,
+                            intellectualDetails: AdditionalDetailsTextController.text,
+                            //FeatureType: clickedRadio)
+                          );
+
+                          if (index == null) {
+                            addingIntellectualAssets.add(
+                                NewProductFeature);
+
+                            _firestore.collection('$currentUser/Bc7_businessModelElements/addIntellectualProperties').add({
+                              'intellectualProperty': selectedIntellectualAsset,
+                              'intellectualCode': CodeDescriptionTextController.text,
+                              'intellectualDetails': AdditionalDetailsTextController.text,
+                              'Sender': currentUser,
+                            });
+
+                          } else {
+//                              addingIntellectualAssets.removeAt(index);
+//                              addingIntellectualAssets.insert(
+//                                  index, NewProductFeature);
+                            _firestore
+                                .collection('$currentUser/Bc7_businessModelElements/addIntellectualProperties')
+                                .document(addingIntellectualAssets[index].ID)
+                                .updateData({
+                              'intellectualProperty': selectedIntellectualAsset,
+                              'intellectualCode': CodeDescriptionTextController.text,
+                              'intellectualDetails': AdditionalDetailsTextController.text,
+                              'Sender': currentUser,
+                            });
+                          }
+
+                          CodeDescriptionTextController.clear();
+                          AdditionalDetailsTextController.clear();
+                          selectedIntellectualAsset = null;
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: 50,
+                    ),
+                    CancelButtton(
+                      OnTap: () {
+                        CodeDescriptionTextController.clear();
+                        AdditionalDetailsTextController.clear();
+                        selectedIntellectualAsset = null;
+                        //clickedRadio = 0;
+
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),),
       ),);
   }
 }

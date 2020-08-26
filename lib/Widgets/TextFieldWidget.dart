@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 class TextFieldWidget extends StatefulWidget {
   String textCollecter;
@@ -58,7 +59,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           labelText: widget.labelText,
           helperText: widget.myFocusNode.hasFocus ? widget.helperText : null,
           labelStyle: TextStyle(
-            fontSize: (MediaQuery.of(context).size.width < 1400) ?  MediaQuery.of(context).size.width * .03: 16,
+            fontSize: (ResponsiveLayout.isSmallScreen(context) ?  MediaQuery.of(context).size.width * .02: ResponsiveLayout.isMediumScreen(context) ? 16 : 15),
               fontFamily: 'OpenSans',
               color: widget.myFocusNode.hasFocus
                   ? Color(0XFFE95420)

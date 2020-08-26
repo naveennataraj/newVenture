@@ -168,7 +168,7 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                               myTextController: missionTextController,
                               myFocusNode: missionFocusNode,
                               validText: validMission,
-                              maxLines: 1,
+                              maxLines: 3,
                               textCollecter: missionText,
                               helperText: '',
                               labelcolour: missionLabelColor,
