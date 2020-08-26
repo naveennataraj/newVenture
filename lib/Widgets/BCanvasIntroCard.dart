@@ -23,7 +23,7 @@ class BCanvasIntroCard extends StatelessWidget {
               : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
         ),
         child: Container(
-          height: (MediaQuery.of(context).size.width >= 1400) ?  300 : (MediaQuery.of(context).size.width <= 800) ? 400 :  (MediaQuery.of(context).size.width <= 800) ? 500 : 300,
+          height: (MediaQuery.of(context).size.width >= 1400) ?  300 : (MediaQuery.of(context).size.width <= 800) ? 400 :  (MediaQuery.of(context).size.width <= 800) ? 600 : 300,
         //300,
           width: (MediaQuery.of(context).size.width < 1400) ?  850 : MediaQuery.of(context).size.width * .50,
 //        height: MediaQuery.of(context).size.height * .40,
