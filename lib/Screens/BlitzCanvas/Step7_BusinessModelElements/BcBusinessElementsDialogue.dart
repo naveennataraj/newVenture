@@ -8,6 +8,7 @@ import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Widgets/AddGenericButton.dart';
 import 'package:iventure001/Constants/ResposiveLayout.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class BcBusinessElementsDialogue extends StatefulWidget {
   final int index;
@@ -57,7 +58,7 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: 600, // MediaQuery.of(context).size.height * 0.70,
+        height: 450, // MediaQuery.of(context).size.height * 0.70,
         width: 800, // MediaQuery.of(context).size.width * 0.5,
         child: SingleChildScrollView(
           padding:
@@ -85,7 +86,55 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: (!ResponsiveLayout.isSmallScreen(context) ?
+                  child:
+//                  Wrap(
+//                    //crossAxisAlignment: WrapCrossAlignment.start,
+//                    spacing: (!ResponsiveLayout.isSmallScreen(context) ? 20 : 5),
+//                    alignment: WrapAlignment.spaceEvenly,
+//                    direction: (!ResponsiveLayout.isSmallScreen(context) ? Axis.horizontal : Axis.vertical)   ,
+//                    children: <Widget>[
+//                      Padding(
+//                        padding: const EdgeInsets.all(3.0),
+//                        child: Text(
+//                          'Please provide the type of BMC element to be added',
+//                          style: TextStyle(
+//                              color: Colors.grey.shade600,
+//                            fontSize: 15.009,
+//                          ),
+//                          maxLines: 3,
+//                        ),
+//                      ),
+//                      SizedBox(
+//                        width: (!ResponsiveLayout.isSmallScreen(context) ? 130 : 0),
+//                      ),
+//                      //Spacer(),
+//                      DropdownButton(
+//                        hint: Text(
+//                          'Choose',
+//                          style: TextStyle(
+//                            color: Color(0XFFE95420),
+//                          ),
+//                        ),
+//                        onChanged: (newValue) {
+//                          setState(() {
+//                            selectedElement = newValue;
+//                          });
+//                        },
+//                        items:  BMCElementsList.map((String singleItem) {
+//                          return DropdownMenuItem<String>(
+//                              value: singleItem,
+//                              child: Text(singleItem));
+//                        }).toList(),
+//                        //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].elementTitle: BMCElementsList ,
+//                        value: selectedElement,
+//                        //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].selectedTyped : SelectedBcmElement,
+//                      ),
+//                    ],
+//                  )
+
+
+
+                  (!ResponsiveLayout.isSmallScreen(context) ?
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
@@ -123,37 +172,35 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                   )
                   :
                   Column(
-                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    //mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
                         'Please provide the type of BMC element to be added',
                         style: TextStyle(
                             color: Colors.grey.shade600, fontSize: 15),
                       ),
-                      Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: DropdownButton(
-                          hint: Text(
-                            'Choose',
-                            style: TextStyle(
-                              color: Color(0XFFE95420),
-                            ),
+                      //Spacer(),
+                      DropdownButton(
+                        hint: Text(
+                          'Choose',
+                          style: TextStyle(
+                            color: Color(0XFFE95420),
                           ),
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedElement = newValue;
-                            });
-                          },
-                          items:  BMCElementsList.map((String singleItem) {
-                            return DropdownMenuItem<String>(
-                                value: singleItem,
-                                child: Text(singleItem));
-                          }).toList(),
-                          //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].elementTitle: BMCElementsList ,
-                          value: selectedElement,
-                          //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].selectedTyped : SelectedBcmElement,
                         ),
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedElement = newValue;
+                          });
+                        },
+                        items:  BMCElementsList.map((String singleItem) {
+                          return DropdownMenuItem<String>(
+                              value: singleItem,
+                              child: Text(singleItem));
+                        }).toList(),
+                        //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].elementTitle: BMCElementsList ,
+                        value: selectedElement,
+                        //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].selectedTyped : SelectedBcmElement,
                       ),
                     ],
                   ))
