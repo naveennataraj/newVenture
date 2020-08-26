@@ -7,6 +7,7 @@ import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Stu3_DefiningTheSolution/FeaturesProduct.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 class Step3BCProductFeatureDialogue extends StatefulWidget {
   final int index;
@@ -142,6 +143,8 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
+
+          (!ResponsiveLayout.isSmallScreen(context) ?
                         Row(
                           children: <Widget>[
                             Expanded(
@@ -179,7 +182,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                               ),
                             ),
                             Expanded(
-                              child: ListTile(
+                              child: ListTile( 
                                 title: Text('Could have'),
                                 leading: Radio(
                                   focusNode: radio3Focus,
@@ -196,7 +199,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                               ),
                             ),
                             Expanded(
-                              child: ListTile(
+                              child: ListTile( 
                                 title: Text('Would not have'),
                                 leading: Radio(
                                   focusNode: radio4Focus,
@@ -213,7 +216,72 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                               ),
                             ),
                           ],
-                        ),
+                        ):
+          Column(
+            children: <Widget>[
+              ListTile(
+                title: Text('Must have'),
+                leading: Radio(
+                  focusNode: radio1Focus,
+                  activeColor: Color(0XFFE95420),
+                  value: 1,
+                  groupValue: clickedRadio,
+                  onChanged: (selectedRadio) {
+                    setState(() {
+                      requestFocus(radio1Focus);
+                      clickedRadio = selectedRadio;
+                    });
+                  },
+                ),
+              ),
+              ListTile( 
+                title: Text('Should have'),
+                leading: Radio(
+                  focusNode: radio2Focus,
+                  activeColor: Color(0XFFE95420),
+                  value: 2,
+                  groupValue: clickedRadio,
+                  onChanged: (selectedRadio) {
+                    setState(() {
+                      requestFocus(radio2Focus);
+                      clickedRadio = selectedRadio;
+                    });
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text('Could have'),
+                leading: Radio(
+                  focusNode: radio3Focus,
+                  activeColor: Color(0XFFE95420),
+                  value: 3,
+                  groupValue: clickedRadio,
+                  onChanged: (selectedRadio) {
+                    setState(() {
+                      requestFocus(radio3Focus);
+                      clickedRadio = selectedRadio;
+                    });
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text('Would not have'),
+                leading: Radio(
+                  focusNode: radio4Focus,
+                  activeColor: Color(0XFFE95420),
+                  value: 4,
+                  groupValue: clickedRadio,
+                  onChanged: (selectedRadio) {
+                    setState(() {
+                      requestFocus(radio4Focus);
+                      clickedRadio = selectedRadio;
+                    });
+                  },
+                ),
+              ),
+            ],
+          )
+          ),
                       ],
                     ),
                   ),
@@ -309,5 +377,6 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
         ),);
   }
 }
+
 
 
