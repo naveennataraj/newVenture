@@ -8,6 +8,7 @@ import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Widgets/AddGenericButton.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 
 class BcAsaServiceDialogue extends StatefulWidget {
@@ -126,7 +127,10 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
+                      child:
+                      (!ResponsiveLayout.isSmallScreen(context) ?
+
+                      Row(
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Text(
@@ -160,7 +164,45 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                             ),
                           ),
                         ],
-                      ),
+                      )
+
+                        :
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Please provide the type of service',
+                            style: TextStyle(
+                                color: Colors.grey.shade600, fontSize: 16),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: DropdownButton(
+                              hint: Text(
+                                'Choose',
+                                style: TextStyle(
+                                  color: Color(0XFFE95420),
+                                ),
+                              ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedServiceTypeName = newValue;
+                                  //selectedServiceTypeName = SelectedServiceType.name;
+                                });
+                              },
+                              items: ServiceTypeList.map((String singleItem) {
+                                return DropdownMenuItem<String>(
+                                    value: singleItem,
+                                    child: Text(singleItem));
+                              }).toList(),
+                              //serviceTypeDropDown,
+                              value: selectedServiceTypeName,
+                            ),
+                          ),
+                        ],
+                      )
+
+                      )
                     ),
                   ),
 
@@ -195,7 +237,11 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
+                      child:
+                      (!ResponsiveLayout.isSmallScreen(context) ?
+
+
+                      Row(
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Text(
@@ -229,7 +275,44 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                             ),
                           ),
                         ],
-                      ),
+                      )
+                      :
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Please Approx. percentage of time saved as a result of service usage',
+                            style: TextStyle(
+                                color: Colors.grey.shade600, fontSize: 16),
+                            maxLines: 2,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: DropdownButton(
+                              hint: Text(
+                                'Choose',
+                                style: TextStyle(
+                                  color: Color(0XFFE95420),
+                                ),
+                              ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedServiceUsagePercentage = newValue;
+                                  //selectedServiceUsagePercentage = SelectedServiceUsage.name;
+                                },);
+                              },
+                              items: ServiceUsageList.map((String singleItem) {
+                                return DropdownMenuItem<String>(
+                                    value: singleItem,
+                                    child: Text(singleItem));
+                              }).toList(),
+                              //serviceUsageDropDown,
+                              value: selectedServiceUsagePercentage,
+                            ),
+                          ),
+                        ],
+                      )
+                      )
                     ),
                   ),
                   Padding(

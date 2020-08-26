@@ -12,6 +12,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentBusinessGrowth.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 class BcStep9BusinessGrowth extends StatefulWidget {
   @override
@@ -148,7 +149,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                               myTextController: handleScaleLTextController,
                               textCollecter: handleScaleLText,
                               helperText:
-                              'Please provide details on how the scaling aspect of the solution would be handled.\nDetermining this would help the business handle issues associated with a sudden increase or\ndecrease in the usage of the product such as datacenter costs or infrastructure availability',
+                              'Please provide details on how the scaling aspect of the solution would be handled.Determining this would help the business handle issues associated with a sudden increase or\ndecrease in the usage of the product such as datacenter costs or infrastructure availability',
                               labelcolour: handleScaleLabelColor,
                             ),
                             Container(
@@ -160,7 +161,11 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                                   borderRadius: BorderRadius.all(Radius.circular(5))),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Row(
+                                child:
+
+                                (!ResponsiveLayout.isSmallScreen(context) ?
+
+                                Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
                                     Text(
@@ -197,7 +202,45 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                                       ),
                                     ),
                                   ],
-                                ),
+                                ) :
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: <Widget>[
+                                    Text(
+                                      'Is the currently chosen growth strategy sustainable? ',
+                                      style: TextStyle(
+                                          color: Colors.grey.shade600, fontSize: 16),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 20),
+                                      child: DropdownButton(
+                                        hint: Text(
+                                          'Choose',
+                                          style: TextStyle(
+                                            color: Color(0XFFE95420),
+                                          ),
+                                        ),
+                                        onChanged: (newValue) {
+                                          setState(
+                                                () {
+                                              //SelectedStrategySustainable = newValue;
+                                              selectedStrategyOption = newValue;
+                                            },
+                                          );
+                                        },
+                                        items: StrategyList.map((String singleItem) {
+                                          return DropdownMenuItem<String>(
+                                              value: singleItem,
+                                              child: Text(singleItem));
+                                        }).toList(),
+                                        //strategySustainable,
+                                        value: selectedStrategyOption,
+                                        //SelectedStrategySustainable,
+                                      ),
+                                    ),
+                                  ],
+                                ) )
                               ),
                             ),
                             Padding(

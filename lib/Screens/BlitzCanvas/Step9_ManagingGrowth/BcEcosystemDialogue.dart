@@ -53,7 +53,7 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 500, // MediaQuery.of(context).size.height * 0.60,
+          height: 430, // MediaQuery.of(context).size.height * 0.60,
           width: 800, //MediaQuery.of(context).size.width * 0.5,
           child: SingleChildScrollView(
               padding:
