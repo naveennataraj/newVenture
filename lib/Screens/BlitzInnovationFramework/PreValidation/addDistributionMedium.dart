@@ -6,7 +6,6 @@ import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addDistributionMedium.dart';
 import 'package:iventure001/Data/CardData.dart';
-import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
@@ -231,21 +230,6 @@ class _AddDistributionMediumState extends State<AddDistributionMedium> {
               ),
             ],
           ),
-        ),
-      ),
-      floatingActionButton: Container(
-        margin: EdgeInsets.all(100),
-        child: FloatingActionButton(
-          tooltip: "Add's New Card",
-          backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) =>
-                  addEvangelistsAndEarlyAdoptersDialogue(),
-            );
-          },
-          child: Icon(Icons.add),
         ),
       ),
     );

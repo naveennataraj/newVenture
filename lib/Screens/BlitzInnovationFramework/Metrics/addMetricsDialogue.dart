@@ -116,14 +116,17 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
-                          mainAxisSize: MainAxisSize.max,
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               'What category does the metric fall under?',
                               style: TextStyle(
                                   color: Colors.grey.shade600, fontSize: 16),
                             ),
-                            Spacer(),
+                            SizedBox(
+                              height: 10,
+                            ),
                             DropdownButton(
                               isExpanded: true,
                               hint: Text(
