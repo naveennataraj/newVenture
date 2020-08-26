@@ -17,23 +17,19 @@ class FrameworkCards extends StatefulWidget {
   final String frameworkdescrip;
   final String buttonText;
   final String navigateTo;
-  int daysRemaining;
+  var daysRemaining;
   bool stepCompleteValidator;
   @override
   _FrameworkCardsState createState() => _FrameworkCardsState();
 }
 
+String days;
+
 class _FrameworkCardsState extends State<FrameworkCards> {
   @override
   void initState() {
-    loaddays();
+    days = widget.daysRemaining.toString();
     super.initState();
-  }
-
-  loaddays() {
-    setState(() {
- 
-    });
   }
 
   @override
@@ -57,10 +53,12 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        widget.frameworkStep,
-                        style: cardTitleTextStyle,
-                        //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      Expanded(
+                        child: Text(
+                          widget.frameworkStep,
+                          style: cardTitleTextStyle,
+                          //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
                       ),
                     ],
                   ),
@@ -109,9 +107,23 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                         children: [
                           (widget.daysRemaining != null)
                               ? Expanded(
-                                  child: Text(
-                                  ' Day(s) left to review',
-                                  style: TextStyle(color: Colors.red),
+                                  child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      widget.daysRemaining.toString(),
+                                      style: TextStyle(
+                                          color: Colors.orange, fontSize: 35),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        'Day(s) left review  fit',
+                                        style: TextStyle(color: Colors.orange),
+                                      ),
+                                    ),
+                                  ],
                                 ))
                               : Container(),
                           Spacer(),
