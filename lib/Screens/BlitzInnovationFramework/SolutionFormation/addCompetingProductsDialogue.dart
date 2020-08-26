@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
-import 'package:iventure001/Widgets/AddProductFeatureButton.dart';
+import 'package:iventure001/Widgets/AddCompetingOfferingButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
@@ -169,7 +169,7 @@ class _addCompetingProductsDialogueState
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AddProductFeatureButton(
+                          AddCompetingOfferingButton(
                             routeName: '/addproductgoals',
                             onTap: (ProductNameTextController.text == '' ||
                                     OrgNameTextController.text == '' ||

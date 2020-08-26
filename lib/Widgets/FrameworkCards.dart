@@ -20,19 +20,22 @@ class FrameworkCards extends StatefulWidget {
   int daysRemaining;
   bool stepCompleteValidator;
   @override
-  _FrameworkCardsState createState() =>
-      _FrameworkCardsState(this.daysRemaining);
+  _FrameworkCardsState createState() => _FrameworkCardsState();
 }
 
 class _FrameworkCardsState extends State<FrameworkCards> {
-  int daysRemaining;
 
-  _FrameworkCardsState(this.daysRemaining);
 
   @override
   void initState() {
-    setState(() {});
+    loaddays();
     super.initState();
+  }
+
+  loaddays() {
+    setState(() {
+      days = widget.daysRemaining;
+    });
   }
 
   @override
@@ -109,7 +112,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                           (widget.daysRemaining != null)
                               ? Expanded(
                                   child: Text(
-                                  '$daysRemaining Day(s) left to review',
+                                  ' Day(s) left to review',
                                   style: TextStyle(color: Colors.red),
                                 ))
                               : Container(),

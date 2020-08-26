@@ -7,14 +7,18 @@ class AddProductFeatureButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
-      child: Expanded(
-        child: Text(
-          'ADD COMPETING OFFERING',
-          style:
-              TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
-        ),
-      ),
-    );
+        onTap: onTap,
+        child: (MediaQuery.of(context).size.width >= 750)
+            ? Text(
+                'ADD PRODUCT FEATURE',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
+              )
+            : Text(
+                'ADD\nPRODUCT\nFEATURE',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
+                textAlign: TextAlign.center,
+              ));
   }
 }

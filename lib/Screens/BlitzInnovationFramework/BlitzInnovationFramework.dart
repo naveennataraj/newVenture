@@ -56,17 +56,6 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
         firebaseStep6 = document.data['bcStepsContent6'];
         firebaseStep7 = document.data['bcStepsContent7'];
 
-        setState(() {
-          spinner = false;
-          bcpData[0].CompletionValidator = firebaseStep0;
-          bcpData[1].CompletionValidator = firebaseStep1;
-          bcpData[2].CompletionValidator = firebaseStep2;
-          bcpData[3].CompletionValidator = firebaseStep3;
-          bcpData[4].CompletionValidator = firebaseStep4;
-          bcpData[5].CompletionValidator = firebaseStep5;
-          bcpData[6].CompletionValidator = firebaseStep6;
-          bcpData[7].CompletionValidator = firebaseStep7;
-        });
         ID = document.documentID;
 
         setState(() {
@@ -80,16 +69,12 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
         });
       }
     }
-  }
-
-  void getDocument() async {
-    spinner = true;
-    final document = await _firestore
+    final reviewDocument = await _firestore
         .collection('$currentUser/SolutionValidation/reviewDate')
         .getDocuments();
     print("GEt method called");
 
-    for (var message in document.documents) {
+    for (var message in reviewDocument.documents) {
       addRequirementsArray = [];
       final selectedDate = message.data['ReviewDate'];
       final ID = message.documentID;
@@ -107,6 +92,14 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
         final diff = selectedDate.difference(currentDate).inDays;
         print("----------------- date difference $diff");
         bcpData[5].daysRemaining = diff;
+        bcpData[0].CompletionValidator = firebaseStep0;
+        bcpData[1].CompletionValidator = firebaseStep1;
+        bcpData[2].CompletionValidator = firebaseStep2;
+        bcpData[3].CompletionValidator = firebaseStep3;
+        bcpData[4].CompletionValidator = firebaseStep4;
+        bcpData[5].CompletionValidator = firebaseStep5;
+        bcpData[6].CompletionValidator = firebaseStep6;
+        bcpData[7].CompletionValidator = firebaseStep7;
       }
     });
   }
@@ -114,9 +107,6 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   @override
   void initState() {
     getDocuments();
-
-    getDocument();
-
     super.initState();
   }
 

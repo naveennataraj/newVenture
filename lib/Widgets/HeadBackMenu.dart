@@ -21,14 +21,11 @@ class _headBackButttonState extends State<headBackButtton> {
     return GestureDetector(
       onTap: () {
         if (widget.routeName != null) {
-          Navigator.popAndPushNamed(context, routeName).then(
-                (value) => setState(() {}),
-          );
-          if (widget.widget !=null) {
+          Navigator.popAndPushNamed(context, routeName);
+          if (widget.widget != null) {
             widget.widget();
           }
         }
-
       },
       child: Text(
         'HEAD BACK',
