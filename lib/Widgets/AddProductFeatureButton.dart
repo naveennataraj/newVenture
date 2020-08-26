@@ -8,9 +8,12 @@ class AddProductFeatureButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Text(
-        'ADD PRODUCT FEATURE',
-        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
+      child: Expanded(
+        child: Text(
+          'ADD COMPETING OFFERING',
+          style:
+              TextStyle(fontWeight: FontWeight.bold, color: Color(0XFFE95420)),
+        ),
       ),
     );
   }

@@ -17,7 +17,7 @@ class FrameworkCards extends StatefulWidget {
   final String frameworkdescrip;
   final String buttonText;
   final String navigateTo;
-  final int daysRemaining;
+  int daysRemaining;
   bool stepCompleteValidator;
   @override
   _FrameworkCardsState createState() =>
@@ -27,7 +27,7 @@ class FrameworkCards extends StatefulWidget {
 class _FrameworkCardsState extends State<FrameworkCards> {
   int daysRemaining;
 
-  _FrameworkCardsState(int daysRemaining);
+  _FrameworkCardsState(this.daysRemaining);
 
   @override
   void initState() {
