@@ -104,7 +104,16 @@ class _ProblemStudyState extends State<ProblemStudy> {
   void initState() {
 //    spinner = true;
 
-    getDocument();
+    if (demoSelected == true) {
+      TitleTextController =
+          TextEditingController(text: DemoProblemStudyArray[0].title);
+      ProblemTextController =
+          TextEditingController(text: DemoProblemStudyArray[0].problem);
+      ImportanceTextController =
+          TextEditingController(text: DemoProblemStudyArray[0].importance);
+    } else {
+      getDocument();
+    }
 
     super.initState();
   }
@@ -115,7 +124,9 @@ class _ProblemStudyState extends State<ProblemStudy> {
       backgroundColor: Color(0XFFFAFAFA),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: NavigationBar(),
+        child: NavigationBar(
+          routeName: '/Problemstudy',
+        ),
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
@@ -209,71 +220,84 @@ class _ProblemStudyState extends State<ProblemStudy> {
 //                                    routeName: '/addpainpoints',
                                     step: 0,
                                     stepBool: false,
-                                    widget: (TitleTextController.text == '' ||
-                                            ProblemTextController.text == '' ||
-                                            ImportanceTextController.text == '')
+                                    widget: (demoSelected == true)
                                         ? () {
-                                            validator();
+                                            Navigator.pushNamed(
+                                                context, '/addpainpoints');
                                           }
-                                        : () {
-                                            (TitleTextController.text != '' &&
-                                                    ProblemTextController
-                                                            .text !=
-                                                        '' &&
-                                                    ImportanceTextController
-                                                            .text !=
-                                                        '')
-                                                ? Navigator.pushNamed(
-                                                    context, '/addpainpoints')
-                                                : {};
-                                            if (ProblemStudyArray.length != 0) {
-                                              print("Update method called");
-                                              _firestore
-                                                  .collection(
-                                                      '$currentUser/StudyTheProblem/problemStudy')
-                                                  .document(
-                                                      ProblemStudyArray[0].ID)
-                                                  .updateData({
-                                                'Title':
-                                                    TitleTextController.text,
-                                                'Problem':
-                                                    ProblemTextController.text,
-                                                'Importance':
-                                                    ImportanceTextController
+                                        : (TitleTextController.text == '' ||
+                                                ProblemTextController.text ==
+                                                    '' ||
+                                                ImportanceTextController.text ==
+                                                    '')
+                                            ? () {
+                                                validator();
+                                              }
+                                            : () {
+                                                (TitleTextController.text !=
+                                                            '' &&
+                                                        ProblemTextController
+                                                                .text !=
+                                                            '' &&
+                                                        ImportanceTextController
+                                                                .text !=
+                                                            '')
+                                                    ? Navigator.pushNamed(
+                                                        context,
+                                                        '/addpainpoints')
+                                                    : {};
+                                                if (ProblemStudyArray.length !=
+                                                    0) {
+                                                  print("Update method called");
+                                                  _firestore
+                                                      .collection(
+                                                          '$currentUser/StudyTheProblem/problemStudy')
+                                                      .document(
+                                                          ProblemStudyArray[0]
+                                                              .ID)
+                                                      .updateData({
+                                                    'Title': TitleTextController
                                                         .text,
-                                                'Sender': currentUser,
-                                              });
+                                                    'Problem':
+                                                        ProblemTextController
+                                                            .text,
+                                                    'Importance':
+                                                        ImportanceTextController
+                                                            .text,
+                                                    'Sender': currentUser,
+                                                  });
 //                                      ProblemStudyArray[0].title =
 //                                          TitleTextController.text;
 //                                      ProblemStudyArray[0].problem =
 //                                          ProblemTextController.text;
 //                                      ProblemStudyArray[0].importance =
 //                                          ImportanceTextController.text;
-                                            } else {
-                                              print("add method called");
-                                              _firestore
-                                                  .collection(
-                                                      '$currentUser/StudyTheProblem/problemStudy')
-                                                  .add({
-                                                'Title':
-                                                    TitleTextController.text,
-                                                'Problem':
-                                                    ProblemTextController.text,
-                                                'Importance':
-                                                    ImportanceTextController
+                                                } else {
+                                                  print("add method called");
+                                                  _firestore
+                                                      .collection(
+                                                          '$currentUser/StudyTheProblem/problemStudy')
+                                                      .add({
+                                                    'Title': TitleTextController
                                                         .text,
-                                                'Sender': currentUser,
-                                              });
+                                                    'Problem':
+                                                        ProblemTextController
+                                                            .text,
+                                                    'Importance':
+                                                        ImportanceTextController
+                                                            .text,
+                                                    'Sender': currentUser,
+                                                  });
 //                                      final _field = problemStudy(
 //                                          title: TitleTextController.text,
 //                                          problem: ProblemTextController.text,
 //                                          importance:
 //                                              ImportanceTextController.text);
 //                                      ProblemStudyArray.add(_field);
-                                            }
+                                                }
 //                                            bcpData[0].CompletionValidator =
 //                                                false;
-                                          },
+                                              },
                                   ),
                                 ],
                               ),

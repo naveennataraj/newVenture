@@ -40,7 +40,9 @@ class _AddPainPointsState extends State<AddPainPoints> {
       backgroundColor: Color(0XFFFAFAFA),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: NavigationBar(),
+        child: NavigationBar(
+          routeName: '/addpainpoints',
+        ),
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
@@ -86,84 +88,117 @@ class _AddPainPointsState extends State<AddPainPoints> {
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            StreamBuilder<QuerySnapshot>(
-                              stream: _firestore
-                                  .collection(
-                                      '$currentUser/StudyTheProblem/painPoints')
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  final messsages =
-                                      snapshot.data.documents.reversed;
-                                  AddingNewPainPoint = [];
-                                  for (var message in messsages) {
-                                    final Consequence =
-                                        message.data['Consequence'];
-                                    final MoreDetails =
-                                        message.data['MoreDetails'];
-                                    final Challenge = message.data['Challenge'];
-                                    final Addresspp = message.data['Addresspp'];
-                                    final Expectations =
-                                        message.data['Expectations'];
-                                    final ID = message.documentID;
+                            (demoSelected == false)
+                                ? StreamBuilder<QuerySnapshot>(
+                                    stream: _firestore
+                                        .collection(
+                                            '$currentUser/StudyTheProblem/painPoints')
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        final messsages =
+                                            snapshot.data.documents.reversed;
+                                        AddingNewPainPoint = [];
+                                        for (var message in messsages) {
+                                          final Consequence =
+                                              message.data['Consequence'];
+                                          final MoreDetails =
+                                              message.data['MoreDetails'];
+                                          final Challenge =
+                                              message.data['Challenge'];
+                                          final Addresspp =
+                                              message.data['Addresspp'];
+                                          final Expectations =
+                                              message.data['Expectations'];
+                                          final ID = message.documentID;
 
-                                    final card = addPainPoints(
-                                        Consequence: Consequence,
-                                        MoreDetails: MoreDetails,
-                                        Challenge: Challenge,
-                                        Addresspp: Addresspp,
-                                        Expectations: Expectations,
-                                        ID: ID);
-                                    AddingNewPainPoint.add(card);
-                                  }
-                                }
+                                          final card = addPainPoints(
+                                              Consequence: Consequence,
+                                              MoreDetails: MoreDetails,
+                                              Challenge: Challenge,
+                                              Addresspp: Addresspp,
+                                              Expectations: Expectations,
+                                              ID: ID);
+                                          AddingNewPainPoint.add(card);
+                                        }
+                                      }
 
-                                return (AddingNewPainPoint.length != 0)
-                                    ? ListView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemCount: AddingNewPainPoint.length,
-                                        shrinkWrap: true,
-                                        padding: EdgeInsets.only(top: 10.0),
-                                        itemBuilder: (context, index) {
-                                          return Column(
-                                            children: <Widget>[
-                                              SmallOrangeCardWithoutTitle(
-                                                description:
-                                                    AddingNewPainPoint[index]
-                                                        .Challenge,
-                                                index: index,
-                                                removingat: AddingNewPainPoint,
-                                                Dialogue: painpointDialogue(
-                                                    index: index),
-                                                CollectionName:
-                                                    '$currentUser/StudyTheProblem/painPoints',
-                                                ID: AddingNewPainPoint[index]
-                                                    .ID,
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      )
-                                    : Padding(
-                                        padding: const EdgeInsets.all(25.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                "There are no pain points at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                                style: TextStyle(
-                                                  color: Colors.grey,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
+                                      return (AddingNewPainPoint.length != 0)
+                                          ? ListView.builder(
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
+                                              itemCount:
+                                                  AddingNewPainPoint.length,
+                                              shrinkWrap: true,
+                                              padding:
+                                                  EdgeInsets.only(top: 10.0),
+                                              itemBuilder: (context, index) {
+                                                return Column(
+                                                  children: <Widget>[
+                                                    SmallOrangeCardWithoutTitle(
+                                                      description:
+                                                          AddingNewPainPoint[
+                                                                  index]
+                                                              .Challenge,
+                                                      index: index,
+                                                      removingat:
+                                                          AddingNewPainPoint,
+                                                      Dialogue:
+                                                          painpointDialogue(
+                                                              index: index),
+                                                      CollectionName:
+                                                          '$currentUser/StudyTheProblem/painPoints',
+                                                      ID: AddingNewPainPoint[
+                                                              index]
+                                                          .ID,
+                                                    ),
+                                                  ],
+                                                );
+                                              },
                                             )
-                                          ],
-                                        ),
+                                          : Padding(
+                                              padding:
+                                                  const EdgeInsets.all(25.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      "There are no pain points at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                    },
+                                  )
+                                : ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount: DemoAddingNewPainPoint.length,
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.only(top: 10.0),
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        children: <Widget>[
+                                          SmallOrangeCardWithoutTitle(
+                                            description:
+                                                DemoAddingNewPainPoint[index]
+                                                    .Challenge,
+                                            index: index,
+                                            removingat: DemoAddingNewPainPoint,
+                                            Dialogue:
+                                                painpointDialogue(index: index),
+                                          ),
+                                        ],
                                       );
-                              },
-                            ),
+                                    },
+                                  ),
                             Padding(
                               padding: const EdgeInsets.all(30.0),
                               child: Row(
@@ -175,12 +210,19 @@ class _AddPainPointsState extends State<AddPainPoints> {
                                   SizedBox(
                                     width: 50,
                                   ),
-                                  GenericStepButtonBIF(
-                                    buttonName: 'COMPLETE STEP',
-                                    routeName: '/BlitzInnovationFramework',
-                                    step: 0,
-                                    stepBool: true,
-                                  ),
+                                  (demoSelected == false)
+                                      ? GenericStepButtonBIF(
+                                          buttonName: 'COMPLETE STEP',
+                                          routeName:
+                                              '/BlitzInnovationFramework',
+                                          step: 0,
+                                          stepBool: true,
+                                        )
+                                      : GenericStepButtonBIF(
+                                          buttonName: 'COMPLETE STEP',
+                                          routeName:
+                                              '/BlitzInnovationFramework',
+                                        ),
 //                              CompleteStepButton(
 //                                OnTap: () {
 //                                  bcpData[0].CompletionValidator = true;

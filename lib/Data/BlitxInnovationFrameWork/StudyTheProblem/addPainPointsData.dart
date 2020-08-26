@@ -16,3 +16,8 @@ class addPainPoints {
 }
 
 List<addPainPoints> AddingNewPainPoint = [];
+
+List<addPainPoints> DemoAddingNewPainPoint = [
+  addPainPoints(
+      Challenge: '"The user in unable to work on shared assignments or tasks"')
+];

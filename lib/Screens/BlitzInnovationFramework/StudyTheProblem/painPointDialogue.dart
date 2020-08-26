@@ -5,6 +5,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPainPointsData.dart';
 import 'package:iventure001/Widgets/AddDetailButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
+import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 class painpointDialogue extends StatefulWidget {
@@ -91,23 +92,31 @@ class _painpointDialogueState extends State<painpointDialogue> {
   void initState() {
     //  implement initState
     super.initState();
-    if (index != null) {
-      ChallengeTextController =
-          TextEditingController(text: AddingNewPainPoint[index].Challenge);
-      MoreDetailsTextController =
-          TextEditingController(text: AddingNewPainPoint[index].MoreDetails);
-      ConsequenceTextController =
-          TextEditingController(text: AddingNewPainPoint[index].Consequence);
-      addressppTextController =
-          TextEditingController(text: AddingNewPainPoint[index].Addresspp);
-      expectationsTextController =
-          TextEditingController(text: AddingNewPainPoint[index].Expectations);
+
+    if (demoSelected == true) {
+      if (index != null) {
+        ChallengeTextController = TextEditingController(
+            text: DemoAddingNewPainPoint[index].Challenge);
+      }
     } else {
-      ChallengeTextController.clear();
-      MoreDetailsTextController.clear();
-      ConsequenceTextController.clear();
-      addressppTextController.clear();
-      expectationsTextController.clear();
+      if (index != null) {
+        ChallengeTextController =
+            TextEditingController(text: AddingNewPainPoint[index].Challenge);
+        MoreDetailsTextController =
+            TextEditingController(text: AddingNewPainPoint[index].MoreDetails);
+        ConsequenceTextController =
+            TextEditingController(text: AddingNewPainPoint[index].Consequence);
+        addressppTextController =
+            TextEditingController(text: AddingNewPainPoint[index].Addresspp);
+        expectationsTextController =
+            TextEditingController(text: AddingNewPainPoint[index].Expectations);
+      } else {
+        ChallengeTextController.clear();
+        MoreDetailsTextController.clear();
+        ConsequenceTextController.clear();
+        addressppTextController.clear();
+        expectationsTextController.clear();
+      }
     }
   }
 
@@ -199,69 +208,84 @@ class _painpointDialogueState extends State<painpointDialogue> {
                     children: [
                       AddDetailButton(
                         routeName: '/addpainpoints',
-                        onTap: (ChallengeTextController.text == '' ||
-                                MoreDetailsTextController.text == '' ||
-                                ConsequenceTextController.text == '' ||
-                                addressppTextController.text == '' ||
-                                expectationsTextController.text == '')
+                        onTap: (demoSelected == true)
                             ? () {
-                                validator();
+                                Navigator.pop(context);
                               }
-                            : () {
-                                (ChallengeTextController.text != '' &&
-                                        MoreDetailsTextController.text != '' &&
-                                        ConsequenceTextController.text != '' &&
-                                        addressppTextController.text != '' &&
-                                        expectationsTextController.text != '')
-                                    ? Navigator.pop(context)
-                                    : {};
-                                setState(() {
-                                  final NewPainpoint = addPainPoints(
-                                    Challenge: ChallengeTextController.text,
-                                    MoreDetails: MoreDetailsTextController.text,
-                                    Consequence: ConsequenceTextController.text,
-                                    Addresspp: addressppTextController.text,
-                                    Expectations:
-                                        expectationsTextController.text,
-                                  );
-                                  if (index == null) {
-                                    AddingNewPainPoint.add(NewPainpoint);
-                                    _firestore
-                                        .collection(
-                                            '$currentUser/StudyTheProblem/painPoints')
-                                        .add({
-                                      'Challenge': ChallengeTextController.text,
-                                      'MoreDetails':
-                                          MoreDetailsTextController.text,
-                                      'Consequence':
-                                          ConsequenceTextController.text,
-                                      'Addresspp': addressppTextController.text,
-                                      'Expectations':
-                                          expectationsTextController.text,
-                                      'Sender': "tester@gmail.com",
-                                    });
-                                  } else {
+                            : (ChallengeTextController.text == '' ||
+                                    MoreDetailsTextController.text == '' ||
+                                    ConsequenceTextController.text == '' ||
+                                    addressppTextController.text == '' ||
+                                    expectationsTextController.text == '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    (ChallengeTextController.text != '' &&
+                                            MoreDetailsTextController.text !=
+                                                '' &&
+                                            ConsequenceTextController.text !=
+                                                '' &&
+                                            addressppTextController.text !=
+                                                '' &&
+                                            expectationsTextController.text !=
+                                                '')
+                                        ? Navigator.pop(context)
+                                        : {};
+                                    setState(() {
+                                      final NewPainpoint = addPainPoints(
+                                        Challenge: ChallengeTextController.text,
+                                        MoreDetails:
+                                            MoreDetailsTextController.text,
+                                        Consequence:
+                                            ConsequenceTextController.text,
+                                        Addresspp: addressppTextController.text,
+                                        Expectations:
+                                            expectationsTextController.text,
+                                      );
+                                      if (index == null) {
+                                        AddingNewPainPoint.add(NewPainpoint);
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/StudyTheProblem/painPoints')
+                                            .add({
+                                          'Challenge':
+                                              ChallengeTextController.text,
+                                          'MoreDetails':
+                                              MoreDetailsTextController.text,
+                                          'Consequence':
+                                              ConsequenceTextController.text,
+                                          'Addresspp':
+                                              addressppTextController.text,
+                                          'Expectations':
+                                              expectationsTextController.text,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      } else {
 //                            AddingNewPainPoint.removeAt(index);
 ////                            AddingNewPainPoint.insert(index, NewPainpoint);
-                                    _firestore
-                                        .collection(
-                                            '$currentUser/StudyTheProblem/painPoints')
-                                        .document(AddingNewPainPoint[index].ID)
-                                        .updateData({
-                                      'Challenge': ChallengeTextController.text,
-                                      'MoreDetails':
-                                          MoreDetailsTextController.text,
-                                      'Consequence':
-                                          ConsequenceTextController.text,
-                                      'Addresspp': addressppTextController.text,
-                                      'Expectations':
-                                          expectationsTextController.text,
-                                      'Sender': "tester@gmail.com",
-                                      'cardWithTitle': "true",
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/StudyTheProblem/painPoints')
+                                            .document(
+                                                AddingNewPainPoint[index].ID)
+                                            .updateData({
+                                          'Challenge':
+                                              ChallengeTextController.text,
+                                          'MoreDetails':
+                                              MoreDetailsTextController.text,
+                                          'Consequence':
+                                              ConsequenceTextController.text,
+                                          'Addresspp':
+                                              addressppTextController.text,
+                                          'Expectations':
+                                              expectationsTextController.text,
+                                          'Sender': "tester@gmail.com",
+                                          'cardWithTitle': "true",
+                                        });
+                                      }
                                     });
-                                  }
-                                });
-                              },
+                                  },
                       ),
                       SizedBox(
                         width: 50,
