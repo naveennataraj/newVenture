@@ -108,7 +108,7 @@ class _addEvangelistsAndEarlyAdoptersDialogueState
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 600,
+          height: 650,
           width: 800,
           child: Center(
             child: SingleChildScrollView(
@@ -168,50 +168,94 @@ class _addEvangelistsAndEarlyAdoptersDialogueState
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              'This Contact is a(n)',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Expanded(
-                              child: ListTile(
-                                title: Text(
-                                  'Early adopter',
-                                ),
-                                leading: Radio(
-                                  focusNode: radio1Focus,
-                                  activeColor: Color(0XFFE95420),
-                                  value: 1,
-                                  groupValue: clickedRadio,
-                                  onChanged: (selectedRadio) {
-                                    setState(() {
-                                      requestFocus(radio1Focus);
-                                      clickedRadio = selectedRadio;
-                                    });
-                                  },
-                                ),
+                        child: (MediaQuery.of(context).size.width >= 750)
+                            ? Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'This Contact is a(n)',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ListTile(
+                                      title: Text(
+                                        'Early adopter',
+                                      ),
+                                      leading: Radio(
+                                        focusNode: radio1Focus,
+                                        activeColor: Color(0XFFE95420),
+                                        value: 1,
+                                        groupValue: clickedRadio,
+                                        onChanged: (selectedRadio) {
+                                          setState(() {
+                                            requestFocus(radio1Focus);
+                                            clickedRadio = selectedRadio;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ListTile(
+                                      title: Text('Evangelist'),
+                                      leading: Radio(
+                                        focusNode: radio2Focus,
+                                        activeColor: Color(0XFFE95420),
+                                        value: 2,
+                                        groupValue: clickedRadio,
+                                        onChanged: (selectedRadio) {
+                                          setState(() {
+                                            requestFocus(radio2Focus);
+                                            clickedRadio = selectedRadio;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'This Contact is a(n)',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  ListTile(
+                                    title: Text(
+                                      'Early adopter',
+                                    ),
+                                    leading: Radio(
+                                      focusNode: radio1Focus,
+                                      activeColor: Color(0XFFE95420),
+                                      value: 1,
+                                      groupValue: clickedRadio,
+                                      onChanged: (selectedRadio) {
+                                        setState(() {
+                                          requestFocus(radio1Focus);
+                                          clickedRadio = selectedRadio;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  ListTile(
+                                    title: Text('Evangelist'),
+                                    leading: Radio(
+                                      focusNode: radio2Focus,
+                                      activeColor: Color(0XFFE95420),
+                                      value: 2,
+                                      groupValue: clickedRadio,
+                                      onChanged: (selectedRadio) {
+                                        setState(() {
+                                          requestFocus(radio2Focus);
+                                          clickedRadio = selectedRadio;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            Expanded(
-                              child: ListTile(
-                                title: Text('Evangelist'),
-                                leading: Radio(
-                                  focusNode: radio2Focus,
-                                  activeColor: Color(0XFFE95420),
-                                  value: 2,
-                                  groupValue: clickedRadio,
-                                  onChanged: (selectedRadio) {
-                                    setState(() {
-                                      requestFocus(radio2Focus);
-                                      clickedRadio = selectedRadio;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
                     Padding(

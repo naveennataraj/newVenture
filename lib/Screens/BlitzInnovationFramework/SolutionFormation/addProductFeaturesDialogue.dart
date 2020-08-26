@@ -107,7 +107,7 @@ class _addProductFeaturesDialogueState
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 600,
+          height: 700,
           width: 800,
           child: Center(
             child: SingleChildScrollView(
@@ -171,78 +171,143 @@ class _addProductFeaturesDialogueState
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: ListTile(
-                                  title: Text('Must have'),
-                                  leading: Radio(
-                                    focusNode: radio1Focus,
-                                    activeColor: Color(0XFFE95420),
-                                    value: 1,
-                                    groupValue: clickedRadio,
-                                    onChanged: (selectedRadio) {
-                                      setState(() {
-                                        requestFocus(radio1Focus);
-                                        clickedRadio = selectedRadio;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: ListTile(
-                                  title: Text('Should have'),
-                                  leading: Radio(
-                                    focusNode: radio2Focus,
-                                    activeColor: Color(0XFFE95420),
-                                    value: 2,
-                                    groupValue: clickedRadio,
-                                    onChanged: (selectedRadio) {
-                                      setState(() {
-                                        requestFocus(radio2Focus);
-                                        clickedRadio = selectedRadio;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: ListTile(
-                                  title: Text('Could have'),
-                                  leading: Radio(
-                                    focusNode: radio3Focus,
-                                    activeColor: Color(0XFFE95420),
-                                    value: 3,
-                                    groupValue: clickedRadio,
-                                    onChanged: (selectedRadio) {
-                                      setState(() {
-                                        requestFocus(radio3Focus);
-                                        clickedRadio = selectedRadio;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: ListTile(
-                                  title: Text('Would not have'),
-                                  leading: Radio(
-                                    focusNode: radio4Focus,
-                                    activeColor: Color(0XFFE95420),
-                                    value: 4,
-                                    groupValue: clickedRadio,
-                                    onChanged: (selectedRadio) {
-                                      setState(() {
-                                        requestFocus(radio4Focus);
-                                        clickedRadio = selectedRadio;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          (MediaQuery.of(context).size.width >= 750)
+                              ? Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: ListTile(
+                                        title: Text('Must have'),
+                                        leading: Radio(
+                                          focusNode: radio1Focus,
+                                          activeColor: Color(0XFFE95420),
+                                          value: 1,
+                                          groupValue: clickedRadio,
+                                          onChanged: (selectedRadio) {
+                                            setState(() {
+                                              requestFocus(radio1Focus);
+                                              clickedRadio = selectedRadio;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ListTile(
+                                        title: Text('Should have'),
+                                        leading: Radio(
+                                          focusNode: radio2Focus,
+                                          activeColor: Color(0XFFE95420),
+                                          value: 2,
+                                          groupValue: clickedRadio,
+                                          onChanged: (selectedRadio) {
+                                            setState(() {
+                                              requestFocus(radio2Focus);
+                                              clickedRadio = selectedRadio;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ListTile(
+                                        title: Text('Could have'),
+                                        leading: Radio(
+                                          focusNode: radio3Focus,
+                                          activeColor: Color(0XFFE95420),
+                                          value: 3,
+                                          groupValue: clickedRadio,
+                                          onChanged: (selectedRadio) {
+                                            setState(() {
+                                              requestFocus(radio3Focus);
+                                              clickedRadio = selectedRadio;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ListTile(
+                                        title: Text('Would not have'),
+                                        leading: Radio(
+                                          focusNode: radio4Focus,
+                                          activeColor: Color(0XFFE95420),
+                                          value: 4,
+                                          groupValue: clickedRadio,
+                                          onChanged: (selectedRadio) {
+                                            setState(() {
+                                              requestFocus(radio4Focus);
+                                              clickedRadio = selectedRadio;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  children: <Widget>[
+                                    ListTile(
+                                      title: Text('Must have'),
+                                      leading: Radio(
+                                        focusNode: radio1Focus,
+                                        activeColor: Color(0XFFE95420),
+                                        value: 1,
+                                        groupValue: clickedRadio,
+                                        onChanged: (selectedRadio) {
+                                          setState(() {
+                                            requestFocus(radio1Focus);
+                                            clickedRadio = selectedRadio;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: Text('Should have'),
+                                      leading: Radio(
+                                        focusNode: radio2Focus,
+                                        activeColor: Color(0XFFE95420),
+                                        value: 2,
+                                        groupValue: clickedRadio,
+                                        onChanged: (selectedRadio) {
+                                          setState(() {
+                                            requestFocus(radio2Focus);
+                                            clickedRadio = selectedRadio;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: Text('Could have'),
+                                      leading: Radio(
+                                        focusNode: radio3Focus,
+                                        activeColor: Color(0XFFE95420),
+                                        value: 3,
+                                        groupValue: clickedRadio,
+                                        onChanged: (selectedRadio) {
+                                          setState(() {
+                                            requestFocus(radio3Focus);
+                                            clickedRadio = selectedRadio;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: Text('Would not have'),
+                                      leading: Radio(
+                                        focusNode: radio4Focus,
+                                        activeColor: Color(0XFFE95420),
+                                        value: 4,
+                                        groupValue: clickedRadio,
+                                        onChanged: (selectedRadio) {
+                                          setState(() {
+                                            requestFocus(radio4Focus);
+                                            clickedRadio = selectedRadio;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                )
                         ],
                       ),
                     ),
