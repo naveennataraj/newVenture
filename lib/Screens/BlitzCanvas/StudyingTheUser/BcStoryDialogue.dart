@@ -63,117 +63,117 @@ class _BcUserStoryDialogueState extends State<BcUserStoryDialogue> {
       child: Container(
         height: 600,//MediaQuery.of(context).size.height * 0.8,
         width: 800,//MediaQuery.of(context).size.width * 0.4,
-        child: SingleChildScrollView(
-            padding: EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    "Add a user story:",
-                    style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
+        child: Center(
+          child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a user story:",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                TextFieldWidget(
-                  labelText: "As a",
-                  maxLines: 3,
-                  validText: validAsa,
-                  myFocusNode: AsaFocusNode,
-                  myTextController: AsaTextController,
-                  textCollecter: Asa,
-                  helperText: 'Who is the user for this story?',
-                  labelcolour: AsalabelColor,
-                ),
-                TextFieldWidget(
-                  labelText: "I want",
-                  maxLines: 3,
-                  validText: validIWantTo,
-                  myFocusNode: IWantToFocusNode,
-                  myTextController: IWantToTextController,
-                  textCollecter: IWantTo,
-                  helperText:
-                      'What is the desired action, which the user is able to perform using the system? ',
-                  labelcolour: IWantTolabelColor,
-                ),
-                TextFieldWidget(
-                  labelText: "So that",
-                  maxLines: 3,
-                  validText: validSoThat,
-                  myFocusNode: SoThatFocusNode,
-                  myTextController: SoThatTextController,
-                  textCollecter: SoThat,
-                  helperText:
-                      'What is the goal of the user when performing this action?',
-                  labelcolour: SoThatlabelColor,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                  TextFieldWidget(
+                    labelText: "As a",
+                    maxLines: 3,
+                    validText: validAsa,
+                    myFocusNode: AsaFocusNode,
+                    myTextController: AsaTextController,
+                    textCollecter: Asa,
+                    helperText: 'Who is the user for this story?',
+                    labelcolour: AsalabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "I want",
+                    maxLines: 3,
+                    validText: validIWantTo,
+                    myFocusNode: IWantToFocusNode,
+                    myTextController: IWantToTextController,
+                    textCollecter: IWantTo,
+                    helperText:
+                        'What is the desired action, which the user is able to perform using the system? ',
+                    labelcolour: IWantTolabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "So that",
+                    maxLines: 3,
+                    validText: validSoThat,
+                    myFocusNode: SoThatFocusNode,
+                    myTextController: SoThatTextController,
+                    textCollecter: SoThat,
+                    helperText:
+                        'What is the goal of the user when performing this action?',
+                    labelcolour: SoThatlabelColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddDetailButton(
+                          routeName: '/addpainpoints',
+                          onTap: () {
+                            setState(() {
 
-                      AddDetailButton(
-                        routeName: '/addpainpoints',
-                        onTap: () {
-                          setState(() {
+                              final NewUserStory = BcContentUserStories(
+                                Asa: AsaTextController.text,
+                                IWantTo: IWantToTextController.text,
+                                SoThat:  SoThatTextController.text,
+                              );
+                              if (index == null) {
+                                userStoriesContent.add(NewUserStory);
+                                _firestore.collection('$currentUser/Bc2_studyingTheUser/addFoundations').add({
+                                  'Asa': AsaTextController.text,
+                                  'IWantTo': IWantToTextController.text,
+                                  'SoThat': SoThatTextController.text,
+                                  'Sender': currentUser,
+                                });
 
-                            final NewUserStory = BcContentUserStories(
-                              Asa: AsaTextController.text,
-                              IWantTo: IWantToTextController.text,
-                              SoThat:  SoThatTextController.text,
-                            );
-                            if (index == null) {
-                              userStoriesContent.add(NewUserStory);
-                              _firestore.collection('$currentUser/Bc2_studyingTheUser/addFoundations').add({
-                                'Asa': AsaTextController.text,
-                                'IWantTo': IWantToTextController.text,
-                                'SoThat': SoThatTextController.text,
-                                'Sender': currentUser,
-                              });
-
-                            } else {
+                              } else {
 //                                userStoriesContent.removeAt(index);
 //                                userStoriesContent.insert(
 //                                    index, NewUserStory);
-                              _firestore
-                                  .collection('$currentUser/Bc2_studyingTheUser/addFoundations')
-                                  .document(userStoriesContent[index].ID)
-                                  .updateData({
-                                'Asa': AsaTextController.text,
-                                'IWantTo': IWantToTextController.text,
-                                'SoThat':  SoThatTextController.text,
-                                'Sender': currentUser,
-                              },);
-                            }
+                                _firestore
+                                    .collection('$currentUser/Bc2_studyingTheUser/addFoundations')
+                                    .document(userStoriesContent[index].ID)
+                                    .updateData({
+                                  'Asa': AsaTextController.text,
+                                  'IWantTo': IWantToTextController.text,
+                                  'SoThat':  SoThatTextController.text,
+                                  'Sender': currentUser,
+                                },);
+                              }
 //
-                            AsaTextController.clear();
-                            IWantToTextController.clear();
-                            SoThatTextController.clear();
-                            Navigator.pop(context);
+                              AsaTextController.clear();
+                              IWantToTextController.clear();
+                              SoThatTextController.clear();
+                              Navigator.pop(context);
 
-                          });
-                        },
-                      ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      CancelButtton(
-                        OnTap: () {
-                          AsaTextController.clear();
-                          SoThatTextController.clear();
-                          IWantToTextController.clear();
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            AsaTextController.clear();
+                            SoThatTextController.clear();
+                            IWantToTextController.clear();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )),
+                ],
+              )),
+        ),
       ),
     );
   }

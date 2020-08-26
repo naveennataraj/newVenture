@@ -6,6 +6,7 @@ import 'package:iventure001/Widgets/AddQuoteButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 
 class BcQuoteDialogue extends StatefulWidget {
@@ -78,6 +79,7 @@ class _BcQuoteDialogueState extends State<BcQuoteDialogue> {
                     title: Text(
                       'One or more metric(s) can be added based on this quote',
                       style: TextStyle(
+                        fontSize: (ResponsiveLayout.isSmallScreen(context) ?  12: ResponsiveLayout.isMediumScreen(context) ? 15 : 16),
                           color: quoteChecked
                               ? checkTextActive
                               : checkTextInActive),

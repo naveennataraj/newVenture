@@ -75,6 +75,7 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                                 "Add business model elements \n (Based on the Business model canvas methodology)",
                                 style: cardTitleTextStyle,
                                 textAlign: TextAlign.center,
+                                maxLines: 3,
                               ),),
 
 
@@ -141,9 +142,11 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "There are no business model elements at the moment.\n Would you like to add some? Use the '+’ button to get started.",
-                                        style: emptyStateTextStyle, textAlign: TextAlign.center,
+                                      Expanded(
+                                        child: Text(
+                                          "There are no business model elements at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                          style: emptyStateTextStyle, textAlign: TextAlign.center,
+                                        ),
                                       )
                                     ],
                                   ),

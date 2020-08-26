@@ -187,9 +187,12 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "Click on '+' to add the Pain Points",
-                                        style: TextStyle(color: Colors.grey),
+                                      Expanded(
+                                        child: Text(
+                                          "Click on '+' to add the Pain Points",
+                                          style: TextStyle(color: Colors.grey),
+                                            textAlign: TextAlign.center
+                                        ),
                                       )
                                     ],
                                   ),

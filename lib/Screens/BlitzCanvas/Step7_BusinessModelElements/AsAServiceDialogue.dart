@@ -110,7 +110,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                   TextFieldWidget(
                     labelText:
                     "Please provide a description for the service",
-                    maxLines: 1,
+                    maxLines: 3,
                     validText: validDescription,
                     myFocusNode: descriptionFocusNode,
                     myTextController: descriptionTextController,
@@ -173,7 +173,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                           Text(
                             'Please provide the type of service',
                             style: TextStyle(
-                                color: Colors.grey.shade600, fontSize: 16),
+                                color: Colors.grey.shade600, fontSize: 13),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 20),
@@ -181,6 +181,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                               hint: Text(
                                 'Choose',
                                 style: TextStyle(
+                                  fontSize: 13,
                                   color: Color(0XFFE95420),
                                 ),
                               ),
@@ -220,7 +221,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                   TextFieldWidget(
                     labelText:
                     "Which tasks does this service assist with?",
-                    maxLines: 1,
+                    maxLines: 3,
                     validText: validTask,
                     myFocusNode: taskFocusNode,
                     myTextController: taskTextController,
@@ -283,7 +284,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                           Text(
                             'Please Approx. percentage of time saved as a result of service usage',
                             style: TextStyle(
-                                color: Colors.grey.shade600, fontSize: 16),
+                                color: Colors.grey.shade600, fontSize: 13),
                             maxLines: 2,
                           ),
                           Padding(
@@ -292,6 +293,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                               hint: Text(
                                 'Choose',
                                 style: TextStyle(
+                                  fontSize: 13,
                                   color: Color(0XFFE95420),
                                 ),
                               ),

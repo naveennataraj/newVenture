@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 const TextFieldsDecoration = InputDecoration(
   labelText: 'Label Text goes Here',
@@ -57,3 +58,7 @@ const menuIntroBoldTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const listTileSmall =
+TextStyle(fontSize: 12, fontFamily: 'OpenSans', color: Color(0xFF666666)
+  //fontWeight: FontWeight.bold
+);

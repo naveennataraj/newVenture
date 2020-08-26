@@ -138,10 +138,12 @@ class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      "There are no Product goals at the moment. \n Would you like to add some? Use the '+’ button to get started.",
-                                      style: emptyStateTextStyle,
-                                      textAlign: TextAlign.center,
+                                    Expanded(
+                                      child: Text(
+                                        "There are no Product goals at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                        style: emptyStateTextStyle,
+                                        textAlign: TextAlign.center,
+                                      ),
                                     )
                                   ],
                                 ),

@@ -6,6 +6,7 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/Content
 import 'package:iventure001/Widgets/AddMetricButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 class BcEcosystemsDialogue extends StatefulWidget {
   final int index;
@@ -95,6 +96,7 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
                     title: Text(
                       'This solution concept has disruptive qualities',
                       style: TextStyle(
+                        fontSize: (ResponsiveLayout.isSmallScreen(context) ?  12: ResponsiveLayout.isMediumScreen(context) ? 15 : 16),
                           color: SolutionChecked
                               ? CheckTextActive
                               : CheckTextInActive),

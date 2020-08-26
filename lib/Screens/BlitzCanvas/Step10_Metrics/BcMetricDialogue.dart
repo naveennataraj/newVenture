@@ -143,6 +143,7 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                               hint: Text(
                                 'Choose',
                                 style: TextStyle(
+                                  fontSize: 12,
                                   color: Color(0XFFE95420),
                                 ),
                               ),

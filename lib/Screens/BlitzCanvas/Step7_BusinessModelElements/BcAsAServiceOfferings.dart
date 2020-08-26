@@ -149,9 +149,11 @@ class _BcAsaServiceOfferingState extends State<BcAsaServiceOffering> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "There are no offerings listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
-                                        style: emptyStateTextStyle, textAlign: TextAlign.center,
+                                      Expanded(
+                                        child: Text(
+                                          "There are no offerings listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                          style: emptyStateTextStyle, textAlign: TextAlign.center,
+                                        ),
                                       )
                                     ],
                                   ),
