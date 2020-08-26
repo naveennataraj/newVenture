@@ -79,7 +79,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 700,//MediaQuery.of(context).size.height * 0.70,
+          height: 600,//MediaQuery.of(context).size.height * 0.70,
           width: 800,//MediaQuery.of(context).size.width * 0.5,
           child: SingleChildScrollView(
               padding:
@@ -142,6 +142,8 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
+
+                        
                         Row(
                           children: <Widget>[
                             Expanded(
@@ -307,5 +309,30 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                 ],
               ),),
         ),);
+  }
+}
+
+
+class ReusableListTile extends StatelessWidget {
+  final focusRadio;
+  final String title;
+  final int radioClickNumber;
+  final Function onTap;
+  ReusableListTile(this.focusRadio, this.radioClickNumber, this.title, this.onTap);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListTile(
+        title: Text(title),
+        leading: Radio(
+          focusNode: focusRadio,
+          activeColor: Color(0XFFE95420),
+          value: 1,
+          groupValue: radioClickNumber,
+          onChanged: onTap
+        ),
+      ),
+    );
   }
 }

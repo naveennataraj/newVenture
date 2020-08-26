@@ -8,7 +8,7 @@ import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Widgets/AddGenericButton.dart';
 import 'package:iventure001/Constants/ResposiveLayout.dart';
-import 'package:iventure001/Constants/TextFieldConstants.dart';
+
 
 class BcBusinessElementsDialogue extends StatefulWidget {
   final int index;
@@ -45,10 +45,7 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
       selectedElement = addingNewBusinessElement[widget.index].elementTitle;
       //selectedTyped = addingNewBusinessElement[index].featureType;
     }
-
     //bmcElementDropDown = buildDropDownMenuItems(BMCElements);
-
-
   }
 
   _BcBusinessElementsDialogueState(this.index);
@@ -69,7 +66,7 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
+                padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 8.0),
                 child: Text(
                   "Add a Foundational Detail:",
                   style: TextStyle(
@@ -77,7 +74,6 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                   textAlign: TextAlign.center,
                 ),
               ),
-
               Container(
                 margin: EdgeInsets.all(15),
                 decoration: BoxDecoration(
@@ -181,26 +177,29 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                             color: Colors.grey.shade600, fontSize: 15),
                       ),
                       //Spacer(),
-                      DropdownButton(
-                        hint: Text(
-                          'Choose',
-                          style: TextStyle(
-                            color: Color(0XFFE95420),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: DropdownButton(
+                          hint: Text(
+                            'Choose',
+                            style: TextStyle(
+                              color: Color(0XFFE95420),
+                            ),
                           ),
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedElement = newValue;
+                            });
+                          },
+                          items:  BMCElementsList.map((String singleItem) {
+                            return DropdownMenuItem<String>(
+                                value: singleItem,
+                                child: Text(singleItem));
+                          }).toList(),
+                          //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].elementTitle: BMCElementsList ,
+                          value: selectedElement,
+                          //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].selectedTyped : SelectedBcmElement,
                         ),
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedElement = newValue;
-                          });
-                        },
-                        items:  BMCElementsList.map((String singleItem) {
-                          return DropdownMenuItem<String>(
-                              value: singleItem,
-                              child: Text(singleItem));
-                        }).toList(),
-                        //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].elementTitle: BMCElementsList ,
-                        value: selectedElement,
-                        //(addingNewBusinessElement.length != 0) ? addingNewBusinessElement[index].selectedTyped : SelectedBcmElement,
                       ),
                     ],
                   ))

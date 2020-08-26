@@ -60,10 +60,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           helperText: widget.myFocusNode.hasFocus ? widget.helperText : null,
           helperMaxLines: 3,
           helperStyle: TextStyle(
-              fontSize: (ResponsiveLayout.isSmallScreen(context) ?  MediaQuery.of(context).size.width * .02: ResponsiveLayout.isMediumScreen(context) ? 15 : 15),
+              fontSize: (ResponsiveLayout.isSmallScreen(context) ?  11: ResponsiveLayout.isMediumScreen(context) ? 15 : 15),
               fontFamily: 'OpenSans'),
           labelStyle: TextStyle(
-            fontSize: (ResponsiveLayout.isSmallScreen(context) ?  MediaQuery.of(context).size.width * .03: ResponsiveLayout.isMediumScreen(context) ? 16 : 16),
+            fontSize: (ResponsiveLayout.isSmallScreen(context) ?  12: ResponsiveLayout.isMediumScreen(context) ? 15 : 16),
               fontFamily: 'OpenSans',
               color: widget.myFocusNode.hasFocus
                   ? Color(0XFFE95420)

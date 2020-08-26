@@ -8,6 +8,7 @@ import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.
 import 'package:iventure001/Widgets/AddGenericButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 class BcMetricDialogue extends StatefulWidget {
   final int index;
@@ -51,7 +52,7 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 500, // MediaQuery.of(context).size.height * 0.50,
+          height: 400, // MediaQuery.of(context).size.height * 0.50,
           width: 800, //MediaQuery.of(context).size.width * 0.5,
           child: SingleChildScrollView(
               padding:
@@ -88,7 +89,12 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
+                      child:
+
+                      (!ResponsiveLayout.isSmallScreen(context) ?
+
+
+                      Row(
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Text(
@@ -120,6 +126,41 @@ class _BcMetricDialogueState extends State<BcMetricDialogue> {
                             ),
                           ),
                         ],
+                      )
+                      :
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Text(
+                            'What category does the metric fall under?                               ',
+                            style: TextStyle(
+                                color: Colors.grey.shade600, fontSize: 12),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: DropdownButton(
+                              hint: Text(
+                                'Choose',
+                                style: TextStyle(
+                                  color: Color(0XFFE95420),
+                                ),
+                              ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedMetric = newValue;
+                                });
+                              },
+                              items: MetricList.map((String singleItem) {
+                                return DropdownMenuItem<String>(
+                                    value: singleItem,
+                                    child: Text(singleItem));
+                              }).toList(),
+                              value: selectedMetric,
+                            ),
+                          ),
+                        ],
+                      )
                       ),
                     ),
                   ),

@@ -117,7 +117,7 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                       child: Text(
                         "Add a Potential Synergy:",
                         style: TextStyle(
@@ -127,7 +127,7 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                     ),
                     TextFieldWidget(
                       labelText: "What would you like to call this synergy?",
-                      maxLines: 1,
+                      maxLines: 2,
                       validText: validSynergyName,
                       myFocusNode: synergyNameFocusNode,
                       myTextController: synergyNameTextController,
@@ -143,7 +143,9 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                           shape: BoxShape.rectangle,
                           border: Border.all(width: 1, color: Color(0XFFABABAB)),
                           borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: Column(
+                      child:
+                      (!ResponsiveLayout.isSmallScreen(context) ?
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
@@ -151,7 +153,8 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                             padding: const EdgeInsets.all(15.0),
                             child: Text(
                               'Please provide the type of service',
-                              style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+                              style: TextStyle(color: Colors.grey.shade600,
+                                  fontSize: (ResponsiveLayout.isSmallScreen(context) ?  12: ResponsiveLayout.isMediumScreen(context) ? 15 : 16)),
                             ),
                           ),
                           //Spacer(),
@@ -222,12 +225,99 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                           ),
 
                         ],
+                      )
+                      :
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  'Please provide the type of service',
+                                  style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+                                ),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  ReusableCheckBox(BMCElementsList[0], checkedValueProposition, (bool value) {
+                                    setState(() {
+                                      checkedValueProposition = value;
+                                    });
+                                  },),
+
+                                  ReusableCheckBox(BMCElementsList[1], checkedCustomerSegment, (bool value) {
+                                    setState(() {
+                                      checkedCustomerSegment = value;
+                                    });
+                                  },),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  ReusableCheckBox(BMCElementsList[2], checkedValueProposition, (bool value) {
+                                    setState(() {
+                                      checkedValueProposition = value;
+                                    });
+                                  },),
+
+                                  ReusableCheckBox(BMCElementsList[3], checkedCustomerSegment, (bool value) {
+                                    setState(() {
+                                      checkedCustomerSegment = value;
+                                    });
+                                  },),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  ReusableCheckBox(BMCElementsList[4], checkedValueProposition, (bool value) {
+                                    setState(() {
+                                      checkedValueProposition = value;
+                                    });
+                                  },),
+
+                                  ReusableCheckBox(BMCElementsList[5], checkedCustomerSegment, (bool value) {
+                                    setState(() {
+                                      checkedCustomerSegment = value;
+                                    });
+                                  },),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  ReusableCheckBox(BMCElementsList[6], checkedValueProposition, (bool value) {
+                                    setState(() {
+                                      checkedValueProposition = value;
+                                    });
+                                  },),
+
+                                  ReusableCheckBox(BMCElementsList[7], checkedCustomerSegment, (bool value) {
+                                    setState(() {
+                                      checkedCustomerSegment = value;
+                                    });
+                                  },),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  ReusableCheckBox(BMCElementsList[8], checkedValueProposition, (bool value) {
+                                    setState(() {
+                                      checkedValueProposition = value;
+                                    });
+                                  },),
+
+                                ],
+                              ),
+                            ],
+                          )
+
+
                       ),
                     ),
                     TextFieldWidget(
                       labelText:
                       "Please provide a detailed description of the synergy",
-                      maxLines: 1,
+                      maxLines: 3,
                       validText: validSynergyDescription,
                       myFocusNode: synergyDescriptionFocusNode,
                       myTextController: synergyDescriptionTextController,
@@ -238,7 +328,7 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                     TextFieldWidget(
                       labelText:
                       "What value does this synergy provide to the business",
-                      maxLines: 1,
+                      maxLines: 3,
                       validText: validSynergyValue,
                       myFocusNode: synergyValueFocusNode,
                       myTextController: synergyValueTextController,
@@ -249,7 +339,7 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
 
 
                     Padding(
-                      padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(25.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -382,7 +472,7 @@ class ReusableCheckBox extends StatelessWidget {
         title: Text(
           title,
           style: TextStyle(
-            fontSize: (ResponsiveLayout.isSmallScreen(context) ?  MediaQuery.of(context).size.width * .017: ResponsiveLayout.isMediumScreen(context) ? 16 : 15),
+            fontSize: (ResponsiveLayout.isSmallScreen(context) ?  12: ResponsiveLayout.isMediumScreen(context) ? 15 : 16),
               fontFamily: 'OpenSans',
               color:
               checked ? CheckTextActive : CheckTextInActive),

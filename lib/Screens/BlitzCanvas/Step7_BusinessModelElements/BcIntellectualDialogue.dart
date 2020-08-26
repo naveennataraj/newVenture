@@ -6,7 +6,7 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/
 import 'package:iventure001/Constants/DropDown.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
-import 'package:iventure001/Screens/BlitzCanvas/Step7_BusinessModelElements/BcIntellectualProperties.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 import 'package:iventure001/Widgets/AddIPAssetButton.dart';
 
 class BcIntellectualDialogue extends StatefulWidget {
@@ -55,7 +55,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: 600, // MediaQuery.of(context).size.height * 0.70,
+        height: 480, // MediaQuery.of(context).size.height * 0.70,
         width: 800, // MediaQuery.of(context).size.width * 0.5,
         child: SingleChildScrollView(
           padding:
@@ -83,7 +83,9 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
+                  child:
+                  (!ResponsiveLayout.isSmallScreen(context) ?
+                  Row(
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Text(
@@ -117,7 +119,49 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                         ),
                       ),
                     ],
-                  ),
+                  )
+
+                  :
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 30),
+
+                        child: Text(
+                          'What is the nature of intellectual property you are trying to protect?',
+                          style: TextStyle(
+                              color: Colors.grey.shade600, fontSize: 15),
+                          maxLines: 2,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: DropdownButton(
+                          hint: Text(
+                            'Choose',
+                            style: TextStyle(
+                              color: Color(0XFFE95420),
+                            ),
+                          ),
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedIntellectualAsset = newValue;
+                              //selectedIntellectualAsset = SelectedIntellectualAsset.name;
+                            });
+                          },
+                          items: IntellectualAssetsList.map((String singleItem) {
+                            return DropdownMenuItem<String>(
+                                value: singleItem,
+                                child: Text(singleItem));
+                          }).toList(),
+                          //intellectualAssetsDropDown,
+                          value: selectedIntellectualAsset,
+                        ),
+                      ),
+                    ],
+                  )
+                  )
                 ),
               ),
 
