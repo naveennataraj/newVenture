@@ -115,7 +115,7 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
+                        child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Text(
@@ -124,28 +124,25 @@ class _addMetricsDialogueState extends State<addMetricsDialogue> {
                                   color: Colors.grey.shade600, fontSize: 16),
                             ),
                             Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: DropdownButton(
-                                hint: Text(
-                                  'Choose',
-                                  style: TextStyle(
-                                    color: metricDropValuerColor,
-                                  ),
+                            DropdownButton(
+                              isExpanded: true,
+                              hint: Text(
+                                'Choose',
+                                style: TextStyle(
+                                  color: metricDropValuerColor,
                                 ),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    SelectedMetric = newValue;
-                                  });
-                                },
-                                items:
-                                    MetricDropdownList.map((String singleItem) {
-                                  return DropdownMenuItem<String>(
-                                      value: singleItem,
-                                      child: Text(singleItem));
-                                }).toList(),
-                                value: SelectedMetric,
                               ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  SelectedMetric = newValue;
+                                });
+                              },
+                              items:
+                                  MetricDropdownList.map((String singleItem) {
+                                return DropdownMenuItem<String>(
+                                    value: singleItem, child: Text(singleItem));
+                              }).toList(),
+                              value: SelectedMetric,
                             ),
                           ],
                         ),
