@@ -23,6 +23,7 @@ class ReviewCustomerRequirements extends StatefulWidget {
 class _ReviewCustomerRequirementsState
     extends State<ReviewCustomerRequirements> {
   final df = new DateFormat('dd-MMM-yyyy');
+  DateTime currentDate = DateTime.now();
   DateTime selectedDate;
   String date = '';
   List<Bread> breads = [
@@ -100,6 +101,8 @@ class _ReviewCustomerRequirementsState
       if (addRequirementsArray.length != 0) {
         selectedDate = addRequirementsArray[0].SelectedDate;
         date = df.format(selectedDate);
+        final diff = selectedDate.difference(currentDate).inDays;
+        print("----------------- date difference $diff");
       }
     });
   }

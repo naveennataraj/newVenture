@@ -9,21 +9,29 @@ class FrameworkCards extends StatefulWidget {
       this.frameworkdescrip,
       this.buttonText,
       this.navigateTo,
-      this.stepCompleteValidator});
+      this.stepCompleteValidator,
+      this.daysRemaining});
 
   final IconData frameworkicon;
   final String frameworkStep;
   final String frameworkdescrip;
   final String buttonText;
   final String navigateTo;
+  final int daysRemaining;
   bool stepCompleteValidator;
   @override
-  _FrameworkCardsState createState() => _FrameworkCardsState();
+  _FrameworkCardsState createState() =>
+      _FrameworkCardsState(this.daysRemaining);
 }
 
 class _FrameworkCardsState extends State<FrameworkCards> {
+  int daysRemaining;
+
+  _FrameworkCardsState(int daysRemaining);
+
   @override
   void initState() {
+    setState(() {});
     super.initState();
   }
 
@@ -98,6 +106,13 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          (widget.daysRemaining != null)
+                              ? Expanded(
+                                  child: Text(
+                                  '$daysRemaining Day(s) left to review',
+                                  style: TextStyle(color: Colors.red),
+                                ))
+                              : Container(),
                           Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(right: 15.0),

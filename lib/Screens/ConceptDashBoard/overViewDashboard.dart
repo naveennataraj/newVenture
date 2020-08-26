@@ -8,7 +8,6 @@ import 'package:iventure001/Screens/ConceptDashBoard/customerDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/nextStepsDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/solutionDashboard.dart';
 
-
 import 'feedbackDashboard.dart';
 
 class overViewDashBoard extends StatefulWidget with ConceptDashboardStates {
@@ -21,7 +20,6 @@ String pvp = '';
 class _overViewDashBoardState extends State<overViewDashBoard> {
   final _firestore = Firestore.instance;
   void getDocument() async {
-    feedbackspinner = true;
     final Detailsdocument = await _firestore
         .collection('$currentUser/SolutionIdeation/pickDetails')
         .getDocuments();
@@ -65,170 +63,167 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              SizedBox(
-                width: 100,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text(
-                          'Concept DashBoard',
-                          style: topHeadingTextStyle,
-                          //TextStyle(fontSize: 60),
-                          textAlign: TextAlign.center,
-                        ),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            SizedBox(
+              width: 100,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        'Concept DashBoard',
+                        style: topHeadingTextStyle,
+                        //TextStyle(fontSize: 60),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Container(
-                          width: 800,
-                          color: Colors.white,
-                          child: Material(
-                            elevation: 20,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.card_giftcard),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            'Tasks using E-Method (Primary Solution Offering)',
-                                            style: cardTitleTextStyle,
-                                            //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: SizedBox(
-                                      height: 30,
-                                    ),
-                                  ),
-                                  Text(
-                                    pvp,
-                                    style: cardBodyTextStyle,
-                                    //TextStyle(fontSize: 18),
-                                  ),
-                                  Flexible(
-                                    child: SizedBox(
-                                      height: 30,
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Container(
+                        width: 800,
+                        color: Colors.white,
+                        child: Material(
+                          elevation: 20,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
                                     children: [
-                                      Spacer(),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 20.0, bottom: 20),
-                                        child: GestureDetector(
-                                          onTap: () {},
-                                          child: Text(
-                                            'VIEW WIREFRAME',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0XFFE95420),
-                                            ),
-                                          ),
+                                      Icon(Icons.card_giftcard),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          'Tasks using E-Method (Primary Solution Offering)',
+                                          style: cardTitleTextStyle,
+                                          //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                                         ),
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                Flexible(
+                                  child: SizedBox(
+                                    height: 30,
+                                  ),
+                                ),
+                                Text(
+                                  pvp,
+                                  style: cardBodyTextStyle,
+                                  //TextStyle(fontSize: 18),
+                                ),
+                                Flexible(
+                                  child: SizedBox(
+                                    height: 30,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Spacer(),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 20.0, bottom: 20),
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Text(
+                                          'VIEW WIREFRAME',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0XFFE95420),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Divider(
-                        height: 1,
-                        thickness: 1,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 1,
                     ),
-                    customerDashBoard(
-                      sizedboxheight: 0,
-                      sizedboxwidth: 0,
-                      headingStyle: sideHeadingTextStyle,
-                      headingAlignment: CrossAxisAlignment.start,
+                  ),
+                  customerDashBoard(
+                    sizedboxheight: 0,
+                    sizedboxwidth: 0,
+                    headingStyle: sideHeadingTextStyle,
+                    headingAlignment: CrossAxisAlignment.start,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 1,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Divider(
-                        height: 1,
-                        thickness: 1,
-                      ),
+                  ),
+                  solutionDashBoard(
+                    sizedboxheight: 0,
+                    sizedboxwidth: 0,
+                    headingStyle: sideHeadingTextStyle,
+                    headingAlignment: CrossAxisAlignment.start,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 1,
                     ),
-                    solutionDashBoard(
-                      sizedboxheight: 0,
-                      sizedboxwidth: 0,
-                      headingStyle: sideHeadingTextStyle,
-                      headingAlignment: CrossAxisAlignment.start,
+                  ),
+                  feedbackDashBoard(
+                    sizedboxheight: 0,
+                    sizedboxwidth: 0,
+                    headingStyle: sideHeadingTextStyle,
+                    headingAlignment: CrossAxisAlignment.start,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 1,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Divider(
-                        height: 1,
-                        thickness: 1,
-                      ),
-                    ),
-                    feedbackDashBoard(
-                      sizedboxheight: 0,
-                      sizedboxwidth: 0,
-                      headingStyle: sideHeadingTextStyle,
-                      headingAlignment: CrossAxisAlignment.start,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Divider(
-                        height: 1,
-                        thickness: 1,
-                      ),
-                    ),
-                    nextStepsDashBoard(
-                      sizedboxheight: 0,
-                      sizedboxwidth: 0,
-                      headingStyle: sideHeadingTextStyle,
-                      headingAlignment: CrossAxisAlignment.start,
-                    ),
-                  ],
-                ),
+                  ),
+                  nextStepsDashBoard(
+                    sizedboxheight: 0,
+                    sizedboxwidth: 0,
+                    headingStyle: sideHeadingTextStyle,
+                    headingAlignment: CrossAxisAlignment.start,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

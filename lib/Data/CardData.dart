@@ -8,6 +8,7 @@ class bifCardData {
   final String buttonText;
   final String navigateTo;
   bool CompletionValidator;
+  int daysRemaining;
 
   bifCardData(
       {this.CompletionValidator,
@@ -15,7 +16,8 @@ class bifCardData {
       this.frameworkStep,
       this.frameworkdescrip,
       this.buttonText,
-      this.navigateTo});
+      this.navigateTo,
+      this.daysRemaining});
 }
 
 List<bifCardData> bcpData = [

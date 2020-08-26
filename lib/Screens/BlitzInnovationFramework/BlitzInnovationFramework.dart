@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -23,9 +24,9 @@ List<Bread> breads = [
 ];
 
 class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
-  final _firestore = Firestore.instance
-      .collection(currentUser)
-      .document('stepValidationInnovationFramework');
+  final _firestore = Firestore.instance;
+  DateTime selectedDate;
+  DateTime currentDate = DateTime.now();
   int i = 0;
   bool firebaseStep0;
   bool firebaseStep1;
@@ -39,7 +40,10 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
     setState(() {
       spinner = true;
     });
-    final document = await _firestore.get();
+    final document = await _firestore
+        .collection(currentUser)
+        .document('stepValidationInnovationFramework')
+        .get();
 
     if (document.exists) {
       try {
@@ -52,21 +56,22 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
         firebaseStep6 = document.data['bcStepsContent6'];
         firebaseStep7 = document.data['bcStepsContent7'];
 
-        bcpData[0].CompletionValidator = firebaseStep0;
-        bcpData[1].CompletionValidator = firebaseStep1;
-        bcpData[2].CompletionValidator = firebaseStep2;
-        bcpData[3].CompletionValidator = firebaseStep3;
-        bcpData[4].CompletionValidator = firebaseStep4;
-        bcpData[5].CompletionValidator = firebaseStep5;
-        bcpData[6].CompletionValidator = firebaseStep6;
-        bcpData[7].CompletionValidator = firebaseStep7;
         setState(() {
           spinner = false;
+          bcpData[0].CompletionValidator = firebaseStep0;
+          bcpData[1].CompletionValidator = firebaseStep1;
+          bcpData[2].CompletionValidator = firebaseStep2;
+          bcpData[3].CompletionValidator = firebaseStep3;
+          bcpData[4].CompletionValidator = firebaseStep4;
+          bcpData[5].CompletionValidator = firebaseStep5;
+          bcpData[6].CompletionValidator = firebaseStep6;
+          bcpData[7].CompletionValidator = firebaseStep7;
         });
         ID = document.documentID;
 
         setState(() {
           print('I should update');
+          print(firebaseStep5);
         });
       } catch (e) {
         print(e);
@@ -77,9 +82,41 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
     }
   }
 
+  void getDocument() async {
+    spinner = true;
+    final document = await _firestore
+        .collection('$currentUser/SolutionValidation/reviewDate')
+        .getDocuments();
+    print("GEt method called");
+
+    for (var message in document.documents) {
+      addRequirementsArray = [];
+      final selectedDate = message.data['ReviewDate'];
+      final ID = message.documentID;
+
+      final fields = reviewCustomerrequirements(
+          SelectedDate: selectedDate.toDate(), ID: ID);
+
+      addRequirementsArray.add(fields);
+    }
+    setState(() {
+      spinner = false;
+      if (addRequirementsArray.length != 0) {
+        selectedDate = addRequirementsArray[0].SelectedDate;
+
+        final diff = selectedDate.difference(currentDate).inDays;
+        print("----------------- date difference $diff");
+        bcpData[5].daysRemaining = diff;
+      }
+    });
+  }
+
   @override
   void initState() {
     getDocuments();
+
+    getDocument();
+
     super.initState();
   }
 
@@ -214,13 +251,15 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                     return ModalProgressHUD(
                       inAsyncCall: spinner,
                       child: FrameworkCards(
-                          stepCompleteValidator:
-                              bcpData[index].CompletionValidator,
-                          frameworkicon: bcpData[index].frameworkicon,
-                          frameworkStep: bcpData[index].frameworkStep,
-                          frameworkdescrip: bcpData[index].frameworkdescrip,
-                          buttonText: bcpData[index].buttonText,
-                          navigateTo: bcpData[index].navigateTo),
+                        stepCompleteValidator:
+                            bcpData[index].CompletionValidator,
+                        frameworkicon: bcpData[index].frameworkicon,
+                        frameworkStep: bcpData[index].frameworkStep,
+                        frameworkdescrip: bcpData[index].frameworkdescrip,
+                        buttonText: bcpData[index].buttonText,
+                        navigateTo: bcpData[index].navigateTo,
+                        daysRemaining: bcpData[index].daysRemaining,
+                      ),
                     );
                   },
                 ),
