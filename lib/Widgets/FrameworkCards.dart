@@ -24,8 +24,6 @@ class FrameworkCards extends StatefulWidget {
 }
 
 class _FrameworkCardsState extends State<FrameworkCards> {
-
-
   @override
   void initState() {
     loaddays();
@@ -34,7 +32,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
 
   loaddays() {
     setState(() {
-      days = widget.daysRemaining;
+ 
     });
   }
 
