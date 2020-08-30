@@ -148,9 +148,11 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                          "There are no competing players at the moment.\n Would you like to add some? Use the '+’ button to get started.",
-                                          style: emptyStateTextStyle, textAlign: TextAlign.center
+                                      Expanded(
+                                        child: Text(
+                                            "There are no competing players at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                            style: emptyStateTextStyle, textAlign: TextAlign.center
+                                        ),
                                       )
                                     ],
                                   ),

@@ -151,9 +151,12 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      "Click on '+' to add the Pain Points",
-                                      style: TextStyle(color: Colors.grey),
+                                    Expanded(
+                                      child: Text(
+                                        "Click on '+' to add the Pain Points",
+                                        style: TextStyle(color: Colors.grey),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     )
                                   ],
                                 ),

@@ -113,7 +113,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                   TextFieldWidget(
                     labelText:
                     "How would you describe this feature (briefly)?",
-                    maxLines: 1,
+                    maxLines: 3,
                     validText: validFeatureDescription,
                     myFocusNode: FeatureDescriptionFocusNode,
                     myTextController: FeatureDescriptionTextController,
@@ -140,7 +140,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                           padding: const EdgeInsets.all(15.0),
                           child: Text(
                             'This feature is a:',
-                            style: TextStyle(fontSize: 18),
+                            style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),
                           ),
                         ),
 
@@ -149,7 +149,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                           children: <Widget>[
                             Expanded(
                               child: ListTile(
-                                title: Text('Must have'),
+                                title: Text('Must have', style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),),
                                 leading: Radio(
                                   focusNode: radio1Focus,
                                   activeColor: Color(0XFFE95420),
@@ -166,7 +166,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                             ),
                             Expanded(
                               child: ListTile(
-                                title: Text('Should have'),
+                                title: Text('Should have', style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),),
                                 leading: Radio(
                                   focusNode: radio2Focus,
                                   activeColor: Color(0XFFE95420),
@@ -183,7 +183,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                             ),
                             Expanded(
                               child: ListTile( 
-                                title: Text('Could have'),
+                                title: Text('Could have', style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),),
                                 leading: Radio(
                                   focusNode: radio3Focus,
                                   activeColor: Color(0XFFE95420),
@@ -199,8 +199,8 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                               ),
                             ),
                             Expanded(
-                              child: ListTile( 
-                                title: Text('Would not have'),
+                              child: ListTile(
+                                title: Text('Would not have', style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),),
                                 leading: Radio(
                                   focusNode: radio4Focus,
                                   activeColor: Color(0XFFE95420),
@@ -220,7 +220,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
           Column(
             children: <Widget>[
               ListTile(
-                title: Text('Must have'),
+                title: Text('Must have', style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),),
                 leading: Radio(
                   focusNode: radio1Focus,
                   activeColor: Color(0XFFE95420),
@@ -235,7 +235,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                 ),
               ),
               ListTile( 
-                title: Text('Should have'),
+                title: Text('Should have', style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),),
                 leading: Radio(
                   focusNode: radio2Focus,
                   activeColor: Color(0XFFE95420),
@@ -250,7 +250,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                 ),
               ),
               ListTile(
-                title: Text('Could have'),
+                title: Text('Could have', style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),),
                 leading: Radio(
                   focusNode: radio3Focus,
                   activeColor: Color(0XFFE95420),
@@ -265,7 +265,7 @@ class _Step3BCProductFeatureDialogueState extends State<Step3BCProductFeatureDia
                 ),
               ),
               ListTile(
-                title: Text('Would not have'),
+                title: Text('Would not have', style: (!ResponsiveLayout.isSmallScreen(context) ? menuIntroTextStyle : listTileSmall ),),
                 leading: Radio(
                   focusNode: radio4Focus,
                   activeColor: Color(0XFFE95420),

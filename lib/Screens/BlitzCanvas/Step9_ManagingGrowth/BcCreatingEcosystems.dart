@@ -149,9 +149,11 @@ class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "There are no parallel solution concepts listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
-                                        style: emptyStateTextStyle, textAlign: TextAlign.center,
+                                      Expanded(
+                                        child: Text(
+                                          "There are no parallel solution concepts listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                          style: emptyStateTextStyle, textAlign: TextAlign.center,
+                                        ),
                                       )
                                     ],
                                   ),

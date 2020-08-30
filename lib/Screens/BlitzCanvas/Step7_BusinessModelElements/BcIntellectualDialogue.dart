@@ -123,7 +123,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
 
                   :
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(right: 30),
@@ -131,7 +131,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                         child: Text(
                           'What is the nature of intellectual property you are trying to protect?',
                           style: TextStyle(
-                              color: Colors.grey.shade600, fontSize: 15),
+                              color: Colors.grey.shade600, fontSize: 13),
                           maxLines: 2,
                         ),
                       ),
@@ -141,6 +141,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
                           hint: Text(
                             'Choose',
                             style: TextStyle(
+                              fontSize: 13,
                               color: Color(0XFFE95420),
                             ),
                           ),
@@ -168,7 +169,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
               TextFieldWidget(
                 labelText:
                 "Provide proctectable assets",
-                maxLines: 1,
+                maxLines: 3,
                 validText: validCodeDescription,
                 myFocusNode: CodeDescriptionFocusNode,
                 myTextController: CodeDescriptionTextController,
@@ -180,7 +181,7 @@ class _BcIntellectualDialogueState extends State<BcIntellectualDialogue> {
               TextFieldWidget(
                 labelText:
                 "Additional details",
-                maxLines: 1,
+                maxLines: 3,
                 validText: validAdditionalDetails,
                 myFocusNode: AdditionalDetailsFocusNode,
                 myTextController: AdditionalDetailsTextController,

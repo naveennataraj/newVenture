@@ -6,6 +6,7 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition
 import 'package:iventure001/Widgets/AddGenericButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 class BcCompetingProductDialogue extends StatefulWidget {
   final int index;
@@ -85,7 +86,7 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                   ),
                   TextFieldWidget(
                     labelText: "What is the name of the product?",
-                    maxLines: 1,
+                    maxLines: 3,
                     validText: validPProductName,
                     myFocusNode: ProductNameFocusNode,
                     myTextController: ProductNameTextController,
@@ -97,7 +98,7 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                   TextFieldWidget(
                     labelText:
                     "Which organisation dies this product belong to?",
-                    maxLines: 1,
+                    maxLines: 3,
                     validText: validOrgName,
                     myFocusNode: OrgNameFocusNode,
                     myTextController: OrgNameTextController,
@@ -109,7 +110,7 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                   TextFieldWidget(
                     labelText:
                     "What are the features of the competing offering?",
-                    maxLines: 1,
+                    maxLines: 3,
                     validText: validCompetingOffering,
                     myFocusNode: CompetingOfferingFocusNode,
                     myTextController: CompetingOfferingTextController,
@@ -120,7 +121,7 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                   TextFieldWidget(
                     labelText:
                     "Which of these features are to be included in your current solution offering?",
-                    maxLines: 1,
+                    maxLines: 3,
                     validText: validSolutionOffering,
                     myFocusNode: SolutionOfferingFocusNode,
                     myTextController: SolutionOfferingTextController,
@@ -135,7 +136,7 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                       children: [
 
                         AddGenericButton(
-                          buttonName:   'Add Competing Product',
+                          buttonName:  'Add  Competing Product' ,
                           onTap: () {
                             Navigator.popAndPushNamed(context, '/addproductgoals');
                             setState(() {
@@ -186,7 +187,7 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                           },
                         ),
                         SizedBox(
-                          width: 50,
+                          width: (!ResponsiveLayout.isSmallScreen(context) ? 50 : 35),
                         ),
                         CancelButtton(
                           OnTap: () {

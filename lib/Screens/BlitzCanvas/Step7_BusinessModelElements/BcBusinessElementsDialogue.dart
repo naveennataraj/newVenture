@@ -168,13 +168,13 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                   )
                   :
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     //mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
                         'Please provide the type of BMC element to be added',
                         style: TextStyle(
-                            color: Colors.grey.shade600, fontSize: 15),
+                            color: Colors.grey.shade600, fontSize: 13),
                       ),
                       //Spacer(),
                       Padding(
@@ -183,6 +183,7 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
                           hint: Text(
                             'Choose',
                             style: TextStyle(
+                              fontSize: 13,
                               color: Color(0XFFE95420),
                             ),
                           ),
@@ -210,7 +211,7 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
               TextFieldWidget(
                 labelText:
                 "Provide a description for This BMC element",
-                maxLines: 1,
+                maxLines: 2,
                 validText: validFeatureDescription,
                 myFocusNode: FeatureDescriptionFocusNode,
                 myTextController: FeatureDescriptionTextController,
@@ -221,8 +222,9 @@ class _BcBusinessElementsDialogueState extends State<BcBusinessElementsDialogue>
               ),
               CheckboxListTile(
                 title: Text(
-                  'This feature is currently offered by a competing product',
+                  'This feature is currently offered by a competing product.',
                   style: TextStyle(
+                    fontSize: (ResponsiveLayout.isSmallScreen(context) ?  12: ResponsiveLayout.isMediumScreen(context) ? 15 : 16),
                       color:
                       checked ? CheckTextActive : CheckTextInActive),
                 ),

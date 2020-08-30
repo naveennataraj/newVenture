@@ -210,14 +210,15 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                                     Text(
                                       'Is the currently chosen growth strategy sustainable? ',
                                       style: TextStyle(
-                                          color: Colors.grey.shade600, fontSize: 16),
+                                          color: Colors.grey.shade600, fontSize: 12),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 20),
+                                      padding: const EdgeInsets.only(right: 13),
                                       child: DropdownButton(
                                         hint: Text(
                                           'Choose',
                                           style: TextStyle(
+                                            fontSize: 13,
                                             color: Color(0XFFE95420),
                                           ),
                                         ),
