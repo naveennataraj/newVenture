@@ -79,81 +79,79 @@ class _addParallelInnovationDialogueState
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 500,
+//          height: 500,
           width: 800,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Add a parallel solution concept:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a parallel solution concept:",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "Add solution name",
-                      maxLines: 2,
-                      validText: validSolutionName,
-                      myFocusNode: SolutionNameFocusNode,
-                      myTextController: SolutionNameTextController,
-                      textCollecter: SolutionName,
-                      helperText: '',
-                      labelcolour: SolutionNamelabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "Add solution name",
+                    maxLines: 2,
+                    validText: validSolutionName,
+                    myFocusNode: SolutionNameFocusNode,
+                    myTextController: SolutionNameTextController,
+                    textCollecter: SolutionName,
+                    helperText: '',
+                    labelcolour: SolutionNamelabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "Add solution description",
+                    maxLines: 2,
+                    validText: validSolutionDescription,
+                    myFocusNode: SolutionDescriptionFocusNode,
+                    myTextController: SolutionDescriptionTextController,
+                    textCollecter: SolutionDescription,
+                    helperText: '',
+                    labelcolour: SolutionDescriptionlabelColor,
+                  ),
+                  CheckboxListTile(
+                    title: Text(
+                      'This solution concept has disruptive qualities',
+                      style: TextStyle(
+                          color: SolutionChecked
+                              ? CheckTextActive
+                              : CheckTextInActive),
                     ),
-                    TextFieldWidget(
-                      labelText: "Add solution description",
-                      maxLines: 2,
-                      validText: validSolutionDescription,
-                      myFocusNode: SolutionDescriptionFocusNode,
-                      myTextController: SolutionDescriptionTextController,
-                      textCollecter: SolutionDescription,
-                      helperText: '',
-                      labelcolour: SolutionDescriptionlabelColor,
-                    ),
-                    CheckboxListTile(
-                      title: Text(
-                        'This solution concept has disruptive qualities',
-                        style: TextStyle(
-                            color: SolutionChecked
-                                ? CheckTextActive
-                                : CheckTextInActive),
-                      ),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: SolutionChecked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          SolutionChecked = value;
-                        });
-                      },
-                      activeColor: Color(0XFFE95420),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddSolutionConceptButton(
-                            onTap: (SolutionNameTextController.text == '' ||
-                                    SolutionDescriptionTextController.text ==
-                                        '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    (SolutionNameTextController.text != '' &&
-                                            SolutionDescriptionTextController
-                                                    .text !=
-                                                '')
-                                        ? Navigator.pop(context)
-                                        : {};
-                                    setState(() {
+                    controlAffinity: ListTileControlAffinity.leading,
+                    value: SolutionChecked,
+                    onChanged: (bool value) {
+                      setState(() {
+                        SolutionChecked = value;
+                      });
+                    },
+                    activeColor: Color(0XFFE95420),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddSolutionConceptButton(
+                          onTap: (SolutionNameTextController.text == '' ||
+                                  SolutionDescriptionTextController.text == '')
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  (SolutionNameTextController.text != '' &&
+                                          SolutionDescriptionTextController
+                                                  .text !=
+                                              '')
+                                      ? Navigator.pop(context)
+                                      : {};
+                                  setState(() {
 //                                final NewParallelInnovation =
 //                                    addparallelinnovations(
 //                                        Name: SolutionNameTextController.text,
@@ -162,63 +160,60 @@ class _addParallelInnovationDialogueState
 //                                                .text,
 //                                        CheckedSolution: SolutionChecked);
 
-                                      if (index == null) {
+                                    if (index == null) {
 //                                  AddingNewParallelInnovations.add(
 //                                      NewParallelInnovation);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/ManagingGrowth/parallelInnovations')
-                                            .add({
-                                          'Name':
-                                              SolutionNameTextController.text,
-                                          'Description':
-                                              SolutionDescriptionTextController
-                                                  .text,
-                                          'CheckedSolution': SolutionChecked,
-                                          'Sender': "tester@gmail.com",
-                                        });
-                                      } else {
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/ManagingGrowth/parallelInnovations')
+                                          .add({
+                                        'Name': SolutionNameTextController.text,
+                                        'Description':
+                                            SolutionDescriptionTextController
+                                                .text,
+                                        'CheckedSolution': SolutionChecked,
+                                        'Sender': "tester@gmail.com",
+                                      });
+                                    } else {
 //                                  AddingNewParallelInnovations.removeAt(index);
 //                                  AddingNewParallelInnovations.insert(
 //                                      index, NewParallelInnovation);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/ManagingGrowth/parallelInnovations')
-                                            .document(
-                                                AddingNewParallelInnovations[
-                                                        index]
-                                                    .ID)
-                                            .updateData({
-                                          'Name':
-                                              SolutionNameTextController.text,
-                                          'Description':
-                                              SolutionDescriptionTextController
-                                                  .text,
-                                          'CheckedSolution': SolutionChecked,
-                                          'Sender': "tester@gmail.com",
-                                        });
-                                      }
-                                    });
-                                  },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
-                              SolutionNameTextController.clear();
-                              SolutionDescriptionTextController.clear();
-                              SolutionChecked = false;
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/ManagingGrowth/parallelInnovations')
+                                          .document(
+                                              AddingNewParallelInnovations[
+                                                      index]
+                                                  .ID)
+                                          .updateData({
+                                        'Name': SolutionNameTextController.text,
+                                        'Description':
+                                            SolutionDescriptionTextController
+                                                .text,
+                                        'CheckedSolution': SolutionChecked,
+                                        'Sender': "tester@gmail.com",
+                                      });
+                                    }
+                                  });
+                                },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            SolutionNameTextController.clear();
+                            SolutionDescriptionTextController.clear();
+                            SolutionChecked = false;
 
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ));
   }
 }

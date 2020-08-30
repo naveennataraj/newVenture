@@ -6,6 +6,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
+import 'package:iventure001/Widgets/ReviewFitDialog.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 String ID;
@@ -28,6 +29,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   DateTime selectedDate;
   DateTime currentDate = DateTime.now();
   int i = 0;
+  var diff;
   bool firebaseStep0;
   bool firebaseStep1;
   bool firebaseStep2;
@@ -59,8 +61,14 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
         ID = document.documentID;
 
         setState(() {
-          print('I should update');
-          print(firebaseStep5);
+          bcpData[0].CompletionValidator = firebaseStep0;
+          bcpData[1].CompletionValidator = firebaseStep1;
+          bcpData[2].CompletionValidator = firebaseStep2;
+          bcpData[3].CompletionValidator = firebaseStep3;
+          bcpData[4].CompletionValidator = firebaseStep4;
+          bcpData[5].CompletionValidator = firebaseStep5;
+          bcpData[6].CompletionValidator = firebaseStep6;
+          bcpData[7].CompletionValidator = firebaseStep7;
         });
       } catch (e) {
         print(e);
@@ -88,18 +96,22 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
       spinner = false;
       if (addRequirementsArray.length != 0) {
         selectedDate = addRequirementsArray[0].SelectedDate;
-
-        final diff = selectedDate.difference(currentDate).inDays;
+        diff = selectedDate.difference(currentDate).inDays;
         print("----------------- date difference $diff");
         bcpData[5].daysRemaining = diff;
-        bcpData[0].CompletionValidator = firebaseStep0;
-        bcpData[1].CompletionValidator = firebaseStep1;
-        bcpData[2].CompletionValidator = firebaseStep2;
-        bcpData[3].CompletionValidator = firebaseStep3;
-        bcpData[4].CompletionValidator = firebaseStep4;
-        bcpData[5].CompletionValidator = firebaseStep5;
-        bcpData[6].CompletionValidator = firebaseStep6;
-        bcpData[7].CompletionValidator = firebaseStep7;
+        if (diff < 1) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => ReviewFitDialog(
+              firebaseStep0: firebaseStep0,
+              firebaseStep1: firebaseStep1,
+              firebaseStep2: firebaseStep2,
+              firebaseStep3: firebaseStep3,
+              firebaseStep4: firebaseStep4,
+              firebaseStep5: firebaseStep5,
+            ),
+          ).then((_) => setState(() {}));
+        }
       }
     });
   }
@@ -107,6 +119,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   @override
   void initState() {
     getDocuments();
+    setState(() {});
     super.initState();
   }
 

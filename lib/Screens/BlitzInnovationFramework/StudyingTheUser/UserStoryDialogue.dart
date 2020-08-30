@@ -84,129 +84,127 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 600,
+//          height: 600,
           width: 800,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Let's capture some user stories",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Let's capture some user stories",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "As a",
-                      maxLines: 3,
-                      validText: validAsa,
-                      myFocusNode: AsaFocusNode,
-                      myTextController: AsaTextController,
-                      textCollecter: Asa,
-                      helperText: 'Who is the user for this story?',
-                      labelcolour: AsalabelColor,
-                    ),
-                    TextFieldWidget(
-                      labelText: "I want",
-                      maxLines: 3,
-                      validText: validIWantTo,
-                      myFocusNode: IWantToFocusNode,
-                      myTextController: IWantToTextController,
-                      textCollecter: IWantTo,
-                      helperText:
-                          'What is the desired action, which the user is able to perform using the system? ',
-                      labelcolour: IWantTolabelColor,
-                    ),
-                    TextFieldWidget(
-                      labelText: "So that",
-                      maxLines: 3,
-                      validText: validSoThat,
-                      myFocusNode: SoThatFocusNode,
-                      myTextController: SoThatTextController,
-                      textCollecter: SoThat,
-                      helperText:
-                          'Wha is the goal of the user when performing this action?',
-                      labelcolour: SoThatlabelColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddDetailButton(
-                            routeName: '/addpainpoints',
-                            onTap: (AsaTextController.text == '' ||
-                                    SoThatTextController.text == '' ||
-                                    IWantToTextController.text == '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    (AsaTextController.text != '' &&
-                                            SoThatTextController.text != '' &&
-                                            IWantToTextController.text != '')
-                                        ? Navigator.pop(context)
-                                        : {};
-                                    setState(() {
+                  ),
+                  TextFieldWidget(
+                    labelText: "As a",
+                    maxLines: 3,
+                    validText: validAsa,
+                    myFocusNode: AsaFocusNode,
+                    myTextController: AsaTextController,
+                    textCollecter: Asa,
+                    helperText: 'Who is the user for this story?',
+                    labelcolour: AsalabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "I want",
+                    maxLines: 3,
+                    validText: validIWantTo,
+                    myFocusNode: IWantToFocusNode,
+                    myTextController: IWantToTextController,
+                    textCollecter: IWantTo,
+                    helperText:
+                        'What is the desired action, which the user is able to perform using the system? ',
+                    labelcolour: IWantTolabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "So that",
+                    maxLines: 3,
+                    validText: validSoThat,
+                    myFocusNode: SoThatFocusNode,
+                    myTextController: SoThatTextController,
+                    textCollecter: SoThat,
+                    helperText:
+                        'Wha is the goal of the user when performing this action?',
+                    labelcolour: SoThatlabelColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddDetailButton(
+                          routeName: '/addpainpoints',
+                          onTap: (AsaTextController.text == '' ||
+                                  SoThatTextController.text == '' ||
+                                  IWantToTextController.text == '')
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  (AsaTextController.text != '' &&
+                                          SoThatTextController.text != '' &&
+                                          IWantToTextController.text != '')
+                                      ? Navigator.pop(context)
+                                      : {};
+                                  setState(() {
 //                                final NewUserStory = addUserStories(
 //                                  Asa: AsaTextController.text,
 //                                  IWantTo: SoThatTextController.text,
 //                                  SoThat: IWantToTextController.text,
 //                                );
-                                      if (index == null) {
+                                    if (index == null) {
 //                                  AddingNewUserStory.add(NewUserStory);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/StudyingTheUser/userStory')
-                                            .add({
-                                          'Asa': AsaTextController.text,
-                                          'IWantTo': SoThatTextController.text,
-                                          'SoThat': IWantToTextController.text,
-                                          'Sender': "tester@gmail.com",
-                                        });
-                                      } else {
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/StudyingTheUser/userStory')
+                                          .add({
+                                        'Asa': AsaTextController.text,
+                                        'IWantTo': SoThatTextController.text,
+                                        'SoThat': IWantToTextController.text,
+                                        'Sender': "tester@gmail.com",
+                                      });
+                                    } else {
 //                                  AddingNewUserStory.removeAt(index);
 //                                  AddingNewUserStory.insert(
 //                                      index, NewUserStory);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/StudyingTheUser/userStory')
-                                            .document(
-                                                AddingNewUserStory[index].ID)
-                                            .updateData({
-                                          'Asa': AsaTextController.text,
-                                          'IWantTo': SoThatTextController.text,
-                                          'SoThat': IWantToTextController.text,
-                                          'Sender': "tester@gmail.com",
-                                        });
-                                      }
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/StudyingTheUser/userStory')
+                                          .document(
+                                              AddingNewUserStory[index].ID)
+                                          .updateData({
+                                        'Asa': AsaTextController.text,
+                                        'IWantTo': SoThatTextController.text,
+                                        'SoThat': IWantToTextController.text,
+                                        'Sender': "tester@gmail.com",
+                                      });
+                                    }
 //
-                                    });
-                                  },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
-                              AsaTextController.clear();
-                              SoThatTextController.clear();
-                              IWantToTextController.clear();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+                                  });
+                                },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            AsaTextController.clear();
+                            SoThatTextController.clear();
+                            IWantToTextController.clear();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ));
   }
 }

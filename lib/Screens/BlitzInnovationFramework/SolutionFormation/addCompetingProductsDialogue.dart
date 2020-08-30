@@ -101,154 +101,147 @@ class _addCompetingProductsDialogueState
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 600,
+//          height: 600,
           width: 800,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Add a Competing Product:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a Competing Product:",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "What is the name of the product?",
-                      maxLines: 1,
-                      validText: validPProductName,
-                      myFocusNode: ProductNameFocusNode,
-                      myTextController: ProductNameTextController,
-                      textCollecter: ProductName,
-                      helperText:
-                          'Enter the name of the comepting product here',
-                      labelcolour: ProductNamelabelColor,
-                    ),
-                    TextFieldWidget(
-                      labelText:
-                          "Which organisation dies this product belong to?",
-                      maxLines: 1,
-                      validText: validOrgName,
-                      myFocusNode: OrgNameFocusNode,
-                      myTextController: OrgNameTextController,
-                      textCollecter: OrgName,
-                      helperText:
-                          'Enter the name of the parent company of the product here',
-                      labelcolour: OrgNamelabelColor,
-                    ),
-                    TextFieldWidget(
-                      labelText:
-                          "What are the features of the competing offering?",
-                      maxLines: 1,
-                      validText: validCompetingOffering,
-                      myFocusNode: CompetingOfferingFocusNode,
-                      myTextController: CompetingOfferingTextController,
-                      textCollecter: CompetingOffering,
-                      helperText: 'Mention each feature seperated by a comma',
-                      labelcolour: CompetingOfferinglabelColor,
-                    ),
-                    TextFieldWidget(
-                      labelText:
-                          "Which of these features are to be included in your current solution offering?",
-                      maxLines: 1,
-                      validText: validSolutionOffering,
-                      myFocusNode: SolutionOfferingFocusNode,
-                      myTextController: SolutionOfferingTextController,
-                      textCollecter: SolutionOffering,
-                      helperText: 'Mention each feature seperated by a comma',
-                      labelcolour: SolutionOfferinglabelColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddCompetingOfferingButton(
-                            routeName: '/addproductgoals',
-                            onTap: (ProductNameTextController.text == '' ||
-                                    OrgNameTextController.text == '' ||
-                                    CompetingOfferingTextController.text ==
-                                        '' ||
-                                    SolutionOfferingTextController.text == '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    (ProductNameTextController.text != '' &&
-                                            OrgNameTextController.text != '' &&
+                  ),
+                  TextFieldWidget(
+                    labelText: "What is the name of the product?",
+                    maxLines: 1,
+                    validText: validPProductName,
+                    myFocusNode: ProductNameFocusNode,
+                    myTextController: ProductNameTextController,
+                    textCollecter: ProductName,
+                    helperText: 'Enter the name of the comepting product here',
+                    labelcolour: ProductNamelabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText:
+                        "Which organisation dies this product belong to?",
+                    maxLines: 1,
+                    validText: validOrgName,
+                    myFocusNode: OrgNameFocusNode,
+                    myTextController: OrgNameTextController,
+                    textCollecter: OrgName,
+                    helperText:
+                        'Enter the name of the parent company of the product here',
+                    labelcolour: OrgNamelabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText:
+                        "What are the features of the competing offering?",
+                    maxLines: 1,
+                    validText: validCompetingOffering,
+                    myFocusNode: CompetingOfferingFocusNode,
+                    myTextController: CompetingOfferingTextController,
+                    textCollecter: CompetingOffering,
+                    helperText: 'Mention each feature seperated by a comma',
+                    labelcolour: CompetingOfferinglabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText:
+                        "Which of these features are to be included in your current solution offering?",
+                    maxLines: 1,
+                    validText: validSolutionOffering,
+                    myFocusNode: SolutionOfferingFocusNode,
+                    myTextController: SolutionOfferingTextController,
+                    textCollecter: SolutionOffering,
+                    helperText: 'Mention each feature seperated by a comma',
+                    labelcolour: SolutionOfferinglabelColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddCompetingOfferingButton(
+                          routeName: '/addproductgoals',
+                          onTap: (ProductNameTextController.text == '' ||
+                                  OrgNameTextController.text == '' ||
+                                  CompetingOfferingTextController.text == '' ||
+                                  SolutionOfferingTextController.text == '')
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  (ProductNameTextController.text != '' &&
+                                          OrgNameTextController.text != '' &&
+                                          CompetingOfferingTextController
+                                                  .text !=
+                                              '' &&
+                                          SolutionOfferingTextController.text !=
+                                              '')
+                                      ? Navigator.pop(context)
+                                      : {};
+                                  setState(() {
+                                    if (index == null) {
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/SolutionFormulation/competingProducts')
+                                          .add({
+                                        'ProductName':
+                                            ProductNameTextController.text,
+                                        'OrgName': OrgNameTextController.text,
+                                        'Features':
                                             CompetingOfferingTextController
-                                                    .text !=
-                                                '' &&
-                                            SolutionOfferingTextController
-                                                    .text !=
-                                                '')
-                                        ? Navigator.pop(context)
-                                        : {};
-                                    setState(() {
-                                      if (index == null) {
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/SolutionFormulation/competingProducts')
-                                            .add({
-                                          'ProductName':
-                                              ProductNameTextController.text,
-                                          'OrgName': OrgNameTextController.text,
-                                          'Features':
-                                              CompetingOfferingTextController
-                                                  .text,
-                                          'CurrentOffering':
-                                              SolutionOfferingTextController
-                                                  .text,
-                                          'Sender': currentUser,
-                                        });
-                                      } else {
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/SolutionFormulation/competingProducts')
-                                            .document(
-                                                AddingNewCompetingProduct[index]
-                                                    .ID)
-                                            .updateData({
-                                          'ProductName':
-                                              ProductNameTextController.text,
-                                          'OrgName': OrgNameTextController.text,
-                                          'Features':
-                                              CompetingOfferingTextController
-                                                  .text,
-                                          'CurrentOffering':
-                                              SolutionOfferingTextController
-                                                  .text,
-                                          'Sender': currentUser,
-                                        });
-                                      }
-                                    });
-                                  },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
-                              ProductNameTextController.clear();
-                              OrgNameTextController.clear();
-                              CompetingOfferingTextController.clear();
-                              SolutionOfferingTextController.clear();
+                                                .text,
+                                        'CurrentOffering':
+                                            SolutionOfferingTextController.text,
+                                        'Sender': currentUser,
+                                      });
+                                    } else {
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/SolutionFormulation/competingProducts')
+                                          .document(
+                                              AddingNewCompetingProduct[index]
+                                                  .ID)
+                                          .updateData({
+                                        'ProductName':
+                                            ProductNameTextController.text,
+                                        'OrgName': OrgNameTextController.text,
+                                        'Features':
+                                            CompetingOfferingTextController
+                                                .text,
+                                        'CurrentOffering':
+                                            SolutionOfferingTextController.text,
+                                        'Sender': currentUser,
+                                      });
+                                    }
+                                  });
+                                },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            ProductNameTextController.clear();
+                            OrgNameTextController.clear();
+                            CompetingOfferingTextController.clear();
+                            SolutionOfferingTextController.clear();
 
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ));
   }
 }

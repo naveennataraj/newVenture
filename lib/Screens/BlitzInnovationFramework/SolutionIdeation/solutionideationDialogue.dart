@@ -74,101 +74,100 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 400,
+//          height: 400,
           width: 800,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Add a New Solution Concept",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a New Solution Concept",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "Name of the solution",
-                      maxLines: 1,
-                      validText: validName,
-                      myFocusNode: NameFocusNode,
-                      myTextController: NameTextController,
-                      textCollecter: Name,
-                      helperText: '',
-                      labelcolour: NamelabelColor,
-                    ),
-                    TextFieldWidget(
-                      labelText: "Brief Description",
-                      maxLines: 3,
-                      validText: validBrief,
-                      myFocusNode: BriefFocusNode,
-                      myTextController: BriefTextController,
-                      textCollecter: Brief,
-                      helperText: '',
-                      labelcolour: BrieflabelColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddSolutionButton(
-                            onTap: (NameTextController.text == '' ||
-                                    BriefTextController.text == '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    (NameTextController.text != '' &&
-                                            BriefTextController.text != '')
-                                        ? Navigator.pop(context)
-                                        : {};
+                  ),
+                  TextFieldWidget(
+                    labelText: "Name of the solution",
+                    maxLines: 1,
+                    validText: validName,
+                    myFocusNode: NameFocusNode,
+                    myTextController: NameTextController,
+                    textCollecter: Name,
+                    helperText: '',
+                    labelcolour: NamelabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "Brief Description",
+                    maxLines: 3,
+                    validText: validBrief,
+                    myFocusNode: BriefFocusNode,
+                    myTextController: BriefTextController,
+                    textCollecter: Brief,
+                    helperText: '',
+                    labelcolour: BrieflabelColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddSolutionButton(
+                          onTap: (NameTextController.text == '' ||
+                                  BriefTextController.text == '')
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  (NameTextController.text != '' &&
+                                          BriefTextController.text != '')
+                                      ? Navigator.pop(context)
+                                      : {};
 
-                                    (AddingNewSolutions.contains(Name))
-                                        ? showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) =>
-                                                SolutionExistsDialogue(),
-                                          )
-                                        : {};
-                                    setState(() {
+                                  (AddingNewSolutions.contains(Name))
+                                      ? showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              SolutionExistsDialogue(),
+                                        )
+                                      : {};
+                                  setState(() {
 //                                final NewSolutionIdeation = addSolutions(
 //                                  Name: NameTextController.text,
 //                                  BriefDesctiption: BriefTextController.text,
 //                                );
 
-                                      if (index == null) {
+                                    if (index == null) {
 //                                  AddingNewSolutions.add(NewSolutionIdeation);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/SolutionIdeation/solutionIdeation')
-                                            .add({
-                                          'Name': NameTextController.text,
-                                          'BriefDesctiption':
-                                              BriefTextController.text,
-                                          'Sender': "tester@gmail.com",
-                                        });
-                                      } else {
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/SolutionIdeation/solutionIdeation')
+                                          .add({
+                                        'Name': NameTextController.text,
+                                        'BriefDesctiption':
+                                            BriefTextController.text,
+                                        'Sender': "tester@gmail.com",
+                                      });
+                                    } else {
 //                                  AddingNewSolutions.removeAt(index);
 //                                  AddingNewSolutions.insert(
 //                                      index, NewSolutionIdeation);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/SolutionIdeation/solutionIdeation')
-                                            .document(
-                                                AddingNewSolutions[index].ID)
-                                            .updateData({
-                                          'Name': NameTextController.text,
-                                          'BriefDesctiption':
-                                              BriefTextController.text,
-                                          'Sender': "tester@gmail.com",
-                                        });
-                                      }
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/SolutionIdeation/solutionIdeation')
+                                          .document(
+                                              AddingNewSolutions[index].ID)
+                                          .updateData({
+                                        'Name': NameTextController.text,
+                                        'BriefDesctiption':
+                                            BriefTextController.text,
+                                        'Sender': "tester@gmail.com",
+                                      });
+                                    }
 
 //                                      //Adding solutions to dropdown
 //                                      final AddingSolutinstoDropdown =
@@ -182,25 +181,24 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
 //                                        SolutionRankingList.insert(
 //                                            index, AddingSolutinstoDropdown);
 //                                      }
-                                    });
-                                  },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
-                              NameTextController.clear();
-                              BriefTextController.clear();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+                                  });
+                                },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            NameTextController.clear();
+                            BriefTextController.clear();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ));
   }
 }

@@ -126,185 +126,181 @@ class _painpointDialogueState extends State<painpointDialogue> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: 600,
+//        height: 600,
         width: 800,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    'Add a Pain Point:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                  ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0),
+                child: Text(
+                  'Add a Pain Point:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                 ),
-                TextFieldWidget(
-                  textCollecter: Challenge,
-                  validText: validChallenge,
-                  myTextController: ChallengeTextController,
-                  labelText:
-                      'Mention in one Sentence the Challenge faced by the User',
-                  helperText:
-                      'Ensure to be Brief in this box. In the following box, more details will be collected about this pain point',
-                  labelcolour: ChallengelabelColor,
-                  maxLines: 1,
-                  myFocusNode: ChallengeFocusNode,
-                ),
-                TextFieldWidget(
-                  textCollecter: MoreDetails,
-                  validText: validMoreDetails,
-                  myTextController: MoreDetailsTextController,
-                  labelText: 'Provide more details',
-                  helperText:
-                      'Provide additional details of the briefly described pain point in this section',
-                  labelcolour: MoreDetailslabelColor,
-                  maxLines: 1,
-                  myFocusNode: MoreDetailsFocusNode,
-                ),
-                TextFieldWidget(
-                  textCollecter: Consequence,
-                  validText: validConsequence,
-                  myTextController: ConsequenceTextController,
-                  labelText:
-                      'What are the consequence of the pain point not being addressed?',
-                  helperText:
-                      'If the challenged faced by the customer is left unchecked, what will happen as a result?',
-                  labelcolour: ConsequencelabelColor,
-                  maxLines: 1,
-                  myFocusNode: ConsequenceFocusNode,
-                ),
-                TextFieldWidget(
-                  textCollecter: addresspp,
-                  validText: validaddresspp,
-                  myTextController: addressppTextController,
-                  labelText:
-                      'How do the users currently address the pain point?',
-                  helperText:
-                      'In the absence of a solution, What do users currently use as a workaround for this pain point?',
-                  labelcolour: addresspplabelColor,
-                  maxLines: 1,
-                  myFocusNode: addressppFocusNode,
-                ),
-                TextFieldWidget(
-                  textCollecter: expectations,
-                  validText: validexpectations,
-                  myTextController: expectationsTextController,
-                  labelText:
-                      'What are the expectations from a new solution about this pain point?',
-                  helperText:
-                      'How do the users envision a solution to behave and solve this pain point?',
-                  labelcolour: expectationslabelColor,
-                  maxLines: 1,
-                  myFocusNode: expectationsFocusNode,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AddDetailButton(
-                        routeName: '/addpainpoints',
-                        onTap: (demoSelected == true)
-                            ? () {
-                                Navigator.pop(context);
-                              }
-                            : (ChallengeTextController.text == '' ||
-                                    MoreDetailsTextController.text == '' ||
-                                    ConsequenceTextController.text == '' ||
-                                    addressppTextController.text == '' ||
-                                    expectationsTextController.text == '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    (ChallengeTextController.text != '' &&
-                                            MoreDetailsTextController.text !=
-                                                '' &&
-                                            ConsequenceTextController.text !=
-                                                '' &&
-                                            addressppTextController.text !=
-                                                '' &&
-                                            expectationsTextController.text !=
-                                                '')
-                                        ? Navigator.pop(context)
-                                        : {};
-                                    setState(() {
-                                      final NewPainpoint = addPainPoints(
-                                        Challenge: ChallengeTextController.text,
-                                        MoreDetails:
+              ),
+              TextFieldWidget(
+                textCollecter: Challenge,
+                validText: validChallenge,
+                myTextController: ChallengeTextController,
+                labelText:
+                    'Mention in one Sentence the Challenge faced by the User',
+                helperText:
+                    'Ensure to be Brief in this box. In the following box, more details will be collected about this pain point',
+                labelcolour: ChallengelabelColor,
+                maxLines: 1,
+                myFocusNode: ChallengeFocusNode,
+              ),
+              TextFieldWidget(
+                textCollecter: MoreDetails,
+                validText: validMoreDetails,
+                myTextController: MoreDetailsTextController,
+                labelText: 'Provide more details',
+                helperText:
+                    'Provide additional details of the briefly described pain point in this section',
+                labelcolour: MoreDetailslabelColor,
+                maxLines: 1,
+                myFocusNode: MoreDetailsFocusNode,
+              ),
+              TextFieldWidget(
+                textCollecter: Consequence,
+                validText: validConsequence,
+                myTextController: ConsequenceTextController,
+                labelText:
+                    'What are the consequence of the pain point not being addressed?',
+                helperText:
+                    'If the challenged faced by the customer is left unchecked, what will happen as a result?',
+                labelcolour: ConsequencelabelColor,
+                maxLines: 1,
+                myFocusNode: ConsequenceFocusNode,
+              ),
+              TextFieldWidget(
+                textCollecter: addresspp,
+                validText: validaddresspp,
+                myTextController: addressppTextController,
+                labelText: 'How do the users currently address the pain point?',
+                helperText:
+                    'In the absence of a solution, What do users currently use as a workaround for this pain point?',
+                labelcolour: addresspplabelColor,
+                maxLines: 1,
+                myFocusNode: addressppFocusNode,
+              ),
+              TextFieldWidget(
+                textCollecter: expectations,
+                validText: validexpectations,
+                myTextController: expectationsTextController,
+                labelText:
+                    'What are the expectations from a new solution about this pain point?',
+                helperText:
+                    'How do the users envision a solution to behave and solve this pain point?',
+                labelcolour: expectationslabelColor,
+                maxLines: 1,
+                myFocusNode: expectationsFocusNode,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AddDetailButton(
+                      routeName: '/addpainpoints',
+                      onTap: (demoSelected == true)
+                          ? () {
+                              Navigator.pop(context);
+                            }
+                          : (ChallengeTextController.text == '' ||
+                                  MoreDetailsTextController.text == '' ||
+                                  ConsequenceTextController.text == '' ||
+                                  addressppTextController.text == '' ||
+                                  expectationsTextController.text == '')
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  (ChallengeTextController.text != '' &&
+                                          MoreDetailsTextController.text !=
+                                              '' &&
+                                          ConsequenceTextController.text !=
+                                              '' &&
+                                          addressppTextController.text != '' &&
+                                          expectationsTextController.text != '')
+                                      ? Navigator.pop(context)
+                                      : {};
+                                  setState(() {
+                                    final NewPainpoint = addPainPoints(
+                                      Challenge: ChallengeTextController.text,
+                                      MoreDetails:
+                                          MoreDetailsTextController.text,
+                                      Consequence:
+                                          ConsequenceTextController.text,
+                                      Addresspp: addressppTextController.text,
+                                      Expectations:
+                                          expectationsTextController.text,
+                                    );
+                                    if (index == null) {
+                                      AddingNewPainPoint.add(NewPainpoint);
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/StudyTheProblem/painPoints')
+                                          .add({
+                                        'Challenge':
+                                            ChallengeTextController.text,
+                                        'MoreDetails':
                                             MoreDetailsTextController.text,
-                                        Consequence:
+                                        'Consequence':
                                             ConsequenceTextController.text,
-                                        Addresspp: addressppTextController.text,
-                                        Expectations:
+                                        'Addresspp':
+                                            addressppTextController.text,
+                                        'Expectations':
                                             expectationsTextController.text,
-                                      );
-                                      if (index == null) {
-                                        AddingNewPainPoint.add(NewPainpoint);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/StudyTheProblem/painPoints')
-                                            .add({
-                                          'Challenge':
-                                              ChallengeTextController.text,
-                                          'MoreDetails':
-                                              MoreDetailsTextController.text,
-                                          'Consequence':
-                                              ConsequenceTextController.text,
-                                          'Addresspp':
-                                              addressppTextController.text,
-                                          'Expectations':
-                                              expectationsTextController.text,
-                                          'Sender': "tester@gmail.com",
-                                        });
-                                      } else {
+                                        'Sender': "tester@gmail.com",
+                                      });
+                                    } else {
 //                            AddingNewPainPoint.removeAt(index);
 ////                            AddingNewPainPoint.insert(index, NewPainpoint);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/StudyTheProblem/painPoints')
-                                            .document(
-                                                AddingNewPainPoint[index].ID)
-                                            .updateData({
-                                          'Challenge':
-                                              ChallengeTextController.text,
-                                          'MoreDetails':
-                                              MoreDetailsTextController.text,
-                                          'Consequence':
-                                              ConsequenceTextController.text,
-                                          'Addresspp':
-                                              addressppTextController.text,
-                                          'Expectations':
-                                              expectationsTextController.text,
-                                          'Sender': "tester@gmail.com",
-                                          'cardWithTitle': "true",
-                                        });
-                                      }
-                                    });
-                                  },
-                      ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      CancelButtton(
-                        OnTap: () {
-                          ChallengeTextController.clear();
-                          MoreDetailsTextController.clear();
-                          ConsequenceTextController.clear();
-                          addressppTextController.clear();
-                          expectationsTextController.clear();
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/StudyTheProblem/painPoints')
+                                          .document(
+                                              AddingNewPainPoint[index].ID)
+                                          .updateData({
+                                        'Challenge':
+                                            ChallengeTextController.text,
+                                        'MoreDetails':
+                                            MoreDetailsTextController.text,
+                                        'Consequence':
+                                            ConsequenceTextController.text,
+                                        'Addresspp':
+                                            addressppTextController.text,
+                                        'Expectations':
+                                            expectationsTextController.text,
+                                        'Sender': "tester@gmail.com",
+                                        'cardWithTitle': "true",
+                                      });
+                                    }
+                                  });
+                                },
+                    ),
+                    SizedBox(
+                      width: 50,
+                    ),
+                    CancelButtton(
+                      OnTap: () {
+                        ChallengeTextController.clear();
+                        MoreDetailsTextController.clear();
+                        ConsequenceTextController.clear();
+                        addressppTextController.clear();
+                        expectationsTextController.clear();
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),

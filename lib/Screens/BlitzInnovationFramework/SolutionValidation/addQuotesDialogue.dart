@@ -61,116 +61,113 @@ class _addQuotesDialogueState extends State<addQuotesDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 340,
+//          height: 340,
           width: 800,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Add a quote or excerpt of a conversation:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a quote or excerpt of a conversation:",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "Add the content here:",
-                      maxLines: 2,
-                      validText: validQuoteContent,
-                      myFocusNode: QuoteContentFocusNode,
-                      myTextController: QuoteContentTextController,
-                      textCollecter: QuoteContent,
-                      helperText: '',
-                      labelcolour: QuoteContentlabelColor,
+                  ),
+                  TextFieldWidget(
+                    labelText: "Add the content here:",
+                    maxLines: 2,
+                    validText: validQuoteContent,
+                    myFocusNode: QuoteContentFocusNode,
+                    myTextController: QuoteContentTextController,
+                    textCollecter: QuoteContent,
+                    helperText: '',
+                    labelcolour: QuoteContentlabelColor,
+                  ),
+                  CheckboxListTile(
+                    title: Text(
+                      'One or more metric(s) can be added based on this quote',
+                      style: TextStyle(
+                          color: Quotechecked
+                              ? CheckTextActive
+                              : CheckTextInActive),
                     ),
-                    CheckboxListTile(
-                      title: Text(
-                        'One or more metric(s) can be added based on this quote',
-                        style: TextStyle(
-                            color: Quotechecked
-                                ? CheckTextActive
-                                : CheckTextInActive),
-                      ),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: Quotechecked,
-                      onChanged: (bool value) {
-                        setState(() {
-                          Quotechecked = value;
-                        });
-                      },
-                      activeColor: Color(0XFFE95420),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddQuoteButton(
-                            onTap: (QuoteContentTextController.text == '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    (QuoteContentTextController.text != '')
-                                        ? Navigator.pop(context)
-                                        : {};
-                                    setState(() {
+                    controlAffinity: ListTileControlAffinity.leading,
+                    value: Quotechecked,
+                    onChanged: (bool value) {
+                      setState(() {
+                        Quotechecked = value;
+                      });
+                    },
+                    activeColor: Color(0XFFE95420),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddQuoteButton(
+                          onTap: (QuoteContentTextController.text == '')
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  (QuoteContentTextController.text != '')
+                                      ? Navigator.pop(context)
+                                      : {};
+                                  setState(() {
 //                                final NewQuote = addQuote(
 //                                    Content: QuoteContentTextController.text,
 //                                    CheckQuote: Quotechecked);
 
-                                      if (index == null) {
+                                    if (index == null) {
 //                                  AddingNewQuote.add(NewQuote);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/SolutionValidation/Quote')
-                                            .add({
-                                          'Content':
-                                              QuoteContentTextController.text,
-                                          'CheckQuote': Quotechecked,
-                                          'Sender': currentUser,
-                                        });
-                                      } else {
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/SolutionValidation/Quote')
+                                          .add({
+                                        'Content':
+                                            QuoteContentTextController.text,
+                                        'CheckQuote': Quotechecked,
+                                        'Sender': currentUser,
+                                      });
+                                    } else {
 //                                  AddingNewQuote.removeAt(index);
 //                                  AddingNewQuote.insert(index, NewQuote);
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/SolutionValidation/Quote')
-                                            .document(AddingNewQuote[index].ID)
-                                            .updateData({
-                                          'Content':
-                                              QuoteContentTextController.text,
-                                          'CheckQuote': Quotechecked,
-                                          'Sender': currentUser,
-                                        });
-                                      }
-                                    });
-                                  },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
-                              QuoteContentTextController.clear();
-                              Quotechecked = false;
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/SolutionValidation/Quote')
+                                          .document(AddingNewQuote[index].ID)
+                                          .updateData({
+                                        'Content':
+                                            QuoteContentTextController.text,
+                                        'CheckQuote': Quotechecked,
+                                        'Sender': currentUser,
+                                      });
+                                    }
+                                  });
+                                },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            QuoteContentTextController.clear();
+                            Quotechecked = false;
 
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ));
   }
 }

@@ -6,6 +6,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/proble
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserEnvironment.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserPersona.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/ourCustomerDialogue.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,8 +28,8 @@ class customerDashBoard extends StatefulWidget with ConceptDashboardStates {
   _customerDashBoardState createState() => _customerDashBoardState();
 }
 
-String ageStart = '';
-String ageEnd = '';
+int ageStart = 0;
+int ageEnd = 99;
 String problemDomain = '';
 String problem = '';
 String userStory = '';
@@ -80,8 +81,8 @@ class _customerDashBoardState extends State<customerDashBoard> {
     }
 
     setState(() {
-      ageStart = UserEnvironmentArray[0].ageRangeStart.toInt().toString();
-      ageEnd = UserEnvironmentArray[0].ageRangeEnd.toInt().toString();
+      ageStart = UserEnvironmentArray[0].ageRangeStart.toInt();
+      ageEnd = UserEnvironmentArray[0].ageRangeEnd.toInt();
       problemDomain = UserEnvironmentArray[0].ProblemDrop;
     });
 
@@ -143,10 +144,10 @@ class _customerDashBoardState extends State<customerDashBoard> {
 //        print('Get Method called');
     }
     setState(() {
+      customercard1spinner = false;
       if (UserPersonaArray.length != 0) {
         personaLink = UserPersonaArray[0].link;
       }
-      customercard1spinner = false;
     });
   }
 
@@ -171,33 +172,61 @@ class _customerDashBoardState extends State<customerDashBoard> {
           (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'Studying the customer and the problem space',
       dashboardcards: <Widget>[
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'Who are our customers?',
-          cardNote:
-              'Urban dwellers who are employed and aged between $ageStart and $ageEnd years . Solution is aimed at $problemDomain market segment(s).',
-          cardButtonName: 'VIEW PERSONA',
-          onTap: () {
-            launch(personaLink);
-          },
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: Hero(
+            tag: 'ourCustomer',
+            child: DashboardCards(
+              cardIcon: Icons.person,
+              cardTitle: 'Who are our customers?',
+              cardNote:
+                  'Urban dwellers who are employed and aged between $ageStart and $ageEnd years . Solution is aimed at $problemDomain market segment(s).',
+              cardButtonName: 'VIEW PERSONA',
+              onTap: () {
+                launch(personaLink);
+              },
+              onEditTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => ourCustomerDialogue(
+                    ageStart: ageStart,
+                    ageEnd: ageEnd,
+                    problemDomain: problemDomain,
+                  ),
+                ).then((_) => setState(() {}));
+              },
+            ),
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'Customer Pain Point (Primary)',
-          cardNote: problem,
-          cardButtonName: 'EXPLORE OTHER PAIN POINTS',
-          onTap: () {
-            Navigator.pushNamed(context, '/addpainpoints');
-          },
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle: 'Customer Pain Point (Primary)',
+            cardNote: problem,
+            cardButtonName: 'EXPLORE OTHER PAIN POINTS',
+            onTap: () {
+              Navigator.pushNamed(context, '/addpainpoints');
+            },
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'Needs of our user(s)',
-          cardNote: userStory,
-          cardButtonName: 'VIEW OTHER USER STORIES',
-          onTap: () {
-            Navigator.pushNamed(context, '/addstoriespainpoints');
-          },
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle: 'Needs of our user(s)',
+            cardNote: userStory,
+            cardButtonName: 'VIEW OTHER USER STORIES',
+            onTap: () {
+              Navigator.pushNamed(context, '/addstoriespainpoints');
+            },
+          ),
         ),
       ],
     );

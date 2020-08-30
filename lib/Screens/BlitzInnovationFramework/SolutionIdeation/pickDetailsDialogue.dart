@@ -176,118 +176,117 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 700,
+//          height: 700,
           width: 800,
-          child: Center(
-            child: ModalProgressHUD(
-              inAsyncCall: spinner,
-              child: SingleChildScrollView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Text(
-                          "Let's get a few more details about your top pick:",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
+          child: ModalProgressHUD(
+            inAsyncCall: spinner,
+            child: SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        "Let's get a few more details about your top pick:",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
                       ),
-                      TextFieldWidget(
-                        labelText: "Why choose this solution as your top pick?",
-                        maxLines: 1,
-                        validText: validTopPick,
-                        myFocusNode: TopPickFocusNode,
-                        myTextController: TopPickTextController,
-                        textCollecter: TopPick,
-                        helperText: '',
-                        labelcolour: TopPicklabelColor,
+                    ),
+                    TextFieldWidget(
+                      labelText: "Why choose this solution as your top pick?",
+                      maxLines: 1,
+                      validText: validTopPick,
+                      myFocusNode: TopPickFocusNode,
+                      myTextController: TopPickTextController,
+                      textCollecter: TopPick,
+                      helperText: '',
+                      labelcolour: TopPicklabelColor,
+                    ),
+                    TextFieldWidget(
+                      labelText:
+                          "How would you briefly describe the primary value proposition for this solution?",
+                      maxLines: 1,
+                      validText: validPVP,
+                      myFocusNode: PVPFocusNode,
+                      myTextController: PVPTextController,
+                      textCollecter: PVP,
+                      helperText:
+                          'A value proposition helps the customer understand what value they acquire when they use your solution',
+                      labelcolour: PVPlabelColor,
+                    ),
+                    TextFieldWidget(
+                      labelText:
+                          "After the occurance of which event, would you suggest that the customer pain point is resolved?",
+                      maxLines: 1,
+                      validText: validEvent,
+                      myFocusNode: EventFocusNode,
+                      myTextController: EventTextController,
+                      textCollecter: Event,
+                      helperText: '',
+                      labelcolour: EventlabelColor,
+                    ),
+                    TextFieldWidget(
+                      labelText:
+                          "What are the traits of the early adopters who will be testing the solution concept?",
+                      maxLines: 1,
+                      validText: validTraits,
+                      myFocusNode: TraitsFocusNode,
+                      myTextController: TraitsTextController,
+                      textCollecter: Traits,
+                      helperText: '',
+                      labelcolour: TraitslabelColor,
+                    ),
+                    TextFieldWidget(
+                      labelText:
+                          "How would you plan to monetize the solution concept?",
+                      maxLines: 1,
+                      validText: validMonetize,
+                      myFocusNode: MonetizeFocusNode,
+                      myTextController: MonetizeTextController,
+                      textCollecter: Monetize,
+                      helperText:
+                          '*Determining this is at the current stage can help incorporate this strategy into the design at an early stage.',
+                      labelcolour: MonetizelabelColor,
+                    ),
+                    CheckboxListTile(
+                      title: Text(
+                        'This solution concept has disruptive qualities',
+                        style: TextStyle(
+                            color:
+                                checked ? CheckTextActive : CheckTextInActive),
                       ),
-                      TextFieldWidget(
-                        labelText:
-                            "How would you briefly describe the primary value proposition for this solution?",
-                        maxLines: 1,
-                        validText: validPVP,
-                        myFocusNode: PVPFocusNode,
-                        myTextController: PVPTextController,
-                        textCollecter: PVP,
-                        helperText:
-                            'A value proposition helps the customer understand what value they acquire when they use your solution',
-                        labelcolour: PVPlabelColor,
-                      ),
-                      TextFieldWidget(
-                        labelText:
-                            "After the occurance of which event, would you suggest that the customer pain point is resolved?",
-                        maxLines: 1,
-                        validText: validEvent,
-                        myFocusNode: EventFocusNode,
-                        myTextController: EventTextController,
-                        textCollecter: Event,
-                        helperText: '',
-                        labelcolour: EventlabelColor,
-                      ),
-                      TextFieldWidget(
-                        labelText:
-                            "What are the traits of the early adopters who will be testing the solution concept?",
-                        maxLines: 1,
-                        validText: validTraits,
-                        myFocusNode: TraitsFocusNode,
-                        myTextController: TraitsTextController,
-                        textCollecter: Traits,
-                        helperText: '',
-                        labelcolour: TraitslabelColor,
-                      ),
-                      TextFieldWidget(
-                        labelText:
-                            "How would you plan to monetize the solution concept?",
-                        maxLines: 1,
-                        validText: validMonetize,
-                        myFocusNode: MonetizeFocusNode,
-                        myTextController: MonetizeTextController,
-                        textCollecter: Monetize,
-                        helperText:
-                            '*Determining this is at the current stage can help incorporate this strategy into the design at an early stage.',
-                        labelcolour: MonetizelabelColor,
-                      ),
-                      CheckboxListTile(
-                        title: Text(
-                          'This solution concept has disruptive qualities',
-                          style: TextStyle(
-                              color: checked
-                                  ? CheckTextActive
-                                  : CheckTextInActive),
-                        ),
-                        controlAffinity: ListTileControlAffinity.leading,
-                        value: checked,
-                        onChanged: (bool value) {
-                          setState(() {
-                            checked = value;
-                          });
-                        },
-                        activeColor: Color(0XFFE95420),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CancelButtton(
-                              OnTap: () {
-                                TopPickTextController.clear();
-                                PVPTextController.clear();
-                                TraitsTextController.clear();
-                                MonetizeTextController.clear();
-                                EventTextController.clear();
-                                checked = false;
-                                Navigator.pop(context);
-                              },
-                            ),
-                            SizedBox(
-                              width: 50,
-                            ),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      value: checked,
+                      onChanged: (bool value) {
+                        setState(() {
+                          checked = value;
+                        });
+                      },
+                      activeColor: Color(0XFFE95420),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CancelButtton(
+                            OnTap: () {
+                              TopPickTextController.clear();
+                              PVPTextController.clear();
+                              TraitsTextController.clear();
+                              MonetizeTextController.clear();
+                              EventTextController.clear();
+                              checked = false;
+                              Navigator.pop(context);
+                            },
+                          ),
+                          SizedBox(
+                            width: 50,
+                          ),
 //                            CompleteStepButton(
 //                              OnTap: (TopPickTextController.text == '' ||
 //                                      PVPTextController.text == '' ||
@@ -309,42 +308,41 @@ class _pickDetailsDialogueState extends State<pickDetailsDialogue> {
 //                                          context, '/BlitzInnovationFramework');
 //                                    },
 //                            ),
-                            GenericStepButtonBIF(
-                              buttonName: 'COMPLETE STEP',
+                          GenericStepButtonBIF(
+                            buttonName: 'COMPLETE STEP',
 //                                    routeName: '/addpainpoints',
-                              step: 2,
-                              stepBool: true,
-                              widget: (TopPickTextController.text == '' ||
-                                      PVPTextController.text == '' ||
-                                      EventTextController.text == '' ||
-                                      TraitsTextController.text == '' ||
-                                      MonetizeTextController.text == '')
-                                  ? () {
-                                      validator();
+                            step: 2,
+                            stepBool: true,
+                            widget: (TopPickTextController.text == '' ||
+                                    PVPTextController.text == '' ||
+                                    EventTextController.text == '' ||
+                                    TraitsTextController.text == '' ||
+                                    MonetizeTextController.text == '')
+                                ? () {
+                                    validator();
+                                  }
+                                : () {
+                                    (TopPickTextController.text != '' &&
+                                            PVPTextController.text != '' &&
+                                            EventTextController.text != '' &&
+                                            TraitsTextController.text != '' &&
+                                            MonetizeTextController.text != '')
+                                        ? Navigator.pushNamed(context,
+                                            '/BlitzInnovationFramework')
+                                        : {};
+                                    if (PickDetailsArray.length != 0) {
+                                      update();
+                                    } else {
+                                      add();
                                     }
-                                  : () {
-                                      (TopPickTextController.text != '' &&
-                                              PVPTextController.text != '' &&
-                                              EventTextController.text != '' &&
-                                              TraitsTextController.text != '' &&
-                                              MonetizeTextController.text != '')
-                                          ? Navigator.pushNamed(context,
-                                              '/BlitzInnovationFramework')
-                                          : {};
-                                      if (PickDetailsArray.length != 0) {
-                                        update();
-                                      } else {
-                                        add();
-                                      }
 //                                bcpData[2].CompletionValidator = true;
-                                    },
-                            ),
-                          ],
-                        ),
+                                  },
+                          ),
+                        ],
                       ),
-                    ],
-                  )),
-            ),
+                    ),
+                  ],
+                )),
           ),
         ));
   }

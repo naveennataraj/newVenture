@@ -55,90 +55,86 @@ class _addProductGoalsDialogueState extends State<addProductGoalsDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 300,
+//          height: 300,
           width: 800,
-          child: Center(
-            child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        "Add a Product Goal:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
+          child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Add a Product Goal:",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
-                    TextFieldWidget(
-                      labelText: "Add a product goal",
-                      maxLines: 1,
-                      validText: validProductGoal,
-                      myFocusNode: ProductGoalFocusNode,
-                      myTextController: ProductGoalTextController,
-                      textCollecter: ProductGoal,
-                      helperText:
-                          'Adding a product goal for a solution concept can help validate the product concept,\nafter it is used by the user',
-                      labelcolour: ProductGoallabelColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddProductGoalButton(
-                            onTap: (ProductGoalTextController.text == '')
-                                ? () {
-                                    validator();
-                                  }
-                                : () {
-                                    (ProductGoalTextController.text != '')
-                                        ? Navigator.pop(context)
-                                        : {};
-                                    setState(() {
-                                      if (index == null) {
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/SolutionFormulation/productGoal')
-                                            .add({
-                                          'goal':
-                                              ProductGoalTextController.text,
-                                          'Sender': currentUser,
-                                        });
-                                      } else {
-                                        _firestore
-                                            .collection(
-                                                '$currentUser/SolutionFormulation/productGoal')
-                                            .document(
-                                                AddingNewProductGoals[index].ID)
-                                            .updateData({
-                                          'goal':
-                                              ProductGoalTextController.text,
-                                          'Sender': currentUser,
-                                        });
-                                      }
-                                    });
-                                  },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
-                              ProductGoalTextController.clear();
+                  ),
+                  TextFieldWidget(
+                    labelText: "Add a product goal",
+                    maxLines: 1,
+                    validText: validProductGoal,
+                    myFocusNode: ProductGoalFocusNode,
+                    myTextController: ProductGoalTextController,
+                    textCollecter: ProductGoal,
+                    helperText:
+                        'Adding a product goal for a solution concept can help validate the product concept,\nafter it is used by the user',
+                    labelcolour: ProductGoallabelColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AddProductGoalButton(
+                          onTap: (ProductGoalTextController.text == '')
+                              ? () {
+                                  validator();
+                                }
+                              : () {
+                                  (ProductGoalTextController.text != '')
+                                      ? Navigator.pop(context)
+                                      : {};
+                                  setState(() {
+                                    if (index == null) {
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/SolutionFormulation/productGoal')
+                                          .add({
+                                        'goal': ProductGoalTextController.text,
+                                        'Sender': currentUser,
+                                      });
+                                    } else {
+                                      _firestore
+                                          .collection(
+                                              '$currentUser/SolutionFormulation/productGoal')
+                                          .document(
+                                              AddingNewProductGoals[index].ID)
+                                          .updateData({
+                                        'goal': ProductGoalTextController.text,
+                                        'Sender': currentUser,
+                                      });
+                                    }
+                                  });
+                                },
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        CancelButtton(
+                          OnTap: () {
+                            ProductGoalTextController.clear();
 
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ));
   }
 }
