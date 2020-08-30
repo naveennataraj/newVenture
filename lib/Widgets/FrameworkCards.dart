@@ -80,7 +80,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                 ),
                 (widget.stepCompleteValidator == null)
                     ? Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Spacer(),
                           Padding(
@@ -104,28 +104,29 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                           (widget.daysRemaining != null)
-                              ? Expanded(
+                              ? Padding(
+                                  padding: const EdgeInsets.only(left: 8),
                                   child: Row(
-                                  children: <Widget>[
-                                    Text(
-                                      widget.daysRemaining.toString(),
-                                      style: TextStyle(
-                                          color: Colors.orange, fontSize: 35),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        'Day(s) left review  fit',
+                                    children: <Widget>[
+                                      Text(
+                                        widget.daysRemaining.toString(),
+                                        style: TextStyle(
+                                            color: Colors.orange, fontSize: 35),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        'Day(s) left',
                                         style: TextStyle(color: Colors.orange),
                                       ),
-                                    ),
-                                  ],
-                                ))
-                              : Container(),
+                                    ],
+                                  ),
+                                )
+                              : Spacer(),
                           Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(right: 15.0),
@@ -149,7 +150,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                           ),
                           (widget.stepCompleteValidator == false)
                               ? Padding(
-                                  padding: const EdgeInsets.only(right: 20.0),
+                                  padding: const EdgeInsets.only(right: 15.0),
                                   child: Icon(
                                     Icons.access_time,
                                     color: Colors.orange,

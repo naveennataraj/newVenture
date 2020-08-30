@@ -74,7 +74,7 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 500,
+          height: 400,
           width: 800,
           child: Center(
             child: SingleChildScrollView(

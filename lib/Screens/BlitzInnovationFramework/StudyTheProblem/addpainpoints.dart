@@ -8,6 +8,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/addPai
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyTheProblem/painPointDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -51,9 +52,11 @@ class _AddPainPointsState extends State<AddPainPoints> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Wrap(children: [
-                  Breadcrumb(breads: breads, color: Color(0xFFE95420))
-                ],),
+                child: Wrap(
+                  children: [
+                    Breadcrumb(breads: breads, color: Color(0xFFE95420))
+                  ],
+                ),
               ),
               Center(
                 child: Padding(
@@ -260,12 +263,19 @@ class _AddPainPointsState extends State<AddPainPoints> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => painpointDialogue(),
-            ).then((_) => setState(() {}));
-          },
+          onPressed: (AddingNewPainPoint.length < 18)
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => painpointDialogue(),
+                  ).then((_) => setState(() {}));
+                }
+              : () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => MaximumCardsDialog(),
+                  ).then((_) => setState(() {}));
+                },
           child: Icon(Icons.add),
         ),
       ),

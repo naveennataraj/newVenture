@@ -8,7 +8,6 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/add
 import 'package:iventure001/Screens/ConceptDashBoard/solutionDashboard.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import 'conceptDashboardNavigationBloc.dart';
 import 'overViewDashboard.dart';
@@ -121,48 +120,45 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: feedbackspinner,
-      child: SubdivisionalDashBoardLayout(
-        sizedboxwidth:
-            (widget.sizedboxwidth != null) ? widget.sizedboxwidth : 100,
-        headingAlignment: (widget.headingAlignment != null)
-            ? widget.headingAlignment
-            : CrossAxisAlignment.center,
-        headingStyle: (widget.headingStyle != null)
-            ? widget.headingStyle
-            : topHeadingTextStyle,
-        sizedboxheight:
-            (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
-        dashboardTitle: 'When the customers interacted with our solution',
-        dashboardcards: <Widget>[
-          DashboardCards(
-            cardIcon: Icons.person,
-            cardTitle: 'The customer problem is resolved.',
-            cardNote: event,
-            onTap: () {},
-          ),
-          DashboardCards(
-            cardIcon: Icons.person,
-            cardTitle: 'How we intend to deliver the solution',
-            cardNote:
-                'We plan to distribute our product via: $medium, as our primary medium.',
-            cardButtonName: 'CHANGE DISTRIBUTION MEDIUM',
-            onTap: () {
-              Navigator.pushNamed(context, '/adddistributionmedium');
-            },
-          ),
-          DashboardCards(
-            cardIcon: Icons.attach_money,
-            cardTitle: 'Customer Quotes (on using the solution prototype)',
-            cardNote: content,
-            cardButtonName: 'VIEW MORE QUOTES',
-            onTap: () {
-              Navigator.pushNamed(context, '/addquotes');
-            },
-          ),
-        ],
-      ),
+    return SubdivisionalDashBoardLayout(
+      sizedboxwidth:
+          (widget.sizedboxwidth != null) ? widget.sizedboxwidth : 100,
+      headingAlignment: (widget.headingAlignment != null)
+          ? widget.headingAlignment
+          : CrossAxisAlignment.center,
+      headingStyle: (widget.headingStyle != null)
+          ? widget.headingStyle
+          : topHeadingTextStyle,
+      sizedboxheight:
+          (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
+      dashboardTitle: 'When the customers interacted with our solution',
+      dashboardcards: <Widget>[
+        DashboardCards(
+          cardIcon: Icons.person,
+          cardTitle: 'The customer problem is resolved.',
+          cardNote: event,
+          onTap: () {},
+        ),
+        DashboardCards(
+          cardIcon: Icons.person,
+          cardTitle: 'How we intend to deliver the solution',
+          cardNote:
+              'We plan to distribute our product via: $medium, as our primary medium.',
+          cardButtonName: 'CHANGE DISTRIBUTION MEDIUM',
+          onTap: () {
+            Navigator.pushNamed(context, '/adddistributionmedium');
+          },
+        ),
+        DashboardCards(
+          cardIcon: Icons.attach_money,
+          cardTitle: 'Customer Quotes (on using the solution prototype)',
+          cardNote: content,
+          cardButtonName: 'VIEW MORE QUOTES',
+          onTap: () {
+            Navigator.pushNamed(context, '/addquotes');
+          },
+        ),
+      ],
     );
   }
 }
