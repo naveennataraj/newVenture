@@ -42,6 +42,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
     setState(() {
       spinner = true;
     });
+
     final document = await _firestore
         .collection(currentUser)
         .document('stepValidationInnovationFramework')
@@ -119,7 +120,9 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   @override
   void initState() {
 //    getCurrentUser();
-    getDocuments();
+    if (currentUser != null) {
+      getDocuments();
+    }
 
     super.initState();
   }

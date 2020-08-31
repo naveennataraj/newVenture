@@ -85,7 +85,7 @@ class _VueappState extends State<Vueapp> {
         print('User is signed in!');
         getCurrentUser();
         setState(() {
-          LoggedUser = user.email;
+          currentUser = user.email;
         });
       }
     });
