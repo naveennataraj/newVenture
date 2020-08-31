@@ -118,8 +118,9 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
 
   @override
   void initState() {
+//    getCurrentUser();
     getDocuments();
-    setState(() {});
+
     super.initState();
   }
 

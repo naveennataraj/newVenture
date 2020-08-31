@@ -56,7 +56,7 @@ class _ourCustomerDialogueState extends State<ourCustomerDialogue> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   "Who are our customers?",

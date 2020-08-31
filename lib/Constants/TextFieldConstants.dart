@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 const TextFieldsDecoration = InputDecoration(
   labelText: 'Label Text goes Here',
@@ -17,9 +17,25 @@ const TextFieldsDecoration = InputDecoration(
     ),
   ),
 );
+final _auth = FirebaseAuth.instance;
+String currentUser;
 
-//String currentUser = 'Tester1@gmail.com';
-String currentUser = 'tester@gmail.com';
+FirebaseUser loggedInUser;
+void getCurrentUser() async {
+  try {
+    final user = await _auth.currentUser();
+    if (user != null) {
+      loggedInUser = user;
+
+      currentUser = loggedInUser.email;
+      print(currentUser);
+    } else {
+      print('No user');
+    }
+  } catch (e) {
+    print(e);
+  }
+}
 
 const topHeadingTextStyle = TextStyle(
   fontSize: 55,
@@ -59,6 +75,6 @@ const menuIntroBoldTextStyle = TextStyle(
 );
 
 const listTileSmall =
-TextStyle(fontSize: 12, fontFamily: 'OpenSans', color: Color(0xFF666666)
-  //fontWeight: FontWeight.bold
-);
+    TextStyle(fontSize: 12, fontFamily: 'OpenSans', color: Color(0xFF666666)
+        //fontWeight: FontWeight.bold
+        );

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
@@ -39,8 +40,10 @@ import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/add
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
+import 'package:iventure001/Screens/login.dart';
 import 'package:iventure001/bifdashboard.dart';
 
+import 'Constants/TextFieldConstants.dart';
 import 'Homepage.dart';
 import 'Screens/BlitzInnovationFramework/BIFHomeScreen.dart';
 import 'Screens/BlitzInnovationFramework/BlitzInnovationFramework.dart';
@@ -60,16 +63,44 @@ List<Bread> breads = [
 //  Bread(label: "Step 2- Studying the user", route: '/BCStep1AddDetails'),
 ];
 
-class Vueapp extends StatelessWidget {
+class Vueapp extends StatefulWidget {
+  @override
+  _VueappState createState() => _VueappState();
+}
+
+String LoggedUser;
+
+class _VueappState extends State<Vueapp> {
+  @override
+  void initState() {
+    getCurrentUserMain();
+    super.initState();
+  }
+
+  void getCurrentUserMain() async {
+    await FirebaseAuth.instance.onAuthStateChanged.listen((user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+        getCurrentUser();
+        setState(() {
+          LoggedUser = user.email;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: (currentUser == '') ? '/' : '/homepage',
 //      home: Homepage(),
       routes: {
         // Menu with 3 options
-        '/': (context) => Homepage(),
-
+        '/homepage': (context) => Homepage(),
+        //Login
+        '/': (context) => LoginScreen(),
         // BIF- BlitzInnovationFramework
         '/BIFHomeView': (context) => BIFHomeScreen(),
         '/BlitzInnovationFramework': (context) => BlitzInnovationFramework(),
