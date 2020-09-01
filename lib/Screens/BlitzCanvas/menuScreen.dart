@@ -8,6 +8,7 @@ import 'package:iventure001/Widgets/FrameworkCards.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 // BreadCrumb
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 String ID;
 
 class BCScreen extends StatefulWidget {
@@ -48,7 +49,9 @@ class _BCScreenState extends State<BCScreen> {
   @override
   void initState() {
     super.initState();
-    getDocuments();
+    if (currentUser != null) {
+      getDocuments();
+    }
 
   }
 
@@ -80,11 +83,11 @@ class _BCScreenState extends State<BCScreen> {
         bcStepsContent[9].bcCompletionValidator = firebaseStep9;
         ID = document.documentID;
 
-        setState(() {
-          print('I should update');
-        });
       } catch (e) {
         print(e);
+        setState(() {
+          //spinner = false;
+        });
       }
     }
   }
