@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/problemStudy.dart';
-import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -165,9 +164,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  GenericStepButtonBIF(
-                                    buttonName: 'LOGIN',
-                                    widget: () async {
+                                  RaisedButton(
+                                    elevation: 5,
+                                    hoverElevation: 10,
+                                    color: Color(0XFFE95420),
+                                    onPressed: () async {
                                       setState(() {
                                         spinner = true;
                                       });
@@ -220,13 +221,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ).then((_) => setState(() {}));
                                       }
                                     },
+                                    child: Text(
+                                      "LOG IN",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 50,
                                   ),
-                                  GenericStepButtonBIF(
-                                    buttonName: 'SIGN UP',
-                                    widget: () async {
+                                  RaisedButton(
+                                    elevation: 5,
+                                    hoverElevation: 10,
+                                    color: Color(0XFFE95420),
+                                    onPressed: () async {
                                       setState(() {
                                         spinner = true;
                                       });
@@ -277,6 +286,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ).then((_) => setState(() {}));
                                       }
                                     },
+                                    child: Text(
+                                      "SIGN UP",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
                                   ),
                                 ],
                               ),

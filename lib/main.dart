@@ -75,6 +75,7 @@ class _VueappState extends State<Vueapp> {
   void initState() {
     super.initState();
     getCurrentUserMain();
+    getFirebaseUser();
   }
 
   void getCurrentUserMain() async {
@@ -86,6 +87,22 @@ class _VueappState extends State<Vueapp> {
         getCurrentUser();
       }
     });
+  }
+
+  Future<FirebaseUser> getFirebaseUser() async {
+    FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
+    // Disable persistence on web platforms
+
+    if (firebaseUser == null) {
+      firebaseUser = await FirebaseAuth.instance.onAuthStateChanged.first;
+    }
+
+    setState(() {
+      currentUser = firebaseUser.email;
+      print("----friebase user --------- $currentUser");
+    });
+
+    return firebaseUser;
   }
 
   @override
