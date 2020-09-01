@@ -40,7 +40,6 @@ import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/add
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
-import 'package:iventure001/Screens/login.dart';
 import 'package:iventure001/bifdashboard.dart';
 
 import 'Constants/TextFieldConstants.dart';
@@ -51,6 +50,7 @@ import 'Screens/BlitzInnovationFramework/Metrics/AddMetrics.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/ProblemStudy.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
+import 'Screens/login.dart';
 
 void main() {
   runApp(Vueapp());
@@ -73,8 +73,8 @@ String LoggedUser;
 class _VueappState extends State<Vueapp> {
   @override
   void initState() {
-    getCurrentUserMain();
     super.initState();
+    getCurrentUserMain();
   }
 
   void getCurrentUserMain() async {
@@ -84,9 +84,6 @@ class _VueappState extends State<Vueapp> {
       } else {
         print('User is signed in!');
         getCurrentUser();
-        setState(() {
-          currentUser = user.email;
-        });
       }
     });
   }
@@ -98,10 +95,10 @@ class _VueappState extends State<Vueapp> {
 //      home: Homepage(),
       routes: {
         // Menu with 3 options
-        //'/homepage': (context) => Homepage(),
+        '/homepage': (context) => Homepage(),
         //Login
-        '/': (context) => Homepage(),
-        //'/': (context) => LoginScreen(),
+//        '/': (context) => Homepage(),
+        '/': (context) => LoginScreen(),
         // BIF- BlitzInnovationFramework
         '/BIFHomeView': (context) => BIFHomeScreen(),
         '/BlitzInnovationFramework': (context) => BlitzInnovationFramework(),

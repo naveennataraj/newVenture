@@ -120,6 +120,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   @override
   void initState() {
 //    getCurrentUser();
+    print(currentUser);
     if (currentUser != null) {
       getDocuments();
     }
@@ -275,6 +276,26 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
           ),
         ),
       ),
+      floatingActionButton: (firebaseStep0 == true &&
+              firebaseStep1 == true &&
+              firebaseStep2 == true &&
+              firebaseStep3 == true &&
+              firebaseStep4 == true &&
+              firebaseStep5 == true &&
+              firebaseStep6 == true &&
+              firebaseStep7 == true)
+          ? Container(
+              margin: EdgeInsets.all(100),
+              child: FloatingActionButton(
+                tooltip: "Proceeds To Concept Dashboard",
+                backgroundColor: Color(0XFFE95420),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/conceptDashboard');
+                },
+                child: Icon(Icons.dashboard),
+              ),
+            )
+          : Container(),
     );
   }
 }

@@ -103,7 +103,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
   @override
   void initState() {
 //    spinner = true;
-
+    print(currentUser);
     if (demoSelected == true) {
       TitleTextController =
           TextEditingController(text: DemoProblemStudyArray[0].title);

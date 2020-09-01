@@ -26,9 +26,7 @@ void getCurrentUser() async {
   try {
     final user = await _auth.currentUser();
     if (user != null) {
-      loggedInUser = user;
-
-      currentUser = loggedInUser.email;
+      currentUser = user.email;
       print(currentUser);
     } else {
       print('No user');
