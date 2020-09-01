@@ -11,6 +11,7 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Step1AddFoundation extends StatefulWidget {
   @override
@@ -27,6 +28,8 @@ List<Bread> breads = [
 class _Step1AddFoundationState extends State<Step1AddFoundation> {
   bool spinner = false;
   final _firestore = Firestore.instance;
+  List validatorList = [];
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -168,10 +171,39 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                                     width: 50,
                                   ),
                                   GenericStepButton(
-                                    buttonName: 'COMPLETE STEP 1',
-                                    routeName: '/BCHomeView',
-                                    step: 0,
-                                    stepBool: true,
+                                      buttonName: 'COMPLETE STEP 1',
+                                      //routeName: '/BCHomeView',
+                                      step: 0,
+                                      stepBool: true,
+                                      widget: () {
+                                        var count = foundationContent
+                                            .where(
+                                                (Goal) => Goal.title == 'Goal')
+                                            .toList()
+                                            .length;
+                                        (count < 2)
+                                            ? Alert(
+                                          context: context,
+                                          type: AlertType.error,
+                                          title: "Notification",
+                                          desc: "At least 2 goals are required before continuing to the next card.",
+                                          buttons: [
+                                            DialogButton(
+                                              child: Text(
+                                                "CONTINUE",
+                                                style: TextStyle(color: Colors.white, fontSize: 20),
+                                              ),
+                                              onPressed: () => Navigator.pop(context),
+                                              width: 120,
+                                              color: Color(
+                                                0XFFE95420,
+                                              ),
+                                            )
+                                          ],
+                                        ).show()
+                                            : Navigator.pushNamed(
+                                                context, '/BCHomeView');
+                                      },
                                   ),
                                 ],
                               ),
@@ -213,4 +245,5 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
       ),
     );
   }
+
 }

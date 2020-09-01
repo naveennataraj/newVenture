@@ -35,6 +35,19 @@ class _GoalDialogueState extends State<GoalDialogue> {
       goalTextController.clear();
     }
   }
+
+
+  validator() {
+    setState(() {
+      goalTextController.text.isEmpty
+          ? validGoal = false
+          : validGoal = true;
+    });
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -45,7 +58,7 @@ class _GoalDialogueState extends State<GoalDialogue> {
         width: 800,//MediaQuery.of(context).size.width * 0.4,
         child: Center(
           child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -70,13 +83,15 @@ class _GoalDialogueState extends State<GoalDialogue> {
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.all(25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AddProductGoalButton(
                           onTap: ()
                           {
+                          if (goalTextController.text != '') {
+
                             setState(() {
                               //setState(() {});
                               final newProductGoal = BcContentProductGoals(
@@ -108,7 +123,14 @@ class _GoalDialogueState extends State<GoalDialogue> {
 //                              Navigator.push(context, new MaterialPageRoute(builder: (context) => Step3GoalsTheSolution()),
 //                              )
 //                              .then((value) => setState(() {}),);
+
                             },);
+                          }
+                          else {
+                            validator();
+                          }
+
+
                           },
                         ),
                         SizedBox(

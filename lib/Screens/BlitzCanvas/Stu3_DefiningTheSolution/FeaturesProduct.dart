@@ -12,6 +12,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class BcProductFeature extends StatefulWidget {
   @override
@@ -214,9 +215,35 @@ class _BcProductFeatureState extends State<BcProductFeature> {
                                 ),
                                 GenericStepButton(
                                   buttonName: 'GO NEXT',
-                                  routeName: '/BCStep3WireFrameLink',
+                                  //routeName: '/BCStep3WireFrameLink',
                                   step: 2,
                                   stepBool: false,
+                                  widget: () {
+                                    var count = addingNewProductFeature
+                                        .length;
+                                    (count < 2)
+                                        ? Alert(
+                                      context: context,
+                                      type: AlertType.error,
+                                      title: "Notification",
+                                      desc: "At the least 2 Product features need to be added before proceeding next.",
+                                      buttons: [
+                                        DialogButton(
+                                          child: Text(
+                                            "CONTINUE",
+                                            style: TextStyle(color: Colors.white, fontSize: 20),
+                                          ),
+                                          onPressed: () => Navigator.pop(context),
+                                          width: 120,
+                                          color: Color(
+                                            0XFFE95420,
+                                          ),
+                                        )
+                                      ],
+                                    ).show()
+                                        : Navigator.pushNamed(
+                                        context, '/BCStep3WireFrameLink');
+                                  },
 //                          OnTap: () {
 //                            bcStepsContent[2].bcCompletionValidator = false;
 //                            Navigator.pushNamed(

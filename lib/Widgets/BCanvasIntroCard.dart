@@ -14,16 +14,17 @@ class BCanvasIntroCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.only(
-          left: (MediaQuery.of(context).size.width >= 1400)
-              ? 50
-              : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
-          right: (MediaQuery.of(context).size.width >= 1400)
-              ? 50
-              : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
-        ),
+        padding: const EdgeInsets.all(12.0),
+//        padding: EdgeInsets.only(
+//          left: (MediaQuery.of(context).size.width >= 1400)
+//              ? 30
+//              : (MediaQuery.of(context).size.width <= 750) ? 5 : 10,
+//          right: (MediaQuery.of(context).size.width >= 1400)
+//              ? 30
+//              : (MediaQuery.of(context).size.width <= 750) ? 5 : 30,
+//        ),
         child: Container(
-          height: (MediaQuery.of(context).size.width >= 1400) ?  300 : (MediaQuery.of(context).size.width <= 800) ? 400 :  (MediaQuery.of(context).size.width <= 800) ? 700 : 300,
+          height: (MediaQuery.of(context).size.width >= 1400) ?  150 : (MediaQuery.of(context).size.width <= 800) ? 200 :  (MediaQuery.of(context).size.width <= 800) ? 250 : 150,
         //300,
           width: (MediaQuery.of(context).size.width < 1400) ?  850 : MediaQuery.of(context).size.width * .50,
 //        height: MediaQuery.of(context).size.height * .40,
@@ -48,20 +49,20 @@ class BCanvasIntroCard extends StatelessWidget {
                   style: menuIntroTextStyle,
                   textAlign: TextAlign.center,
                 ),
-                Space20(),
-                Text(
-                  bcMenuContent.paragraph1,
-                  style: menuIntroTextStyle,
-                  textAlign: TextAlign.center,
-                ),
-                Space20(),
-                Text(
-                  bcMenuContent.paragraph2,
-                  style: menuIntroBoldTextStyle,
-                  textAlign: TextAlign.center,
-
-                ),
-                Space20(),
+                Space30(),
+//                Text(
+//                  bcMenuContent.paragraph1,
+//                  style: menuIntroTextStyle,
+//                  textAlign: TextAlign.center,
+//                ),
+//                Space20(),
+//                Text(
+//                  bcMenuContent.paragraph2,
+//                  style: menuIntroBoldTextStyle,
+//                  textAlign: TextAlign.center,
+//
+//                ),
+//                Space20(),
 
                RichText(
               text: new TextSpan(
@@ -69,9 +70,10 @@ class BCanvasIntroCard extends StatelessWidget {
                 children: <TextSpan>[
                   new TextSpan(text: "Please choose the",),
                   new TextSpan(text: " \"Let\'s get started\" ", style: new TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-                  new TextSpan(text: "button in step 1 to get started with the process.", ),
+                  new TextSpan(text: "button in card 1 to get started with the process.", ),
                 ],
               ),
+                 textAlign: TextAlign.center,
             ),
               ],
             ),

@@ -98,9 +98,10 @@ class _VueappState extends State<Vueapp> {
 //      home: Homepage(),
       routes: {
         // Menu with 3 options
-        '/homepage': (context) => Homepage(),
+        //'/homepage': (context) => Homepage(),
         //Login
-        '/': (context) => LoginScreen(),
+        '/': (context) => Homepage(),
+        //'/': (context) => LoginScreen(),
         // BIF- BlitzInnovationFramework
         '/BIFHomeView': (context) => BIFHomeScreen(),
         '/BlitzInnovationFramework': (context) => BlitzInnovationFramework(),

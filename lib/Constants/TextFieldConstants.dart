@@ -18,7 +18,8 @@ const TextFieldsDecoration = InputDecoration(
   ),
 );
 final _auth = FirebaseAuth.instance;
-String currentUser;
+//String currentUser;
+String currentUser = 'tester@gmail.com';
 
 FirebaseUser loggedInUser;
 void getCurrentUser() async {
@@ -49,9 +50,17 @@ const sideHeadingTextStyle = TextStyle(
 );
 const cardTitleTextStyle =
     TextStyle(fontSize: 20, fontFamily: 'Ubuntu', fontWeight: FontWeight.bold);
+const responsiveMediumCardTitleTextStyle =
+TextStyle(fontSize: 18.5, fontFamily: 'Ubuntu', fontWeight: FontWeight.bold);
+
 
 const cardBodyTextStyle = TextStyle(
   fontSize: 18,
+  fontFamily: 'OpenSans',
+  //fontWeight: FontWeight.bold
+);
+const responsiveSmallCardBodyTextStyle = TextStyle(
+  fontSize: 17,
   fontFamily: 'OpenSans',
   //fontWeight: FontWeight.bold
 );

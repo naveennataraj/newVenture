@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Constants/ResposiveLayout.dart';
 
 class FrameworkCards extends StatefulWidget {
   FrameworkCards(
@@ -56,7 +57,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                       Expanded(
                         child: Text(
                           widget.frameworkStep,
-                          style: cardTitleTextStyle,
+                          style: (ResponsiveLayout.isMediumScreen(context) ? responsiveMediumCardTitleTextStyle: cardTitleTextStyle ),
                           //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ),
@@ -70,7 +71,7 @@ class _FrameworkCardsState extends State<FrameworkCards> {
                 ),
                 Text(
                   widget.frameworkdescrip,
-                  style: cardBodyTextStyle,
+                  style: (ResponsiveLayout.isMediumScreen(context) ? responsiveSmallCardBodyTextStyle: cardBodyTextStyle ),
                   //TextStyle(fontSize: 18),
                 ),
                 Flexible(

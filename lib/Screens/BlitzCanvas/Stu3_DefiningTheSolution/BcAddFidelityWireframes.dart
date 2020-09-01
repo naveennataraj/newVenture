@@ -12,6 +12,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class BcAddWireframeLink extends StatefulWidget {
   @override
@@ -77,6 +78,15 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
     }
     setState(() {
       spinner = false;
+    });
+  }
+
+
+  validator() {
+    setState(() {
+      WireFrameLinkTextController.text.isEmpty
+          ? validWireFrameLink = false
+          : validWireFrameLink = true;
     });
   }
 
@@ -162,10 +172,22 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
                                 ),
                                 GenericStepButton(
                                     buttonName: 'COMPLETE STEP 3',
-                                    routeName: '/BCHomeView',
+                                    //routeName: '/BCHomeView',
                                     step: 2,
                                     stepBool: true,
-                                    widget:  futureValue
+                                    widget:  (WireFrameLinkTextController.text == '')
+                                        ? () {
+                                      validator();
+                                    }
+                                        : () {
+                                      (WireFrameLinkTextController.text != '') ? Navigator.pushNamed(context, '/BCHomeView'): {};
+
+                                      if (linkWireframe != WireFrameLinkTextController.text) {
+                                        _firestore.setData({'wireFrameLink': WireFrameLinkTextController.text,
+                                        });
+                                      }
+
+                                    }
 
 //                          OnTap: () {
 //                            if (linkWireframe !=
@@ -206,12 +228,7 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
     );
   }
 
-  void futureValue() {
-    if (linkWireframe != WireFrameLinkTextController.text) {
-      _firestore.setData({'wireFrameLink': WireFrameLinkTextController.text,
-                              });
-                            }
-  }
+
 
 }
 

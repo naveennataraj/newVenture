@@ -32,6 +32,8 @@ class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
       .document('Bc4_uniqueSellingProposition');
   bool spinner = false;
 
+
+
   String fireTouchData;
   String fireCapitalizeData;
   String fireGrowthData;

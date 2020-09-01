@@ -39,6 +39,16 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
   final userProfileFocusNode = new FocusNode();
   String userProfileText;
 
+
+  validator() {
+    setState(() {
+      userProfileTextController.text.isEmpty
+          ? validUserProfile = false
+          : validUserProfile = true;
+    });
+  }
+
+
   void initState() {
     super.initState();
     (userProfileData == null)? getDocuments() : print ('data exists') ;
@@ -58,6 +68,10 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
       } catch (e) {
         print('Bc2_studyingTheUser error of init state $e');
       }
+    } else{
+      _firestore.collection(currentUser).document('Bc2_studyingTheUser').setData(
+          {}
+      );
     }
 
     setState(() {
@@ -138,10 +152,27 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                                 ),
                                 GenericStepButton(
                                   buttonName: 'GO NEXT',
-                                  routeName: '/BCStep2CaptureUserStories',
+                                  //routeName: '/BCStep2CaptureUserStories',
                                   step: 1,
                                   stepBool: false,
-                                  widget: onTap,
+                                  widget: () {
+
+                                    (userProfileTextController.text == '')
+                                        ?
+                                      validator()
+                                        :
+                                      (userProfileTextController.text != '') ? Navigator.pushNamed(context, '/BCStep2CaptureUserStories'): print('');
+
+                                      if (userProfileData != userProfileTextController.text ) {
+                                        _firestore.setData({
+                                          'userProfile': userProfileTextController.text,
+                                          'Sender': currentUser,
+                                        });
+                                      }
+                                      userProfileData = userProfileTextController.text;
+
+                                    }
+
 
 //                          OnTap: () {
 //                             if (userProfileData != userProfileTextController.text ) {
@@ -182,14 +213,14 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
     );
   }
 
-  void onTap() {
-    if (userProfileData != userProfileTextController.text ) {
-      _firestore.setData({
-        'userProfile': userProfileTextController.text,
-        'Sender': currentUser,
-      });
-    }
-    userProfileData = userProfileTextController.text;
-  }
+//  void onTap() {
+//    if (userProfileData != userProfileTextController.text ) {
+//      _firestore.setData({
+//        'userProfile': userProfileTextController.text,
+//        'Sender': currentUser,
+//      });
+//    }
+//    userProfileData = userProfileTextController.text;
+//  }
 
 }

@@ -19,7 +19,7 @@ class BcStep1CollectionAspects extends StatefulWidget {
       _BcStep1CollectionAspectsState();
 }
 
-String ID;
+
 
 List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
@@ -28,15 +28,17 @@ List<Bread> breads = [
 ];
 
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
+  String ID;
+
   var missionLabelColor = Color(0XFF919191);
   bool validMission = true;
-  final missionTextController = TextEditingController();
+  var missionTextController = TextEditingController();
   final missionFocusNode = new FocusNode();
   String missionText;
 
   var visionLabelColor = Color(0XFF919191);
   bool validVision = true;
-  final visionTextController = TextEditingController();
+  var visionTextController = TextEditingController();
   final visionFocusNode = new FocusNode();
   String visionText;
 
@@ -79,32 +81,42 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
     final document = await _firestore.get();
 
     if (document.exists) {
-      try {
-        setState(() {
-          spinner = false;
-          missionText = document.data['mission'];
-          visionText = document.data['vision'];
-          fireMissionData = document.data['mission'];
-          fireVisionData = document.data['vision'];
-          ID = document.documentID;
-          missionTextController.text = missionText;
-          visionTextController.text = visionText;
+
+
+      missionText = document.data['mission'];
+      visionText = document.data['vision'];
+      fireMissionData = document.data['mission'];
+      fireVisionData = document.data['vision'];
+      ID = document.documentID;
+      missionTextController.text = missionText;
+      visionTextController.text = visionText;
+
+      final fields = ContentBcStep1CollectionFoundation(
+          descriptionMission: missionText,
+          descriptionVision: visionText,
+          ID: ID);
+      collectionBcStep1Content.insert(0, fields);
+
+      setState(() {
+        spinner = false;
+        if (collectionBcStep1Content.length != 0) {
+          missionTextController =
+              TextEditingController(text: collectionBcStep1Content[0].descriptionMission);
+          visionTextController =
+              TextEditingController(text: collectionBcStep1Content[0].descriptionVision);
+//          ImportanceTextController =
+//              TextEditingController(text: ProblemStudyArray[0].importance);
+        }
 
         });
-      } catch (e) {
-        print(e);
-      }
+
     } else{
       _firestore.collection(currentUser).document('Bc1_buildTheFoundation').setData(
           {}
       );
     }
 
-    final fields = ContentBcStep1CollectionFoundation(
-        descriptionMission: missionText,
-        descriptionVision: visionText,
-        ID: ID);
-    collectionBcStep1Content.insert(0, fields);
+
   }
 
 
@@ -197,6 +209,7 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                                     width: 50,
                                   ),
                                   GenericStepButton(
+
                                       buttonName: 'GO NEXT',
                                       //pageValidation: (missionTextController.text == '') ? true : false,
                                       step: 0,
@@ -208,7 +221,7 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                                         validator();
                                       }
                                           : () {
-                                        (missionTextController.text != '' || visionTextController.text != '') ? Navigator.pushNamed(context, '/BCStep1AddDetails'): print('works');
+                                        (missionTextController.text != '' && visionTextController.text != '') ? Navigator.pushNamed(context, '/BCStep1AddDetails'): print('works');
 
                                         if (fireMissionData != missionTextController.text ||
                                             fireVisionData != visionTextController.text) {

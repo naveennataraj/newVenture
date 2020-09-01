@@ -235,7 +235,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                       : (MediaQuery.of(context).size.width <= 750) ? 5 : 10,
                   right: (MediaQuery.of(context).size.width >= 1400)
                       ? 30
-                      : (MediaQuery.of(context).size.width <= 750) ? 5 : 10,
+                      : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
                 ),
                 child: GridView.builder(
                   shrinkWrap: true,
