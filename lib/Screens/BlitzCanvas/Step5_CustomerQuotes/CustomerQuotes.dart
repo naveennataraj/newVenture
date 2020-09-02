@@ -12,6 +12,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iventure001/Widgets/ValidationDialogue.dart';
 
 
 class BcStep5CustomerQuotes extends StatefulWidget {
@@ -206,9 +207,21 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                                 ),
                                 GenericStepButton(
                                   buttonName: 'COMPLETE STEP 5',
-                                  routeName: '/BCHomeView',
+                                  //routeName: '/BCHomeView',
                                   step: 4,
                                   stepBool: true,
+                                  widget: () {
+                                    var count = addingNewQuote
+                                        .length;
+                                    (count < 3)
+                                        ? showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          ValidationDialogue(contentDescription: 'At the least 3 Customer quotes need to be added before proceeding next.',),
+                                    )
+                                        : Navigator.pushNamed(
+                                        context, '/BCHomeView');
+                                  },
 //                        OnTap: () {
 //                          bcStepsContent[4].bcCompletionValidator = true;
 //                          Navigator.pushNamed(

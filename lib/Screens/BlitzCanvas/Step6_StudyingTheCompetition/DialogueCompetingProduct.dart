@@ -17,34 +17,63 @@ class BcCompetingProductDialogue extends StatefulWidget {
 }
 
 
-var ProductNamelabelColor = Color(0XFF919191);
-bool validPProductName = true;
-var ProductNameTextController = TextEditingController();
-final ProductNameFocusNode = new FocusNode();
-String ProductName;
-
-var OrgNamelabelColor = Color(0XFF919191);
-bool validOrgName = true;
-var OrgNameTextController = TextEditingController();
-final OrgNameFocusNode = new FocusNode();
-String OrgName;
-
-var CompetingOfferinglabelColor = Color(0XFF919191);
-bool validCompetingOffering = true;
-var CompetingOfferingTextController = TextEditingController();
-final CompetingOfferingFocusNode = new FocusNode();
-String CompetingOffering;
-
-var SolutionOfferinglabelColor = Color(0XFF919191);
-bool validSolutionOffering = true;
-var SolutionOfferingTextController = TextEditingController();
-final SolutionOfferingFocusNode = new FocusNode();
-String SolutionOffering;
-
 class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue> {
   final _firestore = Firestore.instance;
   int index;
   _BcCompetingProductDialogueState(this.index);
+
+  var ProductNamelabelColor = Color(0XFF919191);
+  bool validPProductName = true;
+  var ProductNameTextController = TextEditingController();
+  final ProductNameFocusNode = new FocusNode();
+  String ProductName;
+
+  var OrgNamelabelColor = Color(0XFF919191);
+  bool validOrgName = true;
+  var OrgNameTextController = TextEditingController();
+  final OrgNameFocusNode = new FocusNode();
+  String OrgName;
+
+  var CompetingOfferinglabelColor = Color(0XFF919191);
+  bool validCompetingOffering = true;
+  var CompetingOfferingTextController = TextEditingController();
+  final CompetingOfferingFocusNode = new FocusNode();
+  String CompetingOffering;
+
+  var SolutionOfferinglabelColor = Color(0XFF919191);
+  bool validSolutionOffering = true;
+  var SolutionOfferingTextController = TextEditingController();
+  final SolutionOfferingFocusNode = new FocusNode();
+  String SolutionOffering;
+
+  validator() {
+    setState(() {
+      ProductNameTextController.text.isEmpty
+          ? validPProductName = false
+          : validPProductName = true;
+      ProductNameTextController.text.isEmpty
+          ? ProductNamelabelColor = Color(0xFFF53E70)
+          : ProductNamelabelColor = Color(0xFF919191);
+      OrgNameTextController.text.isEmpty
+          ? validOrgName = false
+          : validOrgName = true;
+      OrgNameTextController.text.isEmpty
+          ? OrgNamelabelColor = Color(0xFFF53E70)
+          : OrgNamelabelColor = Color(0xFF919191);
+      CompetingOfferingTextController.text.isEmpty
+          ? validCompetingOffering = false
+          : validCompetingOffering = true;
+      CompetingOfferingTextController.text.isEmpty
+          ? CompetingOfferinglabelColor = Color(0xFFF53E70)
+          : CompetingOfferinglabelColor = Color(0xFF919191);
+      SolutionOfferingTextController.text.isEmpty
+          ? validSolutionOffering = false
+          : validSolutionOffering = true;
+      SolutionOfferingTextController.text.isEmpty
+          ? SolutionOfferinglabelColor = Color(0xFFF53E70)
+          : SolutionOfferinglabelColor = Color(0xFF919191);
+    });
+  }
 
   @override
   void initState() {
@@ -58,6 +87,11 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
           text: AddingNewCompetingProduct[index].Features);
       SolutionOfferingTextController = TextEditingController(
           text: AddingNewCompetingProduct[index].CurrentOffering);
+    } else {
+      ProductNameTextController.clear();
+      OrgNameTextController.clear();
+      CompetingOfferingTextController.clear();
+      SolutionOfferingTextController.clear();
     }
   }
   @override
@@ -66,11 +100,10 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 600, // MediaQuery.of(context).size.height * 0.70,
+          //height: 600, // MediaQuery.of(context).size.height * 0.70,
           width: 800, //MediaQuery.of(context).size.width * 0.5,
           child: SingleChildScrollView(
-              padding:
-              const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,52 +171,60 @@ class _BcCompetingProductDialogueState extends State<BcCompetingProductDialogue>
                         AddGenericButton(
                           buttonName:  'Add  Competing Product' ,
                           onTap: () {
-                            Navigator.popAndPushNamed(context, '/addproductgoals');
-                            setState(() {
-                              final NewComponentProduct = BcCompetingProduct(
-                                  ProductName: ProductNameTextController.text,
-                                  OrgName: OrgNameTextController.text,
-                                  Features:
-                                  CompetingOfferingTextController.text,
-                                  CurrentOffering:
-                                  SolutionOfferingTextController.text);
 
-                              if (index == null) {
-                                AddingNewCompetingProduct.add(
-                                    NewComponentProduct);
-                                _firestore.collection('$currentUser/Bc6_studyingTheCompetition/addPlayers').add({
-                                  'ProductName': ProductNameTextController.text,
-                                  'OrgName': OrgNameTextController.text,
-                                  'Features': CompetingOfferingTextController.text,
-                                  'CurrentOffering': SolutionOfferingTextController.text,
-                                  'Sender': currentUser,
-                                });
+                            if (ProductNameTextController.text != '' &&
+                                OrgNameTextController.text != '' &&
+                                CompetingOfferingTextController
+                                    .text !=
+                                    '' &&
+                                SolutionOfferingTextController.text !=
+                                    '') {
+                              Navigator.pop(context);
+                              setState(() {
+                                final NewComponentProduct = BcCompetingProduct(
+                                    ProductName: ProductNameTextController.text,
+                                    OrgName: OrgNameTextController.text,
+                                    Features:
+                                    CompetingOfferingTextController.text,
+                                    CurrentOffering:
+                                    SolutionOfferingTextController.text);
+
+                                if (index == null) {
+                                  AddingNewCompetingProduct.add(
+                                      NewComponentProduct);
+                                  _firestore.collection('$currentUser/Bc6_studyingTheCompetition/addPlayers').add({
+                                    'ProductName': ProductNameTextController.text,
+                                    'OrgName': OrgNameTextController.text,
+                                    'Features': CompetingOfferingTextController.text,
+                                    'CurrentOffering': SolutionOfferingTextController.text,
+                                    'Sender': currentUser,
+                                  });
 
 
-                              } else {
+                                } else {
 //                                  AddingNewCompetingProduct.removeAt(index);
 //                                  AddingNewCompetingProduct.insert(
 //                                      index, NewComponentProduct);
-                                _firestore
-                                    .collection('$currentUser/Bc6_studyingTheCompetition/addPlayers')
-                                    .document(AddingNewCompetingProduct[index].ID)
-                                    .updateData({
-                                  'ProductName': ProductNameTextController.text,
-                                  'OrgName': OrgNameTextController.text,
-                                  'Features': CompetingOfferingTextController.text,
-                                  'CurrentOffering': SolutionOfferingTextController.text,
-                                  'Sender': currentUser,
-                                },);
-                              }
+                                  _firestore
+                                      .collection('$currentUser/Bc6_studyingTheCompetition/addPlayers')
+                                      .document(AddingNewCompetingProduct[index].ID)
+                                      .updateData({
+                                    'ProductName': ProductNameTextController.text,
+                                    'OrgName': OrgNameTextController.text,
+                                    'Features': CompetingOfferingTextController.text,
+                                    'CurrentOffering': SolutionOfferingTextController.text,
+                                    'Sender': currentUser,
+                                  },);
+                                }
 
-                              ProductNameTextController.clear();
-                              OrgNameTextController.clear();
-                              CompetingOfferingTextController.clear();
-                              SolutionOfferingTextController.clear();
 
-                              Navigator.pop(context);
+                                //Navigator.pop(context);
 
-                            },);
+                              },);
+                            } else{
+                              validator();
+                            }
+
                           },
                         ),
                         SizedBox(

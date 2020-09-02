@@ -60,6 +60,11 @@ class _Step3BCProductFeatureDialogueState
           text: addingNewProductFeature[index].FeatureDescription);
       checked = addingNewProductFeature[index].FeatureChecked;
       clickedRadio = addingNewProductFeature[index].FeatureType;
+    } else {
+      ProductFeatureTextController.clear();
+      FeatureDescriptionTextController.clear();
+      checked = false;
+      clickedRadio = 0;
     }
   }
 

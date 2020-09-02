@@ -12,7 +12,6 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class BcAddWireframeLink extends StatefulWidget {
   @override
@@ -87,6 +86,9 @@ class _BcAddWireframeLinkState extends State<BcAddWireframeLink> {
       WireFrameLinkTextController.text.isEmpty
           ? validWireFrameLink = false
           : validWireFrameLink = true;
+      WireFrameLinkTextController.text.isEmpty
+          ? WireFrameLinklabelColor = Color(0xFFF53E70)
+          : WireFrameLinklabelColor = Color(0xFF919191);
     });
   }
 

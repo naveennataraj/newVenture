@@ -39,7 +39,7 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
 
   void initState() {
     super.initState();
-    (propositionFirebaseData  == null)? getDocuments() : print ('data exists') ;
+    (propositionFirebaseData  == null)? getDocuments() : {} ;
   }
 
   void getDocuments() async {
@@ -62,8 +62,24 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
           ID: ID);
 
       sellingPropositionArray.insert(0,fields);
+    }else{
+      _firestore.collection(currentUser).document('Bc4_uniqueSellingProposition').setData(
+          {}
+      );
     }
   }
+
+  validator() {
+    setState(() {
+      propositionTextController.text.isEmpty
+          ? validProposition = false
+          : validProposition = true;
+      propositionTextController.text.isEmpty
+          ? propositionLabelColor = Color(0xFFF53E70)
+          : propositionLabelColor = Color(0xFF919191);
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -139,10 +155,35 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
                                   ),
                                   GenericStepButton(
                                     buttonName: 'GO NEXT',
-                                    routeName: '/BCStep4ConsumerTouchPoints',
+                                    //routeName: '/BCStep4ConsumerTouchPoints',
                                     step: 3,
                                     stepBool: false,
-                                    widget: onTap,
+                                    widget: (propositionTextController.text == '')
+                                        ? () {
+                                      validator();
+                                    }
+                                        : () {
+                                      (propositionTextController.text != '') ? Navigator.pushNamed(context, '/BCStep4ConsumerTouchPoints'): {};
+
+                                      if(sellingPropositionArray.length != 0) {
+                                        _firestore
+                                            .updateData({
+                                          'proposition': propositionTextController.text,
+                                        });
+                                      } else {
+                                        if (propositionFirebaseData != propositionTextController.text ) {
+                                          _firestore.setData({
+                                            'proposition': propositionTextController.text,
+                                            'keyTouchText': 'fg',
+                                            'capitalizeText': 'fg',
+                                            'growthText': 'fg',
+                                            'Sender': currentUser,
+                                          });
+                                        }
+                                      }
+                                      propositionFirebaseData = propositionTextController.text;
+
+                                    }
 
                                   ),
                                 ],
@@ -172,25 +213,6 @@ class _UniqueSellingPropositionState extends State<UniqueSellingProposition> {
     );
   }
 
-  void onTap() {
-    if(sellingPropositionArray.length != 0) {
-      _firestore
-          .updateData({
-        'proposition': propositionTextController.text,
-      });
-    } else {
-      if (propositionFirebaseData != propositionTextController.text ) {
-        _firestore.setData({
-          'proposition': propositionTextController.text,
-          'keyTouchText': '',
-          'capitalizeText': '',
-          'growthText': '',
-          'Sender': currentUser,
-        });
-      }
-    }
-    propositionFirebaseData = propositionTextController.text;
-  }
 
 }
 

@@ -11,7 +11,7 @@ import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:iventure001/Widgets/ValidationDialogue.dart';
 
 class Step1AddFoundation extends StatefulWidget {
   @override
@@ -182,25 +182,12 @@ class _Step1AddFoundationState extends State<Step1AddFoundation> {
                                             .toList()
                                             .length;
                                         (count < 2)
-                                            ? Alert(
+                                            ?
+                                        showDialog(
                                           context: context,
-                                          type: AlertType.error,
-                                          title: "Notification",
-                                          desc: "At least 2 goals are required before continuing to the next card.",
-                                          buttons: [
-                                            DialogButton(
-                                              child: Text(
-                                                "CONTINUE",
-                                                style: TextStyle(color: Colors.white, fontSize: 20),
-                                              ),
-                                              onPressed: () => Navigator.pop(context),
-                                              width: 120,
-                                              color: Color(
-                                                0XFFE95420,
-                                              ),
-                                            )
-                                          ],
-                                        ).show()
+                                          builder: (BuildContext context) =>
+                                              ValidationDialogue(contentDescription: 'At least 2 goals are required before continuing to the next card.',),
+                                        )
                                             : Navigator.pushNamed(
                                                 context, '/BCHomeView');
                                       },

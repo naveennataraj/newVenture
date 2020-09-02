@@ -25,6 +25,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
   var radio1Focus = new FocusNode();
   var radio2Focus = new FocusNode();
   var radio3Focus = new FocusNode();
+  var radioButtonBorderColor = Color(0xFFABABAB);
 
   var foundationDescriptionLabelColor = Color(0XFF919191);
   bool validFoundation = true;
@@ -69,10 +70,17 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
       foundationTextController.text.isEmpty
           ? validFoundation = false
           : validFoundation = true;
+      foundationTextController.text.isEmpty
+          ? foundationDescriptionLabelColor = Color(0xFFF53E70)
+          : foundationDescriptionLabelColor = Color(0xFF919191);
 
-      (!radio1Focus.hasFocus && !radio2Focus.hasFocus && !radio3Focus.hasFocus)
-          ? radio2Focus.requestFocus()
-          : Border.all(width: 1, color: Color(0xFFF53E70));
+      (clickedRadio == null)
+          ? radioButtonBorderColor = Color(0xFFF53E70)
+          : radioButtonBorderColor = Color(0xFFE95420);
+
+//      (!radio1Focus.hasFocus && !radio2Focus.hasFocus && !radio3Focus.hasFocus)
+//          ? radio2Focus.requestFocus()
+//          : Border.all(width: 1, color: Color(0xFFF53E70));
 //      clickedRadio = 0
 //          ? activeColor = Color(0xFFF53E70)
 //          : activeColor = Color(0xFF919191);
@@ -91,10 +99,10 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
-        height: (!ResponsiveLayout.isSmallScreen(context) ? 400 : 500),
+        //height: (!ResponsiveLayout.isSmallScreen(context) ? 400 : 500),
         width: 800,
         child: SingleChildScrollView(
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +124,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                               radio2Focus.hasFocus ||
                               radio3Focus.hasFocus)
                           ? Border.all(width: 1.2, color: Color(0XFFE95420))
-                          : Border.all(width: 1, color: Color(0XFFABABAB)),
+                          : Border.all(width: 1.2, color: radioButtonBorderColor),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -335,10 +343,6 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                                   'Sender': currentUser,
                                 });
                               }
-                              foundationTextController.clear();
-                              clickedRadio = 0;
-                              clickRadioName = '';
-                              Navigator.pop(context);
                             });
                           } else {
                             validator();

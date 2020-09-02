@@ -62,7 +62,7 @@ class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
             fireCapitalizeData == null ||
             fireGrowthData == null)
         ? getDocuments()
-        : print('data exists');
+        : {};
   }
 
   void getDocuments() async {
@@ -95,6 +95,29 @@ class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
     }
     setState(() {
       spinner = false;
+    });
+  }
+
+  validator() {
+    setState(() {
+      keyTouchTextController.text.isEmpty
+          ? validKeyTitle = false
+          : validKeyTitle = true;
+      keyTouchTextController.text.isEmpty
+          ? keyTouchLabelColor = Color(0xFFF53E70)
+          : keyTouchLabelColor = Color(0xFF919191);
+      capitalizeTextController.text.isEmpty
+          ? validCapitalize = false
+          : validCapitalize = true;
+      capitalizeTextController.text.isEmpty
+          ? capitalizeLabelColor = Color(0xFFF53E70)
+          : capitalizeLabelColor = Color(0xFF919191);
+      growthTextController.text.isEmpty
+          ? validGrowth = false
+          : validGrowth = true;
+      growthTextController.text.isEmpty
+          ? growthLabelColor = Color(0xFFF53E70)
+          : growthLabelColor = Color(0xFF919191);
     });
   }
 
@@ -193,10 +216,29 @@ class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
                                   ),
                                   GenericStepButton(
                                       buttonName: 'COMPLETE STEP 4',
-                                      routeName: '/BCHomeView',
+                                      //routeName: '/BCHomeView',
                                       step: 3,
                                       stepBool: true,
-                                      widget:  futureValue
+                                      widget:  (keyTouchTextController.text == '' || capitalizeTextController.text == '' || growthTextController.text == '' )
+                                          ? () {
+                                        validator();
+                                      }
+                                          : () {
+                                        ( keyTouchTextController.text != '' && capitalizeTextController.text != '' &&  growthTextController.text != '') ? Navigator.pushNamed(context, '/BCHomeView'): {};
+
+                                        if (fireTouchData != keyTouchTextController.text ||
+                                            fireCapitalizeData !=
+                                                capitalizeTextController.text ||
+                                            fireGrowthData != growthTextController.text) {
+                                          _firestore.updateData({
+                                            'keyTouchText': keyTouchTextController.text,
+                                            'capitalizeText': capitalizeTextController.text,
+                                            'growthText': growthTextController.text,
+                                            'Sender': currentUser,
+                                          },);
+                                        }
+
+                                      }
 
 
                                   ),
@@ -225,19 +267,5 @@ class _BcConsumerTouchPointsState extends State<BcConsumerTouchPoints> {
         ),
       ),
     );
-  }
-
-  void futureValue() {
-    if (fireTouchData != keyTouchTextController.text ||
-        fireCapitalizeData !=
-            capitalizeTextController.text ||
-        fireGrowthData != growthTextController.text) {
-      _firestore.updateData({
-        'keyTouchText': keyTouchTextController.text,
-        'capitalizeText': capitalizeTextController.text,
-        'growthText': growthTextController.text,
-        'Sender': currentUser,
-      },);
-    }
   }
 }

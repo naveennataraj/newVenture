@@ -12,6 +12,7 @@ import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iventure001/Widgets/ValidationDialogue.dart';
 
 class BcStep6CompetingProducts extends StatefulWidget {
   @override
@@ -210,9 +211,21 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                                   ),
                                   GenericStepButton(
                                     buttonName: 'COMPLETE STEP 6',
-                                    routeName: '/BCHomeView',
+                                    //routeName: '/BCHomeView',
                                     step: 5,
                                     stepBool: true,
+                                    widget: () {
+                                      var count = AddingNewCompetingProduct
+                                          .length;
+                                      (count < 1)
+                                          ? showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            ValidationDialogue(contentDescription: 'At the least 1 Competing player needs to be added before proceeding next.',),
+                                      )
+                                          : Navigator.pushNamed(
+                                          context, '/BCHomeView');
+                                    },
 //                          OnTap: () {
 //                            bcStepsContent[5].bcCompletionValidator = true;
 //                            Navigator.pushNamed(context, '/BCHomeView');
