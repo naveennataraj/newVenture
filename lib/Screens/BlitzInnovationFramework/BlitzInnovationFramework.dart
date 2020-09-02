@@ -124,6 +124,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
     if (currentUser != null) {
       getDocuments();
     }
+    spinner = false;
 
     super.initState();
   }
