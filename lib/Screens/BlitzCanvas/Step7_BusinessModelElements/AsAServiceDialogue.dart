@@ -67,10 +67,61 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
           text: addingAsaService[index].serviceTaskDescription);
       selectedServiceTypeName = addingAsaService[widget.index].serviceType;
       selectedServiceUsagePercentage = addingAsaService[widget.index].servicePercentage;
-
+    } else {
+      serviceTextController.clear();
+      descriptionTextController.clear();
+      parentCompanyTextController.clear();
+      taskTextController.clear();
+      selectedServiceTypeName = null;
+      selectedServiceUsagePercentage = null;
     }
-
   }
+  var dropBorderColor = Color(0xFFABABAB);
+  var usageDropBorderColor = Color(0xFFABABAB);
+  var dropValuerColor = Color(0xFFE95420);
+
+  validator() {
+    setState(() {
+      serviceTextController.text.isEmpty
+          ? validService = false
+          : validService = true;
+      serviceTextController.text.isEmpty
+          ? serviceLabelColor = Color(0xFFF53E70)
+          : serviceLabelColor = Color(0xFF919191);
+      descriptionTextController.text.isEmpty
+          ? validDescription = false
+          : validDescription  = true;
+      descriptionTextController.text.isEmpty
+          ? descriptionLabelColor = Color(0xFFF53E70)
+          : descriptionLabelColor = Color(0xFF919191);
+      parentCompanyTextController.text.isEmpty
+          ? validParentCompany = false
+          : validParentCompany = true;
+      parentCompanyTextController.text.isEmpty
+          ? parentCompanyLabelColor = Color(0xFFF53E70)
+          : parentCompanyLabelColor = Color(0xFF919191);
+      taskTextController.text.isEmpty
+          ? validTask = false
+          : validTask = true;
+      taskTextController.text.isEmpty
+          ? taskLabelColor = Color(0xFFF53E70)
+          : taskLabelColor = Color(0xFF919191);
+      (selectedServiceTypeName == null)
+          ? dropBorderColor = Color(0xFFF53E70)
+          : dropBorderColor = Color(0xFFABABAB);
+      (selectedServiceTypeName == null)
+          ? dropValuerColor = Color(0xFFF53E70)
+          : dropValuerColor = Color(0xFFE95420);
+      (selectedServiceUsagePercentage == null)
+          ? usageDropBorderColor = Color(0xFFF53E70)
+          : usageDropBorderColor = Color(0xFFABABAB);
+      (selectedServiceUsagePercentage == null)
+          ? dropValuerColor = Color(0xFFF53E70)
+          : dropValuerColor = Color(0xFFE95420);
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,13 +129,12 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 900, // MediaQuery.of(context).size.height * 0.93,
+          //height: 900, // MediaQuery.of(context).size.height * 0.93,
           width: 800, //MediaQuery.of(context).size.width * 0.5,
           child: SingleChildScrollView(
-              padding:
-              const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
@@ -123,7 +173,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                     margin: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        border: Border.all(width: 1, color: Color(0XFFABABAB)),
+                        border: Border.all(width: 1, color: dropBorderColor),
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -145,7 +195,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                               hint: Text(
                                 'Choose',
                                 style: TextStyle(
-                                  color: Color(0XFFE95420),
+                                  color: dropValuerColor,
                                 ),
                               ),
                               onChanged: (newValue) {
@@ -182,7 +232,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                 'Choose',
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: Color(0XFFE95420),
+                                  color: dropValuerColor,
                                 ),
                               ),
                               onChanged: (newValue) {
@@ -234,7 +284,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                     margin: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        border: Border.all(width: 1, color: Color(0XFFABABAB)),
+                        border: Border.all(width: 1, color: usageDropBorderColor),
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -257,7 +307,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                               hint: Text(
                                 'Choose',
                                 style: TextStyle(
-                                  color: Color(0XFFE95420),
+                                  color: dropValuerColor,
                                 ),
                               ),
                               onChanged: (newValue) {
@@ -294,7 +344,7 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                 'Choose',
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: Color(0XFFE95420),
+                                  color: dropValuerColor,
                                 ),
                               ),
                               onChanged: (newValue) {
@@ -325,15 +375,18 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                         AddGenericButton(
                         buttonName: 'ADD OFFERING',
                           onTap: () {
+
+                          if(serviceTextController.text != '' && descriptionTextController.text != '' && parentCompanyTextController.text != '' && taskTextController.text != '' &&
+                              selectedServiceTypeName != null && selectedServiceUsagePercentage != null) {
                             setState(() {
                               final NewComponentProduct = AddAsaServiceOffering(
-                                  serviceName: serviceTextController.text,
-                                  serviceDescription: descriptionTextController.text,
-                                  serviceType: selectedServiceTypeName,
-                                  parentCompany: parentCompanyTextController.text,
-                                  serviceTaskDescription: taskTextController.text,
-                                  servicePercentage:selectedServiceUsagePercentage,
-                                  );
+                                serviceName: serviceTextController.text,
+                                serviceDescription: descriptionTextController.text,
+                                serviceType: selectedServiceTypeName,
+                                parentCompany: parentCompanyTextController.text,
+                                serviceTaskDescription: taskTextController.text,
+                                servicePercentage:selectedServiceUsagePercentage,
+                              );
 
                               if (index == null) {
                                 addingAsaService.add(
@@ -367,19 +420,23 @@ class _BcAsaServiceDialogueState extends State<BcAsaServiceDialogue> {
                                 });
                               }
 
-                              serviceTextController.clear();
-                              descriptionTextController.clear();
-                              parentCompanyTextController.clear();
-                              taskTextController.clear();
-                              selectedServiceTypeName = null;
-                              selectedServiceUsagePercentage = null;
+//                              serviceTextController.clear();
+//                              descriptionTextController.clear();
+//                              parentCompanyTextController.clear();
+//                              taskTextController.clear();
+//                              selectedServiceTypeName = null;
+//                              selectedServiceUsagePercentage = null;
 
-                              //Navigator.pop(context);
-                              Navigator.push(context, new MaterialPageRoute(builder: (context) => BcAsaServiceOffering()),
-                              )
-                                  .then((value) => setState(() {}),);
+                              Navigator.pop(context);
+//                              Navigator.push(context, new MaterialPageRoute(builder: (context) => BcAsaServiceOffering()),
+//                              )
+//                                  .then((value) => setState(() {}),);
 
                             });
+                          } else{
+                            validator();
+                          }
+
                           },
                         ),
                         SizedBox(

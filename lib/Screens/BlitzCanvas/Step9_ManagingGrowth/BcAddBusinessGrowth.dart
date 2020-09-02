@@ -81,10 +81,28 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
           {}
       );
     }
-
-
     setState(() {
       spinner = false;
+    });
+  }
+
+  var dropBorderColor = Color(0xFFABABAB);
+  var dropValuerColor = Color(0xFFE95420);
+
+  validator() {
+    setState(() {
+      handleScaleLTextController.text.isEmpty
+          ? validHandleScale = false
+          : validHandleScale = true;
+      handleScaleLTextController.text.isEmpty
+          ? handleScaleLabelColor = Color(0xFFF53E70)
+          : handleScaleLabelColor = Color(0xFF919191);
+      (selectedStrategyOption == null)
+          ? dropBorderColor = Color(0xFFF53E70)
+          : dropBorderColor = Color(0xFFABABAB);
+      (selectedStrategyOption == null)
+          ? dropValuerColor = Color(0xFFF53E70)
+          : dropValuerColor = Color(0xFFE95420);
     });
   }
 
@@ -149,7 +167,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                               myTextController: handleScaleLTextController,
                               textCollecter: handleScaleLText,
                               helperText:
-                              'Please provide details on how the scaling aspect of the solution would be handled.Determining this would help the business handle issues associated with a sudden increase or\ndecrease in the usage of the product such as datacenter costs or infrastructure availability',
+                              'Please provide details on how the scaling aspect of the solution would be handled. Determining this would help the business handle issues associated with a sudden increase or\ndecrease in the usage of the product such as datacenter costs or infrastructure availability',
                               labelcolour: handleScaleLabelColor,
                             ),
                             Container(
@@ -157,7 +175,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   border:
-                                  Border.all(width: 1, color: Color(0XFFABABAB)),
+                                  Border.all(width: 1, color: dropBorderColor),
                                   borderRadius: BorderRadius.all(Radius.circular(5))),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -180,7 +198,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                                         hint: Text(
                                           'Choose',
                                           style: TextStyle(
-                                            color: Color(0XFFE95420),
+                                            color: dropValuerColor,
                                           ),
                                         ),
                                         onChanged: (newValue) {
@@ -219,7 +237,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                                           'Choose',
                                           style: TextStyle(
                                             fontSize: 13,
-                                            color: Color(0XFFE95420),
+                                            color: dropValuerColor,
                                           ),
                                         ),
                                         onChanged: (newValue) {
@@ -257,10 +275,32 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                                   ),
                                   GenericStepButton(
                                     buttonName: 'GO NEXT',
-                                    routeName: '/BCStep9CreatingEcosystems',
+                                    //routeName: '/BCStep9CreatingEcosystems',
                                     step: 8,
                                     stepBool: false,
-                                    widget: onTap,
+                                    widget: () {
+
+                                      (handleScaleLTextController.text == '')
+                                          ?
+                                      validator()
+                                          :
+                                      (handleScaleLTextController.text != '') ? Navigator.pushNamed(context, '/BCStep9CreatingEcosystems'): {};
+
+                                      if (fireStrategyData != handleScaleLTextController.text ||
+                                          fireOptionSelected != selectedStrategyOption) {
+                                        _firestore.setData({
+                                          'handleScaleLText': handleScaleLTextController.text,
+                                          'selectedStrategyOption': selectedStrategyOption,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      }
+                                      fireOptionSelected = selectedStrategyOption;
+                                      fireStrategyData = handleScaleLTextController.text;
+
+                                    }
+
+
+
 
 //                          OnTap: () {
 //
@@ -307,16 +347,4 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
     );
   }
 
-  void onTap() {
-    if (fireStrategyData != handleScaleLTextController.text ||
-        fireOptionSelected != selectedStrategyOption) {
-      _firestore.setData({
-        'handleScaleLText': handleScaleLTextController.text,
-        'selectedStrategyOption': selectedStrategyOption,
-        'Sender': "tester@gmail.com",
-      });
-    }
-    fireOptionSelected = selectedStrategyOption;
-    fireStrategyData = handleScaleLTextController.text;
-  }
 }

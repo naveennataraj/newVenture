@@ -18,8 +18,8 @@ const TextFieldsDecoration = InputDecoration(
   ),
 );
 final _auth = FirebaseAuth.instance;
-//String currentUser = '';
-String currentUser = 'tester@gmail.com';
+String currentUser = '';
+//String currentUser = 'tester@gmail.com';
 
 FirebaseUser loggedInUser;
 void getCurrentUser() async {

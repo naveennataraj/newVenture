@@ -36,17 +36,16 @@ class _GoalDialogueState extends State<GoalDialogue> {
     }
   }
 
-
   validator() {
     setState(() {
       goalTextController.text.isEmpty
           ? validGoal = false
           : validGoal = true;
+      goalTextController.text.isEmpty
+          ? goalLabelColor = Color(0xFFF53E70)
+          : goalLabelColor = Color(0xFF919191);
     });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +90,7 @@ class _GoalDialogueState extends State<GoalDialogue> {
                           onTap: ()
                           {
                           if (goalTextController.text != '') {
-
+                            Navigator.pop(context);
                             setState(() {
                               //setState(() {});
                               final newProductGoal = BcContentProductGoals(
@@ -118,12 +117,9 @@ class _GoalDialogueState extends State<GoalDialogue> {
 
                               }
 //
-                              goalTextController.clear();
-                              Navigator.pop(context);
 //                              Navigator.push(context, new MaterialPageRoute(builder: (context) => Step3GoalsTheSolution()),
 //                              )
 //                              .then((value) => setState(() {}),);
-
                             },);
                           }
                           else {

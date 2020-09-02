@@ -39,7 +39,7 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
 
   void initState() {
     super.initState();
-    (fireMetricData == null)? getDocuments() : print ('data exists') ;
+    (fireMetricData == null)? getDocuments() : {} ;
   }
 
   void getDocuments() async {
@@ -62,12 +62,26 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
       } catch (e) {
         print(e);
       }
+    } else {
+      _firestore.setData(
+          {}
+      );
     }
     setState(() {
       spinner = false;
     });
   }
 
+  validator() {
+    setState(() {
+      metricSectionOneTextController.text.isEmpty
+          ? validMetricSectionOne = false
+          : validMetricSectionOne = true;
+      metricSectionOneTextController.text.isEmpty
+          ? metricSectionOneLabelColor = Color(0xFFF53E70)
+          : metricSectionOneLabelColor = Color(0xFF919191);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,10 +163,30 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
                                     ),
                                     GenericStepButton (
                                       buttonName: 'PROCEED TO METRICS-SECTION2',
-                                      routeName: '/BCStep10MetricSection2',
+                                      //routeName: '/BCStep10MetricSection2',
                                       step: 9,
                                       stepBool: false,
-                                      widget: onTap,
+                                      widget: () {
+
+                                        (metricSectionOneTextController.text == '')
+                                            ?
+                                        validator()
+                                            :
+                                        (metricSectionOneTextController.text != '') ? Navigator.pushNamed(context, '/BCStep10MetricSection2'): {};
+
+                                        if (fireMetricData == null || fireMetricData == '') {
+                                          _firestore.setData({
+                                            'metricSectionOne': metricSectionOneTextController.text,
+                                          });
+                                        }
+
+                                        if (fireMetricData != metricSectionOneTextController.text ) {
+                                          _firestore.updateData({
+                                            'metricSectionOne': metricSectionOneTextController.text,
+                                          });
+                                        }
+
+                                      }
 
 //                          onTap: () {
 //
@@ -200,19 +234,6 @@ class _BcStep10MetricSection1State extends State<BcStep10MetricSection1> {
       ),
     );
   }
-  void onTap() {
-    if (fireMetricData == null || fireMetricData == '') {
-      _firestore.setData({
-        'metricSectionOne': metricSectionOneTextController.text,
-      });
-    }
 
-    if (fireMetricData != metricSectionOneTextController.text ) {
-      _firestore.updateData({
-        'metricSectionOne': metricSectionOneTextController.text,
-      });
-    }
-
-  }
 
 }

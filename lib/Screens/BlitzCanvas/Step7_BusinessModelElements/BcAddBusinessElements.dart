@@ -11,6 +11,7 @@ import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iventure001/Widgets/ValidationDialogue.dart';
 
 class BcBusinessElements extends StatefulWidget {
   @override
@@ -206,9 +207,36 @@ class _BcBusinessElementsState extends State<BcBusinessElements> {
                                   ),
                                   GenericStepButton(
                                     buttonName: 'GO NEXT',
-                                    routeName: '/BCStep7IntellectualAssets',
+                                    //routeName: '/BCStep7IntellectualAssets',
                                     step: 6,
                                     stepBool: false,
+                                    widget: () {
+                                      var countValue = addingNewBusinessElement
+                                          .where(
+                                              (valuePreposition) => valuePreposition.elementTitle == 'Value proposition')
+                                          .toList()
+                                          .length;
+                                      var countCustomer = addingNewBusinessElement
+                                          .where(
+                                              (valueCustomer) => valueCustomer.elementTitle == 'Customer segment')
+                                          .toList()
+                                          .length;
+                                      var countStream = addingNewBusinessElement
+                                          .where(
+                                              (valueStream) =>  valueStream.elementTitle == 'Revenue stream')
+                                          .toList()
+                                          .length;
+
+                                      (countValue > 0 && countCustomer > 0 && countStream > 0)
+                                          ?  Navigator.pushNamed(
+                                          context, '/BCStep7IntellectualAssets')
+                                      : showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            ValidationDialogue(contentDescription: 'At the least 1 Value proposition, 1 Customer Segment and 1 Revenue stream needs to be added before proceeding next.',),
+                                      );
+
+                                    },
 //                          OnTap: () {
 //                            bcStepsContent[6].bcCompletionValidator = false;
 ////                            print(bcpData[0].CompletionValidator);

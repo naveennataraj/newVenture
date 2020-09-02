@@ -45,10 +45,6 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
   final _firestore = Firestore.instance;
   int index;
   _BcSynergiesDialogueState(this.index);
-  List<String> _tempSelectedCities = [];
-
-  String selectedServiceTypeName;
-  String selectedServiceUsagePercentage;
   bool checkedValueProposition = false;
   bool checkedCustomerSegment = false;
   bool checkedRevenueStream = false;
@@ -58,7 +54,6 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
   bool checkedKeyResource = false;
   bool checkedKeyPartner = false;
   bool checkedCostStructure = false;
-
 
 
   List<String> BMCElementsList = [
@@ -73,8 +68,6 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
     'Cost Structure',
   ];
 
-  List<String> selectedCities = [];
-  ValueChanged<List<String>> onSelectedCitiesListChanged;
 
   @override
   void initState() {
@@ -95,8 +88,57 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
       checkedKeyResource = addingNewSynergies[index].synergyKeyResource;
       checkedKeyPartner = addingNewSynergies[index].synergyKeyPartner;
       checkedCostStructure = addingNewSynergies[index].synergyCostStructure;
+    } else {
+      synergyNameTextController.clear();
+      synergyDescriptionTextController.clear();
+      synergyValueTextController.clear();
+      checkedValueProposition = false;
+      checkedCustomerSegment = false;
+      checkedRevenueStream = false;
+      checkedDistributionChannel = false;
+      checkedCustomerRelationship = false;
+      checkedKeyActivity = false;
+      checkedKeyResource = false;
+      checkedKeyPartner = false;
+      checkedCostStructure = false;
     }
+  }
+  var dropBorderColor = Color(0xFFABABAB);
 
+  validator() {
+    setState(() {
+      synergyNameTextController.text.isEmpty
+          ? validSynergyName = false
+          : validSynergyName = true;
+      synergyNameTextController.text.isEmpty
+          ? synergyNameLabelColor = Color(0xFFF53E70)
+          : synergyNameLabelColor = Color(0xFF919191);
+      synergyDescriptionTextController.text.isEmpty
+          ? validSynergyDescription = false
+          : validSynergyDescription = true;
+      synergyDescriptionTextController.text.isEmpty
+          ? synergyDescriptionLabelColor = Color(0xFFF53E70)
+          : synergyDescriptionLabelColor = Color(0xFF919191);
+      synergyValueTextController.text.isEmpty
+          ? validSynergyValue = false
+          : validSynergyValue = true;
+      synergyValueTextController.text.isEmpty
+          ? synergyValueLabelColor = Color(0xFFF53E70)
+          : synergyValueLabelColor = Color(0xFF919191);
+
+      if(checkedValueProposition == false && checkedCustomerSegment == false
+       && checkedRevenueStream == false
+      && checkedDistributionChannel == false
+      && checkedCustomerRelationship == false
+      && checkedKeyActivity == false
+      && checkedKeyResource == false
+      && checkedKeyPartner == false
+      && checkedCostStructure == false) {
+        dropBorderColor = Color(0xFFF53E70);
+      } else {
+        dropBorderColor = Color(0xFFABABAB);
+      }
+    });
   }
 
   @override
@@ -106,309 +148,331 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
           borderRadius: BorderRadius.circular(5.0)), //this right here
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.0),
-        height: 900, // MediaQuery.of(context).size.height * 0.90,
+        //height: 900, // MediaQuery.of(context).size.height * 0.90,
         width: 800, // MediaQuery.of(context).size.width * 0.5,
         child: CustomScrollView (
             slivers: [
               SliverFillRemaining(
                 hasScrollBody: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                      child: Text(
-                        "Add a Potential Synergy:",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                        child: Text(
+                          "Add a Potential Synergy:",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                    ),
-                    TextFieldWidget(
-                      labelText: "What would you like to call this synergy?",
-                      maxLines: 2,
-                      validText: validSynergyName,
-                      myFocusNode: synergyNameFocusNode,
-                      myTextController: synergyNameTextController,
-                      textCollecter: synergyName,
-                      helperText:
-                      'This field is required',
-                      labelcolour: synergyNameLabelColor,
-                    ),
+                      TextFieldWidget(
+                        labelText: "What would you like to call this synergy?",
+                        maxLines: 2,
+                        validText: validSynergyName,
+                        myFocusNode: synergyNameFocusNode,
+                        myTextController: synergyNameTextController,
+                        textCollecter: synergyName,
+                        helperText:
+                        'This field is required',
+                        labelcolour: synergyNameLabelColor,
+                      ),
 
-                    Container(
-                      margin: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(width: 1, color: Color(0XFFABABAB)),
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child:
-                      (!ResponsiveLayout.isSmallScreen(context) ?
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text(
-                              'Please provide the type of service',
-                              style: TextStyle(color: Colors.grey.shade600,
-                                  fontSize: (ResponsiveLayout.isSmallScreen(context) ?  12: ResponsiveLayout.isMediumScreen(context) ? 15 : 16)),
+                      Container(
+                        margin: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            border: Border.all(width: 1, color: dropBorderColor),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child:
+                        (!ResponsiveLayout.isSmallScreen(context) ?
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                'Please provide the type of service',
+                                style: TextStyle(color: Colors.grey.shade600,
+                                    fontSize: (ResponsiveLayout.isSmallScreen(context) ?  12: ResponsiveLayout.isMediumScreen(context) ? 15 : 16)),
+                              ),
                             ),
-                          ),
-                          //Spacer(),
-                          Row(
-                            children: <Widget>[
-                              ReusableCheckBox(BMCElementsList[0], checkedValueProposition, (bool value) {
-                                setState(() {
-                                  checkedValueProposition = value;
-                                });
-                              },),
-
-                              ReusableCheckBox(BMCElementsList[1], checkedCustomerSegment, (bool value) {
-                                setState(() {
-                                  checkedCustomerSegment = value;
-                                });
-                              },),
-                              ReusableCheckBox(BMCElementsList[2], checkedRevenueStream, (bool value) {
-                                setState(() {
-                                  checkedRevenueStream = value;
-                                });
-                              },),
-//
-                            ],
-                          ),
-
-                          Row(
-                            children: <Widget>[
-                              ReusableCheckBox(BMCElementsList[3], checkedDistributionChannel, (bool value) {
-                                setState(() {
-                                  checkedDistributionChannel = value;
-                                });
-                              },),
-
-                              ReusableCheckBox(BMCElementsList[4], checkedCustomerRelationship, (bool value) {
-                                setState(() {
-                                  checkedCustomerRelationship = value;
-                                });
-                              },),
-                              ReusableCheckBox(BMCElementsList[5], checkedKeyActivity, (bool value) {
-                                setState(() {
-                                  checkedKeyActivity = value;
-                                });
-                              },),
-//
-                            ],
-                          ),
-
-                          Row(
-                            children: <Widget>[
-                              ReusableCheckBox(BMCElementsList[6], checkedKeyResource, (bool value) {
-                                setState(() {
-                                  checkedKeyResource = value;
-                                });
-                              },),
-
-                              ReusableCheckBox(BMCElementsList[7], checkedKeyPartner, (bool value) {
-                                setState(() {
-                                  checkedKeyPartner = value;
-                                });
-                              },),
-                              ReusableCheckBox(BMCElementsList[8], checkedCostStructure, (bool value) {
-                                setState(() {
-                                  checkedCostStructure = value;
-                                });
-                              },),
-//
-                            ],
-                          ),
-
-                        ],
-                      )
-                      :
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Text(
-                                  'Please provide the type of service',
-                                  style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
-                                ),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  ReusableCheckBox(BMCElementsList[0], checkedValueProposition, (bool value) {
-                                    setState(() {
-                                      checkedValueProposition = value;
-                                    });
-                                  },),
-
-                                  ReusableCheckBox(BMCElementsList[1], checkedCustomerSegment, (bool value) {
-                                    setState(() {
-                                      checkedCustomerSegment = value;
-                                    });
-                                  },),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  ReusableCheckBox(BMCElementsList[2], checkedValueProposition, (bool value) {
-                                    setState(() {
-                                      checkedValueProposition = value;
-                                    });
-                                  },),
-
-                                  ReusableCheckBox(BMCElementsList[3], checkedCustomerSegment, (bool value) {
-                                    setState(() {
-                                      checkedCustomerSegment = value;
-                                    });
-                                  },),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  ReusableCheckBox(BMCElementsList[4], checkedValueProposition, (bool value) {
-                                    setState(() {
-                                      checkedValueProposition = value;
-                                    });
-                                  },),
-
-                                  ReusableCheckBox(BMCElementsList[5], checkedCustomerSegment, (bool value) {
-                                    setState(() {
-                                      checkedCustomerSegment = value;
-                                    });
-                                  },),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  ReusableCheckBox(BMCElementsList[6], checkedValueProposition, (bool value) {
-                                    setState(() {
-                                      checkedValueProposition = value;
-                                    });
-                                  },),
-
-                                  ReusableCheckBox(BMCElementsList[7], checkedCustomerSegment, (bool value) {
-                                    setState(() {
-                                      checkedCustomerSegment = value;
-                                    });
-                                  },),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  ReusableCheckBox(BMCElementsList[8], checkedValueProposition, (bool value) {
-                                    setState(() {
-                                      checkedValueProposition = value;
-                                    });
-                                  },),
-
-                                ],
-                              ),
-                            ],
-                          )
-
-
-                      ),
-                    ),
-                    TextFieldWidget(
-                      labelText:
-                      "Please provide a detailed description of the synergy",
-                      maxLines: 3,
-                      validText: validSynergyDescription,
-                      myFocusNode: synergyDescriptionFocusNode,
-                      myTextController: synergyDescriptionTextController,
-                      textCollecter: synergyDescription,
-                      helperText: 'This field is required',
-                      labelcolour: synergyDescriptionLabelColor,
-                    ),
-                    TextFieldWidget(
-                      labelText:
-                      "What value does this synergy provide to the business",
-                      maxLines: 3,
-                      validText: validSynergyValue,
-                      myFocusNode: synergyValueFocusNode,
-                      myTextController: synergyValueTextController,
-                      textCollecter: synergyValueText,
-                      helperText: 'This field is required',
-                      labelcolour: synergyValueLabelColor,
-                    ),
-
-
-                    Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AddGenericButton(
-                            buttonName: 'ADD SYNERGY',
-                            onTap: () {
-                              setState(() {
-                                final NewSynergies = ContentSynergies(
-                                  synergyName: synergyNameTextController.text,
-                                  synergyValueProposition: checkedValueProposition,
-                                  synergyCustomerSegment: checkedCustomerSegment,
-                                  synergyRevenueStream: checkedRevenueStream,
-                                  synergyDistributionChannel: checkedDistributionChannel,
-                                  synergyCustomerRelationship: checkedCustomerRelationship,
-                                  synergyKeyActivity: checkedKeyActivity,
-                                  synergyKeyResource:checkedKeyResource,
-                                  synergyKeyPartner: checkedKeyPartner,
-                                  synergyCostStructure: checkedCostStructure,
-                                  synergyDescription: synergyDescriptionTextController.text,
-                                  synergyValues: synergyValueTextController.text,
-                                );
-
-                                if (index == null) {
-                                  addingNewSynergies.add(
-                                      NewSynergies);
-                                  _firestore.collection('$currentUser/Bc8_synergies/addSynergies').add({
-                                    'synergyName': synergyNameTextController.text,
-                                    'synergyDescription': synergyDescriptionTextController.text,
-                                    'checkedValueProposition': checkedValueProposition,
-                                    'checkedCustomerSegment': checkedCustomerSegment,
-                                    'checkedRevenueStream': checkedRevenueStream,
-                                    'checkedDistributionChannel': checkedDistributionChannel,
-                                    'checkedCustomerRelationship': checkedCustomerRelationship,
-                                    'checkedKeyActivity': checkedKeyActivity,
-                                    'checkedKeyResource': checkedKeyResource,
-                                    'checkedKeyPartner': checkedKeyPartner,
-                                    'checkedCostStructure': checkedCostStructure,
-                                    'synergyValues': synergyValueTextController.text,
-                                    'Sender': currentUser,
+                            //Spacer(),
+                            Row(
+                              children: <Widget>[
+                                ReusableCheckBox(BMCElementsList[0], checkedValueProposition, (bool value) {
+                                  setState(() {
+                                    checkedValueProposition = value;
                                   });
-                                } else {
+                                },),
+
+                                ReusableCheckBox(BMCElementsList[1], checkedCustomerSegment, (bool value) {
+                                  setState(() {
+                                    checkedCustomerSegment = value;
+                                  });
+                                },),
+                                ReusableCheckBox(BMCElementsList[2], checkedRevenueStream, (bool value) {
+                                  setState(() {
+                                    checkedRevenueStream = value;
+                                  });
+                                },),
+//
+                              ],
+                            ),
+
+                            Row(
+                              children: <Widget>[
+                                ReusableCheckBox(BMCElementsList[3], checkedDistributionChannel, (bool value) {
+                                  setState(() {
+                                    checkedDistributionChannel = value;
+                                  });
+                                },),
+
+                                ReusableCheckBox(BMCElementsList[4], checkedCustomerRelationship, (bool value) {
+                                  setState(() {
+                                    checkedCustomerRelationship = value;
+                                  });
+                                },),
+                                ReusableCheckBox(BMCElementsList[5], checkedKeyActivity, (bool value) {
+                                  setState(() {
+                                    checkedKeyActivity = value;
+                                  });
+                                },),
+//
+                              ],
+                            ),
+
+                            Row(
+                              children: <Widget>[
+                                ReusableCheckBox(BMCElementsList[6], checkedKeyResource, (bool value) {
+                                  setState(() {
+                                    checkedKeyResource = value;
+                                  });
+                                },),
+
+                                ReusableCheckBox(BMCElementsList[7], checkedKeyPartner, (bool value) {
+                                  setState(() {
+                                    checkedKeyPartner = value;
+                                  });
+                                },),
+                                ReusableCheckBox(BMCElementsList[8], checkedCostStructure, (bool value) {
+                                  setState(() {
+                                    checkedCostStructure = value;
+                                  });
+                                },),
+//
+                              ],
+                            ),
+
+                          ],
+                        )
+                        :
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Text(
+                                    'Please provide the type of service',
+                                    style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    ReusableCheckBox(BMCElementsList[0], checkedValueProposition, (bool value) {
+                                      setState(() {
+                                        checkedValueProposition = value;
+                                      });
+                                    },),
+
+                                    ReusableCheckBox(BMCElementsList[1], checkedCustomerSegment, (bool value) {
+                                      setState(() {
+                                        checkedCustomerSegment = value;
+                                      });
+                                    },),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    ReusableCheckBox(BMCElementsList[2], checkedValueProposition, (bool value) {
+                                      setState(() {
+                                        checkedValueProposition = value;
+                                      });
+                                    },),
+
+                                    ReusableCheckBox(BMCElementsList[3], checkedCustomerSegment, (bool value) {
+                                      setState(() {
+                                        checkedCustomerSegment = value;
+                                      });
+                                    },),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    ReusableCheckBox(BMCElementsList[4], checkedValueProposition, (bool value) {
+                                      setState(() {
+                                        checkedValueProposition = value;
+                                      });
+                                    },),
+
+                                    ReusableCheckBox(BMCElementsList[5], checkedCustomerSegment, (bool value) {
+                                      setState(() {
+                                        checkedCustomerSegment = value;
+                                      });
+                                    },),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    ReusableCheckBox(BMCElementsList[6], checkedValueProposition, (bool value) {
+                                      setState(() {
+                                        checkedValueProposition = value;
+                                      });
+                                    },),
+
+                                    ReusableCheckBox(BMCElementsList[7], checkedCustomerSegment, (bool value) {
+                                      setState(() {
+                                        checkedCustomerSegment = value;
+                                      });
+                                    },),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    ReusableCheckBox(BMCElementsList[8], checkedValueProposition, (bool value) {
+                                      setState(() {
+                                        checkedValueProposition = value;
+                                      });
+                                    },),
+
+                                  ],
+                                ),
+                              ],
+                            )
+
+
+                        ),
+                      ),
+                      TextFieldWidget(
+                        labelText:
+                        "Please provide a detailed description of the synergy",
+                        maxLines: 3,
+                        validText: validSynergyDescription,
+                        myFocusNode: synergyDescriptionFocusNode,
+                        myTextController: synergyDescriptionTextController,
+                        textCollecter: synergyDescription,
+                        helperText: 'This field is required',
+                        labelcolour: synergyDescriptionLabelColor,
+                      ),
+                      TextFieldWidget(
+                        labelText:
+                        "What value does this synergy provide to the business",
+                        maxLines: 3,
+                        validText: validSynergyValue,
+                        myFocusNode: synergyValueFocusNode,
+                        myTextController: synergyValueTextController,
+                        textCollecter: synergyValueText,
+                        helperText: 'This field is required',
+                        labelcolour: synergyValueLabelColor,
+                      ),
+
+
+                      Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AddGenericButton(
+                              buttonName: 'ADD SYNERGY',
+                              onTap: () {
+                                if (synergyNameTextController.text != '' && synergyDescriptionTextController.text != '' &&
+                                    synergyValueTextController != null )
+                                  {
+                                    setState(() {
+                                      final NewSynergies = ContentSynergies(
+                                        synergyName: synergyNameTextController.text,
+                                        synergyValueProposition: checkedValueProposition,
+                                        synergyCustomerSegment: checkedCustomerSegment,
+                                        synergyRevenueStream: checkedRevenueStream,
+                                        synergyDistributionChannel: checkedDistributionChannel,
+                                        synergyCustomerRelationship: checkedCustomerRelationship,
+                                        synergyKeyActivity: checkedKeyActivity,
+                                        synergyKeyResource:checkedKeyResource,
+                                        synergyKeyPartner: checkedKeyPartner,
+                                        synergyCostStructure: checkedCostStructure,
+                                        synergyDescription: synergyDescriptionTextController.text,
+                                        synergyValues: synergyValueTextController.text,
+                                      );
+
+                                      if (index == null) {
+                                        addingNewSynergies.add(
+                                            NewSynergies);
+                                        _firestore.collection('$currentUser/Bc8_synergies/addSynergies').add({
+                                          'synergyName': synergyNameTextController.text,
+                                          'synergyDescription': synergyDescriptionTextController.text,
+                                          'checkedValueProposition': checkedValueProposition,
+                                          'checkedCustomerSegment': checkedCustomerSegment,
+                                          'checkedRevenueStream': checkedRevenueStream,
+                                          'checkedDistributionChannel': checkedDistributionChannel,
+                                          'checkedCustomerRelationship': checkedCustomerRelationship,
+                                          'checkedKeyActivity': checkedKeyActivity,
+                                          'checkedKeyResource': checkedKeyResource,
+                                          'checkedKeyPartner': checkedKeyPartner,
+                                          'checkedCostStructure': checkedCostStructure,
+                                          'synergyValues': synergyValueTextController.text,
+                                          'Sender': currentUser,
+                                        });
+                                      } else {
 //                                addingNewSynergies.removeAt(index);
 //                                addingNewSynergies.insert(
 //                                    index, NewSynergies);
-                                  _firestore
-                                      .collection('$currentUser/Bc8_synergies/addSynergies')
-                                      .document(addingNewSynergies[index].ID)
-                                      .updateData({
-                                    'synergyName': synergyNameTextController.text,
-                                    'synergyDescription': synergyDescriptionTextController.text,
-                                    'checkedValueProposition': checkedValueProposition,
-                                    'checkedCustomerSegment': checkedCustomerSegment,
-                                    'checkedRevenueStream': checkedRevenueStream,
-                                    'checkedDistributionChannel': checkedDistributionChannel,
-                                    'checkedCustomerRelationship': checkedCustomerRelationship,
-                                    'checkedKeyActivity': checkedKeyActivity,
-                                    'checkedKeyResource': checkedKeyResource,
-                                    'checkedKeyPartner': checkedKeyPartner,
-                                    'checkedCostStructure': checkedCostStructure,
-                                    'synergyValues': synergyValueTextController.text,
-                                    'Sender': currentUser,
-                                  });
+                                        _firestore
+                                            .collection('$currentUser/Bc8_synergies/addSynergies')
+                                            .document(addingNewSynergies[index].ID)
+                                            .updateData({
+                                          'synergyName': synergyNameTextController.text,
+                                          'synergyDescription': synergyDescriptionTextController.text,
+                                          'checkedValueProposition': checkedValueProposition,
+                                          'checkedCustomerSegment': checkedCustomerSegment,
+                                          'checkedRevenueStream': checkedRevenueStream,
+                                          'checkedDistributionChannel': checkedDistributionChannel,
+                                          'checkedCustomerRelationship': checkedCustomerRelationship,
+                                          'checkedKeyActivity': checkedKeyActivity,
+                                          'checkedKeyResource': checkedKeyResource,
+                                          'checkedKeyPartner': checkedKeyPartner,
+                                          'checkedCostStructure': checkedCostStructure,
+                                          'synergyValues': synergyValueTextController.text,
+                                          'Sender': currentUser,
+                                        });
+                                      }
+
+
+                                      Navigator.pop(context);
+//                              Navigator.push(context, new MaterialPageRoute(builder: (context) => BcAddSynergies()),
+//                              )
+//                                  .then((value) => setState(() {}),);
+
+                                    });
+                                  } else {
+                                  validator();
                                 }
 
+                              },
+                            ),
+                            SizedBox(
+                              width: 50,
+                            ),
+                            CancelButtton(
+                              OnTap: () {
                                 synergyNameTextController.clear();
                                 synergyDescriptionTextController.clear();
                                 synergyValueTextController.clear();
-                                selectedServiceTypeName = '';
-                                selectedServiceUsagePercentage = '';
                                 checkedValueProposition = false;
                                 checkedCustomerSegment = false;
                                 checkedRevenueStream = false;
@@ -419,39 +483,13 @@ class _BcSynergiesDialogueState extends State<BcSynergiesDialogue> {
                                 checkedKeyPartner = false;
                                 checkedCostStructure = false;
                                 Navigator.pop(context);
-//                              Navigator.push(context, new MaterialPageRoute(builder: (context) => BcAddSynergies()),
-//                              )
-//                                  .then((value) => setState(() {}),);
-
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            width: 50,
-                          ),
-                          CancelButtton(
-                            OnTap: () {
-                              synergyNameTextController.clear();
-                              synergyDescriptionTextController.clear();
-                              synergyValueTextController.clear();
-                              selectedServiceTypeName = '';
-                              selectedServiceUsagePercentage = '';
-                              checkedValueProposition = false;
-                              checkedCustomerSegment = false;
-                              checkedRevenueStream = false;
-                              checkedDistributionChannel = false;
-                              checkedCustomerRelationship = false;
-                              checkedKeyActivity = false;
-                              checkedKeyResource = false;
-                              checkedKeyPartner = false;
-                              checkedCostStructure = false;
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             ], ),

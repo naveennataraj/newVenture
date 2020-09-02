@@ -45,7 +45,29 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
       SolutionDescriptionTextController = TextEditingController(
           text: AddingNewParallelInnovations[index].Description);
       SolutionChecked = AddingNewParallelInnovations[index].CheckedSolution;
+    } else {
+      SolutionNameTextController.clear();
+      SolutionDescriptionTextController.clear();
+      SolutionChecked = false;
     }
+  }
+
+  validator() {
+    setState(() {
+      SolutionNameTextController.text.isEmpty
+          ? validSolutionName = false
+          : validSolutionName = true;
+      SolutionNameTextController.text.isEmpty
+          ? SolutionNamelabelColor = Color(0xFFF53E70)
+          : SolutionNamelabelColor = Color(0xFF919191);
+      SolutionDescriptionTextController.text.isEmpty
+          ? validSolutionDescription = false
+          : validSolutionDescription = true;
+      SolutionDescriptionTextController.text.isEmpty
+          ? SolutionDescriptionlabelColor = Color(0xFFF53E70)
+          : SolutionDescriptionlabelColor = Color(0xFF919191);
+
+    });
   }
 
   @override
@@ -54,14 +76,14 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
         child: Container(
-          height: 430, // MediaQuery.of(context).size.height * 0.60,
+          //height: 430, // MediaQuery.of(context).size.height * 0.60,
           width: 800, //MediaQuery.of(context).size.width * 0.5,
           child: SingleChildScrollView(
-              padding:
-              EdgeInsets.all(12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -117,51 +139,49 @@ class _BcEcosystemsDialogueState extends State<BcEcosystemsDialogue> {
                       children: [
                         AddMetricButton(
                           onTap: () {
-                            setState(() {
-                              final NewParallelInnovation =
-                              ContentParallelSolution(
-                                  Name: SolutionNameTextController.text,
-                                  Description:
-                                  SolutionDescriptionTextController
-                                      .text,
-                                  CheckedSolution: SolutionChecked);
 
-                              if (index == null) {
-                                AddingNewParallelInnovations.add(
-                                    NewParallelInnovation);
-                                _firestore.collection('$currentUser/Bc9_managingGrowth/addConcepts').add({
-                                  'Name': SolutionNameTextController.text,
-                                  'Description': SolutionDescriptionTextController.text,
-                                  'CheckedSolution': SolutionChecked,
-                                  'Sender': currentUser,
-                                });
+                            if(SolutionNameTextController.text != '' && SolutionDescriptionTextController.text != '') {
+                              setState(() {
+                                final NewParallelInnovation =
+                                ContentParallelSolution(
+                                    Name: SolutionNameTextController.text,
+                                    Description:
+                                    SolutionDescriptionTextController
+                                        .text,
+                                    CheckedSolution: SolutionChecked);
 
-                              } else {
+                                if (index == null) {
+                                  AddingNewParallelInnovations.add(
+                                      NewParallelInnovation);
+                                  _firestore.collection('$currentUser/Bc9_managingGrowth/addConcepts').add({
+                                    'Name': SolutionNameTextController.text,
+                                    'Description': SolutionDescriptionTextController.text,
+                                    'CheckedSolution': SolutionChecked,
+                                    'Sender': currentUser,
+                                  });
+
+                                } else {
 //                                  AddingNewParallelInnovations.removeAt(index);
 //                                  AddingNewParallelInnovations.insert(
 //                                      index, NewParallelInnovation);
-                                _firestore
-                                    .collection('$currentUser/Bc9_managingGrowth/addConcepts')
-                                    .document(AddingNewParallelInnovations[index].ID)
-                                    .updateData({
-                                  'Name': SolutionNameTextController.text,
-                                  'Description': SolutionDescriptionTextController.text,
-                                  'CheckedSolution': SolutionChecked,
-                                  'Sender': currentUser,
-                                });
-
-                              }
-
-                              SolutionNameTextController.clear();
-                              SolutionDescriptionTextController.clear();
-                              SolutionChecked = false;
-
-                              Navigator.pop(context);
+                                  _firestore
+                                      .collection('$currentUser/Bc9_managingGrowth/addConcepts')
+                                      .document(AddingNewParallelInnovations[index].ID)
+                                      .updateData({
+                                    'Name': SolutionNameTextController.text,
+                                    'Description': SolutionDescriptionTextController.text,
+                                    'CheckedSolution': SolutionChecked,
+                                    'Sender': currentUser,
+                                  });
+                                }
+                                Navigator.pop(context);
 //                                Navigator.push(context, new MaterialPageRoute(builder: (context) => BcCreatingEcosystems()),
 //                                )
 //                                    .then((value) => setState(() {}),);
-
-                            });
+                              });
+                            } else{
+                              validator();
+                            }
                           },
                         ),
                         SizedBox(

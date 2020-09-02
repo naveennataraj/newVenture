@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentBcMetrics.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcMetricDialogue.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
@@ -150,7 +150,7 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
                                       Description: Description,
                                       ID: ID,
                                     );
-                                    AddingNewMetrics.add(card);
+                                    if(Description != '') {AddingNewMetrics.add(card);}
                                   }
                                 }
                                 return (AddingNewMetrics.length != 0)
@@ -242,13 +242,15 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  headBackButtton(),
+                                  headBackButtton(
+                                    routeName: '/BCStep10MetricSection2',
+                                  ),
                                   SizedBox(
                                     width: 50,
                                   ),
                                   GenericStepButton(
                                     buttonName: 'COMPLETE STEP 10',
-                                    routeName: '/BCHomeView',
+                                    //routeName: '/BCHomeView',
                                     step: 9,
                                     stepBool: true,
                                     widget:_showDialog ,
