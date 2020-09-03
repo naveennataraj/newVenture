@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -93,8 +95,28 @@ class _AddUserPersonaState extends State<AddUserPersona> {
 
   @override
   void initState() {
-    getDocument();
+    if (demoSelected == true) {
+      UserPersonaTextController =
+          TextEditingController(text: DemoUserPersonaArray[0].link);
+    }
+    if (currentUser != null) {
+      getDocument();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
     super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocument();
+        }
+      });
+    });
   }
 
   @override
@@ -103,7 +125,9 @@ class _AddUserPersonaState extends State<AddUserPersona> {
       backgroundColor: Color(0XFFFAFAFA),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: NavigationBar(),
+        child: NavigationBar(
+          routeName: '/adduserpersona',
+        ),
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
@@ -173,23 +197,30 @@ class _AddUserPersonaState extends State<AddUserPersona> {
 //                                    routeName: '/addpainpoints',
                                   step: 1,
                                   stepBool: false,
-                                  widget: (UserPersonaTextController.text == '')
+                                  widget: (demoSelected == true)
                                       ? () {
-                                          validator();
+                                          Navigator.pushNamed(context,
+                                              '/adduserenvironmentdetails');
                                         }
-                                      : () {
-                                          (UserPersonaTextController.text != '')
-                                              ? Navigator.pushNamed(context,
-                                                  '/adduserenvironmentdetails')
-                                              : null;
-                                          if (UserPersonaArray.length != 0) {
-                                            update();
-                                          } else {
-                                            add();
-                                          }
+                                      : (UserPersonaTextController.text == '')
+                                          ? () {
+                                              validator();
+                                            }
+                                          : () {
+                                              (UserPersonaTextController.text !=
+                                                      '')
+                                                  ? Navigator.pushNamed(context,
+                                                      '/adduserenvironmentdetails')
+                                                  : null;
+                                              if (UserPersonaArray.length !=
+                                                  0) {
+                                                update();
+                                              } else {
+                                                add();
+                                              }
 //                                          bcpData[1].CompletionValidator =
 //                                              false;
-                                        },
+                                            },
                                 ),
                               ],
                             ),

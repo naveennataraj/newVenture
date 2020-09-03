@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,8 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/proble
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserEnvironment.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserPersona.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/customerPainPointDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/needOfUsersDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/ourCustomerDialogue.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
@@ -153,8 +157,25 @@ class _customerDashBoardState extends State<customerDashBoard> {
 
   @override
   void initState() {
-    getDocument();
+    if (currentUser != null) {
+      getDocument();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
     super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocument();
+        }
+      });
+    });
   }
 
   @override
@@ -212,6 +233,14 @@ class _customerDashBoardState extends State<customerDashBoard> {
             onTap: () {
               Navigator.pushNamed(context, '/addpainpoints');
             },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => customerPainPointDialogue(
+                  problem: problem,
+                ),
+              ).then((_) => setState(() {}));
+            },
           ),
         ),
         Padding(
@@ -225,6 +254,16 @@ class _customerDashBoardState extends State<customerDashBoard> {
             cardButtonName: 'VIEW OTHER USER STORIES',
             onTap: () {
               Navigator.pushNamed(context, '/addstoriespainpoints');
+            },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => needOfUsersDialogue(
+                  Asa: AddingNewUserStory[0].Asa,
+                  IwantTo: AddingNewUserStory[0].IWantTo,
+                  SothatIcan: AddingNewUserStory[0].SoThat,
+                ),
+              ).then((_) => setState(() {}));
             },
           ),
         ),

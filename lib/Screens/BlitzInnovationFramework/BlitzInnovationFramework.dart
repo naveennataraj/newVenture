@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -123,10 +125,23 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
     print(currentUser);
     if (currentUser != null) {
       getDocuments();
+    } else {
+      _AnimatedFlutterLogoState();
     }
-    spinner = false;
 
     super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
+    });
   }
 
   @override

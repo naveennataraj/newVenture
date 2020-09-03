@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +59,25 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
 
   @override
   void initState() {
-    getDocument();
+    if (currentUser != null) {
+      getDocument();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
     super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocument();
+        }
+      });
+    });
   }
 
   @override

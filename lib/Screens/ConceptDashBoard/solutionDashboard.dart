@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +66,7 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
 
     setState(() {
       productName = AddingNewCompetingProduct[0].ProductName;
-      features = AddingNewCompetingProduct[0].ProductName;
+      features = AddingNewCompetingProduct[0].Features;
     });
 
     solutionspinner = true;
@@ -137,9 +139,25 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
 
   @override
   void initState() {
-    getDocument();
+    if (currentUser != null) {
+      getDocument();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
 
     super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocument();
+        }
+      });
+    });
   }
 
   @override

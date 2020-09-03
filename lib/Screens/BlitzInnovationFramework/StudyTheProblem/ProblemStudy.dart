@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -103,7 +105,6 @@ class _ProblemStudyState extends State<ProblemStudy> {
   @override
   void initState() {
 //    spinner = true;
-
     if (demoSelected == true) {
       TitleTextController =
           TextEditingController(text: DemoProblemStudyArray[0].title);
@@ -112,266 +113,234 @@ class _ProblemStudyState extends State<ProblemStudy> {
       ImportanceTextController =
           TextEditingController(text: DemoProblemStudyArray[0].importance);
     }
+    if (currentUser != null) {
+      getDocument();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
 
     super.initState();
   }
 
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocument();
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: _firestore
-            .collection('$currentUser/StudyTheProblem/problemStudy')
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final messsages = snapshot.data.documents;
-            ProblemStudyArray = [];
-            for (var message in messsages) {
-              final Title = message.data['Title'];
-              final Problem = message.data['Problem'];
-              final Importance = message.data['Importance'];
-              final ID = message.documentID;
-
-              final fields = problemStudy(
-                  title: Title,
-                  problem: Problem,
-                  importance: Importance,
-                  ID: ID);
-
-              ProblemStudyArray.add(fields);
-              print(ProblemStudyArray[0].title);
-
-              if (ProblemStudyArray.length != 0) {
-                TitleTextController =
-                    TextEditingController(text: ProblemStudyArray[0].title);
-                ProblemTextController =
-                    TextEditingController(text: ProblemStudyArray[0].problem);
-                ImportanceTextController = TextEditingController(
-                    text: ProblemStudyArray[0].importance);
-              }
-            }
-          }
-          return Scaffold(
-            backgroundColor: Color(0XFFFAFAFA),
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(60.0),
-              child: NavigationBar(
-                routeName: '/Problemstudy',
+    return Scaffold(
+      backgroundColor: Color(0XFFFAFAFA),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: NavigationBar(
+          routeName: '/Problemstudy',
+        ),
+      ),
+      body: ModalProgressHUD(
+        inAsyncCall: spinner,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  children: [
+                    Breadcrumb(breads: breads, color: Color(0xFFE95420))
+                  ],
+                ),
               ),
-            ),
-            body: ModalProgressHUD(
-              inAsyncCall: spinner,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Wrap(
-                        children: [
-                          Breadcrumb(breads: breads, color: Color(0xFFE95420))
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        //height: MediaQuery.of(context).size.height * .40,
+                        margin: EdgeInsets.only(top: 40.0),
+                        width: 600,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          //shape: BoxShape.rectangle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 2.0,
+                            ),
+                          ],
+                        ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Container(
-                              //height: MediaQuery.of(context).size.height * .40,
-                              margin: EdgeInsets.only(top: 40.0),
-                              width: 600,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                //shape: BoxShape.rectangle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    offset: Offset(0.0, 1.0), //(x,y)
-                                    blurRadius: 2.0,
-                                  ),
-                                ],
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              child: Text(
+                                "Let's collect some details on the Customer's Problem",
+                                style: TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
                               ),
-                              child: Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 10.0),
-                                    child: Text(
-                                      "Let's collect some details on the Customer's Problem",
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                            ),
+                            TextFieldWidget(
+                              labelText: 'Provide a title for your project',
+                              myTextController: TitleTextController,
+                              myFocusNode: TitleFocusNode,
+                              validText: validTitle,
+                              maxLines: 3,
+                              textCollecter: Title,
+                              helperText: '',
+                              labelcolour: TitlelabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText:
+                                  'Describe the problem that the customer is facing',
+                              myTextController: ProblemTextController,
+                              myFocusNode: ProblemFocusNode,
+                              validText: validProblem,
+                              maxLines: 3,
+                              textCollecter: Problem,
+                              helperText: '',
+                              labelcolour: ProblemlabelColor,
+                            ),
+                            TextFieldWidget(
+                              labelText:
+                                  'Why is the problem important to the customer?',
+                              myTextController: ImportanceTextController,
+                              myFocusNode: ImportanceFocusNode,
+                              validText: validImportance,
+                              maxLines: 3,
+                              textCollecter: Importance,
+                              helperText: '',
+                              labelcolour: ImportancelabelColor,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  headBackButtton(
+                                    routeName: '/BlitzInnovationFramework',
                                   ),
-                                  TextFieldWidget(
-                                    labelText:
-                                        'Provide a title for your project',
-                                    myTextController: TitleTextController,
-                                    myFocusNode: TitleFocusNode,
-                                    validText: validTitle,
-                                    maxLines: 3,
-                                    textCollecter: Title,
-                                    helperText: '',
-                                    labelcolour: TitlelabelColor,
+                                  SizedBox(
+                                    width: 50,
                                   ),
-                                  TextFieldWidget(
-                                    labelText:
-                                        'Describe the problem that the customer is facing',
-                                    myTextController: ProblemTextController,
-                                    myFocusNode: ProblemFocusNode,
-                                    validText: validProblem,
-                                    maxLines: 3,
-                                    textCollecter: Problem,
-                                    helperText: '',
-                                    labelcolour: ProblemlabelColor,
-                                  ),
-                                  TextFieldWidget(
-                                    labelText:
-                                        'Why is the problem important to the customer?',
-                                    myTextController: ImportanceTextController,
-                                    myFocusNode: ImportanceFocusNode,
-                                    validText: validImportance,
-                                    maxLines: 3,
-                                    textCollecter: Importance,
-                                    helperText: '',
-                                    labelcolour: ImportancelabelColor,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(30.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        headBackButtton(
-                                          routeName:
-                                              '/BlitzInnovationFramework',
-                                        ),
-                                        SizedBox(
-                                          width: 50,
-                                        ),
-                                        GenericStepButtonBIF(
-                                          buttonName: 'GO NEXT',
+                                  GenericStepButtonBIF(
+                                    buttonName: 'GO NEXT',
 //                                    routeName: '/addpainpoints',
-                                          step: 0,
-                                          stepBool: false,
-                                          widget: (demoSelected == true)
-                                              ? () {
-                                                  Navigator.pushNamed(context,
-                                                      '/addpainpoints');
-                                                }
-                                              : (TitleTextController.text ==
-                                                          '' ||
-                                                      ProblemTextController
-                                                              .text ==
-                                                          '' ||
-                                                      ImportanceTextController
-                                                              .text ==
-                                                          '')
-                                                  ? () {
-                                                      validator();
-                                                    }
-                                                  : () {
-                                                      (TitleTextController
-                                                                      .text !=
-                                                                  '' &&
-                                                              ProblemTextController
-                                                                      .text !=
-                                                                  '' &&
-                                                              ImportanceTextController
-                                                                      .text !=
-                                                                  '')
-                                                          ? Navigator.pushNamed(
-                                                              context,
-                                                              '/addpainpoints')
-                                                          : {};
-                                                      if (ProblemStudyArray
-                                                              .length !=
-                                                          0) {
-                                                        print(
-                                                            "Update method called");
-                                                        _firestore
-                                                            .collection(
-                                                                '$currentUser/StudyTheProblem/problemStudy')
-                                                            .document(
-                                                                ProblemStudyArray[
-                                                                        0]
-                                                                    .ID)
-                                                            .updateData({
-                                                          'Title':
-                                                              TitleTextController
-                                                                  .text,
-                                                          'Problem':
-                                                              ProblemTextController
-                                                                  .text,
-                                                          'Importance':
-                                                              ImportanceTextController
-                                                                  .text,
-                                                          'Sender': currentUser,
-                                                        });
+                                    step: 0,
+                                    stepBool: false,
+                                    widget: (demoSelected == true)
+                                        ? () {
+                                            Navigator.pushNamed(
+                                                context, '/addpainpoints');
+                                          }
+                                        : (TitleTextController.text == '' ||
+                                                ProblemTextController.text ==
+                                                    '' ||
+                                                ImportanceTextController.text ==
+                                                    '')
+                                            ? () {
+                                                validator();
+                                              }
+                                            : () {
+                                                (TitleTextController.text !=
+                                                            '' &&
+                                                        ProblemTextController
+                                                                .text !=
+                                                            '' &&
+                                                        ImportanceTextController
+                                                                .text !=
+                                                            '')
+                                                    ? Navigator.pushNamed(
+                                                        context,
+                                                        '/addpainpoints')
+                                                    : {};
+                                                if (ProblemStudyArray.length !=
+                                                    0) {
+                                                  print("Update method called");
+                                                  _firestore
+                                                      .collection(
+                                                          '$currentUser/StudyTheProblem/problemStudy')
+                                                      .document(
+                                                          ProblemStudyArray[0]
+                                                              .ID)
+                                                      .updateData({
+                                                    'Title': TitleTextController
+                                                        .text,
+                                                    'Problem':
+                                                        ProblemTextController
+                                                            .text,
+                                                    'Importance':
+                                                        ImportanceTextController
+                                                            .text,
+                                                    'Sender': currentUser,
+                                                  });
 //                                      ProblemStudyArray[0].title =
 //                                          TitleTextController.text;
 //                                      ProblemStudyArray[0].problem =
 //                                          ProblemTextController.text;
 //                                      ProblemStudyArray[0].importance =
 //                                          ImportanceTextController.text;
-                                                      } else {
-                                                        print(
-                                                            "add method called");
-                                                        _firestore
-                                                            .collection(
-                                                                '$currentUser/StudyTheProblem/problemStudy')
-                                                            .add({
-                                                          'Title':
-                                                              TitleTextController
-                                                                  .text,
-                                                          'Problem':
-                                                              ProblemTextController
-                                                                  .text,
-                                                          'Importance':
-                                                              ImportanceTextController
-                                                                  .text,
-                                                          'Sender': currentUser,
-                                                        });
+                                                } else {
+                                                  print("add method called");
+                                                  _firestore
+                                                      .collection(
+                                                          '$currentUser/StudyTheProblem/problemStudy')
+                                                      .add({
+                                                    'Title': TitleTextController
+                                                        .text,
+                                                    'Problem':
+                                                        ProblemTextController
+                                                            .text,
+                                                    'Importance':
+                                                        ImportanceTextController
+                                                            .text,
+                                                    'Sender': currentUser,
+                                                  });
 //                                      final _field = problemStudy(
 //                                          title: TitleTextController.text,
 //                                          problem: ProblemTextController.text,
 //                                          importance:
 //                                              ImportanceTextController.text);
 //                                      ProblemStudyArray.add(_field);
-                                                      }
+                                                }
 //                                            bcpData[0].CompletionValidator =
 //                                                false;
-                                                    },
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                              },
+                                  ),
                                 ],
                               ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            DotsIndicator(
-                              decorator: DotsDecorator(
-                                activeColor: const Color(0xFFE95420),
-                              ),
-                              dotsCount: 2,
-                              position: 0,
-                            ),
+                            )
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: 20,
+                      ),
+                      DotsIndicator(
+                        decorator: DotsDecorator(
+                          activeColor: const Color(0xFFE95420),
+                        ),
+                        dotsCount: 2,
+                        position: 0,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        });
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/DropDown.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserEnvironment.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/SaveButton.dart';
@@ -23,7 +26,7 @@ class _ourCustomerDialogueState extends State<ourCustomerDialogue> {
   RangeValues ageValues = RangeValues(ageValuesStart, ageValuesEnd);
   RangeLabels ageLabels = RangeLabels(
       ageValuesStart.toInt().toString(), ageValuesEnd.toInt().toString());
-
+  final _firestore = Firestore.instance;
   var problemDroplabelColor = Colors.grey.shade600;
   var problemDropBorderColor = Color(0xFFABABAB);
   var problemDropValuerColor = Color(0xFFE95420);
@@ -216,7 +219,17 @@ class _ourCustomerDialogueState extends State<ourCustomerDialogue> {
                     children: [
                       SaveButton(
                         onTap: () {
-                          Navigator.pop(context);
+                          _firestore
+                              .collection(
+                                  '$currentUser/StudyingTheUser/UserEnvironment')
+                              .document(UserEnvironmentArray[0].ID)
+                              .updateData({
+                            'AgeStart': ageValues.start,
+                            'AgeEnd': ageValues.end,
+                            'ProblemDropdownValue': SelectedProblemDomain,
+                          });
+                          Navigator.popAndPushNamed(
+                              context, '/conceptDashboard');
                         },
                       ),
                       SizedBox(

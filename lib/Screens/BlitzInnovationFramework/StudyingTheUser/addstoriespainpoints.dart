@@ -37,6 +37,14 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
     return 'As a $A, I want to $B so that $C';
   }
 
+  DemoUserStory(int index) {
+    String A = DemoAddingNewUserStory[index].Asa;
+    String B = DemoAddingNewUserStory[index].IWantTo;
+    String C = DemoAddingNewUserStory[index].SoThat;
+
+    return 'As a $A, I want to $B so that $C';
+  }
+
   final _firestore = Firestore.instance;
 
   @override
@@ -45,7 +53,9 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
       backgroundColor: Color(0XFFFAFAFA),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: NavigationBar(),
+        child: NavigationBar(
+          routeName: '/addstoriespainpoints',
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -87,81 +97,105 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          StreamBuilder<QuerySnapshot>(
-                            stream: _firestore
-                                .collection(
-                                    '$currentUser/StudyingTheUser/userStory')
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                final messsages =
-                                    snapshot.data.documents.reversed;
-                                AddingNewUserStory = [];
-                                for (var message in messsages) {
-                                  final Asa = message.data['Asa'];
-                                  final IWantTo = message.data['IWantTo'];
-                                  final SoThat = message.data['SoThat'];
-                                  final ID = message.documentID;
+                          (demoSelected == false)
+                              ? StreamBuilder<QuerySnapshot>(
+                                  stream: _firestore
+                                      .collection(
+                                          '$currentUser/StudyingTheUser/userStory')
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      final messsages =
+                                          snapshot.data.documents.reversed;
+                                      AddingNewUserStory = [];
+                                      for (var message in messsages) {
+                                        final Asa = message.data['Asa'];
+                                        final IWantTo = message.data['IWantTo'];
+                                        final SoThat = message.data['SoThat'];
+                                        final ID = message.documentID;
 
-                                  final card = addUserStories(
-                                      Asa: Asa,
-                                      IWantTo: IWantTo,
-                                      SoThat: SoThat,
-                                      ID: ID);
-                                  AddingNewUserStory.add(card);
-                                }
-                              }
+                                        final card = addUserStories(
+                                            Asa: Asa,
+                                            IWantTo: IWantTo,
+                                            SoThat: SoThat,
+                                            ID: ID);
+                                        AddingNewUserStory.add(card);
+                                      }
+                                    }
 
-                              return (AddingNewUserStory.length != 0)
-                                  ? ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
+                                    return (AddingNewUserStory.length != 0)
+                                        ? ListView.builder(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
 //                                scrollDirection: Axis.vertical,
-                                      itemCount: AddingNewUserStory.length,
-                                      shrinkWrap: true,
-                                      padding: EdgeInsets.only(top: 10.0),
-                                      itemBuilder: (context, index) {
-                                        return Column(
-                                          children: AddingNewUserStory != null
-                                              ? <Widget>[
-                                                  SmallOrangeCardWithoutTitle(
-                                                    description:
-                                                        UserStory(index),
-                                                    index: index,
-                                                    removingat:
-                                                        AddingNewUserStory,
-                                                    Dialogue: userStoryDialogue(
-                                                      index: index,
-                                                    ),
-                                                    CollectionName:
-                                                        '$currentUser/StudyingTheUser/userStory',
-                                                    ID: AddingNewUserStory[
-                                                            index]
-                                                        .ID,
-                                                  )
-                                                ]
-                                              : null,
-                                        );
-                                      },
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.all(25.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              "There are no user stories at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                            itemCount:
+                                                AddingNewUserStory.length,
+                                            shrinkWrap: true,
+                                            padding: EdgeInsets.only(top: 10.0),
+                                            itemBuilder: (context, index) {
+                                              return Column(
+                                                children: AddingNewUserStory !=
+                                                        null
+                                                    ? <Widget>[
+                                                        SmallOrangeCardWithoutTitle(
+                                                          description:
+                                                              UserStory(index),
+                                                          index: index,
+                                                          removingat:
+                                                              AddingNewUserStory,
+                                                          Dialogue:
+                                                              userStoryDialogue(
+                                                            index: index,
+                                                          ),
+                                                          CollectionName:
+                                                              '$currentUser/StudyingTheUser/userStory',
+                                                          ID: AddingNewUserStory[
+                                                                  index]
+                                                              .ID,
+                                                        )
+                                                      ]
+                                                    : null,
+                                              );
+                                            },
                                           )
-                                        ],
-                                      ),
-                                    );
-                            },
-                          ),
+                                        : Padding(
+                                            padding: const EdgeInsets.all(25.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    "There are no user stories at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                  },
+                                )
+                              : ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+//                                scrollDirection: Axis.vertical,
+                                  itemCount: DemoAddingNewUserStory.length,
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.only(top: 10.0),
+                                  itemBuilder: (context, index) {
+                                    return Column(children: <Widget>[
+                                      SmallOrangeCardWithoutTitle(
+                                        description: DemoUserStory(index),
+                                        index: index,
+                                        removingat: AddingNewUserStory,
+                                        Dialogue: userStoryDialogue(
+                                          index: index,
+                                        ),
+                                      )
+                                    ]);
+                                  },
+                                ),
                           Padding(
                             padding: const EdgeInsets.all(30.0),
                             child: Row(

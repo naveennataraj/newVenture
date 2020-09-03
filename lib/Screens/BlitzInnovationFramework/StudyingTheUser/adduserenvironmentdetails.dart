@@ -179,8 +179,22 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
 
   @override
   void initState() {
+    if (demoSelected == true) {
+      ageValuesStart = DemoUserEnvironmentArray[0].ageRangeStart;
+      ageValuesEnd = DemoUserEnvironmentArray[0].ageRangeEnd;
+      UserIssuesTextController =
+          TextEditingController(text: DemoUserEnvironmentArray[0].issues);
+      UserDetailsTextController =
+          TextEditingController(text: DemoUserEnvironmentArray[0].detail);
+      SelectedProblemDomain = DemoUserEnvironmentArray[0].ProblemDrop;
+      SelectedUserEnvironment = DemoUserEnvironmentArray[0].EnvironmentDrop;
+      ageValues = RangeValues(ageValuesStart, ageValuesEnd);
+      ageLabels = RangeLabels(
+          ageValuesStart.toInt().toString(), ageValuesEnd.toInt().toString());
+    } else {
+      getDocument();
+    }
     super.initState();
-    getDocument();
   }
 
   @override
@@ -189,7 +203,9 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
       backgroundColor: Color(0XFFFAFAFA),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: NavigationBar(),
+        child: NavigationBar(
+          routeName: '/adduserenvironmentdetails',
+        ),
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
@@ -453,8 +469,13 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
 //                                    routeName: '/addpainpoints',
                                     step: 1,
                                     stepBool: false,
-                                    widget:
-                                        (UserIssuesTextController.text == '' ||
+                                    widget: (demoSelected == true)
+                                        ? () {
+                                            Navigator.pushNamed(context,
+                                                '/addstoriespainpoints');
+                                          }
+                                        : (UserIssuesTextController.text ==
+                                                    '' ||
                                                 UserDetailsTextController
                                                         .text ==
                                                     '' ||
