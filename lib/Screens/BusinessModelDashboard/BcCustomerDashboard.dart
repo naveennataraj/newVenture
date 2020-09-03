@@ -190,7 +190,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         foundationContent.add(card);
       }
       setState(() {
-        (foundationContent.length !=0) ?
+        (excelAtList.length !=0) ?
         excelAtDescription= excelAtList[0]
             :
         excelAtDescription= 'Missing value';
@@ -243,44 +243,68 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
       (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'Why our product matters to the customer:',
       dashboardcards: <Widget>[
-        DashboardCards(
-          cardIcon: Icons.new_releases,
-          cardTitle: 'What is our Primary Value Proposition?',
-          cardNote: '$valueProposition',
-          cardButtonName: 'VIEW WIREFRAME',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.new_releases,
+            cardTitle: 'What is our Primary Value Proposition?',
+            cardNote: '$valueProposition',
+            cardButtonName: 'VIEW WIREFRAME',
+            onTap: () {},
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.call_split,
-          cardTitle: 'How our solution stands out',
-          cardNote:
-          '$solutionStandOut',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.call_split,
+            cardTitle: 'How our solution stands out',
+            cardNote:
+            '$solutionStandOut',
+            onTap: () {},
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle:
-          'Customer Quotes (on using the solution prototype)',
-          cardNote: '$customerQuotes',
-          cardButtonName: 'VIEW MORE QUOTES',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle:
+            'Customer Quotes (on using the solution prototype)',
+            cardNote: '$customerQuotes',
+            cardButtonName: 'VIEW MORE QUOTES',
+            onTap: () {},
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.vpn_key,
-          cardTitle: 'We excel at:',
-          cardNote:
-          '$excelAtDescription',
-          cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
-          onTap: () {},
+        Padding( padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+            ? 50
+            : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.vpn_key,
+            cardTitle: 'We excel at:',
+            cardNote:
+            '$excelAtDescription',
+            cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
+            onTap: () {},
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.trending_up,
-          cardTitle:
-          'Other offerings planned',
-          cardNote:
-          '$offeringPlanned',
-          cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.trending_up,
+            cardTitle:
+            'Other offerings planned',
+            cardNote:
+            '$offeringPlanned',
+            cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
+            onTap: () {},
+          ),
         )
       ],
     );

@@ -23,9 +23,11 @@ String currentUser = '';
 
 FirebaseUser loggedInUser;
 void getCurrentUser() async {
+  print('TextFiel const Page');
   try {
     final user = await _auth.currentUser();
-    if (user != null) {
+    print(user);
+    if (user.email != null) {
       currentUser = user.email;
       print(currentUser);
     } else {

@@ -51,6 +51,7 @@ import 'Screens/BlitzInnovationFramework/StudyTheProblem/ProblemStudy.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
 import 'Screens/login.dart';
+import 'dart:async';
 
 void main() {
   runApp(Vueapp());
@@ -75,31 +76,43 @@ class _VueappState extends State<Vueapp> {
   void initState() {
     super.initState();
     getCurrentUserMain();
-    getFirebaseUser();
+    //getFirebaseUser();
   }
 
   void getCurrentUserMain() async {
     await FirebaseAuth.instance.onAuthStateChanged.listen((user) {
       if (user == null) {
-        print('User is currently signed out!');
       } else {
-        print('User is signed in!');
         getCurrentUser();
       }
     });
   }
 
+
   Future<FirebaseUser> getFirebaseUser() async {
     FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
     // Disable persistence on web platforms
-
     if (firebaseUser == null) {
       firebaseUser = await FirebaseAuth.instance.onAuthStateChanged.first;
+      currentUser = firebaseUser.email;
+
+      while(firebaseUser.email == null){
+        firebaseUser = await FirebaseAuth.instance.onAuthStateChanged.first;
+        currentUser = firebaseUser.email;
+      }
+
+//      if(firebaseUser.email == null) {
+//        firebaseUser = await FirebaseAuth.instance.onAuthStateChanged.first;
+//      }
+
+    } else{
+      setState(() {
+        currentUser = firebaseUser.email;
+      });
     }
 
     setState(() {
-      currentUser = firebaseUser.email;
-      print("----friebase user --------- $currentUser");
+      (currentUser == '') ? currentUser = firebaseUser.email : currentUser = firebaseUser.email ;
     });
 
     return firebaseUser;

@@ -81,8 +81,6 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
     final document = await _firestore.get();
 
     if (document.exists) {
-
-
       missionText = document.data['mission'];
       visionText = document.data['vision'];
       fireMissionData = document.data['mission'];
@@ -107,12 +105,13 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
 //          ImportanceTextController =
 //              TextEditingController(text: ProblemStudyArray[0].importance);
         }
-
         });
 
     } else{
       _firestore.collection(currentUser).document('Bc1_buildTheFoundation').setData(
-          {}
+          {
+            'mission': 'Initial'
+          }
       );
     }
 
@@ -229,8 +228,6 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
                                         }
 
                                       }
-                                    //onTap,
-
                                   ),
                                 ],
                               ),

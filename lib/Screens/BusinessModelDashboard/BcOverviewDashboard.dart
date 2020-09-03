@@ -70,6 +70,12 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
         descriptionVision: visionText,
         ID: ID);
     collectionBcStep1Content.insert(0, fields);
+//    setState(() {
+//      if (collectionBcStep1Content.length != 0) {
+//
+//      }
+//    });
+
   }
 
   // Customer Quotes (on using the solution prototype)
@@ -202,15 +208,6 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                         thickness: 1,
                       ),
                     ),
-//                  Padding(
-//                    padding: const EdgeInsets.all(15.0),
-//                    child: Text(
-//                      'Why our product matters to the customer:',
-//                      style: sideHeadingTextStyle,
-//                      //TextStyle(fontSize: 60),
-//                      textAlign: TextAlign.left,
-//                    ),
-//                  ),
 
                     BcCustomerDashboard(
                       sizedboxheight: 0,
@@ -218,52 +215,6 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                       headingStyle: sideHeadingTextStyle,
                       headingAlignment: CrossAxisAlignment.start,
                     ),
-//                  Center(
-//                    child: Wrap(
-//                      children: [
-//                        DashboardCards(
-//                          cardIcon: Icons.new_releases,
-//                          cardTitle: 'What is our Primary Value Proposition?',
-//                          cardNote:
-//                              'A simple Task management solution for personal and professional use, influenced by the Eisenhower method.',
-//                          cardButtonName: 'VIEW WIREFRAME',
-//                          onTap: () {},
-//                        ),
-//                        DashboardCards(
-//                          cardIcon: Icons.call_split,
-//                          cardTitle: 'How our solution stands out',
-//                          cardNote:
-//                              'Employment of the Eisenhower method to task management with an emphasis on the user experience',
-//                          onTap: () {},
-//                        ),
-//                        DashboardCards(
-//                          cardIcon: Icons.person,
-//                          cardTitle:
-//                              'Customer Quotes (on using the solution prototype)',
-//                          cardNote:
-//                              'When I need to remember a task, I type it in. When I am done, I strike it out. It is that simple.',
-//                          cardButtonName: 'VIEW MORE QUOTES',
-//                          onTap: () {},
-//                        ),
-//                        DashboardCards(
-//                          cardIcon: Icons.vpn_key,
-//                          cardTitle: 'We excel at:',
-//                          cardNote:
-//                              'Developing models for prediction based on relevant data',
-//                          cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
-//                          onTap: () {},
-//                        ),
-//                        DashboardCards(
-//                          cardIcon: Icons.trending_up,
-//                          cardTitle: 'Other offerings planned',
-//                          cardNote:
-//                              'Calendar Sync - Syncs ToDo items with a calendar and allows for meeting scheduling and meeting notes',
-//                          cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
-//                          onTap: () {},
-//                        )
-//                      ],
-//                    ),
-//                  ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Divider(
@@ -277,52 +228,6 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                       headingStyle: sideHeadingTextStyle,
                       headingAlignment: CrossAxisAlignment.start,
                     ),
-//                    Padding(
-//                      padding: const EdgeInsets.all(15.0),
-//                      child: Text(
-//                        'How we plan to get the product to market as quickly as possible:',
-//                        style: sideHeadingTextStyle,
-//                        //TextStyle(fontSize: 60),
-//                        textAlign: TextAlign.left,
-//                      ),
-//                    ),
-//                    Center(
-//                      child: Wrap(
-//                        children: <Widget>[
-//                          DashboardCards(
-//                            cardIcon: Icons.person,
-//                            cardTitle: 'How we reduce rework',
-//                            cardNote:
-//                                'We intend to use Google Apps suite for the purpose of Collaboration when working on joint tasks.',
-//                            cardButtonName: 'VIEW SERVICES AND FRAMEWORKS',
-//                            onTap: () {},
-//                          ),
-//                          DashboardCards(
-//                            cardIcon: Icons.person,
-//                            cardTitle: 'How we Synergize',
-//                            cardNote:
-//                                '"A key resource (developer/designer) working with tech support personnel to create a new feature called \'task clipper\', based on studying user feedback. "',
-//                            onTap: () {},
-//                          ),
-//                          DashboardCards(
-//                            cardIcon: Icons.face,
-//                            cardTitle: 'What we learnt about our target customer',
-//                            cardNote:
-//                                'Urban dwellers who are employed and aged between 18 and 34 years . Solution is aimed at Both Enterprise and Consumer market segment(s).',
-//                            cardButtonName: 'VIEW PERSONA',
-//                            onTap: () {},
-//                          ),
-//                          DashboardCards(
-//                            cardIcon: Icons.leak_add,
-//                            cardTitle: 'What we learnt from our competition',
-//                            cardNote:
-//                                'Our competitor Todoist, offers features such as backup tasks to the cloud, labeling of tasks, smart schedule of tasks',
-//                            cardButtonName: 'REVIEW OTHER COMPETITORS',
-//                            onTap: () {},
-//                          ),
-//                        ],
-//                      ),
-//                    ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Divider(
@@ -336,43 +241,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                       headingStyle: sideHeadingTextStyle,
                       headingAlignment: CrossAxisAlignment.start,
                     ),
-//                    Padding(
-//                      padding: const EdgeInsets.all(15.0),
-//                      child: Text(
-//                        'How we make money and manage capital:',
-//                        style: sideHeadingTextStyle,
-//                        //TextStyle(fontSize: 60),
-//                        textAlign: TextAlign.left,
-//                      ),
-//                    ),
-//                    Center(
-//                      child: Wrap(
-//                        children: <Widget>[
-//                          DashboardCards(
-//                            cardIcon: Icons.attach_money,
-//                            cardTitle: 'How we make money.',
-//                            cardNote:
-//                                'We plan to monetize this innovation via advertising. This strategy will be integrated into the early desings of the solution.',
-//                            onTap: () {},
-//                          ),
-//                          DashboardCards(
-//                            cardIcon: Icons.folder_special,
-//                            cardTitle: 'IP Properties',
-//                            cardNote:
-//                                'The code behind the application will be protected by means of Copyright',
-//                            cardButtonName: 'VIEW ALL IP PROPERTIES',
-//                            onTap: () {},
-//                          ),
-//                          DashboardCards(
-//                            cardIcon: Icons.rate_review,
-//                            cardTitle: 'How we handle Growth',
-//                            cardNote:
-//                                'I intend to use a cloud service provider such as AWS, Firebase or Azure.',
-//                            onTap: () {},
-//                          ),
-//                        ],
-//                      ),
-//                    ),
+
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Divider(
@@ -386,30 +255,6 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                       headingStyle: sideHeadingTextStyle,
                       headingAlignment: CrossAxisAlignment.start,
                     ),
-//                    Padding(
-//                      padding: const EdgeInsets.all(15.0),
-//                      child: Text(
-//                        'Metrics, which will help keep us on track:',
-//                        style: sideHeadingTextStyle,
-//                        //TextStyle(fontSize: 60),
-//                        textAlign: TextAlign.left,
-//                      ),
-//                    ),
-//                    Padding(
-//                      padding: const EdgeInsets.only(left: 100.0, top: 20.0),
-//                      child: Wrap(
-//                        children: <Widget>[
-//                          DashboardCards(
-//                            cardIcon: Icons.star,
-//                            cardTitle: 'North Star metric',
-//                            cardNote:
-//                                'Ratio of tasks registered to tasks completed',
-//                            cardButtonName: 'VIEW OTHER METRICS',
-//                            onTap: () {},
-//                          ),
-//                        ],
-//                      ),
-//                    )
                   ],
                 ),
               ),

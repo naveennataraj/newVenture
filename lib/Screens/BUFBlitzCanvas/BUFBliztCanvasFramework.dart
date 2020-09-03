@@ -9,11 +9,9 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 // BreadCrumb
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:html' as html;
-
 String ID;
+
+
 
 class BCScreen extends StatefulWidget {
   final bool bifModel;
@@ -27,16 +25,16 @@ List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
   Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
 ];
-
+bool spinner = false;
 
 class _BCScreenState extends State<BCScreen> {
   bool bifModel;
   _BCScreenState(this.bifModel);
-  bool spinner = false;
-  Timer _timer;
 
   List<int> bifStepList = [0, 2, 3, 6, 7, 9];
-  final _firestore = Firestore.instance;
+  final _firestore = Firestore.instance
+      .collection(currentUser)
+      .document('stepValidation');
   int i = 0;
   bool firebaseStep0;
   bool firebaseStep1;
@@ -54,48 +52,14 @@ class _BCScreenState extends State<BCScreen> {
   void initState() {
     super.initState();
 
-    if ( currentUser != null && currentUser != '') {
+    if (currentUser != null) {
       getDocuments();
     }
-    else{
-      //getFirebaseUser();
-      //setState(() {
-      _AnimatedFlutterLogoState();
-      //});
-      //if (currentUser != null && currentUser != '') {getDocuments();}
-    }
-  }
 
-//  void getFirebaseUser() async {
-//print('get firebase canvas');
-//    for(int i=0; i>=2;) {
-//      FirebaseUser firebaseUserMenu = await FirebaseAuth.instance.currentUser();
-//      if (firebaseUserMenu == null) {
-//        firebaseUserMenu = await FirebaseAuth.instance.onAuthStateChanged.first;
-//        i=0;
-//      } else if (firebaseUserMenu.email != null) {
-//
-//        i=3;
-//        setState(() {
-//          currentUser = firebaseUserMenu.email;
-//          print("----friebase user Canvas --------- $currentUser");
-//        });
-//      }
-//    }
-//  }
-
-  _AnimatedFlutterLogoState() {
-    _timer = new Timer(const Duration(seconds: 2), () {
-      setState(() {
-        if (currentUser != null && currentUser != '') {getDocuments();}
-      });
-
-    });
   }
 
   void getDocuments() async {
-    final document = await _firestore.collection(currentUser)
-        .document('stepValidation').get();
+    final document = await _firestore.get();
     spinner = true;
 //    setState(() {
 //      spinner = true;
@@ -128,7 +92,9 @@ class _BCScreenState extends State<BCScreen> {
 
       } catch (e) {
         print(e);
-
+        setState(() {
+          spinner = false;
+        });
       }
     }
     setState(() {
@@ -136,12 +102,9 @@ class _BCScreenState extends State<BCScreen> {
     });
   }
 
+
   @override
-
   Widget build(BuildContext context) {
-    setState(() {
-
-    });
     //getDocuments();
     return Scaffold(
       appBar: AppBar(
@@ -149,9 +112,7 @@ class _BCScreenState extends State<BCScreen> {
         backgroundColor: Color(0XFFE95420),
       ),
       backgroundColor: Color(0XFFFAFAFA),
-
       body: SingleChildScrollView(
-
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,41 +144,41 @@ class _BCScreenState extends State<BCScreen> {
                       : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
                 ),
                 child:
-                (bifModel == true ) ?
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: bifStepList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 1,
-                      crossAxisSpacing: 1.5,
-                      //childAspectRatio: 2.5,
-                      //crossAxisCount: 3
-                      childAspectRatio:
-                      (MediaQuery.of(context).size.width >= 1400)
-                          ? 2.3
-                          : (MediaQuery.of(context).size.width <= 800)
-                          ? 1.5
-                          : 1.8,
-                      crossAxisCount: (MediaQuery.of(context).size.width >=
-                          1400)
-                          ? 3
-                          : (MediaQuery.of(context).size.width <= 800) ? 1 : 2
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    final item= bifStepList[index];
-                    return FrameworkCards (
-                        stepCompleteValidator:
-                        bcStepsContent[item].bcCompletionValidator,
-                        //completeStep1: completeStep1,
-                        frameworkicon: bcStepsContent[item].frameWorkIcon,
-                        frameworkStep:  'Step '+ (index+1).toString() + bcStepsContent[item].frameworkStep,
-                        frameworkdescrip: bcStepsContent[item].frameWorkDescription,
-                        buttonText: bcStepsContent[item].buttonText + (index+1).toString(),
-                        navigateTo: bcStepsContent[item].navigateTo);
-                  },
-                )
-                :
+//                (bifModel == true ) ?
+//                GridView.builder(
+//                  shrinkWrap: true,
+//                  physics: NeverScrollableScrollPhysics(),
+//                  itemCount: bifStepList.length,
+//                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                      mainAxisSpacing: 1,
+//                      crossAxisSpacing: 1.5,
+//                      //childAspectRatio: 2.5,
+//                      //crossAxisCount: 3
+//                      childAspectRatio:
+//                      (MediaQuery.of(context).size.width >= 1400)
+//                          ? 2.3
+//                          : (MediaQuery.of(context).size.width <= 800)
+//                          ? 1.5
+//                          : 1.8,
+//                      crossAxisCount: (MediaQuery.of(context).size.width >=
+//                          1400)
+//                          ? 3
+//                          : (MediaQuery.of(context).size.width <= 800) ? 1 : 2
+//                  ),
+//                  itemBuilder: (BuildContext context, int index) {
+//                    final item= bifStepList[index];
+//                    return FrameworkCards (
+//                        stepCompleteValidator:
+//                        bcStepsContent[item].bcCompletionValidator,
+//                        //completeStep1: completeStep1,
+//                        frameworkicon: bcStepsContent[item].frameWorkIcon,
+//                        frameworkStep:  'Step '+ (index+1).toString() + bcStepsContent[item].frameworkStep,
+//                        frameworkdescrip: bcStepsContent[item].frameWorkDescription,
+//                        buttonText: bcStepsContent[item].buttonText + (index+1).toString(),
+//                        navigateTo: bcStepsContent[item].navigateTo);
+//                  },
+//                )
+//                :
                 GridView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -243,8 +204,7 @@ class _BCScreenState extends State<BCScreen> {
 
                     return ModalProgressHUD(
                       inAsyncCall: spinner,
-                      child:
-                      FrameworkCards(
+                      child: FrameworkCards(
                           stepCompleteValidator:
                           bcStepsContent[index].bcCompletionValidator,
                           //completeStep1: completeStep1,
