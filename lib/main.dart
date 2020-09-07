@@ -42,6 +42,8 @@ import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
 import 'package:iventure001/bifdashboard.dart';
 
+import 'package:iventure001/Screens/BUFBlitzCanvas/BUFBliztCanvasFramework.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BuildTheFoundation.dart';
 import 'Constants/TextFieldConstants.dart';
 import 'Homepage.dart';
 import 'Screens/BlitzInnovationFramework/BIFHomeScreen.dart';
@@ -205,6 +207,10 @@ class _VueappState extends State<Vueapp> {
 
         //dashboard
         '/BusinessModelDashboard': (context) => BusinessModelDashBoard(),
+
+        //BIF Blitz Canvas
+        '/BIFCanvasFramework': (context) => BIFCanvasFramework(),
+        '/BIFCanvas': (context) => BIF(),
       },
     );
   }

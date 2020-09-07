@@ -14,11 +14,10 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 String ID;
 
 class BCScreen extends StatefulWidget {
-  final bool bifModel;
-  BCScreen({this.bifModel});
+
 
   @override
-  _BCScreenState createState() => _BCScreenState(bifModel);
+  _BCScreenState createState() => _BCScreenState();
 }
 
 List<Bread> breads = [
@@ -27,8 +26,7 @@ List<Bread> breads = [
 ];
 
 class _BCScreenState extends State<BCScreen> {
-  bool bifModel;
-  _BCScreenState(this.bifModel);
+
   bool spinner = false;
   Timer _timer;
 
@@ -175,50 +173,51 @@ class _BCScreenState extends State<BCScreen> {
                       ? 30
                       : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
                 ),
-                child: (bifModel == true)
-                    ? GridView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: bifStepList.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 1,
-                            crossAxisSpacing: 1.5,
-                            //childAspectRatio: 2.5,
-                            //crossAxisCount: 3
-                            childAspectRatio:
-                                (MediaQuery.of(context).size.width >= 1400)
-                                    ? 2.3
-                                    : (MediaQuery.of(context).size.width <= 800)
-                                        ? 1.5
-                                        : 1.8,
-                            crossAxisCount:
-                                (MediaQuery.of(context).size.width >= 1400)
-                                    ? 3
-                                    : (MediaQuery.of(context).size.width <= 800)
-                                        ? 1
-                                        : 2),
-                        itemBuilder: (BuildContext context, int index) {
-                          final item = bifStepList[index];
-                          return ModalProgressHUD(
-                            inAsyncCall: spinner,
-                            child: FrameworkCards(
-                                stepCompleteValidator:
-                                    bcStepsContent[item].bcCompletionValidator,
-                                //completeStep1: completeStep1,
-                                frameworkicon:
-                                    bcStepsContent[item].frameWorkIcon,
-                                frameworkStep: 'Step ' +
-                                    (index + 1).toString() +
-                                    bcStepsContent[item].frameworkStep,
-                                frameworkdescrip:
-                                    bcStepsContent[item].frameWorkDescription,
-                                buttonText: bcStepsContent[item].buttonText +
-                                    (index + 1).toString(),
-                                navigateTo: bcStepsContent[item].navigateTo),
-                          );
-                        },
-                      )
-                    : GridView.builder(
+                child:
+//                (bifModel == true) // BIF Small Canvas
+//                    ? GridView.builder(
+//                        shrinkWrap: true,
+//                        physics: NeverScrollableScrollPhysics(),
+//                        itemCount: bifCanvasContent.length,
+//                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                            mainAxisSpacing: 1,
+//                            crossAxisSpacing: 1.5,
+//                            //childAspectRatio: 2.5,
+//                            //crossAxisCount: 3
+//                            childAspectRatio:
+//                                (MediaQuery.of(context).size.width >= 1400)
+//                                    ? 2.3
+//                                    : (MediaQuery.of(context).size.width <= 800)
+//                                        ? 1.5
+//                                        : 1.8,
+//                            crossAxisCount:
+//                                (MediaQuery.of(context).size.width >= 1400)
+//                                    ? 3
+//                                    : (MediaQuery.of(context).size.width <= 800)
+//                                        ? 1
+//                                        : 2),
+//                        itemBuilder: (BuildContext context, int index) {
+//                          return ModalProgressHUD(
+//                            inAsyncCall: spinner,
+//                            child: FrameworkCards(
+//                                stepCompleteValidator:
+//                                bifCanvasContent[index].bcCompletionValidator,
+//                                //completeStep1: completeStep1,
+//                                frameworkicon:
+//                                bifCanvasContent[index].frameWorkIcon,
+//                                frameworkStep: 'Step ' +
+//                                    (index + 1).toString() +
+//                                    bifCanvasContent[index].frameworkStep,
+//                                frameworkdescrip:
+//                                bifCanvasContent[index].frameWorkDescription,
+//                                buttonText: bifCanvasContent[index].buttonText +
+//                                    (index + 1).toString(),
+//                                navigateTo: bifCanvasContent[index].navigateTo),
+//                          );
+//                        },
+//                      )
+//                    :
+                GridView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: bcStepsContent.length,

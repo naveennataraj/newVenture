@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Screens/BlitzCanvas/menuScreen.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BUFBliztCanvasFramework.dart';
 
 class CongratsBIFDialog extends StatelessWidget {
   final bool bifModel = false;
@@ -54,7 +54,7 @@ class CongratsBIFDialog extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BCScreen(
+                      builder: (context) => BIFCanvasFramework(
                         bifModel: true,
                       ),
                     ));

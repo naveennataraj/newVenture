@@ -19,16 +19,15 @@ class BcStep1CollectionAspects extends StatefulWidget {
       _BcStep1CollectionAspectsState();
 }
 
-
-
-List<Bread> breads = [
-  Bread(label: "Home ", route: '/'),
-  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
-  Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
-];
-
 class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
+
   String ID;
+  List<Bread> breads = [
+    Bread(label: "Home ", route: '/'),
+    Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+    Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
+  ];
+
 
   var missionLabelColor = Color(0XFF919191);
   bool validMission = true;
@@ -109,15 +108,10 @@ class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
 
     } else{
       _firestore.collection(currentUser).document('Bc1_buildTheFoundation').setData(
-          {
-            'mission': 'Initial'
-          }
+          {}
       );
     }
-
-
   }
-
 
   @override
   Widget build(BuildContext context) {
