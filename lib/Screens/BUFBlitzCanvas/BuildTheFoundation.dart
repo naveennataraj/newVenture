@@ -8,13 +8,13 @@ class BIF extends BcStep1CollectionAspects {
 
   @override
   Widget build(BuildContext context) {
-    GenericStepButton(
-
-        buttonName: 'GO NAVEEN',
-        //pageValidation: (missionTextController.text == '') ? true : false,
-        step: 0,
-        stepBool: false,
-
-    );
+//    GenericStepButton(
+//
+//        buttonName: 'GO NAVEEN',
+//        //pageValidation: (missionTextController.text == '') ? true : false,
+//        step: 0,
+//        stepBool: false,
+//
+//    );
   }
 }

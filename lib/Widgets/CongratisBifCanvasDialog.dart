@@ -11,8 +11,8 @@ class CongratsBIFDialog extends StatelessWidget {
         "Congratulations!",
       ),
       content: new Text(
-          "You have created a product/solution concept using the Blitz Innovation Framework! \n \n"
-          "Would you like to view your product dashboard?"),
+          "You have created a business model for your product using the Blitz Canvas! \n \n"
+              "Would you like to view the dashboard for your product and business?"),
       actions: <Widget>[
         // usually buttons at the bottom of the dialog
 
@@ -25,7 +25,7 @@ class CongratsBIFDialog extends StatelessWidget {
                   child: new Text("HEAD BACK",
                       style: TextStyle(color: Colors.black)),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/BlitzInnovationFramework');
+                    Navigator.pushNamed(context, '/BIFCanvasFramework');
                   },
                 ),
                 SizedBox(
@@ -33,31 +33,17 @@ class CongratsBIFDialog extends StatelessWidget {
                 ),
                 FlatButton(
                   child: new Text("PROCEED TO THE DASHBOARD",
-                      style: TextStyle(color: Colors.black)),
+                    style: TextStyle(
+                        color: Color(
+                          0XFFE95420,
+                        ),),),
                   onPressed: () {
                     Navigator.pushNamed(context, '/conceptDashboard');
                   },
                 ),
               ],
             ),
-            FlatButton(
-              child: new Text(
-                "CREATE A BUSINESS MODEL FOR MY PRODUCT",
-                style: TextStyle(
-                    color: Color(
-                  0XFFE95420,
-                )),
-              ),
-              onPressed: () {
-                //Navigator.pushNamed(context, '/BIFCanvas');
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BIFCanvasFramework(
-                      ),
-                    ),);
-              },
-            ),
+
           ],
         ),
       ],

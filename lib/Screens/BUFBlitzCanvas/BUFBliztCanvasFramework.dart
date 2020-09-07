@@ -13,22 +13,21 @@ String ID;
 
 
 class BIFCanvasFramework extends StatefulWidget {
-  final bool bifModel;
-  BIFCanvasFramework({this.bifModel});
   @override
-  _BIFCanvasFrameworkState createState() => _BIFCanvasFrameworkState(bifModel);
+  _BIFCanvasFrameworkState createState() => _BIFCanvasFrameworkState();
 }
 
 
 List<Bread> breads = [
   Bread(label: "Home ", route: '/'),
-  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+  Bread(
+      label: "Blitz Innovation Framework ",
+      route: '/BlitzInnovationFramework'),
+  Bread(label: "Blitz Canvas ", route: '/BIFCanvasFramework'),
 ];
 bool spinner = false;
 
 class _BIFCanvasFrameworkState extends State<BIFCanvasFramework> {
-  bool bifModel;
-  _BIFCanvasFrameworkState(this.bifModel);
 
   final _firestore = Firestore.instance
       .collection(currentUser)
@@ -66,11 +65,11 @@ class _BIFCanvasFrameworkState extends State<BIFCanvasFramework> {
     if (document.exists) {
       try {
         firebaseStep0 = document.data['bcStepsContent0'];
-        firebaseStep1 = document.data['bcStepsContent1'];
-        firebaseStep2 = document.data['bcStepsContent2'];
-        firebaseStep3 = document.data['bcStepsContent3'];
-        firebaseStep4 = document.data['bcStepsContent4'];
-        firebaseStep5 = document.data['bcStepsContent5'];
+        firebaseStep1 = document.data['bcStepsContent2'];
+        firebaseStep2 = document.data['bcStepsContent3'];
+        firebaseStep3 = document.data['bcStepsContent6'];
+        firebaseStep4 = document.data['bcStepsContent7'];
+        firebaseStep5 = document.data['bcStepsContent9'];
         //firebaseStep6 = document.data['bcStepsContent6'];
 //        firebaseStep7 = document.data['bcStepsContent7'];
 //        firebaseStep8 = document.data['bcStepsContent8'];
@@ -196,24 +195,24 @@ class _BIFCanvasFrameworkState extends State<BIFCanvasFramework> {
   }
 }
 
-
-class DoneRaisedButton extends StatelessWidget {
-//  ReusableRaisedButton({@required this.routeTo, this.textButton});
-//  final String routeTo;
-//  final String textButton;
-
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      elevation: 5,
-      //hoverElevation: 10,
-      color: inactiveBlackColour,
-      onPressed: () {
-        //CHANGE IT
-        //Navigator.pushNamed(context, routeTo);
-      },
-      child: Icon(Icons.check, color: Colors.grey,),
-    );
-  }
-}
+//
+//class DoneRaisedButton extends StatelessWidget {
+////  ReusableRaisedButton({@required this.routeTo, this.textButton});
+////  final String routeTo;
+////  final String textButton;
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return RaisedButton(
+//      elevation: 5,
+//      //hoverElevation: 10,
+//      color: inactiveBlackColour,
+//      onPressed: () {
+//        //CHANGE IT
+//        //Navigator.pushNamed(context, routeTo);
+//      },
+//      child: Icon(Icons.check, color: Colors.grey,),
+//    );
+//  }
+//}
 

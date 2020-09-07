@@ -41,9 +41,20 @@ import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboar
 import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
 import 'package:iventure001/bifdashboard.dart';
-
+// BUF Blitz Canvas
 import 'package:iventure001/Screens/BUFBlitzCanvas/BUFBliztCanvasFramework.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/BuildTheFoundation.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BuildFoundation/BifFoundationAspects.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BuildFoundation/BifFoundationAspectsAdd.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/DefiningSolution/BifHighFidelityWireframe.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/SellingProposition/Solution.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/SellingProposition/TouchPoints.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifElements.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifIntellectualProperties.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifModelAsAService.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/Synergies/BifAddSynergies.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/Metrics/BifNorthStarMetric.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/Metrics/BifAddmetrics.dart';
+
 import 'Constants/TextFieldConstants.dart';
 import 'Homepage.dart';
 import 'Screens/BlitzInnovationFramework/BIFHomeScreen.dart';
@@ -210,7 +221,24 @@ class _VueappState extends State<Vueapp> {
 
         //BIF Blitz Canvas
         '/BIFCanvasFramework': (context) => BIFCanvasFramework(),
-        '/BIFCanvas': (context) => BIF(),
+        //Step 1
+        '/BIFCanvas': (context) => BIFCanvasFoundationAspects(),
+        '/BIFCanvasFoundationAspectAdd': (context) => BifCanvasAddFoundationAspects(),
+        //Step2
+        '/BIFCanvasWireframe': (context) => BifHighFidelityWireframe(),
+        //Step 3
+        '/BifCanvasSolution': (context) => BifCanvasSolution(),
+        '/BifCanvasTouchPoint': (context) => BifTouchPoints(),
+        //step4
+        '/BIFElements': (context) => BifBusinessModelElements(),
+        '/BIFIntellectualAssets': (context) =>
+            BifIntellectualPropertyAssets(),
+        '/BIFServiceOffering': (context) => BifAsaServiceOffering(),
+        //Step5 Synergies
+        '/BIFSynergies': (context) => BifAddSynergies(),
+        //Step6 Synergies
+        '/BIFStarMetric': (context) => BifNorthMetric(),
+        '/BIFAddmetrics': (context) => BifAddMetrics(),
       },
     );
   }

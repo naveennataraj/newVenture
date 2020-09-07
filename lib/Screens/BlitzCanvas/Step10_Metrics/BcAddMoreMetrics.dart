@@ -249,7 +249,7 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
                                     width: 50,
                                   ),
                                   GenericStepButton(
-                                    buttonName: 'COMPLETE STEP 10',
+                                    buttonName: 'COMPLETE STEP',
                                     //routeName: '/BCHomeView',
                                     step: 9,
                                     stepBool: true,

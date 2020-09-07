@@ -20,6 +20,7 @@ class _GenericStepButtonState extends State<GenericStepButton> {
   bool stepBool;
   int step;
   String buttonName;
+  // Blitz Canvas
   bool firebaseStep0;
   bool firebaseStep1;
   bool firebaseStep2;
@@ -30,6 +31,7 @@ class _GenericStepButtonState extends State<GenericStepButton> {
   bool firebaseStep7;
   bool firebaseStep8;
   bool firebaseStep9;
+
 
   void initState() {
     super.initState();
@@ -51,6 +53,7 @@ class _GenericStepButtonState extends State<GenericStepButton> {
           firebaseStep7 = document.data['bcStepsContent7'];
           firebaseStep8 = document.data['bcStepsContent8'];
           firebaseStep9 = document.data['bcStepsContent9'];
+
         });
       } catch (e) {
         print(e);
@@ -190,6 +193,7 @@ class _GenericStepButtonState extends State<GenericStepButton> {
             'bcStepsContent9': true
           });
         break;
+
       default :
         print('Number Not Found');
 

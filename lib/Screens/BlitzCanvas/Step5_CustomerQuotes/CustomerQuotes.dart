@@ -206,7 +206,7 @@ class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
                                   width: 50,
                                 ),
                                 GenericStepButton(
-                                  buttonName: 'COMPLETE STEP 5',
+                                  buttonName: 'COMPLETE STEP',
                                   //routeName: '/BCHomeView',
                                   step: 4,
                                   stepBool: true,

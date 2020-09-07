@@ -209,7 +209,7 @@ class _BcCreatingEcosystemsState extends State<BcCreatingEcosystems> {
                                     width: 50,
                                   ),
                                   GenericStepButton(
-                                    buttonName: 'COMPLETE STEP 9',
+                                    buttonName: 'COMPLETE STEP',
                                     routeName: '/BCHomeView',
                                     step: 8,
                                     stepBool: true,

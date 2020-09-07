@@ -210,7 +210,7 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                                     width: 50,
                                   ),
                                   GenericStepButton(
-                                    buttonName: 'COMPLETE STEP 6',
+                                    buttonName: 'COMPLETE STEP',
                                     //routeName: '/BCHomeView',
                                     step: 5,
                                     stepBool: true,

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BcFrameworkContent {
- bool bifModel;
   final IconData frameWorkIcon;
   final String frameworkStep;
   final String frameWorkDescription;
@@ -31,7 +30,8 @@ List<BcFrameworkContent> bcStepsContent = [
     frameWorkDescription:
     'Defining the organization\'s mission, vision and other foudational elements.',
     buttonText: "LET'S GET STARTED",
-    navigateTo:  '/BCStep1CollectAspects'
+    navigateTo:  '/BCStep1CollectAspects',
+
   ),
   BcFrameworkContent(
     frameworkStep: ' - Studying the user',
@@ -56,6 +56,7 @@ List<BcFrameworkContent> bcStepsContent = [
     'Highlighting what makes the solution unique and the customer touchpoints in focus.',
     buttonText: 'Begin Step ',
     navigateTo: '/BCStep4SellingProposition',
+
   ),
   BcFrameworkContent(
     frameworkStep: ' - The User\'s feedback',
@@ -72,6 +73,7 @@ List<BcFrameworkContent> bcStepsContent = [
     "Studying the current market players and the solutions/features they offer.",
     buttonText: 'Begin Step ',
     navigateTo: '/BCStep6CompetingProduct',
+
   ),
   BcFrameworkContent(
     frameworkStep: ' - Business model elements',
@@ -106,8 +108,7 @@ List<BcFrameworkContent> bcStepsContent = [
     navigateTo: '/BCStep10MetricSection1',
   ),
 ];
-// BIF Small Blitz Canvas Framework
-
+// BUF BLITZ CANVAS Small Blitz Canvas Framework
 List<BcFrameworkContent> bifCanvasContent = [
   BcFrameworkContent(
     frameworkStep: 'Step 1 - Build the Foundation',
@@ -116,6 +117,7 @@ List<BcFrameworkContent> bifCanvasContent = [
     'Defining the organization\'s mission, vision and other foudational elements.',
     buttonText: "LET'S GET STARTED",
     navigateTo: '/BIFCanvas',
+
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 2 - Defining the solution',
@@ -123,7 +125,7 @@ List<BcFrameworkContent> bifCanvasContent = [
     frameWorkDescription:
     'Defining product goals, the features of the product and Creating a solution outline.',
     buttonText: 'Begin Step 2',
-    navigateTo: '/BCStep3WireFrameLink',
+    navigateTo: '/BIFCanvasWireframe',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 3 - Unique selling proposition',
@@ -131,7 +133,7 @@ List<BcFrameworkContent> bifCanvasContent = [
     frameWorkDescription:
     'Highlighting what makes the solution unique and the customer touchpoints in focus.',
     buttonText: 'Begin Step 3',
-    navigateTo: '/BCStep4SellingProposition',
+    navigateTo: '/BifCanvasSolution',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 4 - Business model elements',
@@ -139,7 +141,7 @@ List<BcFrameworkContent> bifCanvasContent = [
     frameWorkDescription:
     'Define the business model elements, the IP and the services used.',
     buttonText: 'Begin Step 4',
-    navigateTo: '/BCStep7BusinessModelElements',
+    navigateTo: '/BIFElements',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 5 - Synergies',
@@ -147,7 +149,7 @@ List<BcFrameworkContent> bifCanvasContent = [
     frameWorkDescription:
     'Spot potential synergies between different parts of the business model.',
     buttonText: 'Begin Step 5',
-    navigateTo: '/BCStep8Synergies',
+    navigateTo: '/BIFSynergies',
   ),
   BcFrameworkContent(
     frameworkStep: 'Step 6 - Metrics',
@@ -155,6 +157,6 @@ List<BcFrameworkContent> bifCanvasContent = [
     frameWorkDescription:
     'List out the metrics which will be used to keep track of the business.',
     buttonText: 'Begin Step 6',
-    navigateTo: '/BCStep10MetricSection1',
+    navigateTo: '/BIFStarMetric',
   ),
 ];

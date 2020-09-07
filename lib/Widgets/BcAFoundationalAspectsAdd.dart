@@ -1,43 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
-import 'package:iventure001/Screens/BlitzCanvas/StudyingTheUser/BcStoryDialogue.dart';
+import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step1/AddFoudationalDeatil.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:iventure001/Widgets/HeadBackButton.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
-import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:iventure001/Widgets/ValidationDialogue.dart';
 
-class BcStep2CapturingUserStories extends StatefulWidget {
+class BcAddFoundationalAspects extends StatefulWidget {
+  final List breads;
+  final String completeButtonRoute;
+  BcAddFoundationalAspects({this.breads, this.completeButtonRoute});
   @override
-  _BcStep2CapturingUserStoriesState createState() =>
-      _BcStep2CapturingUserStoriesState();
+  _BcAddFoundationalAspectsState createState() => _BcAddFoundationalAspectsState(breads, completeButtonRoute);
 }
 
-List<Bread> breads = [
-  Bread(label: "Home ", route: '/'),
-  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
-  Bread(label: "User Profile", route: '/BCStep2UserProfile'),
-  Bread(label: "User Stories", route: '/BCStep2CaptureUserStories'),
-];
+class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
+  List breads;
+  String completeButtonRoute;
+  _BcAddFoundationalAspectsState(this.breads, this.completeButtonRoute);
 
-
-class _BcStep2CapturingUserStoriesState
-    extends State<BcStep2CapturingUserStories> {
-  final _firestore = Firestore.instance;
   bool spinner = false;
-  UserStory(int index) {
-    String A = userStoriesContent[index].Asa;
-    String B = userStoriesContent[index].IWantTo;
-    String C = userStoriesContent[index].SoThat;
-
-    return 'As a $A, I want to $B so that $C';
-  }
+  final _firestore = Firestore.instance;
+  List validatorList = [];
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,26 +43,29 @@ class _BcStep2CapturingUserStoriesState
         inAsyncCall: spinner,
         child: SingleChildScrollView(
           child: Column(
-//            crossAxisAlignment: CrossAxisAlignment.center,
-//            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Wrap(children: [
-                  Breadcrumb(breads: breads, color: Color(0xFFE95420))
-                ],),
-              ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Wrap(
+                    children: [
+                      Breadcrumb(
+                        breads:  breads,
+                        color: Color(0xFFE95420),
+                      )
+                    ],
+                  )),
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         //height: MediaQuery.of(context).size.height * .40,
                         margin: EdgeInsets.only(top: 40.0),
                         width: 600,
+                        //MediaQuery.of(context).size.width * .40,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           //shape: BoxShape.rectangle,
@@ -88,85 +83,89 @@ class _BcStep2CapturingUserStoriesState
                               padding: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
                                 "Add details of the foundational aspects of the business",
-                                style:
-                                cardTitleTextStyle,
+                                style: cardTitleTextStyle,
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             StreamBuilder<QuerySnapshot>(
                               stream: _firestore
                                   .collection(
-                                  '$currentUser/Bc2_studyingTheUser/addFoundations')
+                                  '$currentUser/Bc1_buildTheFoundation/addFoundations')
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  final messages = snapshot.data.documents.reversed;
-                                  userStoriesContent = [];
+                                  final messages =
+                                      snapshot.data.documents.reversed;
+                                  foundationContent = [];
                                   for (var message in messages) {
-                                    final Asa = message.data['Asa'];
-                                    final IWantTo = message.data['IWantTo'];
-                                    final SoThat = message.data['SoThat'];
+                                    final title = message.data['title'];
+                                    final description =
+                                    message.data['description'];
+                                    final featureType =
+                                    message.data['featureType'];
                                     final ID = message.documentID;
 
-                                    final card = BcContentUserStories(
-                                      Asa: Asa,
-                                      IWantTo: IWantTo,
-                                      SoThat: SoThat,
+                                    final card = ContentBcAddFoundation(
+                                      title: title,
+                                      description: description,
+                                      featureType: featureType,
                                       ID: ID,
                                     );
-                                    userStoriesContent.add(card);
+                                    foundationContent.add(card);
                                   }
                                 }
 
-                                return (userStoriesContent.length != 0)
+                                return (foundationContent.length != 0)
                                     ? ListView.builder(
-                                  itemCount: userStoriesContent.length,
+                                  itemCount: foundationContent.length,
                                   shrinkWrap: true,
                                   padding: EdgeInsets.only(top: 10.0),
                                   itemBuilder: (context, index) {
                                     return Column(
-                                      children: userStoriesContent != null
-                                          ?<Widget>[
-                                        SmallOrangeCardWithoutTitle(
-                                          description: UserStory(index),
+                                      children: <Widget>[
+                                        SmallOrangeCardWithTitle(
+                                          title: foundationContent[index]
+                                              .title,
+                                          description:
+                                          foundationContent[index]
+                                              .description,
                                           index: index,
-                                          removingat: userStoriesContent,
-                                          Dialogue: BcUserStoryDialogue(
+                                          removingat: foundationContent,
+                                          Dialogue: AddFoundationalDetail(
                                             index: index,
                                           ),
                                           CollectionName:
-                                          '$currentUser/Bc2_studyingTheUser/addFoundations',
-                                          ID: userStoriesContent[index].ID,
+                                          '$currentUser/Bc1_buildTheFoundation/addFoundations',
+                                          ID: foundationContent[index].ID,
                                         )
-                                      ]
-                                          : null,
+                                      ],
                                     );
                                   },
                                 )
                                     : Padding(
                                   padding: const EdgeInsets.all(25.0),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          "There are no User Stories at the moment.\n Would you like to add some? Use the '+’ button to get started.",
-                                          style: emptyStateTextStyle,
-                                          textAlign: TextAlign.center,
-                                        ),
+                                            "There are no Product Goals at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                            style: emptyStateTextStyle,
+                                            textAlign: TextAlign.center),
                                       )
                                     ],
                                   ),
                                 );
                               },
                             ),
-
                             Padding(
                               padding: const EdgeInsets.all(30.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   headBackButtton(
+                                    //headHome: true,
                                   ),
                                   SizedBox(
                                     width: 50,
@@ -174,26 +173,24 @@ class _BcStep2CapturingUserStoriesState
                                   GenericStepButton(
                                     buttonName: 'COMPLETE STEP',
                                     //routeName: '/BCHomeView',
-                                    step: 1,
+                                    step: 0,
                                     stepBool: true,
-
                                     widget: () {
-                                      var count = userStoriesContent
+                                      var count = foundationContent
+                                          .where(
+                                              (Goal) => Goal.title == 'Goal')
+                                          .toList()
                                           .length;
-                                      (count < 3)
+                                      (count < 2)
                                           ?
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) =>
-                                            ValidationDialogue(contentDescription: 'At the least 3 user stories need to be added before proceeding next.',),
+                                            ValidationDialogue(contentDescription: 'At least 2 goals are required before continuing to the next card.',),
                                       )
                                           : Navigator.pushNamed(
-                                          context, '/BCHomeView');
+                                          context, completeButtonRoute);
                                     },
-//                          OnTap: () {
-//                            bcStepsContent[1].bcCompletionValidator = true;
-//                            Navigator.pushNamed(context, '/BCHomeView');
-//                          },
                                   ),
                                 ],
                               ),
@@ -202,7 +199,7 @@ class _BcStep2CapturingUserStoriesState
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ),
               ),
               SizedBox(
@@ -227,7 +224,7 @@ class _BcStep2CapturingUserStoriesState
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => BcUserStoryDialogue(),
+              builder: (BuildContext context) => AddFoundationalDetail(),
             ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),

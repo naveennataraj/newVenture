@@ -15,7 +15,6 @@ String ID;
 
 class BCScreen extends StatefulWidget {
 
-
   @override
   _BCScreenState createState() => _BCScreenState();
 }
@@ -54,7 +53,7 @@ class _BCScreenState extends State<BCScreen> {
     } else {
       //getFirebaseUser();
       //setState(() {
-      _AnimatedFlutterLogoState();
+      _AnimateMenuState();
       //});
       //if (currentUser != null && currentUser != '') {getDocuments();}
     }
@@ -78,7 +77,7 @@ class _BCScreenState extends State<BCScreen> {
 //    }
 //  }
 
-  _AnimatedFlutterLogoState() {
+  _AnimateMenuState() {
     _timer = new Timer(const Duration(seconds: 2), () {
       setState(() {
         if (currentUser != null && currentUser != '') {
@@ -134,7 +133,6 @@ class _BCScreenState extends State<BCScreen> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {});
     //getDocuments();
     return Scaffold(
       appBar: AppBar(

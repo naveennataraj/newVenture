@@ -307,8 +307,7 @@ class _AddFoundationalDetailState extends State<AddFoundationalDetail> {
                         buttonName: 'ADD DETAIL',
                         onTap: () {
                           if (foundationTextController.text != '') {
-                            Navigator.popAndPushNamed(
-                                context, '/BCStep1AddDetails');
+                            Navigator.pop(context);
 
                             setState(() {
                               final NewProductFeature = ContentBcAddFoundation(
