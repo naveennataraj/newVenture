@@ -130,7 +130,7 @@ class _userStoryDialogueState extends State<userStoryDialogue> {
                     myTextController: SoThatTextController,
                     textCollecter: SoThat,
                     helperText:
-                        'Wha is the goal of the user when performing this action?',
+                        'What is the goal of the user when performing this action?',
                     labelcolour: SoThatlabelColor,
                   ),
                   Padding(

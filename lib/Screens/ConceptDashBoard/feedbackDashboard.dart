@@ -7,7 +7,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addDistributionMedium.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/solutionDashboard.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 

@@ -8,14 +8,14 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/proble
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserEnvironment.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserPersona.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/customerPainPointDialogue.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/needOfUsersDialogue.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/ourCustomerDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/customerPainPointDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/needOfUsersDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/ourCustomerDialogue.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'conceptDashboardNavigationBloc.dart';
+import '../conceptDashboardNavigationBloc.dart';
 
 class customerDashBoard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;

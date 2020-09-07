@@ -104,8 +104,8 @@ class _needOfUsersDialogueState extends State<needOfUsersDialogue> {
                     maxLines: 1,
                     style: menuIntroTextStyle,
                     decoration: TextFieldsDecoration.copyWith(
-                      labelText:
-                          'Describe the problem that the customer is facing',
+                      labelText: 'As a',
+                      helperText: 'Who is the user for this story?',
                       helperMaxLines: 3,
                       helperStyle: TextStyle(
                           fontSize: (ResponsiveLayout.isSmallScreen(context)
@@ -172,8 +172,9 @@ class _needOfUsersDialogueState extends State<needOfUsersDialogue> {
                     maxLines: 1,
                     style: menuIntroTextStyle,
                     decoration: TextFieldsDecoration.copyWith(
-                      labelText:
-                          'Describe the problem that the customer is facing',
+                      labelText: 'I want',
+                      helperText:
+                          'What is the desired action, which the user is able to perform using the system? ',
                       helperMaxLines: 3,
                       helperStyle: TextStyle(
                           fontSize: (ResponsiveLayout.isSmallScreen(context)
@@ -240,8 +241,9 @@ class _needOfUsersDialogueState extends State<needOfUsersDialogue> {
                     maxLines: 1,
                     style: menuIntroTextStyle,
                     decoration: TextFieldsDecoration.copyWith(
-                      labelText:
-                          'Describe the problem that the customer is facing',
+                      labelText: 'So that',
+                      helperText:
+                          'What is the goal of the user when performing this action?',
                       helperMaxLines: 3,
                       helperStyle: TextStyle(
                           fontSize: (ResponsiveLayout.isSmallScreen(context)
