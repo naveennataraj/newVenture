@@ -3,30 +3,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/ResposiveLayout.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcElements.dart';
-import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/problemStudy.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/SaveButton.dart';
 
-class customerPainPointDialogue extends StatefulWidget {
-  final String valueProposition;
-
-  const customerPainPointDialogue({this.valueProposition});
-
+class DashboardDialogue extends StatefulWidget {
+  final String dashboardCard;
+  final String cardText;
+  final String heroTag;
+  final String labelText;
+  final IconData iconCard;
+  final Function functionCard;
+  final String firebaseRoute;
+  final String firebaseDocument;
+  final String pushRoute;
+  const DashboardDialogue({this.dashboardCard, this.cardText, this.heroTag, this.labelText, this.iconCard, this.functionCard, this.firebaseRoute, this.firebaseDocument, this.pushRoute});
   @override
-  _customerPainPointDialogueState createState() =>
-      _customerPainPointDialogueState();
+  _DashboardDialogueState createState() => _DashboardDialogueState();
 }
 
-class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
+class _DashboardDialogueState extends State<DashboardDialogue> {
   final _firestore = Firestore.instance;
-
   var genericLabelColor = Color(0XFF919191);
   bool validGenericController = true;
   var genericTextController = TextEditingController();
   final genericFocusNode = new FocusNode();
   String genericText = '';
+
   requestFocus(FocusNode myFocusNode) {
     setState(() {
       FocusScope.of(context).requestFocus(myFocusNode);
@@ -36,7 +39,7 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
   void initState() {
     //  implement initState
     setState(() {
-      genericTextController = TextEditingController(text: widget.valueProposition);
+      genericTextController = TextEditingController(text: widget.dashboardCard);
     });
     super.initState();
   }
@@ -58,7 +61,7 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "What is our Primary Value Proposition?",
+                  widget.cardText,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -79,7 +82,7 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
                     style: menuIntroTextStyle,
                     decoration: TextFieldsDecoration.copyWith(
                       labelText:
-                      'Describe the problem that the customer is facing',
+                      widget.labelText,
                       helperMaxLines: 3,
                       helperStyle: TextStyle(
                           fontSize: (ResponsiveLayout.isSmallScreen(context)
@@ -144,10 +147,10 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Hero(
-                      tag: 'ourCustomer',
+                      tag: widget.heroTag,
                       child: DashboardCards(
-                        cardIcon: Icons.person,
-                        cardTitle: 'What is our Primary Value Proposition?',
+                        cardIcon: widget.iconCard,
+                        cardTitle: widget.cardText,
                         cardNote: genericTextController.text,
                         onTap: () {
                           Navigator.pushNamed(context, '/addpainpoints');
@@ -163,18 +166,16 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                              '$currentUser/StudyTheProblem/problemStudy')
-                              .document(ProblemStudyArray[0].ID)
+                        onTap:
+                            () {
+                          _firestore.collection(currentUser).document(widget.firebaseRoute)
                               .updateData({
-                            'Problem': genericTextController.text,
+                            widget.firebaseDocument: genericTextController.text,
                             'Sender': currentUser,
                           });
 
                           Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
+                              context, widget.pushRoute);
                         },
                       ),
                       SizedBox(
@@ -183,7 +184,7 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
                       CancelButtton(
                         OnTap: () {
                           Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
+                              context, widget.pushRoute);
                         },
                       ),
                     ],
