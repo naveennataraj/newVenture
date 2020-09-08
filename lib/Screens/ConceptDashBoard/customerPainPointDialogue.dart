@@ -15,7 +15,7 @@ class customerPainPointDialogue extends StatefulWidget {
 
   @override
   _customerPainPointDialogueState createState() =>
-      _customerPainPointDialogueState();  
+      _customerPainPointDialogueState();
 }
 
 class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
