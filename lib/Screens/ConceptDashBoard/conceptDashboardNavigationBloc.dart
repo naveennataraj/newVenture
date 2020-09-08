@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/customerDashboard.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/customerDashboard.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/feedbackDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/nextStepsDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/overViewDashboard.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/solutionDashboard.dart';
 
 enum ConceptDashboardEvents {
   overviewClicked,

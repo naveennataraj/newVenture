@@ -7,12 +7,16 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/monetizeDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/oneFeatrueDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/twoFeatrueDialogue.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 
-import 'conceptDashboardNavigationBloc.dart';
-import 'feedbackDashboard.dart';
-import 'overViewDashboard.dart';
+import '../conceptDashboardNavigationBloc.dart';
+import '../feedbackDashboard.dart';
+import '../overViewDashboard.dart';
+import 'competitionDialogue.dart';
 
 class solutionDashBoard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -175,43 +179,99 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
           (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'Our Solution',
       dashboardcards: <Widget>[
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'What we learnt from our competition',
-          cardNote:
-              'Our competitor $productName, offers features such as $features',
-          cardButtonName: 'REVIEW OTHER COMPETITORS',
-          onTap: () {
-            Navigator.pushNamed(context, '/currentmarketplayers');
-          },
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle: 'What we learnt from our competition',
+            cardNote:
+                'Our competitor $productName, offers features such as $features',
+            cardButtonName: 'REVIEW OTHER COMPETITORS',
+            onTap: () {
+              Navigator.pushNamed(context, '/currentmarketplayers');
+            },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => competitionDialogue(
+                  features: features,
+                  productName: productName,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
         (AddingNewProductFeature.length >= 2)
-            ? DashboardCards(
-                cardIcon: Icons.person,
-                cardTitle: 'List of planned features (for the solution)',
-                cardNote:
-                    'For the initial release, we plan to include the following features: $featureName1 , $featureName2',
-                cardButtonName: 'VIEW ALL FEATURES',
-                onTap: () {
-                  Navigator.pushNamed(context, '/addproductfeatures');
-                },
+            ? Padding(
+                padding: EdgeInsets.all(
+                    (MediaQuery.of(context).size.width >= 1400)
+                        ? 50
+                        : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+                child: DashboardCards(
+                  cardIcon: Icons.person,
+                  cardTitle: 'List of planned features (for the solution)',
+                  cardNote:
+                      'For the initial release, we plan to include the following features: $featureName1 , $featureName2',
+                  cardButtonName: 'VIEW ALL FEATURES',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/addproductfeatures');
+                  },
+                  onEditTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => twoFeatureDialogue(
+                        featureName1: featureName1,
+                        featureName2: featureName2,
+                      ),
+                    ).then((_) => setState(() {}));
+                  },
+                ),
               )
-            : DashboardCards(
-                cardIcon: Icons.person,
-                cardTitle: 'List of planned features (for the solution)',
-                cardNote:
-                    'For the initial release, we plan to include the following features: $featureName1',
-                cardButtonName: 'VIEW ALL FEATURES',
-                onTap: () {
-                  Navigator.pushNamed(context, '/addproductfeatures');
-                },
+            : Padding(
+                padding: EdgeInsets.all(
+                    (MediaQuery.of(context).size.width >= 1400)
+                        ? 50
+                        : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+                child: DashboardCards(
+                  cardIcon: Icons.person,
+                  cardTitle: 'List of planned features (for the solution)',
+                  cardNote:
+                      'For the initial release, we plan to include the following features: $featureName1',
+                  cardButtonName: 'VIEW ALL FEATURES',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/addproductfeatures');
+                  },
+                  onEditTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => oneFeatureDialogue(
+                        featureName1: featureName1,
+                      ),
+                    ).then((_) => setState(() {}));
+                  },
+                ),
               ),
-        DashboardCards(
-          cardIcon: Icons.attach_money,
-          cardTitle: 'How we make money',
-          cardNote:
-              '$monetize. This strategy will be integrated into the early desings of the solution.',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.attach_money,
+            cardTitle: 'How we make money',
+            cardNote:
+                '$monetize. This strategy will be integrated into the early desings of the solution.',
+            onTap: () {},
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => monetizeDialogue(
+                  monetize: monetize,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
       ],
     );

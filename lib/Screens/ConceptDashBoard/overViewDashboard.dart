@@ -5,10 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/customerDashboard.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/conceptDashboardNavigationBloc.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/customerDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/nextStepsDashboard.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/solutionDashboard.dart';
 
 import 'feedbackDashboard.dart';
 
@@ -142,6 +142,7 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
                                           //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                                         ),
                                       ),
+                                      Icon(Icons.edit),
                                     ],
                                   ),
                                 ),
