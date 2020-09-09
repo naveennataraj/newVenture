@@ -7,12 +7,15 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addDistributionMedium.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/customerProblemDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/customerQuoteDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/solutionDeliveryDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 
-import 'conceptDashboardNavigationBloc.dart';
-import 'overViewDashboard.dart';
+import '../conceptDashboardNavigationBloc.dart';
+import '../overViewDashboard.dart';
 
 class feedbackDashBoard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -33,12 +36,11 @@ class feedbackDashBoard extends StatefulWidget with ConceptDashboardStates {
 String event = '';
 String medium = '';
 String content = '';
-bool feedbackspinner = false;
 
 class _feedbackDashBoardState extends State<feedbackDashBoard> {
   final _firestore = Firestore.instance;
+
   void getDocument() async {
-    feedbackspinner = true;
     final Detailsdocument = await _firestore
         .collection('$currentUser/SolutionIdeation/pickDetails')
         .getDocuments();
@@ -73,6 +75,26 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
       }
     });
 
+    final quotedocument = await _firestore
+        .collection('$currentUser/SolutionValidation/Quote')
+        .getDocuments();
+//    print("GEt method called");
+
+    for (var quotemessage in quotedocument.documents) {
+      final Content = quotemessage.data['Content'];
+      final CheckQuote = quotemessage.data['CheckQuote'];
+      final ID = quotemessage.documentID;
+
+      final card = addQuote(Content: Content, CheckQuote: CheckQuote, ID: ID);
+      AddingNewQuote.add(card);
+    }
+
+    setState(() {
+      if (AddingNewQuote.length != 0) {
+        content = AddingNewQuote[0].Content;
+      }
+    });
+
     final mediumdocument = await _firestore
         .collection('$currentUser/PreValidation/addMedium')
         .getDocuments();
@@ -92,30 +114,11 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
         medium = addMediumArray[0].medium;
       }
     });
-
-    final quotedocument = await _firestore
-        .collection('$currentUser/SolutionValidation/Quote')
-        .getDocuments();
-//    print("GEt method called");
-
-    for (var quotemessage in quotedocument.documents) {
-      final Content = quotemessage.data['Content'];
-      final CheckQuote = quotemessage.data['CheckQuote'];
-      final ID = quotemessage.documentID;
-
-      final card = addQuote(Content: Content, CheckQuote: CheckQuote, ID: ID);
-      AddingNewQuote.add(card);
-    }
-    setState(() {
-      feedbackspinner = false;
-      if (AddingNewQuote.length != 0) {
-        content = AddingNewQuote[0].Content;
-      }
-    });
   }
 
   @override
   void initState() {
+    print('init called');
     if (currentUser != null) {
       getDocument();
     } else {
@@ -152,30 +155,69 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
           (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'When the customers interacted with our solution',
       dashboardcards: <Widget>[
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'The customer problem is resolved.',
-          cardNote: event,
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle: 'The customer problem is resolved.',
+            cardNote: event,
+            onTap: () {},
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => customerProblemDialogue(
+                  event: event,
+                ),
+              ).then((value) => setState(() {}));
+            },
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'How we intend to deliver the solution',
-          cardNote:
-              'We plan to distribute our product via: $medium, as our primary medium.',
-          cardButtonName: 'CHANGE DISTRIBUTION MEDIUM',
-          onTap: () {
-            Navigator.pushNamed(context, '/adddistributionmedium');
-          },
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle: 'How we intend to deliver the solution',
+            cardNote:
+                'We plan to distribute our product via: $medium, as our primary medium.',
+            cardButtonName: 'CHANGE DISTRIBUTION MEDIUM',
+            onTap: () {
+              Navigator.pushNamed(context, '/adddistributionmedium');
+            },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => solutionDeliveryDialogue(
+                  medium: medium,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.attach_money,
-          cardTitle: 'Customer Quotes (on using the solution prototype)',
-          cardNote: content,
-          cardButtonName: 'VIEW MORE QUOTES',
-          onTap: () {
-            Navigator.pushNamed(context, '/addquotes');
-          },
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.attach_money,
+            cardTitle: 'Customer Quotes (on using the solution prototype)',
+            cardNote: content,
+            cardButtonName: 'VIEW MORE QUOTES',
+            onTap: () {
+              Navigator.pushNamed(context, '/addquotes');
+            },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => customerQuoteDialogue(
+                  content: content,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
       ],
     );

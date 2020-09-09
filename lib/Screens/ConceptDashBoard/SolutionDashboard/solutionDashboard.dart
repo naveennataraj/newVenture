@@ -13,8 +13,8 @@ import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/twoFeatru
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 
+import '../FeedbackDashboard/feedbackDashboard.dart';
 import '../conceptDashboardNavigationBloc.dart';
-import '../feedbackDashboard.dart';
 import '../overViewDashboard.dart';
 import 'competitionDialogue.dart';
 

@@ -10,7 +10,7 @@ import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionD
 import 'package:iventure001/Screens/ConceptDashBoard/conceptDashboardNavigationBloc.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/nextStepsDashboard.dart';
 
-import 'feedbackDashboard.dart';
+import 'FeedbackDashboard/feedbackDashboard.dart';
 
 class overViewDashBoard extends StatefulWidget with ConceptDashboardStates {
   @override
@@ -50,9 +50,9 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
     }
     setState(() {
       if (PickDetailsArray.length != 0) {
-        event = PickDetailsArray[0].Event;
         monetize = PickDetailsArray[0].Monetize;
         pvp = PickDetailsArray[0].PVP;
+        event = PickDetailsArray[0].Event;
       }
     });
   }
