@@ -10,6 +10,9 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/
 import 'package:iventure001/Data/BlitzCanvasContent/Step5_CustomerQuotes/BcAddQuote.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentParallelSolution.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/SolutionDialogue.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/QuotesDialogue.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/ParallelDialogue.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'dart:async';
 
@@ -19,13 +22,11 @@ class BcCustomerDashboard extends StatefulWidget with ConceptDashboardStates {
   final double sizedboxwidth;
   final double sizedboxheight;
 
-
   BcCustomerDashboard(
       {this.headingStyle,
-        this.sizedboxwidth,
-        this.headingAlignment,
-        this.sizedboxheight});
-
+      this.sizedboxwidth,
+      this.headingAlignment,
+      this.sizedboxheight});
 
   @override
   _BcCustomerDashboardState createState() => _BcCustomerDashboardState();
@@ -34,10 +35,9 @@ class BcCustomerDashboard extends StatefulWidget with ConceptDashboardStates {
 bool spinner = false;
 
 class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
-
   final _firestore = Firestore.instance;
   //======= What is our Primary Value Proposition? =======
-  String valueProposition= '';
+  String valueProposition = '';
   List valuePropositionList = [];
 //======= How our solution stands out =======
   String solutionStandOut;
@@ -62,8 +62,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
       addingNewBusinessElement = [];
       for (var message in documentProposition.documents) {
         final elementTitle = message.data['elementTitle'];
-        final elementDescription =
-        message.data['elementDescription'];
+        final elementDescription = message.data['elementDescription'];
         final elementChecked = message.data['elementChecked'];
         final ID = message.documentID;
 
@@ -81,21 +80,22 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
       }
       setState(() {
         spinner = false;
-        (addingNewBusinessElement.length !=0) ?
-        valueProposition= valuePropositionList[0]
-            :
-        valueProposition= 'Missing value';
+        (addingNewBusinessElement.length != 0)
+            ? valueProposition = valuePropositionList[0]
+            : valueProposition = 'Missing value';
       });
-
     }
 
     //======= How our solution stands out =======
-    if(sellingPropositionArray.length != 0) {
+    if (sellingPropositionArray.length != 0) {
       String propositionValidation = sellingPropositionArray[0].proposition;
-      if (solutionStandOut == propositionValidation ) {
+      if (solutionStandOut == propositionValidation) {
         solutionStandOut = sellingPropositionArray[0].proposition;
-    } else {
-        final documentSolution = await _firestore.collection(currentUser).document('Bc4_uniqueSellingProposition').get();
+      } else {
+        final documentSolution = await _firestore
+            .collection(currentUser)
+            .document('Bc4_uniqueSellingProposition')
+            .get();
         if (documentSolution.exists) {
           try {
             setState(() {
@@ -105,14 +105,16 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           } catch (e) {
             print(e);
           }
-          final fields = BcSellingProposition(
-              proposition: solutionStandOut,
-              ID: ID);
-          sellingPropositionArray.insert(0,fields);
+          final fields =
+              BcSellingProposition(proposition: solutionStandOut, ID: ID);
+          sellingPropositionArray.insert(0, fields);
         }
       }
     } else {
-      final documentSolution = await _firestore.collection(currentUser).document('Bc4_uniqueSellingProposition').get();
+      final documentSolution = await _firestore
+          .collection(currentUser)
+          .document('Bc4_uniqueSellingProposition')
+          .get();
       if (documentSolution.exists) {
         try {
           setState(() {
@@ -123,23 +125,21 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         } catch (e) {
           print(e);
         }
-        final fields = BcSellingProposition(
-            proposition: solutionStandOut,
-            ID: ID);
-        sellingPropositionArray.insert(0,fields);
+        final fields =
+            BcSellingProposition(proposition: solutionStandOut, ID: ID);
+        sellingPropositionArray.insert(0, fields);
       }
     }
 
-
     //======= Customer Quotes (on using the solution prototype) =======
-    final documentCustomerQuotes = await _firestore.collection('$currentUser/Bc5_userFeedback/addQuotes')
+    final documentCustomerQuotes = await _firestore
+        .collection('$currentUser/Bc5_userFeedback/addQuotes')
         .getDocuments();
     if (documentCustomerQuotes != null) {
       addingNewQuote = [];
       for (var message in documentCustomerQuotes.documents) {
         final content = message.data['content'];
-        final checkQuote =
-        message.data['checkQuote'];
+        final checkQuote = message.data['checkQuote'];
         final ID = message.documentID;
 
         final card = BcAddQuote(
@@ -148,7 +148,6 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           ID: ID,
         );
         addingNewQuote.add(card);
-
       }
       setState(() {
         if (addingNewQuote.length != 0) {
@@ -160,7 +159,8 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
     }
 
     //======= We excel at =======
-    final documentExcelAt = await _firestore.collection('$currentUser/Bc1_buildTheFoundation/addFoundations')
+    final documentExcelAt = await _firestore
+        .collection('$currentUser/Bc1_buildTheFoundation/addFoundations')
         .getDocuments();
     if (documentExcelAt != null) {
       foundationContent = [];
@@ -174,7 +174,6 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           excelAtList.add(description);
         }
 
-
         final card = ContentBcAddFoundation(
           title: title,
           description: description,
@@ -184,22 +183,21 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         foundationContent.add(card);
       }
       setState(() {
-        (excelAtList.length !=0) ?
-        excelAtDescription= excelAtList[0]
-            :
-        excelAtDescription= 'Missing value';
+        (excelAtList.length != 0)
+            ? excelAtDescription = excelAtList[0]
+            : excelAtDescription = 'Missing value';
       });
     }
     //======= Offering Planned  =======
-    final documentOfferingPlanned = await _firestore.collection('$currentUser/Bc9_managingGrowth/addConcepts')
+    final documentOfferingPlanned = await _firestore
+        .collection('$currentUser/Bc9_managingGrowth/addConcepts')
         .getDocuments();
     if (documentOfferingPlanned != null) {
       AddingNewParallelInnovations = [];
       for (var message in documentOfferingPlanned.documents) {
         final Name = message.data['Name'];
         final Description = message.data['Description'];
-        final CheckedSolution =
-        message.data['CheckedSolution'];
+        final CheckedSolution = message.data['CheckedSolution'];
         final ID = message.documentID;
 
         final card = ContentParallelSolution(
@@ -211,17 +209,21 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         AddingNewParallelInnovations.add(card);
       }
       setState(() {
-        (AddingNewParallelInnovations.length !=0) ?
-        offeringPlanned= AddingNewParallelInnovations[0].Description
-            :
-        offeringPlanned= 'Missing value';
+        (AddingNewParallelInnovations.length != 0)
+            ? offeringPlanned = AddingNewParallelInnovations[0].Description
+            : offeringPlanned = 'Missing value';
       });
     }
   }
 
-  final missingText = Text('Missing value', style: TextStyle(fontSize: 15,
-    fontFamily: 'OpenSans',
-    color: Colors.red,),);
+  final missingText = Text(
+    'Missing value',
+    style: TextStyle(
+      fontSize: 15,
+      fontFamily: 'OpenSans',
+      color: Colors.red,
+    ),
+  );
 
   @override
   void initState() {
@@ -245,12 +247,11 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SubdivisionalDashBoardLayout(
       sizedboxwidth:
-      (widget.sizedboxwidth != null) ? widget.sizedboxwidth : 100,
+          (widget.sizedboxwidth != null) ? widget.sizedboxwidth : 100,
       headingAlignment: (widget.headingAlignment != null)
           ? widget.headingAlignment
           : CrossAxisAlignment.center,
@@ -258,54 +259,77 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           ? widget.headingStyle
           : topHeadingTextStyle,
       sizedboxheight:
-      (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
+          (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'Why our product matters to the customer:',
       dashboardcards: <Widget>[
         Padding(
           padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-          child: DashboardCards(
-            cardIcon: Icons.new_releases,
-            cardTitle: 'What is our Primary Value Proposition?',
-            cardNote: '$valueProposition',
-            cardButtonName: 'VIEW WIREFRAME',
-            onTap: () {},
+          child: Hero(
+            tag: 'valueProposition',
+            child: DashboardCards(
+              cardIcon: Icons.new_releases,
+              cardTitle: 'What is our Primary Value Proposition?',
+              cardNote: '$valueProposition',
+              cardButtonName: 'VIEW WIREFRAME',
+              onTap: () {},
+            ),
           ),
         ),
         Padding(
           padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-          child: DashboardCards(
-            cardIcon: Icons.call_split,
-            cardTitle: 'How our solution stands out',
-            cardNote:
-            '$solutionStandOut',
-            onTap: () {},
+          child: Hero(
+            tag: 'solutionStandsOut',
+            child: DashboardCards(
+              cardIcon: Icons.call_split,
+              cardTitle: 'How our solution stands out',
+              cardNote: '$solutionStandOut',
+              onTap: () {},
+              onEditTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => SolutionStandsDialogue(
+                    dashboardCard: solutionStandOut,
+                  ),
+                ).then((_) => setState(() {}));
+              },
+            ),
           ),
         ),
         Padding(
           padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-          child: DashboardCards(
-            cardIcon: Icons.person,
-            cardTitle:
-            'Customer Quotes (on using the solution prototype)',
-            cardNote: '$customerQuotes',
-            cardButtonName: 'VIEW MORE QUOTES',
-            onTap: () {},
+          child: Hero(
+            tag: 'CustomerHeroTag',
+            child: DashboardCards(
+              cardIcon: Icons.person,
+              cardTitle: 'Customer Quotes (on using the solution prototype)',
+              cardNote: '$customerQuotes',
+              cardButtonName: 'VIEW MORE QUOTES',
+              onTap: () {},
+              onEditTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => CustomerQuotesDialogue(
+                    dashboardCard: customerQuotes,
+                  ),
+                ).then((_) => setState(() {}));
+              },
+            ),
           ),
         ),
-        Padding( padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
-            ? 50
-            : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
             cardIcon: Icons.vpn_key,
             cardTitle: 'We excel at:',
-            cardNote:
-            '$excelAtDescription',
+            cardNote: '$excelAtDescription',
             cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
             onTap: () {},
           ),
@@ -314,14 +338,23 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-          child: DashboardCards(
-            cardIcon: Icons.trending_up,
-            cardTitle:
-            'Other offerings planned',
-            cardNote:
-            '$offeringPlanned',
-            cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
-            onTap: () {},
+          child: Hero(
+            tag: 'ParallelHeroTag',
+            child: DashboardCards(
+              cardIcon: Icons.trending_up,
+              cardTitle: 'Other offerings planned',
+              cardNote: '$offeringPlanned',
+              cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
+              onTap: () {},
+              onEditTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => ParallelDialogue(
+                    dashboardCard: offeringPlanned,
+                  ),
+                ).then((_) => setState(() {}));
+              },
+            ),
           ),
         )
       ],
