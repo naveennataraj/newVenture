@@ -8,8 +8,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addDistr
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/customerProblemDialogue.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/customerQuoteDialogue.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/solutionDeliveryDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/quoteDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
@@ -91,6 +90,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
 
     setState(() {
       if (AddingNewQuote.length != 0) {
+        print('setting up Quote card');
         content = AddingNewQuote[0].Content;
       }
     });
@@ -187,14 +187,15 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
             onTap: () {
               Navigator.pushNamed(context, '/adddistributionmedium');
             },
-            onEditTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => solutionDeliveryDialogue(
-                  medium: medium,
-                ),
-              ).then((_) => setState(() {}));
-            },
+            editableCard: false,
+//            onEditTap: () {
+//              showDialog(
+//                context: context,
+//                builder: (BuildContext context) => solutionDeliveryDialogue(
+//                  medium: medium,
+//                ),
+//              ).then((_) => setState(() {}));
+//            },
           ),
         ),
         Padding(
@@ -209,11 +210,19 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
             onTap: () {
               Navigator.pushNamed(context, '/addquotes');
             },
+//              onEditTap: () {
+//                showDialog(
+//                  context: context,
+//                  builder: (BuildContext context) => solutionDeliveryDialogue(
+//                    medium: medium,
+//                  ),
+//                ).then((_) => setState(() {}));
+//              }
             onEditTap: () {
               showDialog(
                 context: context,
-                builder: (BuildContext context) => customerQuoteDialogue(
-                  content: content,
+                builder: (BuildContext context) => quoteDialogue(
+                  quote: content,
                 ),
               ).then((_) => setState(() {}));
             },

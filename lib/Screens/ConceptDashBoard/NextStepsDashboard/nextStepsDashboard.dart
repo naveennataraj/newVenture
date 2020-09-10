@@ -7,10 +7,11 @@ import 'package:intl/intl.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/parallelDialogue.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 
-import 'conceptDashboardNavigationBloc.dart';
+import '../conceptDashboardNavigationBloc.dart';
 
 class nextStepsDashBoard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -128,25 +129,45 @@ class _nextStepsDashBoardState extends State<nextStepsDashBoard> {
           (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'Planning the next steps...',
       dashboardcards: <Widget>[
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'Problem-Solution fit review',
-          cardNote:
-              'The Customer problem always keeps evolving. We need to check back for relevance of problem-solution fit. The date for the next review is : $date',
-          cardButtonName: 'RESCHEDULE',
-          onTap: () {
-            Navigator.pushNamed(context, '/reviewcustomerrequirements');
-          },
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle: 'Problem-Solution fit review',
+            cardNote:
+                'The Customer problem always keeps evolving. We need to check back for relevance of problem-solution fit. The date for the next review is : $date',
+            cardButtonName: 'RESCHEDULE',
+            onTap: () {
+              Navigator.pushNamed(context, '/reviewcustomerrequirements');
+            },
+            editableCard: false,
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'Parallel Products',
-          cardNote:
-              'At present, we can think of this additional product concept which can one of the we can think of these parallel innovations which can be of value to our customer base: \n $ppName - $ppDescription',
-          cardButtonName: 'REVIEW MORE SUCH SOLUTIONS',
-          onTap: () {
-            Navigator.pushNamed(context, '/addparallelinnovations');
-          },
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle: 'Parallel Products',
+            cardNote:
+                'At present, we can think of this additional product concept which can one of the we can think of these parallel innovations which can be of value to our customer base: \n $ppName - $ppDescription',
+            cardButtonName: 'REVIEW MORE SUCH SOLUTIONS',
+            onTap: () {
+              Navigator.pushNamed(context, '/addparallelinnovations');
+            },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => parallelDialogue(
+                  solutionName: ppName,
+                  solutionDescription: ppDescription,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
       ],
     );

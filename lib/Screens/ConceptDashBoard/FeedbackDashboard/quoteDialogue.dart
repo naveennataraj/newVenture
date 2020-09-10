@@ -8,23 +8,23 @@ import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/SaveButton.dart';
 
-class customerQuoteDialogue extends StatefulWidget {
-  final String content;
+class quoteDialogue extends StatefulWidget {
+  final String quote;
 
-  const customerQuoteDialogue({this.content});
+  const quoteDialogue({this.quote});
 
   @override
-  _customerQuoteDialogueState createState() => _customerQuoteDialogueState();
+  _quoteDialogueState createState() => _quoteDialogueState();
 }
 
-class _customerQuoteDialogueState extends State<customerQuoteDialogue> {
+class _quoteDialogueState extends State<quoteDialogue> {
   final _firestore = Firestore.instance;
 
-  var contentLabelColour = Color(0XFF919191);
-  bool validContent = true;
-  var contentTextController = TextEditingController();
-  final contentFocusNode = new FocusNode();
-  String contentString;
+  var QuotelabelColor = Color(0XFF919191);
+  bool validQuote = true;
+  var QuoteTextController = TextEditingController();
+  final QuoteFocusNode = new FocusNode();
+  String Quote;
 
   requestFocus(FocusNode myFocusNode) {
     setState(() {
@@ -35,9 +35,9 @@ class _customerQuoteDialogueState extends State<customerQuoteDialogue> {
   void initState() {
     //  implement initState
     setState(() {
-      contentString = widget.content;
+      Quote = widget.quote;
 
-      contentTextController = TextEditingController(text: widget.content);
+      QuoteTextController = TextEditingController(text: widget.quote);
     });
     super.initState();
   }
@@ -59,7 +59,7 @@ class _customerQuoteDialogueState extends State<customerQuoteDialogue> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Customer Quotes (on using the solution prototype)",
+                  'Customer Quotes (on using the solution prototype)',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -67,17 +67,20 @@ class _customerQuoteDialogueState extends State<customerQuoteDialogue> {
                   padding: const EdgeInsets.all(10.0),
                   child: TextField(
 //        expands: true,
-                    focusNode: contentFocusNode,
+                    focusNode: QuoteFocusNode,
 
                     onTap: () {
-                      requestFocus(contentFocusNode);
+                      requestFocus(QuoteFocusNode);
                     },
-                    controller: contentTextController,
+                    controller: QuoteTextController,
                     maxLines: 1,
                     style: menuIntroTextStyle,
                     decoration: TextFieldsDecoration.copyWith(
-                      labelText: 'Add the content here:',
+                      labelText:
+                          'How would you plan to monetize the solution concept?',
                       helperMaxLines: 3,
+                      helperText:
+                          '*Determining this is at the current stage can help incorporate this strategy into the design at an early stage.',
                       helperStyle: TextStyle(
                           fontSize: (ResponsiveLayout.isSmallScreen(context)
                               ? 11
@@ -92,38 +95,38 @@ class _customerQuoteDialogueState extends State<customerQuoteDialogue> {
                                   ? 15
                                   : 16),
                           fontFamily: 'OpenSans',
-                          color: contentFocusNode.hasFocus
+                          color: QuoteFocusNode.hasFocus
                               ? Color(0XFFE95420)
-                              : contentLabelColour),
-                      errorText: validContent ? null : 'This field is required',
+                              : QuotelabelColor),
+                      errorText: validQuote ? null : 'This field is required',
                     ),
                     onChanged: (text) {
-                      if (contentTextController.text == "") {
+                      if (QuoteTextController.text == "") {
                         setState(() {
-                          contentString = contentTextController.text;
-                          validContent = false;
-                          contentLabelColour = Color(0XFFF53E70);
+                          Quote = QuoteTextController.text;
+                          validQuote = false;
+                          QuotelabelColor = Color(0XFFF53E70);
                         });
                       } else {
                         setState(() {
-                          contentString = contentTextController.text;
-                          validContent = true;
-                          contentLabelColour = Colors.grey;
+                          Quote = QuoteTextController.text;
+                          validQuote = true;
+                          QuotelabelColor = Colors.grey;
                         });
                       }
                     },
                     onSubmitted: (text) {
-                      if (contentTextController.text == "") {
+                      if (QuoteTextController.text == "") {
                         setState(() {
-                          contentString = contentTextController.text;
-                          validContent = false;
-                          contentLabelColour = Color(0XFFF53E70);
+                          Quote = QuoteTextController.text;
+                          validQuote = false;
+                          QuotelabelColor = Color(0XFFF53E70);
                         });
                       } else {
                         setState(() {
-                          contentString = contentTextController.text;
-                          validContent = true;
-                          contentLabelColour = Colors.grey;
+                          Quote = QuoteTextController.text;
+                          validQuote = true;
+                          QuotelabelColor = Colors.grey;
                         });
                       }
                     },
@@ -145,7 +148,7 @@ class _customerQuoteDialogueState extends State<customerQuoteDialogue> {
                       cardIcon: Icons.person,
                       cardTitle:
                           'Customer Quotes (on using the solution prototype)',
-                      cardNote: contentString,
+                      cardNote: Quote,
                       onTap: () {},
                     ),
                   ),
@@ -162,7 +165,7 @@ class _customerQuoteDialogueState extends State<customerQuoteDialogue> {
                                   '$currentUser/SolutionValidation/Quote')
                               .document(AddingNewQuote[0].ID)
                               .updateData({
-                            'Content': contentTextController.text,
+                            'Content': QuoteTextController.text,
                           });
                           Navigator.popAndPushNamed(
                               context, '/conceptDashboard');
