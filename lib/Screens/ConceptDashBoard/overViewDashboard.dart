@@ -9,6 +9,7 @@ import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/customerD
 import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/nextStepsDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/conceptDashboardNavigationBloc.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/tasksDialogue.dart';
 
 import 'FeedbackDashboard/feedbackDashboard.dart';
 
@@ -142,7 +143,17 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
                                           //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                                         ),
                                       ),
-                                      Icon(Icons.edit),
+                                      GestureDetector(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  tasksDialogue(
+                                                pvp: pvp,
+                                              ),
+                                            ).then((value) => setState(() {}));
+                                          },
+                                          child: Icon(Icons.edit)),
                                     ],
                                   ),
                                 ),

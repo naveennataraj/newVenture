@@ -90,7 +90,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
 
     setState(() {
       if (AddingNewQuote.length != 0) {
-        print('setting up Quote card');
+//        print('setting up Quote card');
         content = AddingNewQuote[0].Content;
       }
     });
@@ -118,7 +118,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
 
   @override
   void initState() {
-    print('init called');
+//    print('init called');
     if (currentUser != null) {
       getDocument();
     } else {
