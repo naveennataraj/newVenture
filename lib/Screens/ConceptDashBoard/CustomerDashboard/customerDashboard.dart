@@ -200,7 +200,7 @@ class _customerDashBoardState extends State<customerDashBoard> {
           child: Hero(
             tag: 'ourCustomer',
             child: DashboardCards(
-              cardIcon: Icons.person,
+              cardIcon: Icons.face,
               cardTitle: 'Who are our customers?',
               cardNote:
                   'Urban dwellers who are employed and aged between $ageStart and $ageEnd years . Solution is aimed at $problemDomain market segment(s).',
@@ -226,7 +226,7 @@ class _customerDashBoardState extends State<customerDashBoard> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.person,
+            cardIcon: Icons.person_pin,
             cardTitle: 'Customer Pain Point (Primary)',
             cardNote: problem,
             cardButtonName: 'EXPLORE OTHER PAIN POINTS',
@@ -248,7 +248,7 @@ class _customerDashBoardState extends State<customerDashBoard> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.person,
+            cardIcon: Icons.supervisor_account,
             cardTitle: 'Needs of our user(s)',
             cardNote: userStory,
             cardButtonName: 'VIEW OTHER USER STORIES',

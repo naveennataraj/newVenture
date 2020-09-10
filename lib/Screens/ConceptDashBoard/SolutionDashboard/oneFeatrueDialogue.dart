@@ -59,10 +59,13 @@ class _oneFeatureDialogueState extends State<oneFeatureDialogue> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  "List of planned features (for the solution)",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "List of planned features (for the solution)",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -146,7 +149,7 @@ class _oneFeatureDialogueState extends State<oneFeatureDialogue> {
                     padding: const EdgeInsets.all(8.0),
                     child: DashboardCards(
                       editableCard: false,
-                      cardIcon: Icons.person,
+                      cardIcon: Icons.assignment_returned,
                       cardTitle: 'List of planned features (for the solution)',
                       cardNote:
                           'For the initial release, we plan to include the following features: $ProductFeature',

@@ -59,10 +59,13 @@ class _customerProblemDialogueState extends State<customerProblemDialogue> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  "The customer problem is resolved.",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "The customer problem is resolved.",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -144,7 +147,7 @@ class _customerProblemDialogueState extends State<customerProblemDialogue> {
                     padding: const EdgeInsets.all(8.0),
                     child: DashboardCards(
                       editableCard: false,
-                      cardIcon: Icons.person,
+                      cardIcon: Icons.assignment_turned_in,
                       cardTitle: 'The customer problem is resolved.',
                       cardNote: eventString,
                       onTap: () {},

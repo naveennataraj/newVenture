@@ -9,6 +9,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickD
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/customerProblemDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/quoteDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/solutionDeliveryDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
@@ -161,7 +162,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.person,
+            cardIcon: Icons.assignment_turned_in,
             cardTitle: 'The customer problem is resolved.',
             cardNote: event,
             onTap: () {},
@@ -180,7 +181,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.person,
+            cardIcon: Icons.local_shipping,
             cardTitle: 'How we intend to deliver the solution',
             cardNote:
                 'We plan to distribute our product via: $medium, as our primary medium.',
@@ -188,15 +189,15 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
             onTap: () {
               Navigator.pushNamed(context, '/adddistributionmedium');
             },
-            editableCard: false,
-//            onEditTap: () {
-//              showDialog(
-//                context: context,
-//                builder: (BuildContext context) => solutionDeliveryDialogue(
-//                  medium: medium,
-//                ),
-//              ).then((_) => setState(() {}));
-//            },
+//            editableCard: false,
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => solutionDeliveryDialogue(
+                  medium: medium,
+                ),
+              ).then((_) => setState(() {}));
+            },
           ),
         ),
         Padding(
@@ -204,7 +205,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.attach_money,
+            cardIcon: Icons.record_voice_over,
             cardTitle: 'Customer Quotes (on using the solution prototype)',
             cardNote: content,
             cardButtonName: 'VIEW MORE QUOTES',

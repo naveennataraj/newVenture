@@ -8,6 +8,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/parallelDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/solutionFitDialogue.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 
@@ -36,6 +37,7 @@ bool nextstepsspinner = false;
 
 class _nextStepsDashBoardState extends State<nextStepsDashBoard> {
   final _firestore = Firestore.instance;
+
   void getDocument() async {
     nextstepsspinner = true;
     final reviewdocument = await _firestore
@@ -134,7 +136,7 @@ class _nextStepsDashBoardState extends State<nextStepsDashBoard> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.person,
+            cardIcon: Icons.rate_review,
             cardTitle: 'Problem-Solution fit review',
             cardNote:
                 'The Customer problem always keeps evolving. We need to check back for relevance of problem-solution fit. The date for the next review is : $date',
@@ -142,7 +144,14 @@ class _nextStepsDashBoardState extends State<nextStepsDashBoard> {
             onTap: () {
               Navigator.pushNamed(context, '/reviewcustomerrequirements');
             },
-            editableCard: false,
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => solutionFitDialogue(
+                  selectedDate: selectedDate,
+                ),
+              ).then((_) => setState(() {}));
+            },
           ),
         ),
         Padding(
@@ -150,7 +159,7 @@ class _nextStepsDashBoardState extends State<nextStepsDashBoard> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.person,
+            cardIcon: Icons.next_week,
             cardTitle: 'Parallel Products',
             cardNote:
                 'At present, we can think of this additional product concept which can one of the we can think of these parallel innovations which can be of value to our customer base: \n $ppName - $ppDescription',

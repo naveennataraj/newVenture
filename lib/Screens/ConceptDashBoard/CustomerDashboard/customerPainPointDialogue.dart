@@ -145,7 +145,7 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
                     child: Hero(
                       tag: 'ourCustomer',
                       child: DashboardCards(
-                        cardIcon: Icons.person,
+                        cardIcon: Icons.person_pin,
                         cardTitle: 'Customer Pain Point (Primary)',
                         cardNote: ProblemTextController.text,
                         onTap: () {

@@ -58,10 +58,13 @@ class _quoteDialogueState extends State<quoteDialogue> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Customer Quotes (on using the solution prototype)',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    'Customer Quotes (on using the solution prototype)',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -145,7 +148,7 @@ class _quoteDialogueState extends State<quoteDialogue> {
                     padding: const EdgeInsets.all(8.0),
                     child: DashboardCards(
                       editableCard: false,
-                      cardIcon: Icons.person,
+                      cardIcon: Icons.record_voice_over,
                       cardTitle:
                           'Customer Quotes (on using the solution prototype)',
                       cardNote: Quote,

@@ -58,10 +58,13 @@ class _tasksDialogueState extends State<tasksDialogue> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  "The customer problem is resolved.",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Text(
+                    "Tasks using E-Method (Primary Solution Offering)",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -77,7 +80,9 @@ class _tasksDialogueState extends State<tasksDialogue> {
                     style: menuIntroTextStyle,
                     decoration: TextFieldsDecoration.copyWith(
                       labelText:
-                          'After the occurance of which event, would you suggest that the customer pain point is resolved?',
+                          'How would you briefly describe the primary value proposition for this solution?',
+                      helperText:
+                          'A value proposition helps the customer understand what value they acquire when they use your solution',
                       helperMaxLines: 3,
                       helperStyle: TextStyle(
                           fontSize: (ResponsiveLayout.isSmallScreen(context)
@@ -143,8 +148,9 @@ class _tasksDialogueState extends State<tasksDialogue> {
                     padding: const EdgeInsets.all(8.0),
                     child: DashboardCards(
                       editableCard: false,
-                      cardIcon: Icons.person,
-                      cardTitle: 'The customer problem is resolved.',
+                      cardIcon: Icons.card_giftcard,
+                      cardTitle:
+                          'Tasks using E-Method (Primary Solution Offering).',
                       cardNote: pvpString,
                       onTap: () {},
                     ),

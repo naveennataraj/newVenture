@@ -59,10 +59,13 @@ class _solutionDeliveryDialogueState extends State<solutionDeliveryDialogue> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  "The customer problem is resolved.",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "The customer problem is resolved.",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -146,7 +149,7 @@ class _solutionDeliveryDialogueState extends State<solutionDeliveryDialogue> {
                     padding: const EdgeInsets.all(8.0),
                     child: DashboardCards(
                       editableCard: false,
-                      cardIcon: Icons.person,
+                      cardIcon: Icons.local_shipping,
                       cardTitle: 'How we intend to deliver the solution',
                       cardNote:
                           'We plan to distribute our product via: $mediumString, as our primary medium.',

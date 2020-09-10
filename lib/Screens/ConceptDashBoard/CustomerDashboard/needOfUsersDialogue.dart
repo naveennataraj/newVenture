@@ -310,7 +310,7 @@ class _needOfUsersDialogueState extends State<needOfUsersDialogue> {
                     child: Hero(
                       tag: 'ourCustomer',
                       child: DashboardCards(
-                        cardIcon: Icons.person,
+                        cardIcon: Icons.supervisor_account,
                         cardTitle: 'Needs of our user(s)',
                         cardNote:
                             '"As a $Asa, I want to $IWantTo so that $SoThat"',

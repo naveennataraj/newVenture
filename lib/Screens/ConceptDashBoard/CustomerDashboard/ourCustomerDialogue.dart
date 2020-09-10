@@ -203,7 +203,7 @@ class _ourCustomerDialogueState extends State<ourCustomerDialogue> {
                       tag: 'ourCustomer',
                       child: DashboardCards(
                         editableCard: false,
-                        cardIcon: Icons.person,
+                        cardIcon: Icons.face,
                         cardTitle: 'Who are our customers?',
                         cardNote:
                             'Urban dwellers who are employed and aged between $ageValuesStart and $ageValuesEnd years . Solution is aimed at $SelectedProblemDomain market segment(s).',

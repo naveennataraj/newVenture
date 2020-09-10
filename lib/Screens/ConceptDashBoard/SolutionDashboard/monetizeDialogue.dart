@@ -58,10 +58,13 @@ class _monetizeDialogueState extends State<monetizeDialogue> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  "How we make money",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "How we make money",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -146,7 +149,7 @@ class _monetizeDialogueState extends State<monetizeDialogue> {
                     padding: const EdgeInsets.all(8.0),
                     child: DashboardCards(
                       editableCard: false,
-                      cardIcon: Icons.person,
+                      cardIcon: Icons.attach_money,
                       cardTitle: 'How we make money',
                       cardNote:
                           '$Monetize. This strategy will be integrated into the early desings of the solution.',

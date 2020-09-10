@@ -184,7 +184,7 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.person,
+            cardIcon: Icons.leak_add,
             cardTitle: 'What we learnt from our competition',
             cardNote:
                 'Our competitor $productName, offers features such as $features',
@@ -210,7 +210,7 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
                         ? 50
                         : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
                 child: DashboardCards(
-                  cardIcon: Icons.person,
+                  cardIcon: Icons.assignment_returned,
                   cardTitle: 'List of planned features (for the solution)',
                   cardNote:
                       'For the initial release, we plan to include the following features: $featureName1 , $featureName2',
@@ -235,7 +235,7 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
                         ? 50
                         : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
                 child: DashboardCards(
-                  cardIcon: Icons.person,
+                  cardIcon: Icons.assignment_returned,
                   cardTitle: 'List of planned features (for the solution)',
                   cardNote:
                       'For the initial release, we plan to include the following features: $featureName1',

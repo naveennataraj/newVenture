@@ -135,7 +135,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   Timer _timer;
 
   _AnimatedFlutterLogoState() {
-    _timer = new Timer(const Duration(seconds: 1), () {
+    _timer = new Timer(const Duration(seconds: 2), () {
       setState(() {
         if (currentUser != null && currentUser != '') {
           getDocuments();

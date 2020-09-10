@@ -69,7 +69,7 @@ class _parallelDialogueState extends State<parallelDialogue> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Text(
                     "Parallel Products",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -227,7 +227,7 @@ class _parallelDialogueState extends State<parallelDialogue> {
                     padding: const EdgeInsets.all(8.0),
                     child: DashboardCards(
                       editableCard: false,
-                      cardIcon: Icons.person,
+                      cardIcon: Icons.next_week,
                       cardTitle: 'Parallel Products',
                       cardNote:
                           'At present, we can think of this additional product concept which can one of the we can think of these parallel innovations which can be of value to our customer base: \n $SolutionName - $SolutionDescription',
