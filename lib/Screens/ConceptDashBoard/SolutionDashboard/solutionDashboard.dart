@@ -14,8 +14,8 @@ import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 
 import '../FeedbackDashboard/feedbackDashboard.dart';
+import '../OverviewDashboard/overViewDashboard.dart';
 import '../conceptDashboardNavigationBloc.dart';
-import '../overViewDashboard.dart';
 import 'competitionDialogue.dart';
 
 class solutionDashBoard extends StatefulWidget with ConceptDashboardStates {

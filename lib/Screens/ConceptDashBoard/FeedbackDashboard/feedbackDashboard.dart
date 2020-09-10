@@ -13,8 +13,8 @@ import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionD
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 
+import '../OverviewDashboard/overViewDashboard.dart';
 import '../conceptDashboardNavigationBloc.dart';
-import '../overViewDashboard.dart';
 
 class feedbackDashBoard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -80,6 +80,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
 //    print("GEt method called");
 
     for (var quotemessage in quotedocument.documents) {
+      AddingNewQuote = [];
       final Content = quotemessage.data['Content'];
       final CheckQuote = quotemessage.data['CheckQuote'];
       final ID = quotemessage.documentID;

@@ -7,11 +7,11 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/customerDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/nextStepsDashboard.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/OverviewDashboard/tasksDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/conceptDashboardNavigationBloc.dart';
-import 'package:iventure001/Screens/ConceptDashBoard/tasksDialogue.dart';
 
-import 'FeedbackDashboard/feedbackDashboard.dart';
+import '../FeedbackDashboard/feedbackDashboard.dart';
 
 class overViewDashBoard extends StatefulWidget with ConceptDashboardStates {
   @override
