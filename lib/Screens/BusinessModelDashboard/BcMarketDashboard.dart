@@ -10,6 +10,9 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/
 import 'package:iventure001/Data/BlitzCanvasContent/Step8_Synergies/ContentSynergies.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentUserStories.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition/ContentCompetingProduct.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/SynergyDialogue.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/TargetDialogue.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/CompetitorDialogue.dart';
 
 class BcMarketStrategy extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -222,36 +225,86 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
       (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'How we plan to get the product to market as quickly as possible:',
       dashboardcards: <Widget>[
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'How we reduce rework',
-          cardNote:
-              'We reduce rework by $asAService for the purpose of $asAServiceDescription',
-          cardButtonName: 'VIEW SERVICES AND FRAMEWORKS',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.person,
+            cardTitle: 'How to reduce rework by:',
+            cardNote:
+                '$asAService for the purpose of $asAServiceDescription',
+            cardButtonName: 'VIEW SERVICES AND FRAMEWORKS',
+            onTap: () {},
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.person,
-          cardTitle: 'How we Synergize',
-          cardNote:
-              '"A key resource (developer/designer) working with tech support personnel to create a new feature called \'$stringSynergy\', based on studying user feedback. "',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: Hero(
+            tag: 'synergyHero',
+            child: DashboardCards(
+              cardIcon: Icons.person,
+              cardTitle: 'How we Synergize',
+              cardNote:
+                  '"A key resource (developer/designer) working with tech support personnel to create a new feature called \'$stringSynergy\', based on studying user feedback. "',
+              onTap: () {},
+              onEditTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => SynergyDialogue(
+                    dashboardCard: stringSynergy,
+                  ),
+                ).then((_) => setState(() {}));
+              },
+            ),
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.face,
-          cardTitle: 'What we learnt about our target customer',
-          cardNote:
-              '$userStory',
-          cardButtonName: 'VIEW PERSONA',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.face,
+            cardTitle: 'What we learnt about our target customer',
+            cardNote:
+                '$userStory',
+            cardButtonName: 'VIEW PERSONA',
+            onTap: () {},
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => CustomerTargetDialogue(
+                  Asa: userStoriesContent[0].Asa,
+                  IwantTo: userStoriesContent[0].IWantTo,
+                  SothatIcan: userStoriesContent[0].SoThat,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.leak_add,
-          cardTitle: 'What we learnt from our competition',
-          cardNote:
-              'Our competitor $competitionName, offers features such as $competitionDescription',
-          cardButtonName: 'REVIEW OTHER COMPETITORS',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.leak_add,
+            cardTitle: 'What we learnt from our competition',
+            cardNote:
+                'Our competitor $competitionName, offers features such as $competitionDescription',
+            cardButtonName: 'REVIEW OTHER COMPETITORS',
+            onTap: () {},
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => CompetitorDialogue(
+                  features: competitionDescription,
+                  productName: competitionName,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
       ],
     );

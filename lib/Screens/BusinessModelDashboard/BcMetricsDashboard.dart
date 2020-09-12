@@ -6,6 +6,7 @@ import 'package:iventure001/Widgets/DashboardLayout.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentNorthStarMetric.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/MetricDashoard/MetricDialogue.dart';
 
 class BcMetricsDashboard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -71,12 +72,25 @@ class _BcMetricsDashboardState extends State<BcMetricsDashboard> {
           (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'Metrics, which will help keep us on track:',
       dashboardcards: <Widget>[
-        DashboardCards(
-          cardIcon: Icons.star,
-          cardTitle: 'North Star metric',
-          cardNote: '$northStarString',
-          cardButtonName: 'VIEW OTHER METRICS',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.star,
+            cardTitle: 'North Star metric',
+            cardNote: '$northStarString',
+            cardButtonName: 'VIEW OTHER METRICS',
+            onTap: () {},
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => NorthMetricDialogue(
+                  dashboardCard: northStarString,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
       ],
     );

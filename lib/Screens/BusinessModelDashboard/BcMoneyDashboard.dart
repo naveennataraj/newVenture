@@ -7,7 +7,8 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcIntellectualAssets.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentBusinessGrowth.dart';
-
+import 'package:iventure001/Screens/BusinessModelDashboard/CapitalDashboard/IpDialogue.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CapitalDashboard/GrowthDialogue.dart';
 
 class BcMoneyDashboard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -117,28 +118,59 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard>  {
       (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
       dashboardTitle: 'How we make money and manage capital:',
       dashboardcards: <Widget>[
-        DashboardCards(
-          cardIcon: Icons.attach_money,
-          cardTitle: 'How we make money.',
-          cardNote:
-          'We plan to monetize this innovation via advertising. This strategy will be integrated into the early desings of the solution.',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.attach_money,
+            cardTitle: 'How we make money.',
+            cardNote:
+            'We plan to monetize this innovation via advertising. This strategy will be integrated into the early desings of the solution.',
+            onTap: () {},
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.folder_special,
-          cardTitle: 'IP Properties',
-          cardNote:
-          '$ipProperties',
-          cardButtonName: 'VIEW ALL IP PROPERTIES',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.folder_special,
+            cardTitle: 'IP Properties',
+            cardNote:
+            '$ipProperties',
+            cardButtonName: 'VIEW ALL IP PROPERTIES',
+            onTap: () {},
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => IpDialogue(
+                  dashboardCard: ipProperties,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
-        DashboardCards(
-          cardIcon: Icons.rate_review,
-          cardTitle:
-          'How we handle Growth',
-          cardNote:
-          '$handleGrowth',
-          onTap: () {},
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.rate_review,
+            cardTitle:
+            'How we handle Growth',
+            cardNote:
+            '$handleGrowth',
+            onTap: () {},
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => GrowthDialogue(
+                  dashboardCard: handleGrowth,
+                ),
+              ).then((_) => setState(() {}));
+            },
+          ),
         ),
       ],
     );
