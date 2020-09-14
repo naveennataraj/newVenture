@@ -7,6 +7,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentNorthStarMetric.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/MetricDashoard/MetricDialogue.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
 
 class BcMetricsDashboard extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -81,7 +82,13 @@ class _BcMetricsDashboardState extends State<BcMetricsDashboard> {
             cardTitle: 'North Star metric',
             cardNote: '$northStarString',
             cardButtonName: 'VIEW OTHER METRICS',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BcAddMoreMetrics(fromDashboard: true,),
+                  ));
+            },
             onEditTap: () {
               showDialog(
                 context: context,

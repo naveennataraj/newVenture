@@ -15,9 +15,11 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:iventure001/Widgets/ValidationDialogue.dart';
 
 class BcStep6CompetingProducts extends StatefulWidget {
+  final bool fromDashboard;
+  const BcStep6CompetingProducts({this.fromDashboard});
   @override
   _BcStep6CompetingProductsState createState() =>
-      _BcStep6CompetingProductsState();
+      _BcStep6CompetingProductsState(fromDashboard);
 }
 
 List<Bread> breads = [
@@ -27,6 +29,8 @@ List<Bread> breads = [
 ];
 
 class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
+  bool fromDashboard;
+  _BcStep6CompetingProductsState(this.fromDashboard);
   final _firestore = Firestore.instance;
   bool spinner = false;
 
@@ -204,7 +208,7 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   headBackButtton(
-                                    routeName: '/BCHomeView',
+                                    routeName: (fromDashboard != true) ? '/BCHomeView': '/BusinessModelDashboard',
                                   ),
                                   SizedBox(
                                     width: 50,

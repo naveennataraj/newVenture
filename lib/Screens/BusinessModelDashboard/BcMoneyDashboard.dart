@@ -140,7 +140,9 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard>  {
             cardNote:
             '$ipProperties',
             cardButtonName: 'VIEW ALL IP PROPERTIES',
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/BCStep7IntellectualAssets');
+            },
             onEditTap: () {
               showDialog(
                 context: context,

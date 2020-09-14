@@ -13,6 +13,7 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step6_StudyingTheCompetition
 import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/SynergyDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/TargetDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/CompetitorDialogue.dart';
+import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/BcCompetingProducts.dart';
 
 class BcMarketStrategy extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -235,7 +236,9 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
             cardNote:
                 '$asAService for the purpose of $asAServiceDescription',
             cardButtonName: 'VIEW SERVICES AND FRAMEWORKS',
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/BCStep7ServiceOffering');
+            },
           ),
         ),
         Padding(
@@ -271,7 +274,9 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
             cardNote:
                 '$userStory',
             cardButtonName: 'VIEW PERSONA',
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/BCStep2CaptureUserStories');
+            },
             onEditTap: () {
               showDialog(
                 context: context,
@@ -294,7 +299,13 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
             cardNote:
                 'Our competitor $competitionName, offers features such as $competitionDescription',
             cardButtonName: 'REVIEW OTHER COMPETITORS',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BcStep6CompetingProducts(fromDashboard: true,),
+                  ));
+            },
             onEditTap: () {
               showDialog(
                 context: context,

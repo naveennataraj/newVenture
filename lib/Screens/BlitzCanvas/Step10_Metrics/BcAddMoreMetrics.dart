@@ -14,8 +14,10 @@ import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 class BcAddMoreMetrics extends StatefulWidget {
+  final bool fromDashboard;
+  const BcAddMoreMetrics({this.fromDashboard});
   @override
-  _BcAddMoreMetricsState createState() => _BcAddMoreMetricsState();
+  _BcAddMoreMetricsState createState() => _BcAddMoreMetricsState(fromDashboard);
 }
 
 List<Bread> breads = [
@@ -28,6 +30,8 @@ List<Bread> breads = [
 
 
 class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
+  bool fromDashboard;
+  _BcAddMoreMetricsState(this.fromDashboard);
   final _firestore = Firestore.instance;
   bool spinner = false;
 
@@ -243,7 +247,7 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   headBackButtton(
-                                    routeName: '/BCStep10MetricSection2',
+                                    routeName: (fromDashboard != true) ? '/BCStep10MetricSection2' : '/BusinessModelDashboard',
                                   ),
                                   SizedBox(
                                     width: 50,
