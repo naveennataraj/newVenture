@@ -7,6 +7,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
@@ -209,12 +210,19 @@ class _AddQuotesState extends State<AddQuotes> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => addQuotesDialogue(),
-            ).then((_) => setState(() {}));
-          },
+          onPressed: (AddingNewQuote.length < 18)
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => addQuotesDialogue(),
+                  ).then((_) => setState(() {}));
+                }
+              : () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => MaximumCardsDialog(),
+                  ).then((_) => setState(() {}));
+                },
           child: Icon(Icons.add),
         ),
       ),

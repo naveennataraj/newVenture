@@ -7,7 +7,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addRanking.dart';
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/pickDetailsDialogue.dart';
 import 'package:iventure001/Widgets/ConfirmPreferenceButton.dart';
-import 'package:iventure001/Widgets/HeadBackButton.dart';
+import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -286,7 +286,9 @@ class _RankSolutionsState extends State<RankSolutions> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  headBackButtton(),
+                                  headBackButtton(
+                                    routeName: '/solutionideation',
+                                  ),
                                   SizedBox(
                                     width: 50,
                                   ),

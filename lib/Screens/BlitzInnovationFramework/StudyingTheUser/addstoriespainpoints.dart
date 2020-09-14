@@ -8,6 +8,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserSt
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/UserStoryDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
@@ -265,12 +266,19 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => userStoryDialogue(),
-            ).then((_) => setState(() {}));
-          },
+          onPressed: (AddingNewUserStory.length < 18)
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => userStoryDialogue(),
+                  ).then((_) => setState(() {}));
+                }
+              : () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => MaximumCardsDialog(),
+                  ).then((_) => setState(() {}));
+                },
           child: Icon(Icons.add),
         ),
       ),

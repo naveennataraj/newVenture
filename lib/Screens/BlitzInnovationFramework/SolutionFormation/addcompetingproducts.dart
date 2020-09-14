@@ -9,6 +9,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/ad
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addCompetingProductsDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
@@ -238,12 +239,20 @@ class _AddCompetingProductsState extends State<AddCompetingProducts> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => addCompetingProductsDialogue(),
-            ).then((_) => setState(() {}));
-          },
+          onPressed: (AddingNewCompetingProduct.length < 18)
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        addCompetingProductsDialogue(),
+                  ).then((_) => setState(() {}));
+                }
+              : () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => MaximumCardsDialog(),
+                  ).then((_) => setState(() {}));
+                },
           child: Icon(Icons.add),
         ),
       ),

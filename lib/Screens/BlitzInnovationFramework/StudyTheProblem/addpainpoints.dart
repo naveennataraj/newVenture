@@ -28,7 +28,6 @@ List<Bread> breads = [
 ];
 
 class _AddPainPointsState extends State<AddPainPoints> {
-  int length = 0;
   bool spinner = false;
   final _firestore = Firestore.instance;
 
@@ -281,7 +280,7 @@ class _AddPainPointsState extends State<AddPainPoints> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: (length < 18)
+          onPressed: (AddingNewPainPoint.length < 18)
               ? () {
                   showDialog(
                     context: context,

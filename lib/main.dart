@@ -1,6 +1,20 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BUFBliztCanvasFramework.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BuildFoundation/BifFoundationAspects.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BuildFoundation/BifFoundationAspectsAdd.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifElements.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifIntellectualProperties.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifModelAsAService.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/DefiningSolution/BifHighFidelityWireframe.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/Metrics/BifAddmetrics.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/Metrics/BifNorthStarMetric.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/SellingProposition/Solution.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/SellingProposition/TouchPoints.dart';
+import 'package:iventure001/Screens/BUFBlitzCanvas/Synergies/BifAddSynergies.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
@@ -41,19 +55,6 @@ import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboar
 import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
 import 'package:iventure001/bifdashboard.dart';
-// BUF Blitz Canvas
-import 'package:iventure001/Screens/BUFBlitzCanvas/BUFBliztCanvasFramework.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/BuildFoundation/BifFoundationAspects.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/BuildFoundation/BifFoundationAspectsAdd.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/DefiningSolution/BifHighFidelityWireframe.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/SellingProposition/Solution.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/SellingProposition/TouchPoints.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifElements.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifIntellectualProperties.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/BusinessModelElements/BifModelAsAService.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/Synergies/BifAddSynergies.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/Metrics/BifNorthStarMetric.dart';
-import 'package:iventure001/Screens/BUFBlitzCanvas/Metrics/BifAddmetrics.dart';
 
 import 'Constants/TextFieldConstants.dart';
 import 'Homepage.dart';
@@ -64,7 +65,6 @@ import 'Screens/BlitzInnovationFramework/StudyTheProblem/ProblemStudy.dart';
 import 'Screens/BlitzInnovationFramework/StudyTheProblem/addpainpoints.dart';
 import 'Screens/BlitzInnovationFramework/StudyingTheUser/adduserpersona.dart';
 import 'Screens/login.dart';
-import 'dart:async';
 
 void main() {
   runApp(Vueapp());
@@ -101,7 +101,6 @@ class _VueappState extends State<Vueapp> {
     });
   }
 
-
   Future<FirebaseUser> getFirebaseUser() async {
     FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
     // Disable persistence on web platforms
@@ -109,7 +108,7 @@ class _VueappState extends State<Vueapp> {
       firebaseUser = await FirebaseAuth.instance.onAuthStateChanged.first;
       currentUser = firebaseUser.email;
 
-      while(firebaseUser.email == null){
+      while (firebaseUser.email == null) {
         firebaseUser = await FirebaseAuth.instance.onAuthStateChanged.first;
         currentUser = firebaseUser.email;
       }
@@ -118,14 +117,16 @@ class _VueappState extends State<Vueapp> {
 //        firebaseUser = await FirebaseAuth.instance.onAuthStateChanged.first;
 //      }
 
-    } else{
+    } else {
       setState(() {
         currentUser = firebaseUser.email;
       });
     }
 
     setState(() {
-      (currentUser == '') ? currentUser = firebaseUser.email : currentUser = firebaseUser.email ;
+      (currentUser == '')
+          ? currentUser = firebaseUser.email
+          : currentUser = firebaseUser.email;
     });
 
     return firebaseUser;
@@ -134,7 +135,7 @@ class _VueappState extends State<Vueapp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: (currentUser == '') ? '/' : '/homepage',
+      initialRoute: (currentUser == null) ? '/' : '/homepage',
 //      home: Homepage(),
       routes: {
         // Menu with 3 options
@@ -223,7 +224,8 @@ class _VueappState extends State<Vueapp> {
         '/BIFCanvasFramework': (context) => BIFCanvasFramework(),
         //Step 1
         '/BIFCanvas': (context) => BIFCanvasFoundationAspects(),
-        '/BIFCanvasFoundationAspectAdd': (context) => BifCanvasAddFoundationAspects(),
+        '/BIFCanvasFoundationAspectAdd': (context) =>
+            BifCanvasAddFoundationAspects(),
         //Step2
         '/BIFCanvasWireframe': (context) => BifHighFidelityWireframe(),
         //Step 3
@@ -231,8 +233,7 @@ class _VueappState extends State<Vueapp> {
         '/BifCanvasTouchPoint': (context) => BifTouchPoints(),
         //step4
         '/BIFElements': (context) => BifBusinessModelElements(),
-        '/BIFIntellectualAssets': (context) =>
-            BifIntellectualPropertyAssets(),
+        '/BIFIntellectualAssets': (context) => BifIntellectualPropertyAssets(),
         '/BIFServiceOffering': (context) => BifAsaServiceOffering(),
         //Step5 Synergies
         '/BIFSynergies': (context) => BifAddSynergies(),
