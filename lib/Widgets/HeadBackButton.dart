@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class headBackButtton extends StatelessWidget {
   const headBackButtton({
     Key key,
@@ -12,7 +11,6 @@ class headBackButtton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
-
       },
       child: Text(
         'HEAD BACK',
