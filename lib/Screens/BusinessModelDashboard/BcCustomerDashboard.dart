@@ -10,9 +10,11 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/
 import 'package:iventure001/Data/BlitzCanvasContent/Step5_CustomerQuotes/BcAddQuote.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcAddFoundation.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentParallelSolution.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentLink.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/SolutionDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/QuotesDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/ParallelDialogue.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'dart:async';
 
@@ -39,6 +41,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
   //======= What is our Primary Value Proposition? =======
   String valueProposition = '';
   List valuePropositionList = [];
+  String linkWireframe = '';
 //======= How our solution stands out =======
   String solutionStandOut;
   String ID;
@@ -85,6 +88,24 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
             : valueProposition = 'Missing value';
       });
     }
+
+    // Getting the link
+      final documentLink = await _firestore
+          .collection(currentUser)
+          .document('Bc2_studyingTheUser')
+          .get();
+      if (documentLink.exists) {
+          setState(() {
+            linkWireframe = documentLink.data['userProfile'];
+            ID = documentLink.documentID;
+          });
+
+        final fields =
+        AddUserProfileLink(link: linkWireframe, ID: ID);
+          userLink.insert(0, fields);
+      }
+
+
 
     //======= How our solution stands out =======
     if (sellingPropositionArray.length != 0) {
@@ -273,7 +294,9 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
               cardTitle: 'What is our Primary Value Proposition?',
               cardNote: '$valueProposition',
               cardButtonName: 'VIEW WIREFRAME',
-              onTap: () {},
+              onTap: () {
+                launch(linkWireframe);
+              },
             ),
           ),
         ),
@@ -310,7 +333,9 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
               cardTitle: 'Customer Quotes (on using the solution prototype)',
               cardNote: '$customerQuotes',
               cardButtonName: 'VIEW MORE QUOTES',
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/BCStep5CustomersQuotes');
+              },
               onEditTap: () {
                 showDialog(
                   context: context,
@@ -331,7 +356,9 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
             cardTitle: 'We excel at:',
             cardNote: '$excelAtDescription',
             cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/BCStep1AddDetails');
+            },
           ),
         ),
         Padding(
@@ -345,7 +372,9 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
               cardTitle: 'Other offerings planned',
               cardNote: '$offeringPlanned',
               cardButtonName: 'REVIEW MORE SUCH OFFERINGS',
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/BCStep9CreatingEcosystems');
+              },
               onEditTap: () {
                 showDialog(
                   context: context,
