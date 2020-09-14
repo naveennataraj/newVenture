@@ -7,6 +7,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
@@ -166,8 +167,18 @@ class _AddQuotesState extends State<AddQuotes> {
                                   step: 5,
                                   stepBool: false,
                                   widget: () {
-                                    Navigator.pushNamed(
-                                        context, '/reviewcustomerrequirements');
+                                    if (AddingNewQuote.length < 3) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            MinimumCardsDialog(
+                                          minimumcards: 3,
+                                        ),
+                                      ).then((_) => setState(() {}));
+                                    } else if (AddingNewQuote.length >= 3) {
+                                      Navigator.popAndPushNamed(context,
+                                          '/reviewcustomerrequirements');
+                                    }
                                   },
                                 ),
                               ],

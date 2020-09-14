@@ -8,6 +8,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addConta
 import 'package:iventure001/Screens/BlitzInnovationFramework/PreValidation/addEvangelistsAndEarlyAdoptersDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
@@ -180,8 +181,18 @@ class _AddEvangelistsAndEarlyAdoptersState
                                   step: 4,
                                   stepBool: false,
                                   widget: () {
-                                    Navigator.pushNamed(
-                                        context, '/adddistributionmedium');
+                                    if (AddingNewContacts.length == 0) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            MinimumCardsDialog(
+                                          minimumcards: 1,
+                                        ),
+                                      ).then((_) => setState(() {}));
+                                    } else if (AddingNewContacts.length != 0) {
+                                      Navigator.popAndPushNamed(
+                                          context, '/adddistributionmedium');
+                                    }
                                   },
                                 ),
                               ],

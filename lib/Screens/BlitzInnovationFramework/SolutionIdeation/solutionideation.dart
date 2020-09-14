@@ -9,6 +9,7 @@ import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/ra
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionIdeation/solutionideationDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitleForDropdown.dart';
@@ -193,8 +194,18 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                                   step: 2,
                                   stepBool: false,
                                   widget: () {
-                                    Navigator.pushNamed(
-                                        context, '/ranksolutions');
+                                    if (AddingNewSolutions.length < 3) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            MinimumCardsDialog(
+                                          minimumcards: 3,
+                                        ),
+                                      ).then((_) => setState(() {}));
+                                    } else if (AddingNewSolutions.length >= 3) {
+                                      Navigator.popAndPushNamed(
+                                          context, '/ranksolutions');
+                                    }
                                   },
                                 ),
                               ],

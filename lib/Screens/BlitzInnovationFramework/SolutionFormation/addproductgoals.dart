@@ -8,6 +8,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/ad
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addProductGoalsDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 
@@ -162,8 +163,19 @@ class _AddProductGoalsState extends State<AddProductGoals> {
                                     step: 3,
                                     stepBool: false,
                                     widget: () {
-                                      Navigator.pushNamed(
-                                          context, '/addproductfeatures');
+                                      if (AddingNewProductGoals.length == 0) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              MinimumCardsDialog(
+                                            minimumcards: 1,
+                                          ),
+                                        ).then((_) => setState(() {}));
+                                      } else if (AddingNewProductGoals.length !=
+                                          0) {
+                                        Navigator.popAndPushNamed(
+                                            context, '/addproductfeatures');
+                                      }
                                     },
                                   ),
                                 ],

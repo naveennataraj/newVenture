@@ -227,7 +227,9 @@ class _AddPainPointsState extends State<AddPainPoints> {
                                                 context: context,
                                                 builder:
                                                     (BuildContext context) =>
-                                                        MinimumCardsDialog(),
+                                                        MinimumCardsDialog(
+                                                  minimumcards: 1,
+                                                ),
                                               ).then((_) => setState(() {}));
                                             } else if (AddingNewPainPoint
                                                     .length !=

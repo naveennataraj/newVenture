@@ -8,6 +8,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/ad
 import 'package:iventure001/Screens/BlitzInnovationFramework/SolutionFormation/addProductFeaturesDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 
@@ -188,8 +189,19 @@ class _AddProductFeaturesState extends State<AddProductFeatures> {
                                   step: 3,
                                   stepBool: false,
                                   widget: () {
-                                    Navigator.pushNamed(
-                                        context, '/currentmarketplayers');
+                                    if (AddingNewProductFeature.length < 2) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            MinimumCardsDialog(
+                                          minimumcards: 2,
+                                        ),
+                                      ).then((_) => setState(() {}));
+                                    } else if (AddingNewProductFeature.length >=
+                                        2) {
+                                      Navigator.popAndPushNamed(
+                                          context, '/currentmarketplayers');
+                                    }
                                   },
                                 ),
                               ],

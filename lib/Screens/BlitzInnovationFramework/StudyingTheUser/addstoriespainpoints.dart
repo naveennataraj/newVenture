@@ -8,6 +8,7 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserSt
 import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/UserStoryDialogue.dart';
 import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
+import 'package:iventure001/Widgets/MinimumCardsDialog.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithoutTitle.dart';
 
@@ -222,10 +223,18 @@ class _AddStoriesPainPointsState extends State<AddStoriesPainPoints> {
                                   step: 1,
                                   stepBool: true,
                                   widget: () {
-//                                    bcpData[1].CompletionValidator = true;
-//                                    print(bcpData[1].CompletionValidator);
-                                    Navigator.pushNamed(
-                                        context, '/BlitzInnovationFramework');
+                                    if (AddingNewUserStory.length < 3) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            MinimumCardsDialog(
+                                          minimumcards: 3,
+                                        ),
+                                      ).then((_) => setState(() {}));
+                                    } else if (AddingNewUserStory.length >= 3) {
+                                      Navigator.popAndPushNamed(
+                                          context, '/BlitzInnovationFramework');
+                                    }
                                   },
                                 ),
                               ],

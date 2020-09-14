@@ -124,39 +124,37 @@ class _solutionFitDialogueState extends State<solutionFitDialogue> {
                   padding: const EdgeInsets.all(20.0),
                   child: GestureDetector(
                     onTap: () => _selectDate(context),
-                    child: Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
-                            width: 1,
-                            color: borderColor,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5),
-                          ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        border: Border.all(
+                          width: 1,
+                          color: borderColor,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              Icon(Icons.calendar_today),
-                              SizedBox(width: 20),
-                              (widget.selectedDate != null)
-                                  ? Text(
-                                      date,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    )
-                                  : Text(
-                                      'Pick a date',
-                                      style: TextStyle(color: dateColor),
-                                    ),
-                            ],
-                          ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Icon(Icons.calendar_today),
+                            SizedBox(width: 20),
+                            (widget.selectedDate != null)
+                                ? Text(
+                                    date,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  )
+                                : Text(
+                                    'Pick a date',
+                                    style: TextStyle(color: dateColor),
+                                  ),
+                          ],
                         ),
                       ),
                     ),
