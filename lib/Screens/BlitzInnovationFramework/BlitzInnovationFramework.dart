@@ -41,6 +41,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   bool firebaseStep5;
   bool firebaseStep6;
   bool firebaseStep7;
+
   void getDocuments() async {
     setState(() {
       spinner = true;

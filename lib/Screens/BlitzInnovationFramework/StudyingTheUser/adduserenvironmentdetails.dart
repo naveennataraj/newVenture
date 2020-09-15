@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -177,24 +179,49 @@ class _AddUserEnvironmentDetailsState extends State<AddUserEnvironmentDetails> {
     });
   }
 
+//  @override
+//  void initState() {
+//    if (demoSelected == true) {
+//      ageValuesStart = DemoUserEnvironmentArray[0].ageRangeStart;
+//      ageValuesEnd = DemoUserEnvironmentArray[0].ageRangeEnd;
+//      UserIssuesTextController =
+//          TextEditingController(text: DemoUserEnvironmentArray[0].issues);
+//      UserDetailsTextController =
+//          TextEditingController(text: DemoUserEnvironmentArray[0].detail);
+//      SelectedProblemDomain = DemoUserEnvironmentArray[0].ProblemDrop;
+//      SelectedUserEnvironment = DemoUserEnvironmentArray[0].EnvironmentDrop;
+//      ageValues = RangeValues(ageValuesStart, ageValuesEnd);
+//      ageLabels = RangeLabels(
+//          ageValuesStart.toInt().toString(), ageValuesEnd.toInt().toString());
+//    } else {
+//      getDocument();
+//    }
+//    super.initState();
+//  }
+
   @override
   void initState() {
-    if (demoSelected == true) {
-      ageValuesStart = DemoUserEnvironmentArray[0].ageRangeStart;
-      ageValuesEnd = DemoUserEnvironmentArray[0].ageRangeEnd;
-      UserIssuesTextController =
-          TextEditingController(text: DemoUserEnvironmentArray[0].issues);
-      UserDetailsTextController =
-          TextEditingController(text: DemoUserEnvironmentArray[0].detail);
-      SelectedProblemDomain = DemoUserEnvironmentArray[0].ProblemDrop;
-      SelectedUserEnvironment = DemoUserEnvironmentArray[0].EnvironmentDrop;
-      ageValues = RangeValues(ageValuesStart, ageValuesEnd);
-      ageLabels = RangeLabels(
-          ageValuesStart.toInt().toString(), ageValuesEnd.toInt().toString());
-    } else {
+//    spinner = true;
+
+    if (currentUser != null) {
       getDocument();
+    } else {
+      _AnimatedFlutterLogoState();
     }
+
     super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocument();
+        }
+      });
+    });
   }
 
   @override

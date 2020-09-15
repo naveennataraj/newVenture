@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +31,29 @@ class _AddParallelInnovationsState extends State<AddParallelInnovations> {
     Bread(label: "Add Parallel Innovations ", route: '/addparallelinnovations'),
   ];
   final _firestore = Firestore.instance;
+
+  @override
+  void initState() {
+//    spinner = true;
+
+    if (currentUser != null) {
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {}
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

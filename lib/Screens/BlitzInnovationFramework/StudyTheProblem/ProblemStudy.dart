@@ -105,14 +105,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
   @override
   void initState() {
 //    spinner = true;
-    if (demoSelected == true) {
-      TitleTextController =
-          TextEditingController(text: DemoProblemStudyArray[0].title);
-      ProblemTextController =
-          TextEditingController(text: DemoProblemStudyArray[0].problem);
-      ImportanceTextController =
-          TextEditingController(text: DemoProblemStudyArray[0].importance);
-    }
+
     if (currentUser != null) {
       getDocument();
     } else {
@@ -125,7 +118,7 @@ class _ProblemStudyState extends State<ProblemStudy> {
   Timer _timer;
 
   _AnimatedFlutterLogoState() {
-    _timer = new Timer(const Duration(seconds: 1), () {
+    _timer = new Timer(const Duration(seconds: 2), () {
       setState(() {
         if (currentUser != null && currentUser != '') {
           getDocument();

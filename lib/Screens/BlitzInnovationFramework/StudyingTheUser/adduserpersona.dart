@@ -95,10 +95,6 @@ class _AddUserPersonaState extends State<AddUserPersona> {
 
   @override
   void initState() {
-    if (demoSelected == true) {
-      UserPersonaTextController =
-          TextEditingController(text: DemoUserPersonaArray[0].link);
-    }
     if (currentUser != null) {
       getDocument();
     } else {
