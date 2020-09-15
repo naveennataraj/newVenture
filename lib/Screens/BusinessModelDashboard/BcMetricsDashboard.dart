@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +32,10 @@ class _BcMetricsDashboardState extends State<BcMetricsDashboard> {
   //======= North Star Metric =======
   String northStarString = '';
 
-  void initState() {
-    super.initState();
-    getDocuments();
-  }
+//  void initState() {
+//    super.initState();
+//    getDocuments();
+//  }
 
   void getDocuments() async {
     //======= North Star Metric =======
@@ -56,6 +58,29 @@ class _BcMetricsDashboardState extends State<BcMetricsDashboard> {
             : northStarString = 'Missing ';
       });
     }
+  }
+
+  // Refresh
+  @override
+  void initState() {
+    if (currentUser != null) {
+      getDocuments();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
+    });
   }
 
   @override
@@ -86,7 +111,9 @@ class _BcMetricsDashboardState extends State<BcMetricsDashboard> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BcAddMoreMetrics(fromDashboard: true,),
+                    builder: (context) => BcAddMoreMetrics(
+                      fromDashboard: true,
+                    ),
                   ));
             },
             onEditTap: () {

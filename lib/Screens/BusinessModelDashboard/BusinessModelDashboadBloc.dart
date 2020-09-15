@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcOverviewDashboard.dart';
-import 'package:iventure001/Screens/BusinessModelDashboard/BcCustomerDashboard.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/BcCustomerDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMarketDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMoneyDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMetricsDashboard.dart';

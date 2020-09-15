@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -52,10 +53,6 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
     return 'As a $A, I want to $B so that $C';
   }
 
-  void initState() {
-    super.initState();
-    getDocuments();
-  }
 
   void getDocuments() async {
 
@@ -209,7 +206,28 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
       });
     }
   }
+ // Refresh
+  @override
+  void initState() {
+    if (currentUser != null) {
+      getDocuments();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+    super.initState();
+  }
 
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -14,8 +14,9 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/Conten
 import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/SolutionDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/QuotesDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/ParallelDialogue.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/PropositionDialogue.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/ExcelDialogue.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'dart:async';
 
 class BcCustomerDashboard extends StatefulWidget with ConceptDashboardStates {
@@ -41,15 +42,20 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
   //======= What is our Primary Value Proposition? =======
   String valueProposition = '';
   List valuePropositionList = [];
+  String propositionID;
+  List propositionIDList = [];
   String linkWireframe = '';
+
 //======= How our solution stands out =======
   String solutionStandOut;
-  String ID;
+  var ID;
 //======= Customer Quotes (on using the solution prototype) =======
   String customerQuotes = '';
 //======= We excel at =======
   String excelAtDescription = '';
   List excelAtList = [];
+  String excelID;
+  List excelIDList = [];
 //======= Offering Planned  =======
   String offeringPlanned = '';
 
@@ -71,6 +77,8 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
 
         if (elementTitle == 'Value proposition') {
           valuePropositionList.add(elementDescription);
+          propositionIDList.add(ID);
+          propositionID =propositionIDList[0];
         }
 
         final card = ContentBcElements(
@@ -193,6 +201,9 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
 
         if (title == 'Core competence') {
           excelAtList.add(description);
+          excelIDList.add(ID);
+          excelID = excelIDList[0];
+
         }
 
         final card = ContentBcAddFoundation(
@@ -207,6 +218,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
         (excelAtList.length != 0)
             ? excelAtDescription = excelAtList[0]
             : excelAtDescription = 'Missing value';
+
       });
     }
     //======= Offering Planned  =======
@@ -297,6 +309,15 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
               onTap: () {
                 launch(linkWireframe);
               },
+              onEditTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => PropositionDialogue(
+                    valueProposition: valueProposition,
+                      propositionID: propositionID
+                  ),
+                ).then((_) => setState(() {}));
+              },
             ),
           ),
         ),
@@ -358,6 +379,15 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
             cardButtonName: 'VIEW FOUNDATIONAL DETAILS',
             onTap: () {
               Navigator.pushNamed(context, '/BCStep1AddDetails');
+            },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => ExcelDialogue(
+                    excelAt: excelAtDescription,
+                    excelAtID: excelID,
+                ),
+              ).then((_) => setState(() {}));
             },
           ),
         ),

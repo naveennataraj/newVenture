@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/BcAddFoundation/ContentBcCollectFoundation.dart';
-import 'package:iventure001/Screens/BusinessModelDashboard/BcCustomerDashboard.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CustomerDashboard/BcCustomerDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMarketDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMoneyDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMetricsDashboard.dart';
