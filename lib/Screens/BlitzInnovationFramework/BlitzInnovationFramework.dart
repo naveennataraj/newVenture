@@ -8,6 +8,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
+import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/ReviewFitDialog.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -147,9 +148,9 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('iVENTURE'),
-        backgroundColor: Color(0XFFE95420),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: NavigationBar(),
       ),
       backgroundColor: Color(0XFFFAFAFA),
       body: SingleChildScrollView(
@@ -179,25 +180,15 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                   elevation: 5,
                   child: Container(
                     margin: EdgeInsets.all(15),
-                    height: 300,
                     width: 800,
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Blitz Unified Framework',
-                            style: TextStyle(fontSize: 30),
-                            textAlign: TextAlign.center,
-                          ),
-                          Flexible(
-                            child: SizedBox(
-                              height: 30,
-                            ),
-                          ),
-                          Text(
                             'Welcome to a innovation oriented software product development exercise using the Blitz Innovation Framework.',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 18),
                             textAlign: TextAlign.center,
                           ),
                           Flexible(
@@ -207,7 +198,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                           ),
                           Text(
                             'In the NEXT EIGHT STEPS, we will go through the steps of developing an SAMPLE innovative software product concept. For the purpose of this exercise, the fictional product offered to the customer is a To-Do list application',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 18),
                             textAlign: TextAlign.center,
                           ),
                           Flexible(
@@ -218,7 +209,7 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                           Text(
                             'PLEASE NOTE: THIS IS AN INNOVATION DRIVEN NEW PRODUCT CONCEPTUALIZATION EXERCISE. THE ENTRIES FOR EACH STEP HAS ALREADY BEEN FILLED IN.',
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
+                                fontSize: 18, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
                           Flexible(
@@ -226,10 +217,28 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
                               height: 30,
                             ),
                           ),
-                          Text(
-                            "Please choose the 'Let's get started' button below to get started with this process.",
-                            style: TextStyle(fontSize: 15),
-                            textAlign: TextAlign.center,
+                          RichText(
+                            text: TextSpan(
+                              text: 'Please choose the ',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "'Let's get started'",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                TextSpan(
+                                  text:
+                                      ' button in step 1 to get started with the process.',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 17),
+                                ),
+                              ],
+                            ),
                           ),
                           Flexible(
                             child: SizedBox(

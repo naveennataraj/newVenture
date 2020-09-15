@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 bool demoSelected = false;
@@ -11,6 +12,8 @@ class NavigationBar extends StatefulWidget {
   _NavigationBarState createState() => _NavigationBarState();
 }
 
+final _auth = FirebaseAuth.instance;
+
 class _NavigationBarState extends State<NavigationBar> {
   @override
   Widget build(BuildContext context) {
@@ -20,18 +23,15 @@ class _NavigationBarState extends State<NavigationBar> {
           children: [
             Text('iVENTURE'),
             Spacer(),
-            ToggleButtons(
-              key: UniqueKey(),
-              isSelected: [demoSelected],
-              children: [Icon(Icons.desktop_mac)],
-              onPressed: (int index) {
-                setState(() {
-                  demoSelected = !demoSelected;
-                  Navigator.popAndPushNamed(context, widget.routeName);
-                });
-              },
-              color: Colors.white,
-              selectedColor: Colors.teal,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: GestureDetector(
+                onTap: () {
+                  _auth.signOut();
+                  Navigator.popAndPushNamed(context, '/');
+                },
+                child: Icon(Icons.exit_to_app),
+              ),
             ),
           ],
         ),

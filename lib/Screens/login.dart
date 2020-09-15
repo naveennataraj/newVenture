@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/problemStudy.dart';
-import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -89,221 +88,237 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFFFAFAFA),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: NavigationBar(),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Text('iVENTURE'),
+          ],
+        ),
+        backgroundColor: const Color(0xFFE95420),
       ),
       body: ModalProgressHUD(
         inAsyncCall: spinner,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        //height: MediaQuery.of(context).size.height * .40,
-                        margin: EdgeInsets.only(top: 40.0),
-                        width: 500,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          //shape: BoxShape.rectangle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0.0, 1.0), //(x,y)
-                              blurRadius: 2.0,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                            //height: MediaQuery.of(context).size.height * .40,
+                            margin: EdgeInsets.only(top: 40.0),
+                            width: 500,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              //shape: BoxShape.rectangle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(0.0, 1.0), //(x,y)
+                                  blurRadius: 2.0,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.0),
-                              child: Text(
-                                "Welcome to Blitz Model Creation",
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            TextFieldWidget(
-                              labelText: 'Email',
-                              myTextController: EmailTextController,
-                              myFocusNode: EmailFocusNode,
-                              validText: validEmail,
-                              maxLines: 1,
-                              textCollecter: Email,
-                              helperText: '',
-                              labelcolour: emailLabelColor,
-                            ),
-                            TextFieldWidget(
-                              labelText: 'Password',
-                              myTextController: PasswordTextController,
-                              myFocusNode: PasswordFocusNode,
-                              validText: validPassword,
-                              maxLines: 1,
-                              textCollecter: Password,
-                              helperText: '',
-                              labelcolour: PasswordlabelColor,
-                              obscureText: true,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(30.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  RaisedButton(
-                                    elevation: 5,
-                                    hoverElevation: 10,
-                                    color: Color(0XFFE95420),
-                                    onPressed: () async {
-                                      setState(() {
-                                        spinner = true;
-                                      });
-                                      print(EmailTextController.text);
-                                      try {
-                                        final user = await _auth
-                                            .signInWithEmailAndPassword(
-                                                email: EmailTextController.text,
-                                                password: PasswordTextController
-                                                    .text);
-                                        if (user != null) {
-                                          final loggedInUser =
-                                              await _auth.currentUser();
-                                          currentUser = loggedInUser.email;
-                                          Navigator.pushNamed(
-                                              context, '/homepage');
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                                  child: Text(
+                                    "Welcome to Blitz Model Creation",
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                TextFieldWidget(
+                                  labelText: 'Email',
+                                  myTextController: EmailTextController,
+                                  myFocusNode: EmailFocusNode,
+                                  validText: validEmail,
+                                  maxLines: 1,
+                                  textCollecter: Email,
+                                  helperText: '',
+                                  labelcolour: emailLabelColor,
+                                ),
+                                TextFieldWidget(
+                                  labelText: 'Password',
+                                  myTextController: PasswordTextController,
+                                  myFocusNode: PasswordFocusNode,
+                                  validText: validPassword,
+                                  maxLines: 1,
+                                  textCollecter: Password,
+                                  helperText: '',
+                                  labelcolour: PasswordlabelColor,
+                                  obscureText: true,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(30.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      RaisedButton(
+                                        elevation: 5,
+                                        hoverElevation: 10,
+                                        color: Color(0XFFE95420),
+                                        onPressed: () async {
                                           setState(() {
-                                            spinner = false;
+                                            spinner = true;
                                           });
-                                        }
-                                      } catch (e) {
-                                        print(e);
+                                          print(EmailTextController.text);
+                                          try {
+                                            final user = await _auth
+                                                .signInWithEmailAndPassword(
+                                                    email: EmailTextController
+                                                        .text,
+                                                    password:
+                                                        PasswordTextController
+                                                            .text);
+                                            if (user != null) {
+                                              final loggedInUser =
+                                                  await _auth.currentUser();
+                                              currentUser = loggedInUser.email;
+                                              Navigator.pushNamed(
+                                                  context, '/homepage');
+                                              setState(() {
+                                                spinner = false;
+                                              });
+                                            }
+                                          } catch (e) {
+                                            print(e);
 
-                                        spinner = false;
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                            title: new Text(
-                                              "Error!",
-                                            ),
-                                            content: new Text(e.message),
-                                            actions: <Widget>[
-                                              // usually buttons at the bottom of the dialog
-                                              new FlatButton(
-                                                child: new Text(
-                                                  "OK",
-                                                  style: TextStyle(
-                                                    color: Color(
-                                                      0XFFE95420,
-                                                    ),
-                                                  ),
+                                            spinner = false;
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                title: new Text(
+                                                  "Error!",
                                                 ),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ).then((_) => setState(() {}));
-                                      }
-                                    },
-                                    child: Text(
-                                      "LOG IN",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 50,
-                                  ),
-                                  RaisedButton(
-                                    elevation: 5,
-                                    hoverElevation: 10,
-                                    color: Color(0XFFE95420),
-                                    onPressed: () async {
-                                      setState(() {
-                                        spinner = true;
-                                      });
-                                      try {
-                                        final newUser = await _auth
-                                            .createUserWithEmailAndPassword(
-                                                email: EmailTextController.text,
-                                                password: PasswordTextController
-                                                    .text);
-                                        if (newUser != null) {
-                                          final signedUpUser =
-                                              await _auth.currentUser();
-                                          currentUser = signedUpUser.email;
-                                          Navigator.pushNamed(
-                                              context, '/homepage');
-                                        }
-                                        setState(() {
-                                          spinner = false;
-                                        });
-                                      } catch (e) {
-                                        print(e);
-                                        spinner = false;
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                            title: new Text(
-                                              "Error!",
-                                            ),
-                                            content: new Text(e.message),
-                                            actions: <Widget>[
-                                              // usually buttons at the bottom of the dialog
-                                              new FlatButton(
-                                                child: new Text(
-                                                  "OK",
-                                                  style: TextStyle(
-                                                    color: Color(
-                                                      0XFFE95420,
+                                                content: new Text(e.message),
+                                                actions: <Widget>[
+                                                  // usually buttons at the bottom of the dialog
+                                                  new FlatButton(
+                                                    child: new Text(
+                                                      "OK",
+                                                      style: TextStyle(
+                                                        color: Color(
+                                                          0XFFE95420,
+                                                        ),
+                                                      ),
                                                     ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
                                                   ),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        ).then((_) => setState(() {}));
-                                      }
-                                    },
-                                    child: Text(
-                                      "SIGN UP",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
+                                            ).then((_) => setState(() {}));
+                                          }
+                                        },
+                                        child: Text(
+                                          "LOG IN",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 50,
+                                      ),
+                                      RaisedButton(
+                                        elevation: 5,
+                                        hoverElevation: 10,
+                                        color: Color(0XFFE95420),
+                                        onPressed: () async {
+                                          setState(() {
+                                            spinner = true;
+                                          });
+                                          try {
+                                            final newUser = await _auth
+                                                .createUserWithEmailAndPassword(
+                                                    email: EmailTextController
+                                                        .text,
+                                                    password:
+                                                        PasswordTextController
+                                                            .text);
+                                            if (newUser != null) {
+                                              final signedUpUser =
+                                                  await _auth.currentUser();
+                                              currentUser = signedUpUser.email;
+                                              Navigator.pushNamed(
+                                                  context, '/homepage');
+                                            }
+                                            setState(() {
+                                              spinner = false;
+                                            });
+                                          } catch (e) {
+                                            print(e);
+                                            spinner = false;
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                title: new Text(
+                                                  "Error!",
+                                                ),
+                                                content: new Text(e.message),
+                                                actions: <Widget>[
+                                                  // usually buttons at the bottom of the dialog
+                                                  new FlatButton(
+                                                    child: new Text(
+                                                      "OK",
+                                                      style: TextStyle(
+                                                        color: Color(
+                                                          0XFFE95420,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ).then((_) => setState(() {}));
+                                          }
+                                        },
+                                        child: Text(
+                                          "SIGN UP",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            )
-                          ],
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
