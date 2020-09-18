@@ -54,6 +54,29 @@ class _needOfUsersDialogueState extends State<needOfUsersDialogue> {
   final SoThatFocusNode = new FocusNode();
   String SoThat;
 
+  validator() {
+    setState(() {
+      AsaTextController.text.isEmpty ? validAsa = false : validAsa = true;
+      AsaTextController.text.isEmpty
+          ? AsalabelColor = Color(0xFFF53E70)
+          : AsalabelColor = Color(0xFF919191);
+
+      IWantToTextController.text.isEmpty
+          ? validIWantTo = false
+          : validIWantTo = true;
+      IWantToTextController.text.isEmpty
+          ? IWantTolabelColor = Color(0xFFF53E70)
+          : IWantTolabelColor = Color(0xFF919191);
+
+      SoThatTextController.text.isEmpty
+          ? validSoThat = false
+          : validSoThat = true;
+      SoThatTextController.text.isEmpty
+          ? SoThatlabelColor = Color(0xFFF53E70)
+          : SoThatlabelColor = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -328,20 +351,30 @@ class _needOfUsersDialogueState extends State<needOfUsersDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/StudyingTheUser/userStory')
-                              .document(AddingNewUserStory[0].ID)
-                              .updateData({
-                            'Asa': AsaTextController.text,
-                            'IWantTo': SoThatTextController.text,
-                            'SoThat': IWantToTextController.text,
-                            'Sender': "tester@gmail.com",
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (AsaTextController.text == '' ||
+                                SoThatTextController.text == '' ||
+                                IWantToTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (AsaTextController.text != '' &&
+                                        SoThatTextController.text != '' &&
+                                        IWantToTextController.text != '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/StudyingTheUser/userStory')
+                                    .document(AddingNewUserStory[0].ID)
+                                    .updateData({
+                                  'Asa': AsaTextController.text,
+                                  'IWantTo': SoThatTextController.text,
+                                  'SoThat': IWantToTextController.text,
+                                  'Sender': "tester@gmail.com",
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

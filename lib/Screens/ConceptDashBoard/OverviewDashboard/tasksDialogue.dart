@@ -32,6 +32,15 @@ class _tasksDialogueState extends State<tasksDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      pvpTextController.text.isEmpty ? validpvp = false : validpvp = true;
+      pvpTextController.text.isEmpty
+          ? pvpLabelColour = Color(0xFFF53E70)
+          : pvpLabelColour = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -162,17 +171,23 @@ class _tasksDialogueState extends State<tasksDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/SolutionIdeation/pickDetails')
-                              .document(PickDetailsArray[0].ID)
-                              .updateData({
-                            'PVP': pvpTextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (pvpTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (pvpTextController.text != '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/SolutionIdeation/pickDetails')
+                                    .document(PickDetailsArray[0].ID)
+                                    .updateData({
+                                  'PVP': pvpTextController.text,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

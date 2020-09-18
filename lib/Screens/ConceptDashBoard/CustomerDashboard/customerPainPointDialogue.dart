@@ -26,9 +26,21 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
   var ProblemTextController = TextEditingController();
   final ProblemFocusNode = new FocusNode();
   String Problemtext = '';
+
   requestFocus(FocusNode myFocusNode) {
     setState(() {
       FocusScope.of(context).requestFocus(myFocusNode);
+    });
+  }
+
+  validator() {
+    setState(() {
+      ProblemTextController.text.isEmpty
+          ? validProblem = false
+          : validProblem = true;
+      ProblemTextController.text.isEmpty
+          ? ProblemlabelColor = Color(0xFFF53E70)
+          : ProblemlabelColor = Color(0xFF919191);
     });
   }
 
@@ -162,19 +174,24 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/StudyTheProblem/problemStudy')
-                              .document(ProblemStudyArray[0].ID)
-                              .updateData({
-                            'Problem': ProblemTextController.text,
-                            'Sender': currentUser,
-                          });
-
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (ProblemTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (ProblemTextController.text != '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/StudyTheProblem/problemStudy')
+                                    .document(ProblemStudyArray[0].ID)
+                                    .updateData({
+                                  'Problem': ProblemTextController.text,
+                                  'Sender': currentUser,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

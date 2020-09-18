@@ -33,6 +33,17 @@ class _solutionDeliveryDialogueState extends State<solutionDeliveryDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      mediumTextController.text.isEmpty
+          ? validMedium = false
+          : validMedium = true;
+      mediumTextController.text.isEmpty
+          ? mediumLabelColour = Color(0xFFF53E70)
+          : mediumLabelColour = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -163,17 +174,23 @@ class _solutionDeliveryDialogueState extends State<solutionDeliveryDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/PreValidation/addMedium')
-                              .document(addMediumArray[0].ID)
-                              .updateData({
-                            'Medium': mediumTextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (mediumTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (mediumTextController.text != '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/PreValidation/addMedium')
+                                    .document(addMediumArray[0].ID)
+                                    .updateData({
+                                  'Medium': mediumTextController.text,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

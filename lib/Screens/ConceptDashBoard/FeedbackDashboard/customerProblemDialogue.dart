@@ -33,6 +33,15 @@ class _customerProblemDialogueState extends State<customerProblemDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      eventTextController.text.isEmpty ? validEvent = false : validEvent = true;
+      eventTextController.text.isEmpty
+          ? eventLabelColour = Color(0xFFF53E70)
+          : eventLabelColour = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -160,17 +169,23 @@ class _customerProblemDialogueState extends State<customerProblemDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/SolutionIdeation/pickDetails')
-                              .document(PickDetailsArray[0].ID)
-                              .updateData({
-                            'Event': eventTextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (eventTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (eventTextController.text != '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/SolutionIdeation/pickDetails')
+                                    .document(PickDetailsArray[0].ID)
+                                    .updateData({
+                                  'Event': eventTextController.text,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

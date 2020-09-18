@@ -5,7 +5,6 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
 import 'package:iventure001/Widgets/AddSolutionButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
-import 'package:iventure001/Widgets/SolutionExistsDialog.dart';
 import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 class solutionIdeationDialogue extends StatefulWidget {
@@ -128,13 +127,6 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                                       ? Navigator.pop(context)
                                       : {};
 
-                                  (AddingNewSolutions.contains(Name))
-                                      ? showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              SolutionExistsDialogue(),
-                                        )
-                                      : {};
                                   setState(() {
 //                                final NewSolutionIdeation = addSolutions(
 //                                  Name: NameTextController.text,

@@ -38,6 +38,24 @@ class _competitionDialogueState extends State<competitionDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      ProductNameTextController.text.isEmpty
+          ? validPProductName = false
+          : validPProductName = true;
+      ProductNameTextController.text.isEmpty
+          ? ProductNamelabelColor = Color(0xFFF53E70)
+          : ProductNamelabelColor = Color(0xFF919191);
+
+      CompetingOfferingTextController.text.isEmpty
+          ? validCompetingOffering = false
+          : validCompetingOffering = true;
+      CompetingOfferingTextController.text.isEmpty
+          ? CompetingOfferinglabelColor = Color(0xFFF53E70)
+          : CompetingOfferinglabelColor = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -247,18 +265,28 @@ class _competitionDialogueState extends State<competitionDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/SolutionFormulation/competingProducts')
-                              .document(AddingNewCompetingProduct[0].ID)
-                              .updateData({
-                            'ProductName': ProductNameTextController.text,
-                            'Features': CompetingOfferingTextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (ProductNameTextController.text == '' ||
+                                CompetingOfferingTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (ProductNameTextController.text != '' &&
+                                        CompetingOfferingTextController.text !=
+                                            '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/SolutionFormulation/competingProducts')
+                                    .document(AddingNewCompetingProduct[0].ID)
+                                    .updateData({
+                                  'ProductName': ProductNameTextController.text,
+                                  'Features':
+                                      CompetingOfferingTextController.text,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

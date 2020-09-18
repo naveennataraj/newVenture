@@ -32,6 +32,15 @@ class _quoteDialogueState extends State<quoteDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      QuoteTextController.text.isEmpty ? validQuote = false : validQuote = true;
+      QuoteTextController.text.isEmpty
+          ? QuotelabelColor = Color(0xFFF53E70)
+          : QuotelabelColor = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -162,17 +171,23 @@ class _quoteDialogueState extends State<quoteDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/SolutionValidation/Quote')
-                              .document(AddingNewQuote[0].ID)
-                              .updateData({
-                            'Content': QuoteTextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (QuoteTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (QuoteTextController.text != '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/SolutionValidation/Quote')
+                                    .document(AddingNewQuote[0].ID)
+                                    .updateData({
+                                  'Content': QuoteTextController.text,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

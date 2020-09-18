@@ -38,6 +38,24 @@ class _parallelDialogueState extends State<parallelDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      SolutionNameTextController.text.isEmpty
+          ? validSolutionName = false
+          : validSolutionName = true;
+      SolutionNameTextController.text.isEmpty
+          ? SolutionNamelabelColor = Color(0xFFF53E70)
+          : SolutionNamelabelColor = Color(0xFF919191);
+
+      SolutionDescriptionTextController.text.isEmpty
+          ? validSolutionDescription = false
+          : validSolutionDescription = true;
+      SolutionDescriptionTextController.text.isEmpty
+          ? SolutionDescriptionLabelColor = Color(0xFFF53E70)
+          : SolutionDescriptionLabelColor = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -241,19 +259,30 @@ class _parallelDialogueState extends State<parallelDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/ManagingGrowth/parallelInnovations')
-                              .document(AddingNewParallelInnovations[0].ID)
-                              .updateData({
-                            'Name': SolutionNameTextController.text,
-                            'Description':
-                                SolutionDescriptionTextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (SolutionNameTextController.text == '' ||
+                                SolutionDescriptionTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (SolutionNameTextController.text != '' &&
+                                        SolutionDescriptionTextController
+                                                .text !=
+                                            '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/ManagingGrowth/parallelInnovations')
+                                    .document(
+                                        AddingNewParallelInnovations[0].ID)
+                                    .updateData({
+                                  'Name': SolutionNameTextController.text,
+                                  'Description':
+                                      SolutionDescriptionTextController.text,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

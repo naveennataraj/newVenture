@@ -32,6 +32,17 @@ class _oneFeatureDialogueState extends State<oneFeatureDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      ProductFeatureTextController.text.isEmpty
+          ? validProductFeature = false
+          : validProductFeature = true;
+      ProductFeatureTextController.text.isEmpty
+          ? ProductFeaturelabelColor = Color(0xFFF53E70)
+          : ProductFeaturelabelColor = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -163,17 +174,26 @@ class _oneFeatureDialogueState extends State<oneFeatureDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/SolutionFormulation/productFeatures')
-                              .document(AddingNewProductFeature[0].ID)
-                              .updateData({
-                            'FeatureTitle': ProductFeatureTextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (ProductFeatureTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (ProductFeatureTextController.text != '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/SolutionFormulation/productFeatures')
+                                    .document(AddingNewProductFeature[0].ID)
+                                    .updateData({
+                                  'FeatureTitle':
+                                      ProductFeatureTextController.text,
+                                });
+                                Navigator.popAndPushNamed(
+                                    context, '/conceptDashboard');
+                              },
                       ),
                       SizedBox(
                         width: 50,

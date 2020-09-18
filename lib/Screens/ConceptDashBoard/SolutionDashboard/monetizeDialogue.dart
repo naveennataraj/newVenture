@@ -32,6 +32,17 @@ class _monetizeDialogueState extends State<monetizeDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      MonetizeTextController.text.isEmpty
+          ? validMonetize = false
+          : validMonetize = true;
+      MonetizeTextController.text.isEmpty
+          ? MonetizelabelColor = Color(0xFFF53E70)
+          : MonetizelabelColor = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -163,17 +174,23 @@ class _monetizeDialogueState extends State<monetizeDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/SolutionIdeation/pickDetails')
-                              .document(PickDetailsArray[0].ID)
-                              .updateData({
-                            'Monetize': MonetizeTextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (MonetizeTextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (MonetizeTextController.text != '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/SolutionIdeation/pickDetails')
+                                    .document(PickDetailsArray[0].ID)
+                                    .updateData({
+                                  'Monetize': MonetizeTextController.text,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,

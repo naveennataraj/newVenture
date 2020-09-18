@@ -39,6 +39,24 @@ class _twoFeatureDialogueState extends State<twoFeatureDialogue> {
     });
   }
 
+  validator() {
+    setState(() {
+      ProductFeatureTextController.text.isEmpty
+          ? validProductFeature = false
+          : validProductFeature = true;
+      ProductFeatureTextController.text.isEmpty
+          ? ProductFeaturelabelColor = Color(0xFFF53E70)
+          : ProductFeaturelabelColor = Color(0xFF919191);
+
+      ProductFeature2TextController.text.isEmpty
+          ? validProductFeature2 = false
+          : validProductFeature2 = true;
+      ProductFeature2TextController.text.isEmpty
+          ? ProductFeature2labelColor = Color(0xFFF53E70)
+          : ProductFeature2labelColor = Color(0xFF919191);
+    });
+  }
+
   void initState() {
     //  implement initState
     setState(() {
@@ -243,24 +261,35 @@ class _twoFeatureDialogueState extends State<twoFeatureDialogue> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SaveButton(
-                        onTap: () {
-                          _firestore
-                              .collection(
-                                  '$currentUser/SolutionFormulation/productFeatures')
-                              .document(AddingNewProductFeature[0].ID)
-                              .updateData({
-                            'FeatureTitle': ProductFeatureTextController.text,
-                          });
-                          _firestore
-                              .collection(
-                                  '$currentUser/SolutionFormulation/productFeatures')
-                              .document(AddingNewProductFeature[1].ID)
-                              .updateData({
-                            'FeatureTitle': ProductFeature2TextController.text,
-                          });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
-                        },
+                        onTap: (ProductFeatureTextController.text == '' ||
+                                ProductFeature2TextController.text == '')
+                            ? () {
+                                validator();
+                              }
+                            : () {
+                                (ProductFeatureTextController.text != '' &&
+                                        ProductFeature2TextController.text !=
+                                            '')
+                                    ? Navigator.popAndPushNamed(
+                                        context, '/conceptDashboard')
+                                    : {};
+                                _firestore
+                                    .collection(
+                                        '$currentUser/SolutionFormulation/productFeatures')
+                                    .document(AddingNewProductFeature[0].ID)
+                                    .updateData({
+                                  'FeatureTitle':
+                                      ProductFeatureTextController.text,
+                                });
+                                _firestore
+                                    .collection(
+                                        '$currentUser/SolutionFormulation/productFeatures')
+                                    .document(AddingNewProductFeature[1].ID)
+                                    .updateData({
+                                  'FeatureTitle':
+                                      ProductFeature2TextController.text,
+                                });
+                              },
                       ),
                       SizedBox(
                         width: 50,
