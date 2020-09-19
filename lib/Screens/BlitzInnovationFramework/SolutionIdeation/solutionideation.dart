@@ -23,6 +23,7 @@ class SolutionIdeation extends StatefulWidget {
 }
 
 class _SolutionIdeationState extends State<SolutionIdeation> {
+  List titleCards = [];
   List<Bread> breads = [
     Bread(label: "Home ", route: '/'),
     Bread(
@@ -123,8 +124,10 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                                     snapshot.data.documents.reversed;
                                 AddingNewSolutions = [];
                                 SolutionRankingList = [];
+                                titleCards = [];
                                 for (var message in messsages) {
                                   final Name = message.data['Name'];
+                                  titleCards.add(Name);
                                   final BriefDesctiption =
                                       message.data['BriefDesctiption'];
                                   final ID = message.documentID;
@@ -266,7 +269,7 @@ class _SolutionIdeationState extends State<SolutionIdeation> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) =>
-                        solutionIdeationDialogue(),
+                        solutionIdeationDialogue(titleCards: titleCards),
                   ).then((_) => setState(() {}));
                 }
               : () {
