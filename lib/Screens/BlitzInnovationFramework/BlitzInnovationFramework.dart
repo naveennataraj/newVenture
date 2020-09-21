@@ -9,7 +9,6 @@ import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/rev
 import 'package:iventure001/Data/CardData.dart';
 import 'package:iventure001/Widgets/FrameworkCards.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
-import 'package:iventure001/Widgets/ReviewFitDialog.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 String ID;
@@ -104,19 +103,19 @@ class _BlitzInnovationFrameworkState extends State<BlitzInnovationFramework> {
         diff = selectedDate.difference(currentDate).inDays;
         print("----------------- date difference $diff");
         bcpData[5].daysRemaining = diff;
-        if (diff < 1) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => ReviewFitDialog(
-              firebaseStep0: firebaseStep0,
-              firebaseStep1: firebaseStep1,
-              firebaseStep2: firebaseStep2,
-              firebaseStep3: firebaseStep3,
-              firebaseStep4: firebaseStep4,
-              firebaseStep5: firebaseStep5,
-            ),
-          ).then((_) => setState(() {}));
-        }
+//        if (diff < 1) {
+//          showDialog(
+//            context: context,
+//            builder: (BuildContext context) => ReviewFitDialog(
+//              firebaseStep0: firebaseStep0,
+//              firebaseStep1: firebaseStep1,
+//              firebaseStep2: firebaseStep2,
+//              firebaseStep3: firebaseStep3,
+//              firebaseStep4: firebaseStep4,
+//              firebaseStep5: firebaseStep5,
+//            ),
+//          ).then((_) => setState(() {}));
+//        }
       }
     });
   }

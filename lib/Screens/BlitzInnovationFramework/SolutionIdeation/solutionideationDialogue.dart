@@ -5,8 +5,8 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/addSolutions.dart';
 import 'package:iventure001/Widgets/AddSolutionButton.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
-import 'package:iventure001/Widgets/TextFieldWidget.dart';
 import 'package:iventure001/Widgets/SolutionExistsDialog.dart';
+import 'package:iventure001/Widgets/TextFieldWidget.dart';
 
 class solutionIdeationDialogue extends StatefulWidget {
   final int index;
@@ -124,46 +124,52 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
                                   validator();
                                 }
                               : () {
-                            if(widget.titleCards.contains(NameTextController.text)) {
-                              print('error');
-                            } else { (NameTextController.text != '' &&
-                                BriefTextController.text != '')
-                                ? Navigator.pop(context)
-                                : {};
+                                  if (widget.titleCards
+                                      .contains(NameTextController.text)) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          SolutionExistsDialogue(),
+                                    ).then((_) => setState(() {}));
+                                  } else {
+                                    (NameTextController.text != '' &&
+                                            BriefTextController.text != '')
+                                        ? Navigator.pop(context)
+                                        : {};
 
-                            setState(() {
+                                    setState(() {
 //                                final NewSolutionIdeation = addSolutions(
 //                                  Name: NameTextController.text,
 //                                  BriefDesctiption: BriefTextController.text,
 //                                );
 
-                              if (index == null) {
+                                      if (index == null) {
 //                                  AddingNewSolutions.add(NewSolutionIdeation);
-                                _firestore
-                                    .collection(
-                                    '$currentUser/SolutionIdeation/solutionIdeation')
-                                    .add({
-                                  'Name': NameTextController.text,
-                                  'BriefDesctiption':
-                                  BriefTextController.text,
-                                  'Sender': "tester@gmail.com",
-                                });
-                              } else {
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionIdeation/solutionIdeation')
+                                            .add({
+                                          'Name': NameTextController.text,
+                                          'BriefDesctiption':
+                                              BriefTextController.text,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      } else {
 //                                  AddingNewSolutions.removeAt(index);
 //                                  AddingNewSolutions.insert(
 //                                      index, NewSolutionIdeation);
-                                _firestore
-                                    .collection(
-                                    '$currentUser/SolutionIdeation/solutionIdeation')
-                                    .document(
-                                    AddingNewSolutions[index].ID)
-                                    .updateData({
-                                  'Name': NameTextController.text,
-                                  'BriefDesctiption':
-                                  BriefTextController.text,
-                                  'Sender': "tester@gmail.com",
-                                });
-                              }
+                                        _firestore
+                                            .collection(
+                                                '$currentUser/SolutionIdeation/solutionIdeation')
+                                            .document(
+                                                AddingNewSolutions[index].ID)
+                                            .updateData({
+                                          'Name': NameTextController.text,
+                                          'BriefDesctiption':
+                                              BriefTextController.text,
+                                          'Sender': "tester@gmail.com",
+                                        });
+                                      }
 
 //                                      //Adding solutions to dropdown
 //                                      final AddingSolutinstoDropdown =
@@ -177,9 +183,8 @@ class _solutionIdeationDialogueState extends State<solutionIdeationDialogue> {
 //                                        SolutionRankingList.insert(
 //                                            index, AddingSolutinstoDropdown);
 //                                      }
-                            });}
-
-
+                                    });
+                                  }
                                 },
                         ),
                         SizedBox(

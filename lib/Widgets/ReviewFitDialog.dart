@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 
 class ReviewFitDialog extends StatefulWidget {
-  final bool firebaseStep0;
-  final bool firebaseStep1;
-  final bool firebaseStep2;
-  final bool firebaseStep3;
-  final bool firebaseStep4;
-  final bool firebaseStep5;
+//  final bool firebaseStep0;
+//  final bool firebaseStep1;
+//  final bool firebaseStep2;
+//  final bool firebaseStep3;
+//  final bool firebaseStep4;
+//  final bool firebaseStep5;
 
   const ReviewFitDialog(
-      {this.firebaseStep0,
-      this.firebaseStep1,
-      this.firebaseStep2,
-      this.firebaseStep3,
-      this.firebaseStep4,
-      this.firebaseStep5});
+//      {this.firebaseStep0,
+//      this.firebaseStep1,
+//      this.firebaseStep2,
+//      this.firebaseStep3,
+//      this.firebaseStep4,
+//      this.firebaseStep5}
+      );
 
   @override
   _ReviewFitDialogState createState() => _ReviewFitDialogState();
@@ -27,14 +28,14 @@ class _ReviewFitDialogState extends State<ReviewFitDialog> {
   final _firestore = Firestore.instance;
   @override
   void initState() {
-    if (widget.firebaseStep0 == false ||
-        widget.firebaseStep1 == false ||
-        widget.firebaseStep2 == false ||
-        widget.firebaseStep3 == false ||
-        widget.firebaseStep4 == false ||
-        widget.firebaseStep5 == false) {
-      Navigator.pop(context);
-    }
+//    if (widget.firebaseStep0 == false ||
+//        widget.firebaseStep1 == false ||
+//        widget.firebaseStep2 == false ||
+//        widget.firebaseStep3 == false ||
+//        widget.firebaseStep4 == false ||
+//        widget.firebaseStep5 == false) {
+//      Navigator.pop(context);
+//    }
     super.initState();
   }
 
@@ -53,7 +54,7 @@ class _ReviewFitDialogState extends State<ReviewFitDialog> {
             style: TextStyle(color: Colors.black),
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.popAndPushNamed(context, '/BlitzInnovationFramework');
           },
         ),
         SizedBox(
@@ -68,14 +69,14 @@ class _ReviewFitDialogState extends State<ReviewFitDialog> {
             )),
           ),
           onPressed: () {
-            Navigator.popAndPushNamed(context, '/BlitzInnovationFramework');
+            Navigator.popAndPushNamed(context, '/addproductgoals');
             _firestore
                 .collection(currentUser)
                 .document('stepValidationInnovationFramework')
                 .updateData({
-              'bcStepsContent0': false,
-              'bcStepsContent1': false,
-              'bcStepsContent2': false,
+//              'bcStepsContent0': false,
+//              'bcStepsContent1': false,
+//              'bcStepsContent2': false,
               'bcStepsContent3': false,
               'bcStepsContent4': false,
               'bcStepsContent5': false,

@@ -12,6 +12,7 @@ import 'package:iventure001/Widgets/GenericStepValidationButtonBIF.dart';
 import 'package:iventure001/Widgets/HeadBackMenu.dart';
 import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/NoteCard.dart';
+import 'package:iventure001/Widgets/ReviewFitDialog.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class ReviewCustomerRequirements extends StatefulWidget {
@@ -286,8 +287,19 @@ class _ReviewCustomerRequirementsState
                                         }
                                       : () {
                                           (selectedDate != null)
-                                              ? Navigator.pushNamed(context,
-                                                  '/BlitzInnovationFramework')
+                                              ? showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          ReviewFitDialog(
+//              firebaseStep0: firebaseStep0,
+//              firebaseStep1: firebaseStep1,
+//              firebaseStep2: firebaseStep2,
+//              firebaseStep3: firebaseStep3,
+//              firebaseStep4: firebaseStep4,
+//              firebaseStep5: firebaseStep5,
+                                                              ),
+                                                ).then((_) => setState(() {}))
                                               : {};
                                           if (addRequirementsArray.length !=
                                               0) {
