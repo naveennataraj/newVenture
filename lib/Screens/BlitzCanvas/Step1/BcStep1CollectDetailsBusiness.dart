@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
@@ -19,6 +20,51 @@ List<Bread> breads = [
   Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
   Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
 ];
+
+//class BcStep1CollectionAspects extends StatefulWidget {
+//  @override
+//  _BcStep1CollectionAspectsState createState() => _BcStep1CollectionAspectsState();
+//}
+//
+//class _BcStep1CollectionAspectsState extends State<BcStep1CollectionAspects> {
+//
+//  List<Bread> breads = [
+//    Bread(label: "Home ", route: '/'),
+//    Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+//    Bread(label: "Foundational Aspects", route: '/BCStep1CollectAspects'),
+//  ];
+//
+//  @override
+//  void initState() {
+//    if (currentUser != null) {
+//      print('exit');
+//    } else {
+//      getCurrentUser();
+//      _AnimatedFlutterLogoState();
+//    }
+//
+//    super.initState();
+//  }
+//
+//  Timer _timer;
+//  _AnimatedFlutterLogoState() {
+//    _timer = new Timer(const Duration(seconds: 2), () {
+//      setState(() {
+//        if (currentUser != null && currentUser != '') {
+//        }
+//      });
+//    });
+//  }
+//  @override
+//  Widget build(BuildContext context) {
+//    return BcFoundationalAspects(
+//      breads: breads,
+//      headBackRoute: '/BCHomeView',
+//      goNextRoute: '/BCStep1AddDetails',
+//    );
+//  }
+//}
+
 
 class BcStep1CollectionAspects extends StatelessWidget {
   @override

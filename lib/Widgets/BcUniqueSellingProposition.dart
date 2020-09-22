@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +30,7 @@ class _BcUniqueSellingPropositionState extends State<BcUniqueSellingProposition>
   _BcUniqueSellingPropositionState(this.breads, this.headBackRoute, this.goNextRoute);
 
   String ID;
-  final _firestore = Firestore.instance.collection(currentUser).document('Bc4_uniqueSellingProposition');
+  final _firestore = Firestore.instance;
   String propositionFirebaseData;
   bool spinner = false;
 
@@ -39,13 +40,24 @@ class _BcUniqueSellingPropositionState extends State<BcUniqueSellingProposition>
   final propositionFocusNode = new FocusNode();
   String sellingProposition;
 
+//  void initState() {
+//    super.initState();
+//    (propositionFirebaseData  == null)? getDocuments() : {} ;
+//  }
+
+  @override
   void initState() {
+    if (currentUser != null) {
+      (propositionFirebaseData  == null)? getDocuments() : {} ;
+    } else {
+      _AnimatedFlutterLogoState();
+    }
     super.initState();
-    (propositionFirebaseData  == null)? getDocuments() : {} ;
   }
 
   void getDocuments() async {
-    final document = await _firestore.get();
+    spinner = true;
+    final document = await _firestore.collection(currentUser).document('Bc4_uniqueSellingProposition').get();
 
     if (document.exists) {
       try {
@@ -79,6 +91,19 @@ class _BcUniqueSellingPropositionState extends State<BcUniqueSellingProposition>
       propositionTextController.text.isEmpty
           ? propositionLabelColor = Color(0xFFF53E70)
           : propositionLabelColor = Color(0xFF919191);
+    });
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    spinner = true;
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
     });
   }
 
@@ -168,12 +193,12 @@ class _BcUniqueSellingPropositionState extends State<BcUniqueSellingProposition>
 
                                           if(sellingPropositionArray.length != 0) {
                                             _firestore
-                                                .updateData({
+                                                .collection(currentUser).document('Bc4_uniqueSellingProposition').updateData({
                                               'proposition': propositionTextController.text,
                                             });
                                           } else {
                                             if (propositionFirebaseData != propositionTextController.text ) {
-                                              _firestore.setData({
+                                              _firestore.collection(currentUser).document('Bc4_uniqueSellingProposition').setData({
                                                 'proposition': propositionTextController.text,
                                                 'keyTouchText': 'fg',
                                                 'capitalizeText': 'fg',

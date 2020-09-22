@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +71,19 @@ class _BcMetricsSection2State extends State<BcMetricsSection2> {
   final ParallelSolutionFocusNode = new FocusNode();
   String ParallelSolution;
 
+//  @override
+//  void initState() {
+//    getDocument();
+//    super.initState();
+//  }
+
   @override
   void initState() {
-    getDocument();
+    if (currentUser != null) {
+      getDocument();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
     super.initState();
   }
 
@@ -163,135 +174,19 @@ class _BcMetricsSection2State extends State<BcMetricsSection2> {
 //          : validParallelSolution = true;
     });
   }
-//  void initState() {
-//    super.initState();
-//    //(fireMetricData == null)? getDocuments() : print ('data exists') ;
-//    getDocuments();
-//  }
-//
-//  void getDocuments() async {
-//    final document = await _firestore.get();
-//
-//    if (document.exists) {
-//      try {
-//        setState(() {
-//          CustomerProblem = document.data['CustomerProblem'];
-//          Solution = document.data['SolutionSpace'];
-//          Evangelism = document.data['Evangelism'];
-//          Scale = document.data['Scale'];
-//          Evolution = document.data['Evolution'];
-//          ParallelSolution = document.data['ParallelSolution'];
-//          ID = document.documentID;
-//          //fireMetricData = document.data['metricSectionOne'];
-//          CustomerProblemTextController.text = CustomerProblem;
-//          SolutionTextController.text = Solution;
-//          EvangelismTextController.text = Evangelism;
-//          ScaleTextController.text = Scale;
-//          EvolutionTextController.text = Evolution;
-//          ParallelSolutionTextController.text = ParallelSolution;
-//
-//
-//        });
-//      } catch (e) {
-//        print(e);
-//      }
-//
-//      if (CustomerProblemTextController.text != null) {
-//        AddingNewMetrics.removeAt(0);
-//        final NewMetric1 = ContentBcMetrics(
-//            Name: 'Problem Space',
-//            Description: CustomerProblem,
-//            ID: document.documentID
-//            );
-//        AddingNewMetrics.insert(0, NewMetric1);
-//        _firestore.collection('Problem').add({
-//          'Name': 'Problem Space',
-//          'Description': CustomerProblem,
-//        });
-//      }
-//
-//
-//      if (SolutionTextController.text != null) {
-//        AddingNewMetrics.removeAt(1);
-//        final NewMetric2 = ContentBcMetrics(
-//            Name: 'Solution Space',
-//            Description: Solution,
-//            ID: document.documentID,
-//            );
-//        AddingNewMetrics.insert(1, NewMetric2);
-//          _firestore.collection('addMoreMetrics').add({
-//            'Name': 'Solution Space',
-//            'Description': Solution,
-//          });
-//
-//      }
-//
-//      if (EvangelismTextController.text != null) {
-//        AddingNewMetrics.removeAt(2);
-//        final NewMetric3 = ContentBcMetrics(
-//            Name: 'Evangelism',
-//            Description: Evangelism,
-//            );
-//        AddingNewMetrics.insert(2, NewMetric3);
-//        _firestore.collection('addMoreMetrics').add({
-//          'Name': 'Evangelism',
-//          'Description': Evangelism,
-//        });
-//      }
-//
-//
-//      if (ScaleTextController.text != null) {
-//        AddingNewMetrics.removeAt(3);
-//        final NewMetric4 = ContentBcMetrics(
-//            Name: 'Scale',
-//            Description: ScaleTextController.text,
-//            );
-//        AddingNewMetrics.insert(3, NewMetric4);
-//        _firestore.collection('Scale').add({
-//          'Name': 'Scale',
-//          'Description': ScaleTextController.text,
-//        });
-//      }
-//
-//
-//      if (EvolutionTextController.text != null) {
-//        AddingNewMetrics.removeAt(4);
-//        final NewMetic5 = ContentBcMetrics(
-//            Name: 'Evolution',
-//            Description: EvolutionTextController.text,
-//            );
-//        AddingNewMetrics.insert(4, NewMetic5);
-//        _firestore.collection('Evolution').add({
-//          'Name': 'Evolution',
-//          'Description': Evolution,
-//        });
-//      }
-//
-//      if (ParallelSolutionTextController.text != '') {
-//        AddingNewMetrics.removeAt(5);
-//        final NewMetic6 = ContentBcMetrics(
-//            Name: 'Ecosystem',
-//            Description:
-//            ParallelSolutionTextController.text,
-//            );
-//
-//        AddingNewMetrics.insert(5, NewMetic6);
-//        _firestore.collection('Ecosystem').add({
-//          'Name': 'Ecosystem',
-//          'Description': ParallelSolution,
-//        });
-//      }
-//
-////      final fields = ContentBcMetrics(
-////
-////          proposition: sellingProposition,
-////          ID: ID);
-////
-//      //AddingNewMetrics.add(NewMetic6);
-//    }
-//  }
 
-  //final _firestore = Firestore.instance.collection(userUid).document('Bc1_buildTheFoundation');
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    spinner = true;
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocument();
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

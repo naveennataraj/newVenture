@@ -41,9 +41,7 @@ class _BcFoundationalAspectsState extends State<BcFoundationalAspects> {
   final visionFocusNode = new FocusNode();
   String visionText;
 
-  final _firestore = Firestore.instance
-      .collection(currentUser)
-      .document('Bc1_buildTheFoundation');
+  final _firestore = Firestore.instance;
   bool spinner = false;
 
   //String missionTextFirebase;
@@ -70,6 +68,7 @@ class _BcFoundationalAspectsState extends State<BcFoundationalAspects> {
     });
   }
 
+  @override
   void initState() {
     if (currentUser != null) {
       getDocuments();
@@ -82,7 +81,8 @@ class _BcFoundationalAspectsState extends State<BcFoundationalAspects> {
 
   void getDocuments() async {
     spinner = true;
-    final document = await _firestore.get();
+    final document = await _firestore.collection(currentUser)
+        .document('Bc1_buildTheFoundation').get();
 
     if (document.exists) {
       missionText = document.data['mission'];
@@ -272,7 +272,7 @@ class _BcFoundationalAspectsState extends State<BcFoundationalAspects> {
   }
 
   void updateFirebase() {
-    _firestore.updateData({
+    _firestore.collection(currentUser).document('Bc1_buildTheFoundation').updateData({
       'mission': missionTextController.text,
       'vision': visionTextController.text,
       'Sender': currentUser,

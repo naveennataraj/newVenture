@@ -11,7 +11,7 @@ import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step2_StudyingTheUser/ContentLink.dart';
-
+import 'dart:async';
 
 
 
@@ -31,7 +31,7 @@ List<Bread> breads = [
 ];
 
 class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
-  final _firestore = Firestore.instance.collection(currentUser).document('Bc2_studyingTheUser');
+  final _firestore = Firestore.instance;
   String userProfileData;
 
   var userProfileLabelColor = Color(0XFF919191);
@@ -49,14 +49,24 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
     });
   }
 
-
+  @override
   void initState() {
+    if (currentUser != null) {
+      (userProfileData == null)? getDocuments() : print ('data exists') ;
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
     super.initState();
-    (userProfileData == null)? getDocuments() : print ('data exists') ;
   }
 
+//  void initState() {
+//    super.initState();
+//    (userProfileData == null)? getDocuments() : print ('data exists') ;
+//  }
+
   void getDocuments() async {
-    final document = await _firestore.get();
+    final document = await _firestore.collection(currentUser).document('Bc2_studyingTheUser').get();
 
     if (document.exists) {
       userProfileText = document.data['userProfile'];
@@ -87,6 +97,17 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
       spinner = false;
     });
 
+  }
+
+  Timer _timer;
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
+    });
   }
 
   @override
@@ -173,7 +194,7 @@ class _BcStep2CollectUserProfileState extends State<BcStep2CollectUserProfile> {
                                       (userProfileTextController.text != '') ? Navigator.pushNamed(context, '/BCStep2CaptureUserStories'): {};
 
                                       if (userProfileData != userProfileTextController.text ) {
-                                        _firestore.setData({
+                                        _firestore.collection(currentUser).document('Bc2_studyingTheUser').setData({
                                           'userProfile': userProfileTextController.text,
                                           'Sender': currentUser,
                                         });

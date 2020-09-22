@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -18,18 +19,34 @@ class Step3GoalsTheSolution extends StatefulWidget {
   _Step3GoalsTheSolutionState createState() => _Step3GoalsTheSolutionState();
 }
 
-
-
-List<Bread> breads = [
-  Bread(label: "Home ", route: '/'),
-  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
-  Bread(label: "Goals", route: '/BCStep3Goals'),
-];
-
-
 class _Step3GoalsTheSolutionState extends State<Step3GoalsTheSolution> {
   final _firestore = Firestore.instance;
   bool spinner = false;
+
+  List<Bread> breads = [
+    Bread(label: "Home ", route: '/'),
+    Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+    Bread(label: "Goals", route: '/BCStep3Goals'),
+  ];
+
+  @override
+  void initState() {
+    if (currentUser != null) {
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {}
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

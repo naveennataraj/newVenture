@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,30 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
   _BcModelAsAServiceState(this.breads, this.completeButtonRoute);
   final _firestore = Firestore.instance;
   bool spinner = false;
+
+  @override
+  void initState() {
+//    spinner = true;
+
+    if (currentUser != null) {
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

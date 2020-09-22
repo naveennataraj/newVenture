@@ -12,6 +12,7 @@ import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:iventure001/Widgets/ValidationDialogue.dart';
+import 'dart:async';
 
 class BcStep2CapturingUserStories extends StatefulWidget {
   @override
@@ -37,6 +38,25 @@ class _BcStep2CapturingUserStoriesState
     String C = userStoriesContent[index].SoThat;
 
     return 'As a $A, I want to $B so that $C';
+  }
+
+  @override
+  void initState() {
+    if (currentUser != null) {
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {}
+      });
+    });
   }
 
   @override

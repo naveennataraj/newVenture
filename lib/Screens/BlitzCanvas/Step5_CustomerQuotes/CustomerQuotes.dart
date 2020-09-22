@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,15 +21,39 @@ class BcStep5CustomerQuotes extends StatefulWidget {
   _BcStep5CustomerQuotesState createState() => _BcStep5CustomerQuotesState();
 }
 
-List<Bread> breads = [
-  Bread(label: "Home ", route: '/'),
-  Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
-  Bread(label: "Customer Quotes", route: '/BCStep5CustomersQuotes'),
-];
+
 
 class _BcStep5CustomerQuotesState extends State<BcStep5CustomerQuotes> {
   final _firestore = Firestore.instance;
   bool spinner = false;
+  List<Bread> breads = [
+    Bread(label: "Home ", route: '/'),
+    Bread(label: "Blitz Canvas ", route: '/BCHomeView'),
+    Bread(label: "Customer Quotes", route: '/BCStep5CustomersQuotes'),
+  ];
+  @override
+  void initState() {
+//    spinner = true;
+
+    if (currentUser != null) {
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

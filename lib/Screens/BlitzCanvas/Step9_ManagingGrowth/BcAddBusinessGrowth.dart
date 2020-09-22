@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +30,7 @@ String ID;
 
 class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
   final _firestore =
-      Firestore.instance.collection(currentUser).document('Bc9_managingGrowth');
+      Firestore.instance;
   bool spinner = false;
 
   String selectedStrategyOption;
@@ -42,22 +43,44 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
   final handleScaleLFocusNode = new FocusNode();
   String handleScaleLText;
 
+//  @override
+//  void initState() {
+//    if (currentUser != null) {
+//      if (fireStrategyData == null || fireOptionSelected == null) {
+//        getDocuments();
+//      } else {
+//        _AnimatedFlutterLogoState();
+//      }
+//      super.initState();
+//    }
+////    super.initState();
+////
+////    if (fireStrategyData == null || fireOptionSelected == null) {
+////      getDocuments();
+////    }
+//    //strategySustainable = buildDropDownMenuItems(StrategySustainableList);
+//  }
+
   @override
   void initState() {
-    super.initState();
-
-    if (fireStrategyData == null || fireOptionSelected == null) {
-      getDocuments();
+    if (currentUser != null) {
+      if (fireStrategyData == null || fireOptionSelected == null) {
+        getDocuments();
+      }
+    } else {
+      _AnimatedFlutterLogoState();
     }
-    //strategySustainable = buildDropDownMenuItems(StrategySustainableList);
+    super.initState();
   }
 
   void getDocuments() async {
-    final document = await _firestore.get();
+    spinner = true;
+    final document = await _firestore.collection(currentUser).document('Bc9_managingGrowth').get();
 
     if (document.exists) {
       try {
         setState(() {
+          spinner = false;
           handleScaleLText = document.data['handleScaleLText'];
           selectedStrategyOption = document.data['selectedStrategyOption'];
           fireStrategyData = document.data['handleScaleLText'];
@@ -106,6 +129,18 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
     });
   }
 
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    spinner = true;
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -288,7 +323,7 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
 
                                       if (fireStrategyData != handleScaleLTextController.text ||
                                           fireOptionSelected != selectedStrategyOption) {
-                                        _firestore.setData({
+                                        _firestore.collection(currentUser).document('Bc9_managingGrowth').setData({
                                           'handleScaleLText': handleScaleLTextController.text,
                                           'selectedStrategyOption': selectedStrategyOption,
                                           'Sender': "tester@gmail.com",

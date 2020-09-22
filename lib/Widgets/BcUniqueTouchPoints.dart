@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,9 +25,7 @@ class _BcTouchPointsState extends State<BcTouchPoints> {
   String completeButtonRoute;
   _BcTouchPointsState(this.breads, this.completeButtonRoute);
 
-  final _firestore = Firestore.instance
-      .collection(currentUser)
-      .document('Bc4_uniqueSellingProposition');
+  final _firestore = Firestore.instance;
   bool spinner = false;
   String ID;
 
@@ -52,17 +51,33 @@ class _BcTouchPointsState extends State<BcTouchPoints> {
   final growthFocusNode = new FocusNode();
   String growthText;
 
+  @override
   void initState() {
+    if (currentUser != null) {
+      (fireTouchData == null ||
+          fireCapitalizeData == null ||
+          fireGrowthData == null)
+          ? getDocuments()
+          : {};
+    } else {
+      _AnimatedFlutterLogoState();
+    }
     super.initState();
-    (fireTouchData == null ||
-        fireCapitalizeData == null ||
-        fireGrowthData == null)
-        ? getDocuments()
-        : {};
   }
 
+//  void initState() {
+//    super.initState();
+//    (fireTouchData == null ||
+//        fireCapitalizeData == null ||
+//        fireGrowthData == null)
+//        ? getDocuments()
+//        : {};
+//  }
+
   void getDocuments() async {
-    final document = await _firestore.get();
+    spinner = true;
+    final document = await _firestore.collection(currentUser)
+        .document('Bc4_uniqueSellingProposition').get();
 
     if (document.exists) {
       try {
@@ -117,6 +132,18 @@ class _BcTouchPointsState extends State<BcTouchPoints> {
     });
   }
 
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    spinner = true;
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,7 +253,8 @@ class _BcTouchPointsState extends State<BcTouchPoints> {
                                               fireCapitalizeData !=
                                                   capitalizeTextController.text ||
                                               fireGrowthData != growthTextController.text) {
-                                            _firestore.updateData({
+                                            _firestore.collection(currentUser)
+                                                .document('Bc4_uniqueSellingProposition').updateData({
                                               'keyTouchText': keyTouchTextController.text,
                                               'capitalizeText': capitalizeTextController.text,
                                               'growthText': growthTextController.text,

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +36,39 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
   final _firestore = Firestore.instance;
   bool spinner = false;
 
+//  @override
+//  void initState() {
+//    // TODO: implement initState
+//    super.initState();
+//    setState(() {
+//      AddingNewMetrics;
+//      print(AddingNewMetrics);
+//    });
+//  }
+
   @override
   void initState() {
-    // TODO: implement initState
+    if (currentUser != null) {
+      setState(() {
+        AddingNewMetrics;
+        print(AddingNewMetrics);
+      });
+    } else {
+      _AnimatedFlutterLogoState();
+    }
     super.initState();
-    setState(() {
-      AddingNewMetrics;
-      print(AddingNewMetrics);
+
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 1), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+
+        }
+      });
     });
   }
 
@@ -70,7 +97,7 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
               child: new Text("PROCEED TO DASHBOARD", style: TextStyle( color: Color(0XFFE95420,), fontWeight: FontWeight.bold),),
               onPressed: () {
                 Navigator.pushNamed(
-                    context, '/BCHomeView');
+                    context, '/BusinessModelDashboard');
               },
             ),
           ],

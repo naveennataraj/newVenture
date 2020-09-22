@@ -1,4 +1,4 @@
-
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,24 +17,22 @@ class BcOverviewDashboard extends StatefulWidget with ConceptDashboardStates {
   _BcOverviewDashboardState createState() => _BcOverviewDashboardState();
 }
 
-bool spinner = false;
+
 
 class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
-  final _firestore = Firestore.instance
-      .collection(currentUser)
-      .document('Bc1_buildTheFoundation');
+  final _firestore = Firestore.instance;
 
   String missionText;
   String visionText;
   String ID;
 
 
-  void initState() {
-    super.initState();
-    (collectionBcStep1Content.length != 0)
-        ? getContent()
-        : getDocuments();
-  }
+//  void initState() {
+//    super.initState();
+//    (collectionBcStep1Content.length != 0)
+//        ? getContent()
+//        : getDocuments();
+//  }
 
 // Check if local file has data and it is hasn't change. Reduce reads.
   void getContent()  {
@@ -52,7 +50,8 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
 // Retrieve data from firebase
   void getDocuments() async {
     spinner = true;
-    final document = await _firestore.get();
+    final document = await _firestore.collection(currentUser)
+        .document('Bc1_buildTheFoundation').get();
 
     if (document.exists) {
       try {
@@ -81,11 +80,34 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
 
   // Customer Quotes (on using the solution prototype)
 
+  @override
+  void initState() {
+    if (currentUser != null) {
+      (collectionBcStep1Content.length != 0)
+          ? getContent()
+          : getDocuments();
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: spinner,
+    return Scrollbar(
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

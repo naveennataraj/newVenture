@@ -159,6 +159,7 @@ class _GenericStepButtonState extends State<GenericStepButton> {
         break;
 
       case 7 :
+        if (firebaseStep7)
         if (stepBool == false) {
           if (firebaseStep7 != true)
             _firestore.collection(currentUser).document('stepValidation').updateData({

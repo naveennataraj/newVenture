@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,30 @@ class _BcSynergiesState extends State<BcSynergies> {
   String headBackRoute;
   String completeButtonRoute;
   _BcSynergiesState(this.breads, this.headBackRoute, this.completeButtonRoute);
+
+  @override
+  void initState() {
+//    spinner = true;
+
+    if (currentUser != null) {
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

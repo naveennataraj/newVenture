@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,6 +27,29 @@ class _BcModelIntellectualPropertiesState extends State<BcModelIntellectualPrope
   List breads;
   String goNextRoute;
   _BcModelIntellectualPropertiesState(this.breads, this.goNextRoute);
+
+  @override
+  void initState() {
+//    spinner = true;
+
+    if (currentUser != null) {
+    } else {
+      _AnimatedFlutterLogoState();
+    }
+
+    super.initState();
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

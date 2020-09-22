@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +35,7 @@ class _BcHighFidelityWireframeState extends State<BcHighFidelityWireframe> {
   _BcHighFidelityWireframeState(this.breads, this.goNextRoute, this.dotsCount, this.intPosition);
 
   bool spinner = false;
-  final _firestore = Firestore.instance
-      .collection(currentUser)
-      .document('Bc3_definingTheSolution');
+  final _firestore = Firestore.instance;
   String linkWireframe;
 
   var WireFrameLinklabelColor = Color(0XFF919191);
@@ -45,13 +44,26 @@ class _BcHighFidelityWireframeState extends State<BcHighFidelityWireframe> {
   final WireFrameLinkFocusNode = new FocusNode();
   String WireFrameLink;
 
+//  void initState() {
+//    super.initState();
+//    (linkWireframe == null) ? getDocuments() : print('data exists');
+//  }
+
+  @override
   void initState() {
+    if (currentUser != null) {
+      (linkWireframe == null) ? getDocuments() : print('data exists');
+    } else {
+      _AnimatedFlutterLogoState();
+    }
     super.initState();
-    (linkWireframe == null) ? getDocuments() : print('data exists');
   }
 
+
   void getDocuments() async {
-    final document = await _firestore.get();
+    spinner = true;
+    final document = await _firestore.collection(currentUser)
+        .document('Bc3_definingTheSolution').get();
 
     if (document.exists) {
       try {
@@ -90,6 +102,19 @@ class _BcHighFidelityWireframeState extends State<BcHighFidelityWireframe> {
       WireFrameLinkTextController.text.isEmpty
           ? WireFrameLinklabelColor = Color(0xFFF53E70)
           : WireFrameLinklabelColor = Color(0xFF919191);
+    });
+  }
+
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    spinner = true;
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
     });
   }
 
@@ -186,7 +211,8 @@ class _BcHighFidelityWireframeState extends State<BcHighFidelityWireframe> {
                                           (WireFrameLinkTextController.text != '') ? Navigator.pushNamed(context, goNextRoute): {};
 
                                           if (linkWireframe != WireFrameLinkTextController.text) {
-                                            _firestore.setData({'wireFrameLink': WireFrameLinkTextController.text,
+                                            _firestore.collection(currentUser)
+                                                .document('Bc3_definingTheSolution').setData({'wireFrameLink': WireFrameLinkTextController.text,
                                             });
                                           }
 

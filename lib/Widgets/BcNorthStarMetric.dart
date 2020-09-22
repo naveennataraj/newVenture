@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _BcNorthStarMetricState extends State<BcNorthStarMetric> {
 
   _BcNorthStarMetricState(this.breads, this.headBackRoute, this.goNextRoute, this.titleCard, this.dotsCount, this.dotPosition, this.buttonName);
 
-  final _firestore = Firestore.instance.collection(currentUser).document('Bc10_metrics');
+  final _firestore = Firestore.instance;
   String fireMetricData;
   bool spinner = false;
 
@@ -46,17 +47,30 @@ class _BcNorthStarMetricState extends State<BcNorthStarMetric> {
   final metricSectionOneFocusNode = new FocusNode();
   String metricSectionOneText;
 
+
+//  void initState() {
+//    super.initState();
+//    (fireMetricData == null)? getDocuments() : {} ;
+//  }
+
+  @override
   void initState() {
+    if (currentUser != null) {
+      (fireMetricData == null)? getDocuments() : {} ;
+    } else {
+      _AnimatedFlutterLogoState();
+    }
     super.initState();
-    (fireMetricData == null)? getDocuments() : {} ;
   }
 
   void getDocuments() async {
-    final document = await _firestore.get();
+    spinner = true;
+    final document = await _firestore.collection(currentUser).document('Bc10_metrics').get();
 
     if (document.exists) {
       try {
         setState(() {
+          spinner = false;
           metricSectionOneText = document.data['metricSectionOne'];
           ID = document.documentID;
           fireMetricData = document.data['metricSectionOne'];
@@ -72,7 +86,7 @@ class _BcNorthStarMetricState extends State<BcNorthStarMetric> {
         print(e);
       }
     } else {
-      _firestore.setData(
+      _firestore.collection(currentUser).document('Bc10_metrics').setData(
           {}
       );
     }
@@ -92,6 +106,17 @@ class _BcNorthStarMetricState extends State<BcNorthStarMetric> {
     });
   }
 
+  Timer _timer;
+
+  _AnimatedFlutterLogoState() {
+    _timer = new Timer(const Duration(seconds: 2), () {
+      setState(() {
+        if (currentUser != null && currentUser != '') {
+          getDocuments();
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,13 +209,13 @@ class _BcNorthStarMetricState extends State<BcNorthStarMetric> {
                                             (metricSectionOneTextController.text != '') ? Navigator.pushNamed(context, goNextRoute): {};
 
                                             if (fireMetricData == null || fireMetricData == '') {
-                                              _firestore.setData({
+                                              _firestore.collection(currentUser).document('Bc10_metrics').setData({
                                                 'metricSectionOne': metricSectionOneTextController.text,
                                               });
                                             }
 
                                             if (fireMetricData != metricSectionOneTextController.text ) {
-                                              _firestore.updateData({
+                                              _firestore.collection(currentUser).document('Bc10_metrics').updateData({
                                                 'metricSectionOne': metricSectionOneTextController.text,
                                               });
                                             }
