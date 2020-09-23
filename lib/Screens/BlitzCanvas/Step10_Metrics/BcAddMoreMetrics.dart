@@ -97,7 +97,8 @@ class _BcAddMoreMetricsState extends State<BcAddMoreMetrics> {
               child: new Text("PROCEED TO DASHBOARD", style: TextStyle( color: Color(0XFFE95420,), fontWeight: FontWeight.bold),),
               onPressed: () {
                 Navigator.pushNamed(
-                    context, '/BusinessModelDashboard');
+                    context, '/BusinessModelDashboard'
+                    '');
               },
             ),
           ],

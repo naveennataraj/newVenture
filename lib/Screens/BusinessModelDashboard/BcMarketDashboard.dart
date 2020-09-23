@@ -15,6 +15,7 @@ import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/Syner
 import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/TargetDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/CompetitorDialogue.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/BcCompetingProducts.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/ReworkDialogue.dart';
 
 class BcMarketStrategy extends StatefulWidget with ConceptDashboardStates {
   final TextStyle headingStyle;
@@ -39,7 +40,27 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
   String asAServiceDescription= '';
  //======= How we synergize  =======
   String stringSynergy= '';
- //======= User Stories =======
+  String synergy1;
+  List valuePropositionList = [];
+  List customerSegmentList = [];
+  List revenueStreamList = [];
+  List distributionChannel = [];
+  List customerRelationshipList = [];
+  List keyActivityList = [];
+  List keyResourceList = [];
+  List keyPartnerList = [];
+  List costStructureList = [];
+  String allSynergies;
+  String sProposition;
+  String sSegment;
+  String sStream;
+  String sDistributionChannel;
+  String sCustomerRelationship;
+  String sKeyActivity;
+  String sKeyResource;
+  String sKeyPartner;
+  String sCostStructure;
+  //======= User Stories =======
   String userStory= '';
  //======= From our competition =======
   String competitionName = '';
@@ -95,6 +116,60 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
     }
 
     //======= How we synergize  =======
+
+    final documentProposition = await _firestore
+        .collection('$currentUser/Bc7_businessModelElements/addElements')
+        .getDocuments();
+    if (documentProposition != null) {
+      valuePropositionList = [];
+      customerSegmentList = [];
+      revenueStreamList=[];
+      distributionChannel=[];
+      customerRelationshipList=[];
+      keyActivityList=[];
+      keyResourceList=[];
+      keyPartnerList=[];
+      costStructureList=[];
+
+      for (var message in documentProposition.documents) {
+        final elementTitle = message.data['elementTitle'];
+        final elementDescription = message.data['elementDescription'];
+        final elementChecked = message.data['elementChecked'];
+        final ID = message.documentID;
+
+        if (elementTitle == 'Value proposition') {
+          valuePropositionList.add(elementDescription);
+          print(valuePropositionList);
+        }
+        if (elementTitle == 'Customer segment') {
+          customerSegmentList.add(elementDescription);
+        }
+        if (elementTitle == 'Revenue stream') {
+          revenueStreamList.add(elementDescription);
+        }
+
+        if (elementTitle == 'Distribution channel') {
+          distributionChannel.add(elementDescription);
+        }
+        if (elementTitle == 'Customer relationship') {
+          customerRelationshipList.add(elementDescription);
+        }
+        if (elementTitle == 'Key activity') {
+          keyActivityList.add(elementDescription);
+        }
+        if (elementTitle == 'Key resource') {
+          keyResourceList.add(elementDescription);
+        }
+        if (elementTitle == 'Key partner') {
+          keyPartnerList.add(elementDescription);
+        }
+        if (elementTitle == 'Cost Structure') {
+          costStructureList.add(elementDescription);
+        }
+      }
+    }
+
+
     final documentSynergies = await _firestore
         .collection('$currentUser/Bc8_synergies/addSynergies')
         .getDocuments();
@@ -115,6 +190,35 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         message.data['synergyDescription'];
         final synergyValues = message.data['synergyValues'];
         final ID = message.documentID;
+
+        if(checkedValueProposition == true) {
+           sProposition = 'Value proposition' + valuePropositionList.join(', ');
+           print(sProposition);
+        }
+        if(checkedCustomerSegment == true) {
+          sSegment = 'Customer segment' + customerSegmentList.join(', ');
+        }
+        if(checkedRevenueStream == true) {
+          sStream = 'Revenue stream' + revenueStreamList.join(', ');
+        }
+        if(checkedDistributionChannel == true) {
+          sDistributionChannel = 'Distribution channel' + distributionChannel.join(', ');
+        }
+        if(checkedCustomerRelationship == true) {
+          sCustomerRelationship = 'Customer relationship' +customerRelationshipList.join(', ');
+        }
+        if(checkedKeyActivity == true) {
+          sKeyActivity = 'Key activity' + keyActivityList.join(', ');
+        }
+        if(checkedKeyResource == true) {
+          sKeyResource = 'Key resource' + keyResourceList.join(', ');
+        }
+        if(checkedKeyPartner == true) {
+          sKeyPartner = 'Key partner' + keyPartnerList.join(', ');
+        }
+        if(checkedCostStructure == true) {
+          sCostStructure = 'Cost Structure' + costStructureList.join(', ');
+        }
 
         final card = ContentSynergies(
           synergyName: synergyName,
@@ -138,9 +242,9 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
 
       if(addingNewSynergies.length !=0) {
         stringSynergy= addingNewSynergies[0].synergyDescription;
+        //allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
       } else {asAService= 'Missing value';}
     });
-
 
     //======= User Stories =======
     final documentUserStories = await _firestore
@@ -257,6 +361,15 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
             onTap: () {
               Navigator.pushNamed(context, '/BCStep7ServiceOffering');
             },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => ReduceReworkDialogue(
+                  asAService: asAService,
+                  descriptionService: asAServiceDescription
+                ),
+              ).then((_) => setState(() {}));
+            },
           ),
         ),
         Padding(
@@ -269,7 +382,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
               cardIcon: Icons.person,
               cardTitle: 'How we Synergize',
               cardNote:
-                  '"A key resource (developer/designer) working with tech support personnel to create a new feature called \'$stringSynergy\', based on studying user feedback. "',
+                  '"A with tech support personnel to create a new feature called \'$stringSynergy\', based on studying user feedback. "',
               onTap: () {},
               onEditTap: () {
                 showDialog(

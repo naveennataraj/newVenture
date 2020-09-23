@@ -6,31 +6,31 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Widgets/CancelButton.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/SaveButton.dart';
-import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentAsAService.dart';
 
-class ReduceReworkDialogue extends StatefulWidget {
-  final String asAService;
-  final String descriptionService;
 
-  const ReduceReworkDialogue({this.asAService, this.descriptionService});
+class CompetitorDialogue extends StatefulWidget {
+  final String descriptionMission;
+  final String descriptionVision;
+
+  const CompetitorDialogue({this.descriptionMission, this.descriptionVision});
   @override
-  _ReduceReworkDialogueState createState() => _ReduceReworkDialogueState();
+  _CompetitorDialogueState createState() => _CompetitorDialogueState();
 }
 
-class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
+class _CompetitorDialogueState extends State<CompetitorDialogue> {
   final _firestore = Firestore.instance;
 
-  var serviceLabelColor = Color(0XFF919191);
-  bool validService = true;
-  var serviceTextController = TextEditingController();
-  final serviceFocusNode = new FocusNode();
-  String serviceName;
+  var missionLabelColor = Color(0XFF919191);
+  bool validMission = true;
+  var missionTextController = TextEditingController();
+  final missionFocusNode = new FocusNode();
+  String missionName;
 
-  var descriptionLabelColor = Color(0XFF919191);
-  bool validDescription = true;
-  var descriptionTextController = TextEditingController();
-  final descriptionFocusNode = new FocusNode();
-  String descriptionName;
+  var visionLabelColor = Color(0XFF919191);
+  bool validVision = true;
+  var validTextController = TextEditingController();
+  final validFocusNode = new FocusNode();
+  String validName;
 
   requestFocus(FocusNode myFocusNode) {
     setState(() {
@@ -41,16 +41,17 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
   void initState() {
     //  implement initState
     setState(() {
-      serviceName = widget.asAService;
-      descriptionName = widget.descriptionService;
+      missionName = widget.descriptionMission;
+      validName = widget.descriptionVision;
 
-      descriptionTextController =
-          TextEditingController(text: widget.descriptionService);
-      serviceTextController =
-          TextEditingController(text: widget.asAService);
+      validTextController =
+          TextEditingController(text: widget.descriptionVision);
+      missionTextController =
+          TextEditingController(text: widget.descriptionMission);
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -60,7 +61,7 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
         width: 800,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +70,7 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Text(
-                    "How to reduce rework by:",
+                    "Our purpose and Who we are",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -77,16 +78,16 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextField(
-                    focusNode: serviceFocusNode,
+                    focusNode: missionFocusNode,
 
                     onTap: () {
-                      requestFocus(serviceFocusNode);
+                      requestFocus(missionFocusNode);
                     },
-                    controller: serviceTextController,
-                    maxLines: 1,
+                    controller: missionTextController,
+                    maxLines: (ResponsiveLayout.isSmallScreen(context) ? 2 : 1),
                     style: menuIntroTextStyle,
                     decoration: TextFieldsDecoration.copyWith(
-                      labelText: "Add an 'As a service' Offering:",
+                      labelText: 'Provide a mission statement for the business venture',
                       helperMaxLines: 3,
                       helperText:
                       '',
@@ -104,39 +105,39 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
                               ? 15
                               : 16),
                           fontFamily: 'OpenSans',
-                          color: serviceFocusNode.hasFocus
+                          color: missionFocusNode.hasFocus
                               ? Color(0XFFE95420)
-                              : serviceLabelColor),
+                              : missionLabelColor),
                       errorText:
-                      validService ? null : 'This field is required',
+                      validMission ? null : 'This field is required',
                     ),
                     onChanged: (text) {
-                      if (serviceTextController.text == "") {
+                      if (missionTextController.text == "") {
                         setState(() {
-                          serviceName = serviceTextController.text;
-                          validService = false;
-                          serviceLabelColor = Color(0XFFF53E70);
+                          missionName = missionTextController.text;
+                          validMission = false;
+                          missionLabelColor = Color(0XFFF53E70);
                         });
                       } else {
                         setState(() {
-                          serviceName = serviceTextController.text;
-                          validService = true;
-                          serviceLabelColor = Colors.grey;
+                          missionName = missionTextController.text;
+                          validMission = true;
+                          missionLabelColor = Colors.grey;
                         });
                       }
                     },
                     onSubmitted: (text) {
-                      if (serviceTextController.text == "") {
+                      if (missionTextController.text == "") {
                         setState(() {
-                          serviceName = serviceTextController.text;
-                          validService = false;
-                          serviceLabelColor = Color(0XFFF53E70);
+                          missionName = missionTextController.text;
+                          validMission = false;
+                          missionLabelColor = Color(0XFFF53E70);
                         });
                       } else {
                         setState(() {
-                          serviceName = serviceTextController.text;
-                          validService = true;
-                          serviceLabelColor = Colors.grey;
+                          missionName = missionTextController.text;
+                          validMission = true;
+                          missionLabelColor = Colors.grey;
                         });
                       }
                     },
@@ -147,17 +148,17 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
                   padding: const EdgeInsets.all(10.0),
                   child: TextField(
 //        expands: true,
-                    focusNode: descriptionFocusNode,
+                    focusNode: validFocusNode,
 
                     onTap: () {
-                      requestFocus(descriptionFocusNode);
+                      requestFocus(validFocusNode);
                     },
-                    controller: descriptionTextController,
+                    controller: validTextController,
                     maxLines: (ResponsiveLayout.isSmallScreen(context) ? 2 : 1),
                     style: menuIntroTextStyle,
                     decoration: TextFieldsDecoration.copyWith(
                       labelText:
-                      "Please provide a description for the service",
+                      'Provide a vision for the business venture to work towards',
                       helperText: '',
                       helperMaxLines: 3,
                       helperStyle: TextStyle(
@@ -174,44 +175,44 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
                               ? 15
                               : 16),
                           fontFamily: 'OpenSans',
-                          color: descriptionFocusNode.hasFocus
+                          color: validFocusNode.hasFocus
                               ? Color(0XFFE95420)
-                              : descriptionLabelColor),
-                      errorText: validDescription
+                              : visionLabelColor),
+                      errorText: validVision
                           ? null
                           : 'This field is required',
                     ),
                     onChanged: (text) {
-                      if (descriptionTextController.text == "") {
+                      if (validTextController.text == "") {
                         setState(() {
-                          descriptionName =
-                              descriptionTextController.text;
-                          validDescription = false;
-                          descriptionLabelColor = Color(0XFFF53E70);
+                          validName =
+                              validTextController.text;
+                          validVision = false;
+                          visionLabelColor = Color(0XFFF53E70);
                         });
                       } else {
                         setState(() {
-                          descriptionName =
-                              descriptionTextController.text;
-                          validDescription = true;
-                          descriptionLabelColor = Colors.grey;
+                          validName =
+                              validTextController.text;
+                          validVision = true;
+                          visionLabelColor = Colors.grey;
                         });
                       }
                     },
                     onSubmitted: (text) {
-                      if (descriptionTextController.text == "") {
+                      if (validTextController.text == "") {
                         setState(() {
-                          descriptionName =
-                              descriptionTextController.text;
-                          validDescription = false;
-                          descriptionLabelColor = Color(0XFFF53E70);
+                          validName =
+                              validTextController.text;
+                          validVision = false;
+                          visionLabelColor = Color(0XFFF53E70);
                         });
                       } else {
                         setState(() {
-                          descriptionName =
-                              descriptionTextController.text;
-                          validDescription = true;
-                          descriptionLabelColor = Colors.grey;
+                          validName =
+                              validTextController.text;
+                          validVision = true;
+                          visionLabelColor = Colors.grey;
                         });
                       }
                     },
@@ -231,9 +232,9 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
                     child: DashboardCards(
                       editableCard: false,
                       cardIcon: Icons.leak_add,
-                      cardTitle: 'How to reduce rework by:',
+                      cardTitle: 'Our purpose and Who we are',
                       cardNote:
-                      '$serviceName for the purpose of $descriptionName',
+                      'Mission: $missionName \n\n Vision: $validName',
                       onTap: () {},
                     ),
                   ),
@@ -246,12 +247,9 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
                       SaveButton(
                         onTap: () {
                           _firestore
-                              .collection(
-                              '$currentUser/Bc7_businessModelElements/addServices')
-                              .document(addingAsaService[0].ID)
-                              .updateData({
-                            'serviceName': serviceTextController.text,
-                            'asAServiceDescription': descriptionTextController.text,
+                              .collection(currentUser).document('Bc1_buildTheFoundation').updateData({
+                            'mission': missionTextController.text,
+                            'vision': validTextController.text,
                           });
                           Navigator.popAndPushNamed(
                               context, '/BusinessModelDashboard');
@@ -276,7 +274,5 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
     );
   }
 }
-
-
 
 
