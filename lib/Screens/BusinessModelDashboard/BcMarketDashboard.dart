@@ -139,10 +139,11 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
 
         if (elementTitle == 'Value proposition') {
           valuePropositionList.add(elementDescription);
-          print(valuePropositionList);
+          print('This is the list with value proposition valuePropositionList $valuePropositionList');
         }
         if (elementTitle == 'Customer segment') {
           customerSegmentList.add(elementDescription);
+          print('This is the list with customerSegmentList list $customerSegmentList');
         }
         if (elementTitle == 'Revenue stream') {
           revenueStreamList.add(elementDescription);
@@ -153,6 +154,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         }
         if (elementTitle == 'Customer relationship') {
           customerRelationshipList.add(elementDescription);
+          print('customer relationship $customerRelationshipList');
         }
         if (elementTitle == 'Key activity') {
           keyActivityList.add(elementDescription);
@@ -191,35 +193,6 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         final synergyValues = message.data['synergyValues'];
         final ID = message.documentID;
 
-        if(checkedValueProposition == true) {
-           sProposition = 'Value proposition' + valuePropositionList.join(', ');
-           print(sProposition);
-        }
-        if(checkedCustomerSegment == true) {
-          sSegment = 'Customer segment' + customerSegmentList.join(', ');
-        }
-        if(checkedRevenueStream == true) {
-          sStream = 'Revenue stream' + revenueStreamList.join(', ');
-        }
-        if(checkedDistributionChannel == true) {
-          sDistributionChannel = 'Distribution channel' + distributionChannel.join(', ');
-        }
-        if(checkedCustomerRelationship == true) {
-          sCustomerRelationship = 'Customer relationship' +customerRelationshipList.join(', ');
-        }
-        if(checkedKeyActivity == true) {
-          sKeyActivity = 'Key activity' + keyActivityList.join(', ');
-        }
-        if(checkedKeyResource == true) {
-          sKeyResource = 'Key resource' + keyResourceList.join(', ');
-        }
-        if(checkedKeyPartner == true) {
-          sKeyPartner = 'Key partner' + keyPartnerList.join(', ');
-        }
-        if(checkedCostStructure == true) {
-          sCostStructure = 'Cost Structure' + costStructureList.join(', ');
-        }
-
         final card = ContentSynergies(
           synergyName: synergyName,
           synergyValueProposition: checkedValueProposition,
@@ -237,12 +210,52 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         );
         addingNewSynergies.add(card);
       }
+      //&& valuePropositionList.isNotEmpty
+      if(addingNewSynergies[0].synergyValueProposition == true ) {
+        sProposition = 'Value proposition (' + valuePropositionList.join(', ') + '), ';
+        print('the sProposotion $sProposition');
+      } else {sProposition = '';}
+      //&& customerSegmentList.isNotEmpty
+      if(addingNewSynergies[0].synergyCustomerSegment == true  ) {
+        sSegment = 'Customer segment (' + customerSegmentList.join(', ') + '), ';
+        print('the sSegment $sSegment');
+      }else {sSegment = '';}
+      //&& revenueStreamList.isNotEmpty
+      if(addingNewSynergies[0].synergyRevenueStream == true ) {
+        sStream = 'Revenue stream (' + revenueStreamList.join(', ') + '), ';
+      }else {sStream = '';}
+      //&& distributionChannel.isNotEmpty
+      if(addingNewSynergies[0].synergyDistributionChannel == true ) {
+        sDistributionChannel = 'Distribution channel (' + distributionChannel.join(', ') + '), ';
+      }else {sDistributionChannel = '';}
+      //&& customerRelationshipList.isNotEmpty
+      if(addingNewSynergies[0].synergyCustomerRelationship == true ) {
+        sCustomerRelationship = 'Customer relationship (' +customerRelationshipList.join(', ') + '), ';
+      }else {sCustomerRelationship = '';}
+      //&& keyActivityList.isNotEmpty
+      if(addingNewSynergies[0].synergyKeyActivity == true ) {
+        sKeyActivity = 'Key activity (' + keyActivityList.join(', ') + '), ';
+      }else {sKeyActivity = '';}
+      //&& keyResourceList.isNotEmpty
+      if(addingNewSynergies[0].synergyKeyResource == true ) {
+        sKeyResource = 'Key resource (' + keyResourceList.join(', ') + '), ';
+      }else {sKeyResource = '';}
+      //&& keyPartnerList.isNotEmpty
+      if(addingNewSynergies[0].synergyKeyPartner == true ) {
+        sKeyPartner = 'Key partner (' + keyPartnerList.join(', ') + '), ';
+      }else {sKeyPartner = '';}
+      //&& costStructureList.isNotEmpty
+      if(addingNewSynergies[0].synergyCostStructure == true ) {
+        sCostStructure = 'Cost Structure (' + costStructureList.join(', ') + '), ';
+      }else {sCostStructure = '';}
+      allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
     }
     setState(() {
 
       if(addingNewSynergies.length !=0) {
         stringSynergy= addingNewSynergies[0].synergyDescription;
         //allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
+        print('all synergues $allSynergies');
       } else {asAService= 'Missing value';}
     });
 
@@ -382,7 +395,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
               cardIcon: Icons.person,
               cardTitle: 'How we Synergize',
               cardNote:
-                  '"A with tech support personnel to create a new feature called \'$stringSynergy\', based on studying user feedback. "',
+                  '"A $allSynergies tech support personnel to create a new feature called \'$stringSynergy\', based on studying user feedback. "',
               onTap: () {},
               onEditTap: () {
                 showDialog(
