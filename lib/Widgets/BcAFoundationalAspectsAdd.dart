@@ -12,6 +12,7 @@ import 'package:iventure001/Widgets/NavigationBar.dart';
 import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:iventure001/Widgets/ValidationDialogue.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 import 'dart:async';
 
 class BcAddFoundationalAspects extends StatefulWidget {
@@ -19,7 +20,8 @@ class BcAddFoundationalAspects extends StatefulWidget {
   final String completeButtonRoute;
   BcAddFoundationalAspects({this.breads, this.completeButtonRoute});
   @override
-  _BcAddFoundationalAspectsState createState() => _BcAddFoundationalAspectsState(breads, completeButtonRoute);
+  _BcAddFoundationalAspectsState createState() =>
+      _BcAddFoundationalAspectsState(breads, completeButtonRoute);
 }
 
 class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
@@ -54,7 +56,6 @@ class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +76,7 @@ class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
                   child: Wrap(
                     children: [
                       Breadcrumb(
-                        breads:  breads,
+                        breads: breads,
                         color: Color(0xFFE95420),
                       )
                     ],
@@ -114,7 +115,7 @@ class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
                             StreamBuilder<QuerySnapshot>(
                               stream: _firestore
                                   .collection(
-                                  '$currentUser/Bc1_buildTheFoundation/addFoundations')
+                                      '$currentUser/Bc1_buildTheFoundation/addFoundations')
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
@@ -124,9 +125,9 @@ class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
                                   for (var message in messages) {
                                     final title = message.data['title'];
                                     final description =
-                                    message.data['description'];
+                                        message.data['description'];
                                     final featureType =
-                                    message.data['featureType'];
+                                        message.data['featureType'];
                                     final ID = message.documentID;
 
                                     final card = ContentBcAddFoundation(
@@ -141,46 +142,46 @@ class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
 
                                 return (foundationContent.length != 0)
                                     ? ListView.builder(
-                                  itemCount: foundationContent.length,
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.only(top: 10.0),
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      children: <Widget>[
-                                        SmallOrangeCardWithTitle(
-                                          title: foundationContent[index]
-                                              .title,
-                                          description:
-                                          foundationContent[index]
-                                              .description,
-                                          index: index,
-                                          removingat: foundationContent,
-                                          Dialogue: AddFoundationalDetail(
-                                            index: index,
-                                          ),
-                                          CollectionName:
-                                          '$currentUser/Bc1_buildTheFoundation/addFoundations',
-                                          ID: foundationContent[index].ID,
-                                        )
-                                      ],
-                                    );
-                                  },
-                                )
-                                    : Padding(
-                                  padding: const EdgeInsets.all(25.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                            "There are no Product Goals at the moment. Would you like to add some? Use the '+’ button to get started.",
-                                            style: emptyStateTextStyle,
-                                            textAlign: TextAlign.center),
+                                        itemCount: foundationContent.length,
+                                        shrinkWrap: true,
+                                        padding: EdgeInsets.only(top: 10.0),
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            children: <Widget>[
+                                              SmallOrangeCardWithTitle(
+                                                title: foundationContent[index]
+                                                    .title,
+                                                description:
+                                                    foundationContent[index]
+                                                        .description,
+                                                index: index,
+                                                removingat: foundationContent,
+                                                Dialogue: AddFoundationalDetail(
+                                                  index: index,
+                                                ),
+                                                CollectionName:
+                                                    '$currentUser/Bc1_buildTheFoundation/addFoundations',
+                                                ID: foundationContent[index].ID,
+                                              )
+                                            ],
+                                          );
+                                        },
                                       )
-                                    ],
-                                  ),
-                                );
+                                    : Padding(
+                                        padding: const EdgeInsets.all(25.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                  "There are no Product Goals at the moment. Would you like to add some? Use the '+’ button to get started.",
+                                                  style: emptyStateTextStyle,
+                                                  textAlign: TextAlign.center),
+                                            )
+                                          ],
+                                        ),
+                                      );
                               },
                             ),
                             Padding(
@@ -189,8 +190,8 @@ class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   headBackButtton(
-                                    //headHome: true,
-                                  ),
+                                      //headHome: true,
+                                      ),
                                   SizedBox(
                                     width: 50,
                                   ),
@@ -201,19 +202,20 @@ class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
                                     stepBool: true,
                                     widget: () {
                                       var count = foundationContent
-                                          .where(
-                                              (Goal) => Goal.title == 'Goal')
+                                          .where((Goal) => Goal.title == 'Goal')
                                           .toList()
                                           .length;
                                       (count < 2)
-                                          ?
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            ValidationDialogue(contentDescription: 'At least 2 goals are required before continuing to the next card.',),
-                                      )
+                                          ? showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  ValidationDialogue(
+                                                contentDescription:
+                                                    'At least 2 goals are required before continuing to the next card.',
+                                              ),
+                                            )
                                           : Navigator.pushNamed(
-                                          context, completeButtonRoute);
+                                              context, completeButtonRoute);
                                     },
                                   ),
                                 ],
@@ -245,12 +247,19 @@ class _BcAddFoundationalAspectsState extends State<BcAddFoundationalAspects> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => AddFoundationalDetail(),
-            ).then((_) => setState(() {}));
-          },
+          onPressed: (foundationContent.length < 18)
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AddFoundationalDetail(),
+                  ).then((_) => setState(() {}));
+                }
+              : () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => MaximumCardsDialog(),
+                  ).then((_) => setState(() {}));
+                },
           child: Icon(Icons.add),
         ),
       ),

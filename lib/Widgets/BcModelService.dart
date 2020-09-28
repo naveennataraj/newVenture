@@ -12,13 +12,15 @@ import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 
 class BcModelAsAService extends StatefulWidget {
   final List breads;
   final String completeButtonRoute;
   BcModelAsAService({this.breads, this.completeButtonRoute});
   @override
-  _BcModelAsAServiceState createState() => _BcModelAsAServiceState(breads, completeButtonRoute);
+  _BcModelAsAServiceState createState() =>
+      _BcModelAsAServiceState(breads, completeButtonRoute);
 }
 
 class _BcModelAsAServiceState extends State<BcModelAsAService> {
@@ -45,8 +47,7 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
   _AnimatedFlutterLogoState() {
     _timer = new Timer(const Duration(seconds: 2), () {
       setState(() {
-        if (currentUser != null && currentUser != '') {
-        }
+        if (currentUser != null && currentUser != '') {}
       });
     });
   }
@@ -66,9 +67,11 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Wrap(children: [
-                  Breadcrumb(breads: breads, color: Color(0xFFE95420))
-                ],),
+                child: Wrap(
+                  children: [
+                    Breadcrumb(breads: breads, color: Color(0xFFE95420))
+                  ],
+                ),
               ),
               Center(
                 child: Padding(
@@ -100,25 +103,31 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
                                   "List of 'As a service' offerings",
                                   style: cardTitleTextStyle,
                                   textAlign: TextAlign.center,
-                                ),),
-
+                                ),
+                              ),
                               StreamBuilder<QuerySnapshot>(
                                 stream: _firestore
                                     .collection(
-                                    '$currentUser/Bc7_businessModelElements/addServices')
+                                        '$currentUser/Bc7_businessModelElements/addServices')
                                     .snapshots(),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
-                                    final messages = snapshot.data.documents.reversed;
+                                    final messages =
+                                        snapshot.data.documents.reversed;
                                     addingAsaService = [];
                                     for (var message in messages) {
-                                      final serviceName = message.data['serviceName'];
+                                      final serviceName =
+                                          message.data['serviceName'];
                                       final serviceDescription =
-                                      message.data['serviceDescription'];
-                                      final serviceType = message.data['serviceType'];
-                                      final parentCompany = message.data['parentCompany'];
-                                      final serviceTaskDescription = message.data['serviceTaskDescription'];
-                                      final servicePercentage = message.data['servicePercentage'];
+                                          message.data['serviceDescription'];
+                                      final serviceType =
+                                          message.data['serviceType'];
+                                      final parentCompany =
+                                          message.data['parentCompany'];
+                                      final serviceTaskDescription = message
+                                          .data['serviceTaskDescription'];
+                                      final servicePercentage =
+                                          message.data['servicePercentage'];
 
                                       final ID = message.documentID;
 
@@ -127,7 +136,8 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
                                         serviceDescription: serviceDescription,
                                         serviceType: serviceType,
                                         parentCompany: parentCompany,
-                                        serviceTaskDescription: serviceTaskDescription,
+                                        serviceTaskDescription:
+                                            serviceTaskDescription,
                                         servicePercentage: servicePercentage,
                                         ID: ID,
                                       );
@@ -137,53 +147,57 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
 
                                   return (addingAsaService.length != 0)
                                       ? ListView.builder(
-                                    itemCount: addingAsaService.length,
-                                    shrinkWrap: true,
-                                    padding: EdgeInsets.only(top: 10.0),
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        children: addingAsaService != null
-                                            ? <Widget>[
-                                          SmallOrangeCardWithTitle(
-                                            title:
-                                            addingAsaService[index]
-                                                .serviceName,
-                                            description:
-                                            addingAsaService[index]
-                                                .serviceTaskDescription,
-                                            index: index,
-                                            removingat: addingAsaService,
-                                            Dialogue:
-                                            BcAsaServiceDialogue(
-                                              index: index,
-                                            ),
-                                            CollectionName:
-                                            '$currentUser/Bc7_businessModelElements/addServices',
-                                            ID: addingAsaService[index]
-                                                .ID,
-                                          )
-                                        ]
-                                            : null,
-                                      );
-                                    },
-                                  )
-                                      : Padding(
-                                    padding: const EdgeInsets.all(25.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "There are no offerings listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
-                                            style: emptyStateTextStyle, textAlign: TextAlign.center,
-                                          ),
+                                          itemCount: addingAsaService.length,
+                                          shrinkWrap: true,
+                                          padding: EdgeInsets.only(top: 10.0),
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children: addingAsaService != null
+                                                  ? <Widget>[
+                                                      SmallOrangeCardWithTitle(
+                                                        title: addingAsaService[
+                                                                index]
+                                                            .serviceName,
+                                                        description:
+                                                            addingAsaService[
+                                                                    index]
+                                                                .serviceTaskDescription,
+                                                        index: index,
+                                                        removingat:
+                                                            addingAsaService,
+                                                        Dialogue:
+                                                            BcAsaServiceDialogue(
+                                                          index: index,
+                                                        ),
+                                                        CollectionName:
+                                                            '$currentUser/Bc7_businessModelElements/addServices',
+                                                        ID: addingAsaService[
+                                                                index]
+                                                            .ID,
+                                                      )
+                                                    ]
+                                                  : null,
+                                            );
+                                          },
                                         )
-                                      ],
-                                    ),
-                                  );
+                                      : Padding(
+                                          padding: const EdgeInsets.all(25.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  "There are no offerings listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                                  style: emptyStateTextStyle,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        );
                                 },
                               ),
-
                               Padding(
                                 padding: const EdgeInsets.all(30.0),
                                 child: Row(
@@ -198,7 +212,6 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
                                       routeName: completeButtonRoute,
                                       step: 6,
                                       stepBool: true,
-
                                     ),
                                   ],
                                 ),
@@ -207,8 +220,7 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
                           ),
                         ),
                       ],
-                    )
-                ),
+                    )),
               ),
               SizedBox(
                 height: 20,
@@ -229,17 +241,22 @@ class _BcModelAsAServiceState extends State<BcModelAsAService> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => BcAsaServiceDialogue(),
-            ).then((_) => setState(() {}));
-          },
+          onPressed: (addingAsaService.length < 18)
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => BcAsaServiceDialogue(),
+                  ).then((_) => setState(() {}));
+                }
+              : () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => MaximumCardsDialog(),
+                  ).then((_) => setState(() {}));
+                },
           child: Icon(Icons.add),
         ),
       ),
     );
   }
 }
-
-

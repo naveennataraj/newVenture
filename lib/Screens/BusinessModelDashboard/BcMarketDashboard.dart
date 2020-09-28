@@ -211,41 +211,41 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         addingNewSynergies.add(card);
       }
       //&& valuePropositionList.isNotEmpty
-      if(addingNewSynergies[0].synergyValueProposition == true ) {
+      if(addingNewSynergies[0].synergyValueProposition == true && valuePropositionList.isNotEmpty ) {
         sProposition = 'Value proposition (' + valuePropositionList.join(', ') + '), ';
         print('the sProposotion $sProposition');
       } else {sProposition = '';}
       //&& customerSegmentList.isNotEmpty
-      if(addingNewSynergies[0].synergyCustomerSegment == true  ) {
+      if(addingNewSynergies[0].synergyCustomerSegment == true && customerSegmentList.isNotEmpty ) {
         sSegment = 'Customer segment (' + customerSegmentList.join(', ') + '), ';
         print('the sSegment $sSegment');
       }else {sSegment = '';}
       //&& revenueStreamList.isNotEmpty
-      if(addingNewSynergies[0].synergyRevenueStream == true ) {
+      if(addingNewSynergies[0].synergyRevenueStream == true && revenueStreamList.isNotEmpty ) {
         sStream = 'Revenue stream (' + revenueStreamList.join(', ') + '), ';
       }else {sStream = '';}
       //&& distributionChannel.isNotEmpty
-      if(addingNewSynergies[0].synergyDistributionChannel == true ) {
+      if(addingNewSynergies[0].synergyDistributionChannel == true && distributionChannel.isNotEmpty) {
         sDistributionChannel = 'Distribution channel (' + distributionChannel.join(', ') + '), ';
       }else {sDistributionChannel = '';}
       //&& customerRelationshipList.isNotEmpty
-      if(addingNewSynergies[0].synergyCustomerRelationship == true ) {
+      if(addingNewSynergies[0].synergyCustomerRelationship == true && customerRelationshipList.isNotEmpty ) {
         sCustomerRelationship = 'Customer relationship (' +customerRelationshipList.join(', ') + '), ';
       }else {sCustomerRelationship = '';}
       //&& keyActivityList.isNotEmpty
-      if(addingNewSynergies[0].synergyKeyActivity == true ) {
+      if(addingNewSynergies[0].synergyKeyActivity == true && keyActivityList.isNotEmpty) {
         sKeyActivity = 'Key activity (' + keyActivityList.join(', ') + '), ';
       }else {sKeyActivity = '';}
       //&& keyResourceList.isNotEmpty
-      if(addingNewSynergies[0].synergyKeyResource == true ) {
+      if(addingNewSynergies[0].synergyKeyResource == true && keyResourceList.isNotEmpty) {
         sKeyResource = 'Key resource (' + keyResourceList.join(', ') + '), ';
       }else {sKeyResource = '';}
       //&& keyPartnerList.isNotEmpty
-      if(addingNewSynergies[0].synergyKeyPartner == true ) {
+      if(addingNewSynergies[0].synergyKeyPartner == true && keyPartnerList.isNotEmpty) {
         sKeyPartner = 'Key partner (' + keyPartnerList.join(', ') + '), ';
       }else {sKeyPartner = '';}
       //&& costStructureList.isNotEmpty
-      if(addingNewSynergies[0].synergyCostStructure == true ) {
+      if(addingNewSynergies[0].synergyCostStructure == true && costStructureList.isNotEmpty) {
         sCostStructure = 'Cost Structure (' + costStructureList.join(', ') + '), ';
       }else {sCostStructure = '';}
       allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
@@ -366,7 +366,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
               ? 50
               : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
           child: DashboardCards(
-            cardIcon: Icons.person,
+            cardIcon: Icons.work,
             cardTitle: 'How to reduce rework by:',
             cardNote:
                 '$asAService for the purpose of $asAServiceDescription',
@@ -392,16 +392,20 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
           child: Hero(
             tag: 'synergyHero',
             child: DashboardCards(
-              cardIcon: Icons.person,
+              cardIcon: Icons.sync,
               cardTitle: 'How we Synergize',
               cardNote:
-                  '"A $allSynergies tech support personnel to create a new feature called \'$stringSynergy\', based on studying user feedback. "',
-              onTap: () {},
+                  '$allSynergies create a new feature called \'$stringSynergy\', based on studying user feedback.',
+              cardButtonName: 'VIEW BUSINESS ELEMENTS',
+              onTap: () {
+                Navigator.pushNamed(context, '/BCStep7BusinessModelElements');
+              },
               onEditTap: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => SynergyDialogue(
-                    dashboardCard: stringSynergy,
+                    synergy: stringSynergy,
+                      descriptionService: allSynergies,
                   ),
                 ).then((_) => setState(() {}));
               },

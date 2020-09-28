@@ -160,7 +160,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                                       padding: const EdgeInsets.all(10.0),
                                       child: Row(
                                         children: [
-                                          Icon(Icons.person),
+                                          Icon(Icons.import_contacts),
                                           SizedBox(
                                             width: 10,
                                           ),

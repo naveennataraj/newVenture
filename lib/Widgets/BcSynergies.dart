@@ -12,6 +12,7 @@ import 'package:iventure001/Widgets/GenericStepValidationButton.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 
 class BcSynergies extends StatefulWidget {
   final List breads;
@@ -19,7 +20,8 @@ class BcSynergies extends StatefulWidget {
   final String completeButtonRoute;
   BcSynergies({this.breads, this.headBackRoute, this.completeButtonRoute});
   @override
-  _BcSynergiesState createState() => _BcSynergiesState(breads, headBackRoute, completeButtonRoute);
+  _BcSynergiesState createState() =>
+      _BcSynergiesState(breads, headBackRoute, completeButtonRoute);
 }
 
 class _BcSynergiesState extends State<BcSynergies> {
@@ -47,8 +49,7 @@ class _BcSynergiesState extends State<BcSynergies> {
   _AnimatedFlutterLogoState() {
     _timer = new Timer(const Duration(seconds: 2), () {
       setState(() {
-        if (currentUser != null && currentUser != '') {
-        }
+        if (currentUser != null && currentUser != '') {}
       });
     });
   }
@@ -68,9 +69,11 @@ class _BcSynergiesState extends State<BcSynergies> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Wrap(children: [
-                  Breadcrumb(breads: breads, color: Color(0xFFE95420))
-                ],),
+                child: Wrap(
+                  children: [
+                    Breadcrumb(breads: breads, color: Color(0xFFE95420))
+                  ],
+                ),
               ),
               Center(
                 child: Padding(
@@ -80,7 +83,8 @@ class _BcSynergiesState extends State<BcSynergies> {
                         Container(
                           //height: MediaQuery.of(context).size.height * .40,
                           margin: EdgeInsets.only(top: 40.0),
-                          width: 600, // MediaQuery.of(context).size.width * .40,
+                          width:
+                              600, // MediaQuery.of(context).size.width * .40,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             //shape: BoxShape.rectangle,
@@ -98,47 +102,65 @@ class _BcSynergiesState extends State<BcSynergies> {
                                 padding: EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
                                   "Can we spot any Synergies between the Business segments?",
-                                  style:
-                                  cardTitleTextStyle,
+                                  style: cardTitleTextStyle,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-
                               StreamBuilder<QuerySnapshot>(
                                 stream: _firestore
-                                    .collection('$currentUser/Bc8_synergies/addSynergies')
+                                    .collection(
+                                        '$currentUser/Bc8_synergies/addSynergies')
                                     .snapshots(),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
-                                    final messages = snapshot.data.documents.reversed;
+                                    final messages =
+                                        snapshot.data.documents.reversed;
                                     addingNewSynergies = [];
                                     for (var message in messages) {
-                                      final synergyName = message.data['synergyName'];
-                                      final checkedValueProposition = message.data['checkedValueProposition'];
-                                      final checkedCustomerSegment = message.data['checkedCustomerSegment'];
-                                      final checkedRevenueStream = message.data['checkedRevenueStream'];
-                                      final checkedDistributionChannel = message.data['checkedDistributionChannel'];
-                                      final checkedCustomerRelationship = message.data['checkedCustomerRelationship'];
-                                      final checkedKeyActivity = message.data['checkedKeyActivity'];
-                                      final checkedKeyResource = message.data['checkedKeyResource'];
-                                      final checkedKeyPartner = message.data['checkedKeyPartner'];
-                                      final checkedCostStructure = message.data['checkedCostStructure'];
+                                      final synergyName =
+                                          message.data['synergyName'];
+                                      final checkedValueProposition = message
+                                          .data['checkedValueProposition'];
+                                      final checkedCustomerSegment = message
+                                          .data['checkedCustomerSegment'];
+                                      final checkedRevenueStream =
+                                          message.data['checkedRevenueStream'];
+                                      final checkedDistributionChannel = message
+                                          .data['checkedDistributionChannel'];
+                                      final checkedCustomerRelationship =
+                                          message.data[
+                                              'checkedCustomerRelationship'];
+                                      final checkedKeyActivity =
+                                          message.data['checkedKeyActivity'];
+                                      final checkedKeyResource =
+                                          message.data['checkedKeyResource'];
+                                      final checkedKeyPartner =
+                                          message.data['checkedKeyPartner'];
+                                      final checkedCostStructure =
+                                          message.data['checkedCostStructure'];
                                       final synergyDescription =
-                                      message.data['synergyDescription'];
-                                      final synergyValues = message.data['synergyValues'];
+                                          message.data['synergyDescription'];
+                                      final synergyValues =
+                                          message.data['synergyValues'];
                                       final ID = message.documentID;
 
                                       final card = ContentSynergies(
                                         synergyName: synergyName,
-                                        synergyValueProposition: checkedValueProposition,
-                                        synergyCustomerSegment: checkedCustomerSegment,
-                                        synergyRevenueStream: checkedRevenueStream,
-                                        synergyDistributionChannel: checkedDistributionChannel,
-                                        synergyCustomerRelationship: checkedCustomerRelationship,
+                                        synergyValueProposition:
+                                            checkedValueProposition,
+                                        synergyCustomerSegment:
+                                            checkedCustomerSegment,
+                                        synergyRevenueStream:
+                                            checkedRevenueStream,
+                                        synergyDistributionChannel:
+                                            checkedDistributionChannel,
+                                        synergyCustomerRelationship:
+                                            checkedCustomerRelationship,
                                         synergyKeyActivity: checkedKeyActivity,
-                                        synergyKeyResource:checkedKeyResource,
+                                        synergyKeyResource: checkedKeyResource,
                                         synergyKeyPartner: checkedKeyPartner,
-                                        synergyCostStructure: checkedCostStructure,
+                                        synergyCostStructure:
+                                            checkedCostStructure,
                                         synergyDescription: synergyDescription,
                                         synergyValues: synergyValues,
                                         ID: ID,
@@ -148,51 +170,59 @@ class _BcSynergiesState extends State<BcSynergies> {
                                   }
                                   return (addingNewSynergies.length != 0)
                                       ? ListView.builder(
-                                    itemCount: addingNewSynergies.length,
-                                    shrinkWrap: true,
-                                    padding: EdgeInsets.only(top: 10.0),
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        children: addingNewSynergies != null
-                                            ? <Widget>[
-                                          SmallOrangeCardWithTitle(
-                                            title: addingNewSynergies[index]
-                                                .synergyName,
-                                            description:
-                                            addingNewSynergies[index]
-                                                .synergyDescription,
-                                            index: index,
-                                            removingat: addingNewSynergies,
-                                            Dialogue: BcSynergiesDialogue(
-                                              index: index,
-                                            ),
-                                            CollectionName:
-                                            '$currentUser/Bc8_synergies/addSynergies',
-                                            ID: addingNewSynergies[index].ID,
-                                          )
-                                        ]
-                                            : null,
-                                      );
-                                    },
-                                  )
-                                      :
-                                  Padding(
-                                    padding: const EdgeInsets.all(25.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "There are no synergies listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
-                                            style: emptyStateTextStyle, textAlign: TextAlign.center,
-                                          ),
+                                          itemCount: addingNewSynergies.length,
+                                          shrinkWrap: true,
+                                          padding: EdgeInsets.only(top: 10.0),
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children:
+                                                  addingNewSynergies != null
+                                                      ? <Widget>[
+                                                          SmallOrangeCardWithTitle(
+                                                            title:
+                                                                addingNewSynergies[
+                                                                        index]
+                                                                    .synergyName,
+                                                            description:
+                                                                addingNewSynergies[
+                                                                        index]
+                                                                    .synergyDescription,
+                                                            index: index,
+                                                            removingat:
+                                                                addingNewSynergies,
+                                                            Dialogue:
+                                                                BcSynergiesDialogue(
+                                                              index: index,
+                                                            ),
+                                                            CollectionName:
+                                                                '$currentUser/Bc8_synergies/addSynergies',
+                                                            ID: addingNewSynergies[
+                                                                    index]
+                                                                .ID,
+                                                          )
+                                                        ]
+                                                      : null,
+                                            );
+                                          },
                                         )
-                                      ],
-                                    ),
-                                  );
+                                      : Padding(
+                                          padding: const EdgeInsets.all(25.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  "There are no synergies listed at the moment.\n Would you like to add some? Use the '+’ button to get started.",
+                                                  style: emptyStateTextStyle,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        );
                                 },
                               ),
-
                               Padding(
                                 padding: const EdgeInsets.all(30.0),
                                 child: Row(
@@ -217,8 +247,7 @@ class _BcSynergiesState extends State<BcSynergies> {
                           ),
                         ),
                       ],
-                    )
-                ),
+                    )),
               ),
               SizedBox(
                 height: 20,
@@ -239,12 +268,19 @@ class _BcSynergiesState extends State<BcSynergies> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => BcSynergiesDialogue(),
-            ).then((_) => setState(() {}));
-          },
+          onPressed: (addingNewSynergies.length < 18)
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => BcSynergiesDialogue(),
+                  ).then((_) => setState(() {}));
+                }
+              : () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => MaximumCardsDialog(),
+                  ).then((_) => setState(() {}));
+                },
           child: Icon(Icons.add),
         ),
       ),

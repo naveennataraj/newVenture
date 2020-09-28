@@ -12,6 +12,7 @@ import 'package:iventure001/Widgets/SmallOrangeCardWithTitle.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 
 class BcModelIntellectualProperties extends StatefulWidget {
   final List breads;
@@ -224,13 +225,19 @@ class _BcModelIntellectualPropertiesState extends State<BcModelIntellectualPrope
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
+          onPressed: (addingIntellectualAssets.length < 18)
+              ? () {
             showDialog(
               context: context,
               builder: (BuildContext context) => BcIntellectualDialogue(),
             ).then(
                   (_) => setState(() {}),
             );
+          } : () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => MaximumCardsDialog(),
+            ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),
         ),

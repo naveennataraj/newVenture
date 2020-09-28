@@ -172,49 +172,6 @@ class _BCScreenState extends State<BCScreen> {
                       : (MediaQuery.of(context).size.width <= 750) ? 20 : 30,
                 ),
                 child:
-//                (bifModel == true) // BIF Small Canvas
-//                    ? GridView.builder(
-//                        shrinkWrap: true,
-//                        physics: NeverScrollableScrollPhysics(),
-//                        itemCount: bifCanvasContent.length,
-//                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                            mainAxisSpacing: 1,
-//                            crossAxisSpacing: 1.5,
-//                            //childAspectRatio: 2.5,
-//                            //crossAxisCount: 3
-//                            childAspectRatio:
-//                                (MediaQuery.of(context).size.width >= 1400)
-//                                    ? 2.3
-//                                    : (MediaQuery.of(context).size.width <= 800)
-//                                        ? 1.5
-//                                        : 1.8,
-//                            crossAxisCount:
-//                                (MediaQuery.of(context).size.width >= 1400)
-//                                    ? 3
-//                                    : (MediaQuery.of(context).size.width <= 800)
-//                                        ? 1
-//                                        : 2),
-//                        itemBuilder: (BuildContext context, int index) {
-//                          return ModalProgressHUD(
-//                            inAsyncCall: spinner,
-//                            child: FrameworkCards(
-//                                stepCompleteValidator:
-//                                bifCanvasContent[index].bcCompletionValidator,
-//                                //completeStep1: completeStep1,
-//                                frameworkicon:
-//                                bifCanvasContent[index].frameWorkIcon,
-//                                frameworkStep: 'Step ' +
-//                                    (index + 1).toString() +
-//                                    bifCanvasContent[index].frameworkStep,
-//                                frameworkdescrip:
-//                                bifCanvasContent[index].frameWorkDescription,
-//                                buttonText: bifCanvasContent[index].buttonText +
-//                                    (index + 1).toString(),
-//                                navigateTo: bifCanvasContent[index].navigateTo),
-//                          );
-//                        },
-//                      )
-//                    :
                 GridView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -269,109 +226,53 @@ class _BCScreenState extends State<BCScreen> {
           ),
         ),
       ),
+      floatingActionButton: (firebaseStep0 == true &&
+          firebaseStep1 == true &&
+          firebaseStep2 == true &&
+          firebaseStep3 == true &&
+          firebaseStep4 == true &&
+          firebaseStep5 == true &&
+          firebaseStep6 == true &&
+          firebaseStep7 == true &&
+          firebaseStep8 == true &&
+          firebaseStep9 == true )
+          ? Container(
+        margin: EdgeInsets.all(100),
+        child: FloatingActionButton(
+          tooltip: "Proceeds To Concept Dashboard",
+          backgroundColor: Color(0XFFE95420),
+          onPressed: () {
+            Navigator.pushNamed(context, '/BusinessModelDashboard');
+          },
+          child: Icon(Icons.dashboard),
+        ),
+      )
+          : Container(),
+
     );
   }
 }
 
-//class BCScreen extends StatelessWidget {
-//  final _firestore = Firestore.instance;
-//
-//
-//  //final bool StudyTheProblem;
-//
-//  //BCScreen({this.StudyTheProblem});
+
+//class DoneRaisedButton extends StatelessWidget {
+////  ReusableRaisedButton({@required this.routeTo, this.textButton});
+////  final String routeTo;
+////  final String textButton;
 //
 //  @override
 //  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: Text('iVENTURE'),
-//        backgroundColor: Color(0XFFE95420),
-//      ),
-//      backgroundColor: Color(0XFFFAFAFA),
-//      body: SingleChildScrollView(
-//        child: Center(
-//          child: Column(
-//            crossAxisAlignment: CrossAxisAlignment.center,
-//            mainAxisSize: MainAxisSize.max,
-//            children: <Widget>[
-//              //distance from the bar to the tittle
-//              SizedBox(height: 20),
-//              Padding(
-//                padding: const EdgeInsets.all(12.0),
-//                child: Text(
-//                  'Blitz Canvas',
-//                  style: TextStyle(fontSize: 60),
-//                ),
-//              ),
-//              SizedBox(
-//                height: 20,
-//              ),
-//              BCanvasIntroCard(menuContents[1]),
-//              SizedBox(height:40.0),
-//              Padding(
-//                padding: const EdgeInsets.only(left: 100, right: 100),
-//                child: GridView.builder(
-//                  shrinkWrap: true,
-//                  //physics: NeverScrollableScrollPhysics(),
-//                  itemCount: bcStepsContent.length,
-//                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                      mainAxisSpacing: 1.5,
-//                      crossAxisSpacing: 1.5,
-//                      childAspectRatio: 2.5,
-////                      mainAxisSpacing: 15,
-////                      crossAxisSpacing: 1,
-////                      childAspectRatio: 1.5,
-//                      crossAxisCount: 3),
-//                  itemBuilder: (BuildContext context, int index) {
-////
-//                    return FrameworkCards(
-//                        stepCompleteValidator:
-//                        bcStepsContent[index].bcCompletionValidator,
-//                      //completeStep1: completeStep1,
-//                        frameworkicon: bcStepsContent[index].frameWorkIcon,
-//                        frameworkStep: bcStepsContent[index].frameworkStep,
-//                        frameworkdescrip: bcStepsContent[index].frameWorkDescription,
-//                        buttonText: bcStepsContent[index].buttonText,
-//                        navigateTo: bcStepsContent[index].navigateTo);
-//                  },
-//                ),
-//              ),
-//              SizedBox(height:20.0),
-////            Row(
-////              crossAxisAlignment: CrossAxisAlignment.center,
-////              children: <Widget>[
-////                BcStepCard(bcStepsContent[0]),
-////                BcStepCard(bcStepsContent[1]),
-////              ],
-////            ),
-//            ],
-//          ),
-//        ),
+//    return RaisedButton(
+//      elevation: 5,
+//      //hoverElevation: 10,
+//      color: inactiveBlackColour,
+//      onPressed: () {
+//        //CHANGE IT
+//        //Navigator.pushNamed(context, routeTo);
+//      },
+//      child: Icon(
+//        Icons.check,
+//        color: Colors.grey,
 //      ),
 //    );
 //  }
 //}
-
-class DoneRaisedButton extends StatelessWidget {
-//  ReusableRaisedButton({@required this.routeTo, this.textButton});
-//  final String routeTo;
-//  final String textButton;
-
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      elevation: 5,
-      //hoverElevation: 10,
-      color: inactiveBlackColour,
-      onPressed: () {
-        //CHANGE IT
-        //Navigator.pushNamed(context, routeTo);
-      },
-      child: Icon(
-        Icons.check,
-        color: Colors.grey,
-      ),
-    );
-  }
-}

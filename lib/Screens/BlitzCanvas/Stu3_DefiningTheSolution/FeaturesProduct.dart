@@ -13,6 +13,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:iventure001/Widgets/ValidationDialogue.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 
 class BcProductFeature extends StatefulWidget {
   @override
@@ -285,11 +286,18 @@ class _BcProductFeatureState extends State<BcProductFeature> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
+          onPressed: (addingNewProductFeature.length < 18)
+            ?  () {
             showDialog(
               context: context,
               builder: (BuildContext context) =>
                   Step3BCProductFeatureDialogue(),
+            ).then((_) => setState(() {}));
+          }
+          :() {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => MaximumCardsDialog(),
             ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),

@@ -14,6 +14,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:iventure001/Widgets/ValidationDialogue.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 
 class BcStep6CompetingProducts extends StatefulWidget {
   final bool fromDashboard;
@@ -287,10 +288,17 @@ class _BcStep6CompetingProductsState extends State<BcStep6CompetingProducts> {
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
+          onPressed: (AddingNewCompetingProduct.length < 18)
+              ? () {
             showDialog(
               context: context,
               builder: (BuildContext context) => BcCompetingProductDialogue(),
+            ).then((_) => setState(() {}));
+          }
+          :() {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => MaximumCardsDialog(),
             ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),

@@ -12,6 +12,7 @@ import 'package:flutter_breadcrumb_menu/flutter_breadcrumb_menu.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:iventure001/Widgets/ValidationDialogue.dart';
+import 'package:iventure001/Widgets/MaximumCardsDialog.dart';
 import 'dart:async';
 
 class BcStep2CapturingUserStories extends StatefulWidget {
@@ -244,10 +245,18 @@ class _BcStep2CapturingUserStoriesState
         child: FloatingActionButton(
           tooltip: "Add's New Card",
           backgroundColor: Color(0XFFE95420),
-          onPressed: () {
+          onPressed: (userStoriesContent.length < 18)
+             ? () {
             showDialog(
               context: context,
               builder: (BuildContext context) => BcUserStoryDialogue(),
+            ).then((_) => setState(() {}));
+          }
+          :
+              () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => MaximumCardsDialog(),
             ).then((_) => setState(() {}));
           },
           child: Icon(Icons.add),

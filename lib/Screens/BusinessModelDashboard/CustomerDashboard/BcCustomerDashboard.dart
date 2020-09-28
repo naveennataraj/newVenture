@@ -350,7 +350,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
           child: Hero(
             tag: 'CustomerHeroTag',
             child: DashboardCards(
-              cardIcon: Icons.person,
+              cardIcon: Icons.person_pin,
               cardTitle: 'Customer Quotes (on using the solution prototype)',
               cardNote: '$customerQuotes',
               cardButtonName: 'VIEW MORE QUOTES',

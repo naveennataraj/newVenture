@@ -331,29 +331,8 @@ class _BcStep9BusinessGrowthState extends State<BcStep9BusinessGrowth> {
                                       }
                                       fireOptionSelected = selectedStrategyOption;
                                       fireStrategyData = handleScaleLTextController.text;
-
                                     }
 
-
-
-
-//                          OnTap: () {
-//
-//                            if (fireStrategyData != handleScaleLTextController.text || fireOptionSelected != selectedStrategyOption  ) {
-//                              _firestore.setData({
-//                                'handleScaleLText': handleScaleLTextController.text,
-//                                'selectedStrategyOption': selectedStrategyOption,
-//                                'Sender': "tester@gmail.com",
-//
-//                              });
-//                            }
-//                            fireOptionSelected = selectedStrategyOption;
-//                            fireStrategyData= handleScaleLTextController.text;
-//                            //bcStepsContent[8].bcCompletionValidator = false;
-////                            print(bcpData[6].CompletionValidator);
-////                            Navigator.pushNamed(
-////                                context, '/BCStep9CreatingEcosystems');
-//                          },
                                   ),
                                 ],
                               ),
