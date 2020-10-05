@@ -9,16 +9,18 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 
 class CompetitorDialogue extends StatefulWidget {
+  final bool fromBufDashboard;
   final String descriptionMission;
   final String descriptionVision;
 
-  const CompetitorDialogue({this.descriptionMission, this.descriptionVision});
+  const CompetitorDialogue({this.descriptionMission, this.descriptionVision, this.fromBufDashboard});
   @override
   _CompetitorDialogueState createState() => _CompetitorDialogueState();
 }
 
 class _CompetitorDialogueState extends State<CompetitorDialogue> {
   final _firestore = Firestore.instance;
+  bool fromBUFDashboard;
 
   var missionLabelColor = Color(0XFF919191);
   bool validMission = true;
@@ -43,7 +45,7 @@ class _CompetitorDialogueState extends State<CompetitorDialogue> {
     setState(() {
       missionName = widget.descriptionMission;
       validName = widget.descriptionVision;
-
+      fromBUFDashboard = widget.fromBufDashboard;
       validTextController =
           TextEditingController(text: widget.descriptionVision);
       missionTextController =
@@ -251,6 +253,10 @@ class _CompetitorDialogueState extends State<CompetitorDialogue> {
                             'mission': missionTextController.text,
                             'vision': validTextController.text,
                           });
+
+                          (fromBUFDashboard == true) ?
+                          Navigator.popAndPushNamed(
+                              context, '/BUFDashboard'):
                           Navigator.popAndPushNamed(
                               context, '/BusinessModelDashboard');
                         },

@@ -178,6 +178,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                                                   builder:
                                                       (BuildContext context) =>
                                                       CompetitorDialogue(
+                                                          fromBufDashboard: false,
                                                           descriptionMission: missionText,
                                                           descriptionVision: visionText,
                                                       )

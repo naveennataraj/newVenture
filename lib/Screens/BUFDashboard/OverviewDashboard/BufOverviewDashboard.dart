@@ -165,6 +165,7 @@ class _BufOverviewDashboardState extends State<BufOverviewDashboard> {
                                                     builder:
                                                         (BuildContext context) =>
                                                         CompetitorDialogue(
+                                                          fromBufDashboard: true,
                                                           descriptionMission: missionText,
                                                           descriptionVision: visionText,
                                                         )
