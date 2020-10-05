@@ -215,13 +215,7 @@ class _BCScreenState extends State<BCScreen> {
                       ),
               ),
               SizedBox(height: 20.0),
-//            Row(
-//              crossAxisAlignment: CrossAxisAlignment.center,
-//              children: <Widget>[
-//                BcStepCard(bcStepsContent[0]),
-//                BcStepCard(bcStepsContent[1]),
-//              ],
-//            ),
+
             ],
           ),
         ),

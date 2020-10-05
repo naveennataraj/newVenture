@@ -15,7 +15,6 @@ enum ConceptDashboardEvents {
 
 abstract class ConceptDashboardStates {}
 
-
 class BcConceptDashboardNavigationBloc extends Bloc<ConceptDashboardEvents, ConceptDashboardStates> {
   @override
   ConceptDashboardStates get initialState => BcOverviewDashboard();

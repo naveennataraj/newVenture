@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +9,10 @@ import 'package:iventure001/Data/BlitzCanvasContent/Step10_Metrics/ContentNorthS
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/MetricDashoard/MetricDialogue.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 
-class BcMetricsDashboard extends StatefulWidget with ConceptDashboardStates {
+
+class BcMetricsDashboard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;

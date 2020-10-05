@@ -58,9 +58,6 @@ class _BIFCanvasFrameworkState extends State<BIFCanvasFramework> {
   void getDocuments() async {
     final document = await _firestore.get();
     spinner = true;
-//    setState(() {
-//      spinner = true;
-//    });
 
     if (document.exists) {
       try {
@@ -70,10 +67,6 @@ class _BIFCanvasFrameworkState extends State<BIFCanvasFramework> {
         firebaseStep3 = document.data['bcStepsContent6'];
         firebaseStep4 = document.data['bcStepsContent7'];
         firebaseStep5 = document.data['bcStepsContent9'];
-        //firebaseStep6 = document.data['bcStepsContent6'];
-//        firebaseStep7 = document.data['bcStepsContent7'];
-//        firebaseStep8 = document.data['bcStepsContent8'];
-//        firebaseStep9 = document.data['bcStepsContent9'];
 
         bifCanvasContent[0].bcCompletionValidator = firebaseStep0;
         bifCanvasContent[1].bcCompletionValidator = firebaseStep1;
@@ -81,10 +74,6 @@ class _BIFCanvasFrameworkState extends State<BIFCanvasFramework> {
         bifCanvasContent[3].bcCompletionValidator = firebaseStep3;
         bifCanvasContent[4].bcCompletionValidator = firebaseStep4;
         bifCanvasContent[5].bcCompletionValidator = firebaseStep5;
-        //bifCanvasContent[6].bcCompletionValidator = firebaseStep6;
-//        bcStepsContent[7].bcCompletionValidator = firebaseStep7;
-//        bcStepsContent[8].bcCompletionValidator = firebaseStep8;
-//        bcStepsContent[9].bcCompletionValidator = firebaseStep9;
         ID = document.documentID;
 
       } catch (e) {
@@ -180,17 +169,29 @@ class _BIFCanvasFrameworkState extends State<BIFCanvasFramework> {
 
               ),
               SizedBox(height:20.0),
-//            Row(
-//              crossAxisAlignment: CrossAxisAlignment.center,
-//              children: <Widget>[
-//                BcStepCard(bcStepsContent[0]),
-//                BcStepCard(bcStepsContent[1]),
-//              ],
-//            ),
+
             ],
           ),
         ),
       ),
+      floatingActionButton: (firebaseStep0 == true &&
+          firebaseStep1 == true &&
+          firebaseStep2 == true &&
+          firebaseStep3 == true &&
+          firebaseStep4 == true &&
+          firebaseStep5 == true )
+          ? Container(
+        margin: EdgeInsets.all(100),
+        child: FloatingActionButton(
+          tooltip: "Proceeds To Product and Business Dashboard",
+          backgroundColor: Color(0XFFE95420),
+          onPressed: () {
+            Navigator.pushNamed(context, '/BUFDashboard');
+          },
+          child: Icon(Icons.dashboard),
+        ),
+      )
+          : Container(),
     );
   }
 }

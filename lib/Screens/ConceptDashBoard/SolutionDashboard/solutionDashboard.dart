@@ -17,8 +17,9 @@ import '../FeedbackDashboard/feedbackDashboard.dart';
 import '../OverviewDashboard/overViewDashboard.dart';
 import '../conceptDashboardNavigationBloc.dart';
 import 'competitionDialogue.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 
-class solutionDashBoard extends StatefulWidget with ConceptDashboardStates {
+class solutionDashBoard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;

@@ -55,6 +55,7 @@ import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboar
 import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
 import 'package:iventure001/bifdashboard.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboard.dart';
 
 import 'Constants/TextFieldConstants.dart';
 import 'Screens/BlitzInnovationFramework/BIFHomeScreen.dart';
@@ -240,6 +241,9 @@ class _VueappState extends State<Vueapp> {
         //Step6 Synergies
         '/BIFStarMetric': (context) => BifNorthMetric(),
         '/BIFAddmetrics': (context) => BifAddMetrics(),
+
+        //BUF Product and Business Dashboard
+        '/BUFDashboard': (context) => BUFDashboard(),
       },
     );
   }

@@ -18,28 +18,28 @@ import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/BcC
 import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/ReworkDialogue.dart';
 import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 
-class BcMarketStrategy extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
+class BUFMarketDashboard extends StatefulWidget with BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
   final double sizedboxheight;
 
-  BcMarketStrategy(
+  BUFMarketDashboard(
       {this.headingStyle,
         this.sizedboxwidth,
         this.headingAlignment,
         this.sizedboxheight});
 
   @override
-  _BcMarketStrategyState createState() => _BcMarketStrategyState();
+  _BUFMarketDashboardState createState() => _BUFMarketDashboardState();
 }
 
-class _BcMarketStrategyState extends State<BcMarketStrategy> {
+class _BUFMarketDashboardState extends State<BUFMarketDashboard> {
   final _firestore = Firestore.instance;
- //======= As a service Offering =======
+  //======= As a service Offering =======
   String asAService= '';
   String asAServiceDescription= '';
- //======= How we synergize  =======
+  //======= How we synergize  =======
   String stringSynergy= '';
   String synergy1;
   List valuePropositionList = [];
@@ -63,7 +63,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
   String sCostStructure;
   //======= User Stories =======
   String userStory= '';
- //======= From our competition =======
+  //======= From our competition =======
   String competitionName = '';
   String competitionDescription = '';
 
@@ -260,71 +260,8 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
       } else {asAService= 'Missing value';}
     });
 
-    //======= User Stories =======
-    final documentUserStories = await _firestore
-        .collection('$currentUser/Bc2_studyingTheUser/addFoundations')
-        .getDocuments();
-    if (documentUserStories != null) {
-      userStoriesContent = [];
-      for (var message in documentUserStories.documents) {
-        final Asa = message.data['Asa'];
-        final IWantTo = message.data['IWantTo'];
-        final SoThat = message.data['SoThat'];
-        final ID = message.documentID;
-
-        final card = BcContentUserStories(
-          Asa: Asa,
-          IWantTo: IWantTo,
-          SoThat: SoThat,
-          ID: ID,
-        );
-        userStoriesContent.add(card);
-      }
-      setState(() {
-        if (userStoriesContent.length != 0) {
-          userStory = UserStory(0);
-        } else{
-          userStory = 'Missing value';
-        }
-      });
-    }
-
-    //======= From our competition =======
-//fromOurCompetition
-    final documentFromOurCompetition = await _firestore
-        .collection('$currentUser/Bc6_studyingTheCompetition/addPlayers')
-        .getDocuments();
-    if (documentFromOurCompetition != null) {
-      AddingNewCompetingProduct = [];
-      for (var message in documentFromOurCompetition.documents) {
-        final ProductName = message.data['ProductName'];
-        final OrgName = message.data['OrgName'];
-        final Features = message.data['Features'];
-        final CurrentOffering =
-        message.data['CurrentOffering'];
-        final ID = message.documentID;
-
-        final card = BcCompetingProduct(
-          ProductName: ProductName,
-          OrgName: OrgName,
-          Features: Features,
-          CurrentOffering: CurrentOffering,
-          ID: ID,
-        );
-        AddingNewCompetingProduct.add(card);
-      }
-      setState(() {
-        if (AddingNewCompetingProduct.length != 0) {
-          competitionName = AddingNewCompetingProduct[0].ProductName;
-          competitionDescription = AddingNewCompetingProduct[0].CurrentOffering;
-        } else{
-          competitionName = 'Missing value';
-          competitionDescription = 'Missing value';
-        }
-      });
-    }
   }
- // Refresh
+  // Refresh
   @override
   void initState() {
     if (currentUser != null) {
@@ -370,7 +307,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
             cardIcon: Icons.work,
             cardTitle: 'How to reduce rework by:',
             cardNote:
-                '$asAService for the purpose of $asAServiceDescription',
+            '$asAService for the purpose of $asAServiceDescription',
             cardButtonName: 'VIEW SERVICES AND FRAMEWORKS',
             onTap: () {
               Navigator.pushNamed(context, '/BCStep7ServiceOffering');
@@ -379,8 +316,8 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => ReduceReworkDialogue(
-                  asAService: asAService,
-                  descriptionService: asAServiceDescription
+                    asAService: asAService,
+                    descriptionService: asAServiceDescription
                 ),
               ).then((_) => setState(() {}));
             },
@@ -396,7 +333,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
               cardIcon: Icons.sync,
               cardTitle: 'How we Synergize',
               cardNote:
-                  '$allSynergies create a new feature called \'$stringSynergy\', based on studying user feedback.',
+              '$allSynergies create a new feature called \'$stringSynergy\', based on studying user feedback.',
               cardButtonName: 'VIEW BUSINESS ELEMENTS',
               onTap: () {
                 Navigator.pushNamed(context, '/BCStep7BusinessModelElements');
@@ -406,64 +343,11 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
                   context: context,
                   builder: (BuildContext context) => SynergyDialogue(
                     synergy: stringSynergy,
-                      descriptionService: allSynergies,
+                    descriptionService: allSynergies,
                   ),
                 ).then((_) => setState(() {}));
               },
             ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
-              ? 50
-              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-          child: DashboardCards(
-            cardIcon: Icons.face,
-            cardTitle: 'What we learnt about our target customer',
-            cardNote:
-                '$userStory',
-            cardButtonName: 'VIEW PERSONA',
-            onTap: () {
-              Navigator.pushNamed(context, '/BCStep2CaptureUserStories');
-            },
-            onEditTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => CustomerTargetDialogue(
-                  Asa: userStoriesContent[0].Asa,
-                  IwantTo: userStoriesContent[0].IWantTo,
-                  SothatIcan: userStoriesContent[0].SoThat,
-                ),
-              ).then((_) => setState(() {}));
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
-              ? 50
-              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-          child: DashboardCards(
-            cardIcon: Icons.leak_add,
-            cardTitle: 'What we learnt from our competition',
-            cardNote:
-                'Our competitor $competitionName, offers features such as $competitionDescription',
-            cardButtonName: 'REVIEW OTHER COMPETITORS',
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BcStep6CompetingProducts(fromDashboard: true,),
-                  ));
-            },
-            onEditTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => CompetitorDialogue(
-                  features: competitionDescription,
-                  productName: competitionName,
-                ),
-              ).then((_) => setState(() {}));
-            },
           ),
         ),
       ],

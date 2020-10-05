@@ -13,11 +13,12 @@ import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/solutionD
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
-
 import '../OverviewDashboard/overViewDashboard.dart';
 import '../conceptDashboardNavigationBloc.dart';
 
-class feedbackDashBoard extends StatefulWidget with ConceptDashboardStates {
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
+
+class feedbackDashBoard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;

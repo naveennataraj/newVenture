@@ -11,8 +11,9 @@ import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboad
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentBusinessGrowth.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CapitalDashboard/IpDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CapitalDashboard/GrowthDialogue.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 
-class BcMoneyDashboard extends StatefulWidget with ConceptDashboardStates {
+class BcMoneyDashboard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;

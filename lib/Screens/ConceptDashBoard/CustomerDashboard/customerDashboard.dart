@@ -14,10 +14,10 @@ import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/ourCustom
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 import '../conceptDashboardNavigationBloc.dart';
 
-class customerDashBoard extends StatefulWidget with ConceptDashboardStates {
+class customerDashBoard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
