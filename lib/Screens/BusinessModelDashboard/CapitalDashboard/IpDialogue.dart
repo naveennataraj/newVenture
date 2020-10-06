@@ -5,8 +5,9 @@ import 'package:iventure001/Widgets/GenericDialogueDashboard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcIntellectualAssets.dart';
 
 class IpDialogue extends StatefulWidget {
+  final bool fromBufDashboard;
   final String dashboardCard;
-  const IpDialogue({this.dashboardCard});
+  const IpDialogue({this.dashboardCard, this.fromBufDashboard});
   @override
   _IpDialogueState createState() => _IpDialogueState(dashboardCard);
 }
@@ -25,7 +26,7 @@ class _IpDialogueState extends State<IpDialogue> {
       iconCard: Icons.folder_special,
       firebaseRoute: 'Bc7_businessModelElements/addIntellectualProperties/'+ addingIntellectualAssets[0].ID,
       firebaseDocument: 'intellectualCode',
-      pushRoute: '/BusinessModelDashboard',
+      pushRoute: (widget.fromBufDashboard == true) ? '/BUFDashboard' : '/BusinessModelDashboard',
     );
   }
 }

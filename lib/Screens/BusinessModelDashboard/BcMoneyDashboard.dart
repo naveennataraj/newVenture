@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +13,15 @@ import 'package:iventure001/Screens/BusinessModelDashboard/CapitalDashboard/Grow
 import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 
 class BcMoneyDashboard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
+  final bool fromBufDashboard;
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
   final double sizedboxheight;
 
   BcMoneyDashboard(
-      {this.headingStyle,
+      {this.fromBufDashboard,
+        this.headingStyle,
       this.sizedboxwidth,
       this.headingAlignment,
       this.sizedboxheight});
@@ -162,6 +163,7 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => IpDialogue(
+                  fromBufDashboard: (widget.fromBufDashboard == true) ? true : false,
                   dashboardCard: ipProperties,
                 ),
               ).then((_) => setState(() {}));
@@ -181,6 +183,7 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => GrowthDialogue(
+                  fromBufDashboard: (widget.fromBufDashboard == true) ? true : false,
                   dashboardCard: handleGrowth,
                 ),
               ).then((_) => setState(() {}));

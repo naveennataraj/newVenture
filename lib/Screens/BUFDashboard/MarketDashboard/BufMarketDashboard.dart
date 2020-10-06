@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
@@ -316,6 +317,7 @@ class _BUFMarketDashboardState extends State<BUFMarketDashboard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => ReduceReworkDialogue(
+                    fromBufDashboard: true,
                     asAService: asAService,
                     descriptionService: asAServiceDescription
                 ),
@@ -342,6 +344,7 @@ class _BUFMarketDashboardState extends State<BUFMarketDashboard> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => SynergyDialogue(
+                    fromBufDashboard: true,
                     synergy: stringSynergy,
                     descriptionService: allSynergies,
                   ),

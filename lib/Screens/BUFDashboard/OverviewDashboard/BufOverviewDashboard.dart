@@ -13,7 +13,6 @@ import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionD
 import 'package:iventure001/Screens/BUFDashboard/ProductDashboard/ProductDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMarketDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMoneyDashboard.dart';
-import 'package:iventure001/Screens/BusinessModelDashboard/BcMoneyDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMetricsDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/nextStepsDashboard.dart';
 class BufOverviewDashboard extends StatefulWidget with BufDashboardStates {
@@ -257,6 +256,7 @@ class _BufOverviewDashboardState extends State<BufOverviewDashboard> {
                         ),
                       ),
                       BcMarketStrategy(
+                        fromBufDashboard: true,
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
                         headingStyle: sideHeadingTextStyle,
@@ -283,12 +283,12 @@ class _BufOverviewDashboardState extends State<BufOverviewDashboard> {
                         ),
                       ),
                       BcMoneyDashboard (
+                        fromBufDashboard: true,
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
                         headingStyle: sideHeadingTextStyle,
                         headingAlignment: CrossAxisAlignment.start,
                       ),
-
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Divider(
@@ -297,6 +297,7 @@ class _BufOverviewDashboardState extends State<BufOverviewDashboard> {
                         ),
                       ),
                       BcMetricsDashboard(
+                        fromBufDashboard: true,
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
                         headingStyle: sideHeadingTextStyle,

@@ -5,8 +5,9 @@ import 'package:iventure001/Widgets/GenericDialogueDashboard.dart';
 
 
 class SolutionStandsDialogue extends StatefulWidget {
+  final bool fromBufDashboard;
   final String dashboardCard;
-  const SolutionStandsDialogue({this.dashboardCard});
+  const SolutionStandsDialogue({this.dashboardCard, this.fromBufDashboard});
   @override
   _SolutionStandsDialogueState createState() => _SolutionStandsDialogueState(dashboardCard);
 }
@@ -25,7 +26,7 @@ class _SolutionStandsDialogueState extends State<SolutionStandsDialogue> {
       iconCard: Icons.call_split,
       firebaseRoute: 'Bc4_uniqueSellingProposition',
       firebaseDocument: 'proposition',
-      pushRoute: '/BusinessModelDashboard',
+      pushRoute: (widget.fromBufDashboard == true) ? '/BUFDashboard' : '/BusinessModelDashboard',
     );
   }
 }

@@ -18,7 +18,9 @@ import 'package:iventure001/Screens/BlitzCanvas/Step6_StudyingTheCompetition/BcC
 import 'package:iventure001/Screens/BusinessModelDashboard/MarketDashboard/ReworkDialogue.dart';
 import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 
-class BcMarketStrategy extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
+class BcMarketStrategy extends StatefulWidget
+    with ConceptDashboardStates, BufDashboardStates {
+  final bool fromBufDashboard;
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
@@ -26,9 +28,10 @@ class BcMarketStrategy extends StatefulWidget with ConceptDashboardStates, BufDa
 
   BcMarketStrategy(
       {this.headingStyle,
-        this.sizedboxwidth,
-        this.headingAlignment,
-        this.sizedboxheight});
+      this.fromBufDashboard,
+      this.sizedboxwidth,
+      this.headingAlignment,
+      this.sizedboxheight});
 
   @override
   _BcMarketStrategyState createState() => _BcMarketStrategyState();
@@ -36,11 +39,12 @@ class BcMarketStrategy extends StatefulWidget with ConceptDashboardStates, BufDa
 
 class _BcMarketStrategyState extends State<BcMarketStrategy> {
   final _firestore = Firestore.instance;
- //======= As a service Offering =======
-  String asAService= '';
-  String asAServiceDescription= '';
- //======= How we synergize  =======
-  String stringSynergy= '';
+  bool fromBUFramework;
+  //======= As a service Offering =======
+  String asAService = '';
+  String asAServiceDescription = '';
+  //======= How we synergize  =======
+  String stringSynergy = '';
   String synergy1;
   List valuePropositionList = [];
   List customerSegmentList = [];
@@ -62,8 +66,8 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
   String sKeyPartner;
   String sCostStructure;
   //======= User Stories =======
-  String userStory= '';
- //======= From our competition =======
+  String userStory = '';
+  //======= From our competition =======
   String competitionName = '';
   String competitionDescription = '';
 
@@ -75,20 +79,16 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
     return 'As a $A, I want to $B so that $C';
   }
 
-
   void getDocuments() async {
-
     //======= As a service Offering =======
     final documentAddService = await _firestore
         .collection('$currentUser/Bc7_businessModelElements/addServices')
         .getDocuments();
     if (documentAddService != null) {
-
       addingAsaService = [];
       for (var message in documentAddService.documents) {
         final serviceName = message.data['serviceName'];
-        final serviceDescription =
-        message.data['serviceDescription'];
+        final serviceDescription = message.data['serviceDescription'];
         final serviceType = message.data['serviceType'];
         final parentCompany = message.data['parentCompany'];
         final serviceTaskDescription = message.data['serviceTaskDescription'];
@@ -108,11 +108,12 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         addingAsaService.add(card);
       }
       setState(() {
-
-        if(addingAsaService.length !=0) {
-          asAService= addingAsaService[0].serviceName;
-          asAServiceDescription= addingAsaService[0].serviceTaskDescription;
-        } else {asAService= 'Missing value';}
+        if (addingAsaService.length != 0) {
+          asAService = addingAsaService[0].serviceName;
+          asAServiceDescription = addingAsaService[0].serviceTaskDescription;
+        } else {
+          asAService = 'Missing value';
+        }
       });
     }
 
@@ -124,13 +125,13 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
     if (documentProposition != null) {
       valuePropositionList = [];
       customerSegmentList = [];
-      revenueStreamList=[];
-      distributionChannel=[];
-      customerRelationshipList=[];
-      keyActivityList=[];
-      keyResourceList=[];
-      keyPartnerList=[];
-      costStructureList=[];
+      revenueStreamList = [];
+      distributionChannel = [];
+      customerRelationshipList = [];
+      keyActivityList = [];
+      keyResourceList = [];
+      keyPartnerList = [];
+      costStructureList = [];
 
       for (var message in documentProposition.documents) {
         final elementTitle = message.data['elementTitle'];
@@ -140,11 +141,13 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
 
         if (elementTitle == 'Value proposition') {
           valuePropositionList.add(elementDescription);
-          print('This is the list with value proposition valuePropositionList $valuePropositionList');
+          print(
+              'This is the list with value proposition valuePropositionList $valuePropositionList');
         }
         if (elementTitle == 'Customer segment') {
           customerSegmentList.add(elementDescription);
-          print('This is the list with customerSegmentList list $customerSegmentList');
+          print(
+              'This is the list with customerSegmentList list $customerSegmentList');
         }
         if (elementTitle == 'Revenue stream') {
           revenueStreamList.add(elementDescription);
@@ -172,7 +175,6 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
       }
     }
 
-
     final documentSynergies = await _firestore
         .collection('$currentUser/Bc8_synergies/addSynergies')
         .getDocuments();
@@ -183,14 +185,15 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         final checkedValueProposition = message.data['checkedValueProposition'];
         final checkedCustomerSegment = message.data['checkedCustomerSegment'];
         final checkedRevenueStream = message.data['checkedRevenueStream'];
-        final checkedDistributionChannel = message.data['checkedDistributionChannel'];
-        final checkedCustomerRelationship = message.data['checkedCustomerRelationship'];
+        final checkedDistributionChannel =
+            message.data['checkedDistributionChannel'];
+        final checkedCustomerRelationship =
+            message.data['checkedCustomerRelationship'];
         final checkedKeyActivity = message.data['checkedKeyActivity'];
         final checkedKeyResource = message.data['checkedKeyResource'];
         final checkedKeyPartner = message.data['checkedKeyPartner'];
         final checkedCostStructure = message.data['checkedCostStructure'];
-        final synergyDescription =
-        message.data['synergyDescription'];
+        final synergyDescription = message.data['synergyDescription'];
         final synergyValues = message.data['synergyValues'];
         final ID = message.documentID;
 
@@ -202,7 +205,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
           synergyDistributionChannel: checkedDistributionChannel,
           synergyCustomerRelationship: checkedCustomerRelationship,
           synergyKeyActivity: checkedKeyActivity,
-          synergyKeyResource:checkedKeyResource,
+          synergyKeyResource: checkedKeyResource,
           synergyKeyPartner: checkedKeyPartner,
           synergyCostStructure: checkedCostStructure,
           synergyDescription: synergyDescription,
@@ -212,52 +215,94 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         addingNewSynergies.add(card);
       }
       //&& valuePropositionList.isNotEmpty
-      if(addingNewSynergies[0].synergyValueProposition == true && valuePropositionList.isNotEmpty ) {
-        sProposition = 'Value proposition (' + valuePropositionList.join(', ') + '), ';
+      if (addingNewSynergies[0].synergyValueProposition == true &&
+          valuePropositionList.isNotEmpty) {
+        sProposition =
+            'Value proposition (' + valuePropositionList.join(', ') + '), ';
         print('the sProposotion $sProposition');
-      } else {sProposition = '';}
+      } else {
+        sProposition = '';
+      }
       //&& customerSegmentList.isNotEmpty
-      if(addingNewSynergies[0].synergyCustomerSegment == true && customerSegmentList.isNotEmpty ) {
-        sSegment = 'Customer segment (' + customerSegmentList.join(', ') + '), ';
+      if (addingNewSynergies[0].synergyCustomerSegment == true &&
+          customerSegmentList.isNotEmpty) {
+        sSegment =
+            'Customer segment (' + customerSegmentList.join(', ') + '), ';
         print('the sSegment $sSegment');
-      }else {sSegment = '';}
+      } else {
+        sSegment = '';
+      }
       //&& revenueStreamList.isNotEmpty
-      if(addingNewSynergies[0].synergyRevenueStream == true && revenueStreamList.isNotEmpty ) {
+      if (addingNewSynergies[0].synergyRevenueStream == true &&
+          revenueStreamList.isNotEmpty) {
         sStream = 'Revenue stream (' + revenueStreamList.join(', ') + '), ';
-      }else {sStream = '';}
+      } else {
+        sStream = '';
+      }
       //&& distributionChannel.isNotEmpty
-      if(addingNewSynergies[0].synergyDistributionChannel == true && distributionChannel.isNotEmpty) {
-        sDistributionChannel = 'Distribution channel (' + distributionChannel.join(', ') + '), ';
-      }else {sDistributionChannel = '';}
+      if (addingNewSynergies[0].synergyDistributionChannel == true &&
+          distributionChannel.isNotEmpty) {
+        sDistributionChannel =
+            'Distribution channel (' + distributionChannel.join(', ') + '), ';
+      } else {
+        sDistributionChannel = '';
+      }
       //&& customerRelationshipList.isNotEmpty
-      if(addingNewSynergies[0].synergyCustomerRelationship == true && customerRelationshipList.isNotEmpty ) {
-        sCustomerRelationship = 'Customer relationship (' +customerRelationshipList.join(', ') + '), ';
-      }else {sCustomerRelationship = '';}
+      if (addingNewSynergies[0].synergyCustomerRelationship == true &&
+          customerRelationshipList.isNotEmpty) {
+        sCustomerRelationship = 'Customer relationship (' +
+            customerRelationshipList.join(', ') +
+            '), ';
+      } else {
+        sCustomerRelationship = '';
+      }
       //&& keyActivityList.isNotEmpty
-      if(addingNewSynergies[0].synergyKeyActivity == true && keyActivityList.isNotEmpty) {
+      if (addingNewSynergies[0].synergyKeyActivity == true &&
+          keyActivityList.isNotEmpty) {
         sKeyActivity = 'Key activity (' + keyActivityList.join(', ') + '), ';
-      }else {sKeyActivity = '';}
+      } else {
+        sKeyActivity = '';
+      }
       //&& keyResourceList.isNotEmpty
-      if(addingNewSynergies[0].synergyKeyResource == true && keyResourceList.isNotEmpty) {
+      if (addingNewSynergies[0].synergyKeyResource == true &&
+          keyResourceList.isNotEmpty) {
         sKeyResource = 'Key resource (' + keyResourceList.join(', ') + '), ';
-      }else {sKeyResource = '';}
+      } else {
+        sKeyResource = '';
+      }
       //&& keyPartnerList.isNotEmpty
-      if(addingNewSynergies[0].synergyKeyPartner == true && keyPartnerList.isNotEmpty) {
+      if (addingNewSynergies[0].synergyKeyPartner == true &&
+          keyPartnerList.isNotEmpty) {
         sKeyPartner = 'Key partner (' + keyPartnerList.join(', ') + '), ';
-      }else {sKeyPartner = '';}
+      } else {
+        sKeyPartner = '';
+      }
       //&& costStructureList.isNotEmpty
-      if(addingNewSynergies[0].synergyCostStructure == true && costStructureList.isNotEmpty) {
-        sCostStructure = 'Cost Structure (' + costStructureList.join(', ') + '), ';
-      }else {sCostStructure = '';}
-      allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
+      if (addingNewSynergies[0].synergyCostStructure == true &&
+          costStructureList.isNotEmpty) {
+        sCostStructure =
+            'Cost Structure (' + costStructureList.join(', ') + '), ';
+      } else {
+        sCostStructure = '';
+      }
+      allSynergies = sProposition +
+          sSegment +
+          sStream +
+          sDistributionChannel +
+          sCustomerRelationship +
+          sKeyActivity +
+          sKeyResource +
+          sKeyPartner +
+          sCostStructure;
     }
     setState(() {
-
-      if(addingNewSynergies.length !=0) {
-        stringSynergy= addingNewSynergies[0].synergyDescription;
+      if (addingNewSynergies.length != 0) {
+        stringSynergy = addingNewSynergies[0].synergyDescription;
         //allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
         print('all synergues $allSynergies');
-      } else {asAService= 'Missing value';}
+      } else {
+        asAService = 'Missing value';
+      }
     });
 
     //======= User Stories =======
@@ -283,7 +328,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
       setState(() {
         if (userStoriesContent.length != 0) {
           userStory = UserStory(0);
-        } else{
+        } else {
           userStory = 'Missing value';
         }
       });
@@ -300,8 +345,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         final ProductName = message.data['ProductName'];
         final OrgName = message.data['OrgName'];
         final Features = message.data['Features'];
-        final CurrentOffering =
-        message.data['CurrentOffering'];
+        final CurrentOffering = message.data['CurrentOffering'];
         final ID = message.documentID;
 
         final card = BcCompetingProduct(
@@ -317,22 +361,27 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         if (AddingNewCompetingProduct.length != 0) {
           competitionName = AddingNewCompetingProduct[0].ProductName;
           competitionDescription = AddingNewCompetingProduct[0].CurrentOffering;
-        } else{
+        } else {
           competitionName = 'Missing value';
           competitionDescription = 'Missing value';
         }
       });
     }
   }
- // Refresh
+
+  // Refresh
   @override
   void initState() {
     if (currentUser != null) {
       getDocuments();
+
     } else {
       _AnimatedFlutterLogoState();
     }
     super.initState();
+    setState(() {
+      fromBUFramework = (widget.fromBufDashboard == true) ? false : true;
+    });
   }
 
   Timer _timer;
@@ -347,11 +396,13 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return SubdivisionalDashBoardLayout(
       sizedboxwidth:
-      (widget.sizedboxwidth != null) ? widget.sizedboxwidth : 100,
+          (widget.sizedboxwidth != null) ? widget.sizedboxwidth : 100,
       headingAlignment: (widget.headingAlignment != null)
           ? widget.headingAlignment
           : CrossAxisAlignment.center,
@@ -359,8 +410,9 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
           ? widget.headingStyle
           : topHeadingTextStyle,
       sizedboxheight:
-      (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
-      dashboardTitle: 'How we plan to get the product to market as quickly as possible:',
+          (widget.sizedboxheight != null) ? widget.sizedboxheight : 50,
+      dashboardTitle:
+          'How we plan to get the product to market as quickly as possible:',
       dashboardcards: <Widget>[
         Padding(
           padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
@@ -369,8 +421,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
           child: DashboardCards(
             cardIcon: Icons.work,
             cardTitle: 'How to reduce rework by:',
-            cardNote:
-                '$asAService for the purpose of $asAServiceDescription',
+            cardNote: '$asAService for the purpose of $asAServiceDescription',
             cardButtonName: 'VIEW SERVICES AND FRAMEWORKS',
             onTap: () {
               Navigator.pushNamed(context, '/BCStep7ServiceOffering');
@@ -379,9 +430,9 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => ReduceReworkDialogue(
-                  asAService: asAService,
-                  descriptionService: asAServiceDescription
-                ),
+                    fromBufDashboard: (widget.fromBufDashboard == true) ? true : false,
+                    asAService: asAService,
+                    descriptionService: asAServiceDescription),
               ).then((_) => setState(() {}));
             },
           ),
@@ -405,65 +456,74 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => SynergyDialogue(
+                    fromBufDashboard: (widget.fromBufDashboard == true) ? true : false,
                     synergy: stringSynergy,
-                      descriptionService: allSynergies,
+                    descriptionService: allSynergies,
                   ),
                 ).then((_) => setState(() {}));
               },
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
-              ? 50
-              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-          child: DashboardCards(
-            cardIcon: Icons.face,
-            cardTitle: 'What we learnt about our target customer',
-            cardNote:
-                '$userStory',
-            cardButtonName: 'VIEW PERSONA',
-            onTap: () {
-              Navigator.pushNamed(context, '/BCStep2CaptureUserStories');
-            },
-            onEditTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => CustomerTargetDialogue(
-                  Asa: userStoriesContent[0].Asa,
-                  IwantTo: userStoriesContent[0].IWantTo,
-                  SothatIcan: userStoriesContent[0].SoThat,
+         Visibility(
+           visible: fromBUFramework,
+           child: Padding(
+                  padding: EdgeInsets.all(
+                      (MediaQuery.of(context).size.width >= 1400)
+                          ? 50
+                          : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+                  child: DashboardCards(
+                    cardIcon: Icons.face,
+                    cardTitle: 'What we learnt about our target customer',
+                    cardNote: '$userStory',
+                    cardButtonName: 'VIEW PERSONA',
+                    onTap: () {
+                      Navigator.pushNamed(context, '/BCStep2CaptureUserStories');
+                    },
+                    onEditTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => CustomerTargetDialogue(
+                          Asa: userStoriesContent[0].Asa,
+                          IwantTo: userStoriesContent[0].IWantTo,
+                          SothatIcan: userStoriesContent[0].SoThat,
+                        ),
+                      ).then((_) => setState(() {}));
+                    },
+                  ),
                 ),
-              ).then((_) => setState(() {}));
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
-              ? 50
-              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-          child: DashboardCards(
-            cardIcon: Icons.leak_add,
-            cardTitle: 'What we learnt from our competition',
-            cardNote:
-                'Our competitor $competitionName, offers features such as $competitionDescription',
-            cardButtonName: 'REVIEW OTHER COMPETITORS',
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BcStep6CompetingProducts(fromDashboard: true,),
-                  ));
-            },
-            onEditTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => CompetitorDialogue(
-                  features: competitionDescription,
-                  productName: competitionName,
-                ),
-              ).then((_) => setState(() {}));
-            },
+         ),
+        Visibility(
+          visible: fromBUFramework,
+          child: Padding(
+            padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+                ? 50
+                : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+            child: DashboardCards(
+              cardIcon: Icons.leak_add,
+              cardTitle: 'What we learnt from our competition',
+              cardNote:
+                  'Our competitor $competitionName, offers features such as $competitionDescription',
+              cardButtonName: 'REVIEW OTHER COMPETITORS',
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BcStep6CompetingProducts(
+                        fromDashboard: true,
+                      ),
+                    ));
+              },
+              onEditTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => CompetitorDialogue(
+                    features: competitionDescription,
+                    productName: competitionName,
+                  ),
+                ).then((_) => setState(() {}));
+              },
+            ),
           ),
         ),
       ],

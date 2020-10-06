@@ -13,6 +13,7 @@ import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart
 
 
 class BcMetricsDashboard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
+  final bool fromBufDashboard;
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
@@ -20,6 +21,7 @@ class BcMetricsDashboard extends StatefulWidget with ConceptDashboardStates, Buf
 
   BcMetricsDashboard(
       {this.headingStyle,
+        this.fromBufDashboard,
       this.sizedboxwidth,
       this.headingAlignment,
       this.sizedboxheight});
@@ -121,6 +123,7 @@ class _BcMetricsDashboardState extends State<BcMetricsDashboard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => NorthMetricDialogue(
+                  fromBufDashboard: (widget.fromBufDashboard == true) ? true : false,
                   dashboardCard: northStarString,
                 ),
               ).then((_) => setState(() {}));

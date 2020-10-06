@@ -5,8 +5,9 @@ import 'package:iventure001/Widgets/GenericDialogueDashboard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentBusinessGrowth.dart';
 
 class NorthMetricDialogue extends StatefulWidget {
+  final bool fromBufDashboard;
   final String dashboardCard;
-  const NorthMetricDialogue({this.dashboardCard});
+  const NorthMetricDialogue({this.dashboardCard, this.fromBufDashboard});
   @override
   _NorthMetricDialogueState createState() => _NorthMetricDialogueState(dashboardCard);
 }
@@ -25,7 +26,7 @@ class _NorthMetricDialogueState extends State<NorthMetricDialogue> {
       iconCard: Icons.star,
       firebaseRoute: 'Bc10_metrics',
       firebaseDocument: 'metricSectionOne',
-      pushRoute: '/BusinessModelDashboard',
+      pushRoute: (widget.fromBufDashboard == true) ? '/BUFDashboard' : '/BusinessModelDashboard',
     );
   }
 }

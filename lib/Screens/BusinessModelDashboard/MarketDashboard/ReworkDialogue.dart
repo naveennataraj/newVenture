@@ -9,16 +9,18 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentAsAService.dart';
 
 class ReduceReworkDialogue extends StatefulWidget {
+  final bool fromBufDashboard;
   final String asAService;
   final String descriptionService;
 
-  const ReduceReworkDialogue({this.asAService, this.descriptionService});
+  const ReduceReworkDialogue({this.asAService, this.descriptionService, this.fromBufDashboard});
   @override
   _ReduceReworkDialogueState createState() => _ReduceReworkDialogueState();
 }
 
 class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
   final _firestore = Firestore.instance;
+  bool fromBUFDashboard;
 
   var serviceLabelColor = Color(0XFF919191);
   bool validService = true;
@@ -43,6 +45,7 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
     setState(() {
       serviceName = widget.asAService;
       descriptionName = widget.descriptionService;
+      fromBUFDashboard = widget.fromBufDashboard;
 
       descriptionTextController =
           TextEditingController(text: widget.descriptionService);
@@ -253,8 +256,14 @@ class _ReduceReworkDialogueState extends State<ReduceReworkDialogue> {
                             'serviceName': serviceTextController.text,
                             'asAServiceDescription': descriptionTextController.text,
                           });
+
+                          (fromBUFDashboard == true) ?
+                          Navigator.popAndPushNamed(
+                              context, '/BUFDashboard'):
                           Navigator.popAndPushNamed(
                               context, '/BusinessModelDashboard');
+//                          Navigator.popAndPushNamed(
+//                              context, '/BusinessModelDashboard');
                         },
                       ),
                       SizedBox(

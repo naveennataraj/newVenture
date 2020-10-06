@@ -336,6 +336,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => SolutionStandsDialogue(
+                    fromBufDashboard: false,
                     dashboardCard: solutionStandOut,
                   ),
                 ).then((_) => setState(() {}));
@@ -384,6 +385,7 @@ class _BcCustomerDashboardState extends State<BcCustomerDashboard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => ExcelDialogue(
+                  fromBufDashboard: false,
                     excelAt: excelAtDescription,
                     excelAtID: excelID,
                 ),

@@ -187,6 +187,7 @@ class _BufProductDashboardState extends State<BufProductDashboard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => ExcelDialogue(
+                  fromBufDashboard: true,
                   excelAt: excelAtDescription,
                   excelAtID: excelID,
                 ),
@@ -209,6 +210,7 @@ class _BufProductDashboardState extends State<BufProductDashboard> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => SolutionStandsDialogue(
+                    fromBufDashboard: true,
                     dashboardCard: solutionStandOut,
                   ),
                 ).then((_) => setState(() {}));

@@ -13,44 +13,19 @@ import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/SaveButton.dart';
 
 
-//class SynergyDialogue extends StatefulWidget {
-//  final String dashboardCard;
-//  const SynergyDialogue({this.dashboardCard});
-//  @override
-//  _SynergyDialogueState createState() => _SynergyDialogueState(dashboardCard);
-//}
-//
-//class _SynergyDialogueState extends State<SynergyDialogue> {
-//  final _firestore = Firestore.instance;
-//  String dashboardCard;
-//  _SynergyDialogueState(this.dashboardCard);
-//  @override
-//  Widget build(BuildContext context) {
-//    return DashboardDialogue(
-//      dashboardCard: dashboardCard,
-//      heroTag: '',
-//      cardText: "How we Synergize",
-//      labelText: 'Please provide a detailed description of the synergy',
-//      iconCard: Icons.call_split,
-//      firebaseRoute: 'Bc8_synergies/addSynergies/'+ addingNewSynergies[0].ID,
-//      firebaseDocument: 'synergyDescription',
-//      pushRoute: '/BusinessModelDashboard',
-//    );
-//  }
-//}
-
-
 class SynergyDialogue extends StatefulWidget {
+  final bool fromBufDashboard;
   final String synergy;
   final String descriptionService;
 
-  const SynergyDialogue({this.synergy, this.descriptionService});
+  const SynergyDialogue({this.synergy, this.descriptionService, this.fromBufDashboard});
   @override
   _SynergyDialogueState createState() => _SynergyDialogueState();
 }
 
 class _SynergyDialogueState extends State<SynergyDialogue> {
   final _firestore = Firestore.instance;
+  bool fromBUFDashboard;
 
   var serviceLabelColor = Color(0XFF919191);
   bool validService = true;
@@ -75,6 +50,7 @@ class _SynergyDialogueState extends State<SynergyDialogue> {
     setState(() {
       serviceName = widget.synergy;
       descriptionName = widget.descriptionService;
+      fromBUFDashboard = widget.fromBufDashboard;
 
       descriptionTextController =
           TextEditingController(text: widget.descriptionService);
@@ -287,8 +263,13 @@ class _SynergyDialogueState extends State<SynergyDialogue> {
                             'synergyDescription': serviceTextController.text,
                             //'asAServiceDescription': descriptionTextController.text,
                           });
+                          (fromBUFDashboard == true) ?
+                          Navigator.popAndPushNamed(
+                              context, '/BUFDashboard'):
                           Navigator.popAndPushNamed(
                               context, '/BusinessModelDashboard');
+//                          Navigator.popAndPushNamed(
+//                              context, '/BusinessModelDashboard');
                         },
                       ),
                       SizedBox(

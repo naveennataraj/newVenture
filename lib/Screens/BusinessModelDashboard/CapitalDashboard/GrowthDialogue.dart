@@ -5,8 +5,9 @@ import 'package:iventure001/Widgets/GenericDialogueDashboard.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentBusinessGrowth.dart';
 
 class GrowthDialogue extends StatefulWidget {
+  final bool fromBufDashboard;
   final String dashboardCard;
-  const GrowthDialogue({this.dashboardCard});
+  const GrowthDialogue({this.dashboardCard, this.fromBufDashboard});
   @override
   _GrowthDialogueState createState() => _GrowthDialogueState(dashboardCard);
 }
@@ -25,7 +26,7 @@ class _GrowthDialogueState extends State<GrowthDialogue> {
       iconCard: Icons.rate_review,
       firebaseRoute: 'Bc9_managingGrowth',
       firebaseDocument: 'handleScaleLText',
-      pushRoute: '/BusinessModelDashboard',
+      pushRoute: (widget.fromBufDashboard == true) ? '/BUFDashboard' : '/BusinessModelDashboard',
     );
   }
 }

@@ -8,9 +8,10 @@ import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/SaveButton.dart';
 
 class ExcelDialogue extends StatefulWidget {
+  final bool fromBufDashboard;
   final String excelAt;
   final excelAtID;
-  const ExcelDialogue({ this.excelAt, this.excelAtID});
+  const ExcelDialogue({ this.excelAt, this.excelAtID, this.fromBufDashboard});
   @override
   _ExcelDialogueState createState() => _ExcelDialogueState();
 }
@@ -18,6 +19,7 @@ class ExcelDialogue extends StatefulWidget {
 class _ExcelDialogueState extends State<ExcelDialogue> {
 
   final _firestore = Firestore.instance;
+  bool fromBUFDashboard;
 
   var primaryPropositionLabelColor = Color(0XFF919191);
   bool validPropositionName = true;
@@ -37,9 +39,9 @@ class _ExcelDialogueState extends State<ExcelDialogue> {
   void initState() {
     //  implement initState
     setState(() {
-
       primaryProposition = widget.excelAt;
       primaryPropositionID = widget.excelAtID;
+      fromBUFDashboard = widget.fromBufDashboard;
 
       primaryPropositionTextController =
           TextEditingController(text: widget.excelAt);
@@ -179,6 +181,10 @@ class _ExcelDialogueState extends State<ExcelDialogue> {
                               .updateData({
                             'description': primaryPropositionTextController.text,
                           });
+
+                          (fromBUFDashboard == true) ?
+                          Navigator.popAndPushNamed(
+                              context, '/BUFDashboard'):
                           Navigator.popAndPushNamed(
                               context, '/BusinessModelDashboard');
                         },

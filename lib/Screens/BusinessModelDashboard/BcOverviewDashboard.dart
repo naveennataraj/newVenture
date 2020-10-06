@@ -250,7 +250,6 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                           thickness: 1,
                         ),
                       ),
-
                       BcCustomerDashboard(
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
@@ -265,6 +264,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                         ),
                       ),
                       BcMarketStrategy(
+                        fromBufDashboard: false,
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
                         headingStyle: sideHeadingTextStyle,
@@ -278,6 +278,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                         ),
                       ),
                       BcMoneyDashboard (
+                        fromBufDashboard: false,
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
                         headingStyle: sideHeadingTextStyle,
@@ -292,6 +293,7 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                         ),
                       ),
                       BcMetricsDashboard(
+                        fromBufDashboard: false,
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
                         headingStyle: sideHeadingTextStyle,
