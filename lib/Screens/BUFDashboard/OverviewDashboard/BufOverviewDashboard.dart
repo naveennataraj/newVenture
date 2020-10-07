@@ -11,7 +11,7 @@ import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/customerD
 import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/feedbackDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Screens/BUFDashboard/ProductDashboard/ProductDashboard.dart';
-import 'package:iventure001/Screens/BusinessModelDashboard/BcMarketDashboard.dart';
+import 'package:iventure001/Screens/BUFDashboard/MarketDashboard/BufMarketDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMoneyDashboard.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BcMetricsDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/nextStepsDashboard.dart';
@@ -255,8 +255,7 @@ class _BufOverviewDashboardState extends State<BufOverviewDashboard> {
                           thickness: 1,
                         ),
                       ),
-                      BcMarketStrategy(
-                        fromBufDashboard: true,
+                      BUFMarketDashboard(
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
                         headingStyle: sideHeadingTextStyle,

@@ -20,7 +20,6 @@ import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart
 
 class BcMarketStrategy extends StatefulWidget
     with ConceptDashboardStates, BufDashboardStates {
-  final bool fromBufDashboard;
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
@@ -28,7 +27,6 @@ class BcMarketStrategy extends StatefulWidget
 
   BcMarketStrategy(
       {this.headingStyle,
-      this.fromBufDashboard,
       this.sizedboxwidth,
       this.headingAlignment,
       this.sizedboxheight});
@@ -39,7 +37,8 @@ class BcMarketStrategy extends StatefulWidget
 
 class _BcMarketStrategyState extends State<BcMarketStrategy> {
   final _firestore = Firestore.instance;
-  bool fromBUFramework;
+  bool fromBUFramework = false;
+  bool fromBCanvas = true;
   //======= As a service Offering =======
   String asAService = '';
   String asAServiceDescription = '';
@@ -80,6 +79,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
   }
 
   void getDocuments() async {
+
     //======= As a service Offering =======
     final documentAddService = await _firestore
         .collection('$currentUser/Bc7_businessModelElements/addServices')
@@ -141,13 +141,9 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
 
         if (elementTitle == 'Value proposition') {
           valuePropositionList.add(elementDescription);
-          print(
-              'This is the list with value proposition valuePropositionList $valuePropositionList');
         }
         if (elementTitle == 'Customer segment') {
           customerSegmentList.add(elementDescription);
-          print(
-              'This is the list with customerSegmentList list $customerSegmentList');
         }
         if (elementTitle == 'Revenue stream') {
           revenueStreamList.add(elementDescription);
@@ -158,7 +154,6 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
         }
         if (elementTitle == 'Customer relationship') {
           customerRelationshipList.add(elementDescription);
-          print('customer relationship $customerRelationshipList');
         }
         if (elementTitle == 'Key activity') {
           keyActivityList.add(elementDescription);
@@ -219,7 +214,6 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
           valuePropositionList.isNotEmpty) {
         sProposition =
             'Value proposition (' + valuePropositionList.join(', ') + '), ';
-        print('the sProposotion $sProposition');
       } else {
         sProposition = '';
       }
@@ -228,7 +222,6 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
           customerSegmentList.isNotEmpty) {
         sSegment =
             'Customer segment (' + customerSegmentList.join(', ') + '), ';
-        print('the sSegment $sSegment');
       } else {
         sSegment = '';
       }
@@ -299,7 +292,6 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
       if (addingNewSynergies.length != 0) {
         stringSynergy = addingNewSynergies[0].synergyDescription;
         //allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
-        print('all synergues $allSynergies');
       } else {
         asAService = 'Missing value';
       }
@@ -379,9 +371,10 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
       _AnimatedFlutterLogoState();
     }
     super.initState();
-    setState(() {
-      fromBUFramework = (widget.fromBufDashboard == true) ? false : true;
-    });
+//    setState(() {
+//      fromBCanvas = (widget.fromBCanvas == false) ? false : true;
+
+//    });
   }
 
   Timer _timer;
@@ -430,7 +423,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => ReduceReworkDialogue(
-                    fromBufDashboard: (widget.fromBufDashboard == true) ? true : false,
+                    fromBufDashboard: false,
                     asAService: asAService,
                     descriptionService: asAServiceDescription),
               ).then((_) => setState(() {}));
@@ -456,7 +449,7 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => SynergyDialogue(
-                    fromBufDashboard: (widget.fromBufDashboard == true) ? true : false,
+                    fromBufDashboard:  false,
                     synergy: stringSynergy,
                     descriptionService: allSynergies,
                   ),
@@ -465,65 +458,59 @@ class _BcMarketStrategyState extends State<BcMarketStrategy> {
             ),
           ),
         ),
-         Visibility(
-           visible: fromBUFramework,
-           child: Padding(
-                  padding: EdgeInsets.all(
-                      (MediaQuery.of(context).size.width >= 1400)
-                          ? 50
-                          : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-                  child: DashboardCards(
-                    cardIcon: Icons.face,
-                    cardTitle: 'What we learnt about our target customer',
-                    cardNote: '$userStory',
-                    cardButtonName: 'VIEW PERSONA',
-                    onTap: () {
-                      Navigator.pushNamed(context, '/BCStep2CaptureUserStories');
-                    },
-                    onEditTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => CustomerTargetDialogue(
-                          Asa: userStoriesContent[0].Asa,
-                          IwantTo: userStoriesContent[0].IWantTo,
-                          SothatIcan: userStoriesContent[0].SoThat,
-                        ),
-                      ).then((_) => setState(() {}));
-                    },
-                  ),
-                ),
-         ),
-        Visibility(
-          visible: fromBUFramework,
-          child: Padding(
-            padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
-                ? 50
-                : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
-            child: DashboardCards(
-              cardIcon: Icons.leak_add,
-              cardTitle: 'What we learnt from our competition',
-              cardNote:
-                  'Our competitor $competitionName, offers features such as $competitionDescription',
-              cardButtonName: 'REVIEW OTHER COMPETITORS',
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BcStep6CompetingProducts(
-                        fromDashboard: true,
+         Padding(
+                padding: EdgeInsets.all(
+                    (MediaQuery.of(context).size.width >= 1400)
+                        ? 50
+                        : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+                child: DashboardCards(
+                  cardIcon: Icons.face,
+                  cardTitle: 'What we learnt about our target customer',
+                  cardNote: '$userStory',
+                  cardButtonName: 'VIEW PERSONA',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/BCStep2CaptureUserStories');
+                  },
+                  onEditTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => CustomerTargetDialogue(
+                        Asa: userStoriesContent[0].Asa,
+                        IwantTo: userStoriesContent[0].IWantTo,
+                        SothatIcan: userStoriesContent[0].SoThat,
                       ),
-                    ));
-              },
-              onEditTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => CompetitorDialogue(
-                    features: competitionDescription,
-                    productName: competitionName,
-                  ),
-                ).then((_) => setState(() {}));
-              },
-            ),
+                    ).then((_) => setState(() {}));
+                  },
+                ),
+              ),
+        Padding(
+          padding: EdgeInsets.all((MediaQuery.of(context).size.width >= 1400)
+              ? 50
+              : (MediaQuery.of(context).size.width <= 750) ? 10 : 30),
+          child: DashboardCards(
+            cardIcon: Icons.leak_add,
+            cardTitle: 'What we learnt from our competition',
+            cardNote:
+                'Our competitor $competitionName, offers features such as $competitionDescription',
+            cardButtonName: 'REVIEW OTHER COMPETITORS',
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BcStep6CompetingProducts(
+                      fromDashboard: true,
+                    ),
+                  ));
+            },
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => CompetitorDialogue(
+                  features: competitionDescription,
+                  productName: competitionName,
+                ),
+              ).then((_) => setState(() {}));
+            },
           ),
         ),
       ],

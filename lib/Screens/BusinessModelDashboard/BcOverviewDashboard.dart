@@ -264,7 +264,6 @@ class _BcOverviewDashboardState extends State<BcOverviewDashboard> {
                         ),
                       ),
                       BcMarketStrategy(
-                        fromBufDashboard: false,
                         sizedboxheight: 0,
                         sizedboxwidth: 0,
                         headingStyle: sideHeadingTextStyle,
