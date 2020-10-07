@@ -141,11 +141,9 @@ class _BUFMarketDashboardState extends State<BUFMarketDashboard> {
 
         if (elementTitle == 'Value proposition') {
           valuePropositionList.add(elementDescription);
-          print('This is the list with value proposition valuePropositionList $valuePropositionList');
         }
         if (elementTitle == 'Customer segment') {
           customerSegmentList.add(elementDescription);
-          print('This is the list with customerSegmentList list $customerSegmentList');
         }
         if (elementTitle == 'Revenue stream') {
           revenueStreamList.add(elementDescription);
@@ -156,7 +154,6 @@ class _BUFMarketDashboardState extends State<BUFMarketDashboard> {
         }
         if (elementTitle == 'Customer relationship') {
           customerRelationshipList.add(elementDescription);
-          print('customer relationship $customerRelationshipList');
         }
         if (elementTitle == 'Key activity') {
           keyActivityList.add(elementDescription);
@@ -215,12 +212,10 @@ class _BUFMarketDashboardState extends State<BUFMarketDashboard> {
       //&& valuePropositionList.isNotEmpty
       if(addingNewSynergies[0].synergyValueProposition == true && valuePropositionList.isNotEmpty ) {
         sProposition = 'Value proposition (' + valuePropositionList.join(', ') + '), ';
-        print('the sProposotion $sProposition');
       } else {sProposition = '';}
       //&& customerSegmentList.isNotEmpty
       if(addingNewSynergies[0].synergyCustomerSegment == true && customerSegmentList.isNotEmpty ) {
         sSegment = 'Customer segment (' + customerSegmentList.join(', ') + '), ';
-        print('the sSegment $sSegment');
       }else {sSegment = '';}
       //&& revenueStreamList.isNotEmpty
       if(addingNewSynergies[0].synergyRevenueStream == true && revenueStreamList.isNotEmpty ) {
@@ -257,7 +252,7 @@ class _BUFMarketDashboardState extends State<BUFMarketDashboard> {
       if(addingNewSynergies.length !=0) {
         stringSynergy= addingNewSynergies[0].synergyDescription;
         //allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
-        print('all synergues $allSynergies');
+       
       } else {asAService= 'Missing value';}
     });
 
