@@ -252,7 +252,7 @@ class _BUFMarketDashboardState extends State<BUFMarketDashboard> {
       if(addingNewSynergies.length !=0) {
         stringSynergy= addingNewSynergies[0].synergyDescription;
         //allSynergies= sProposition + sSegment + sStream + sDistributionChannel + sCustomerRelationship + sKeyActivity + sKeyResource + sKeyPartner + sCostStructure;
-       
+
       } else {asAService= 'Missing value';}
     });
 

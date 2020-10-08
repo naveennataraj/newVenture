@@ -6,11 +6,13 @@ import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcIntellectualAssets.dart';
+import 'package:iventure001/Data/BlitzCanvasContent/Step7_BusinessModelElements/ContentBcElements.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboadBloc.dart';
 import 'package:iventure001/Data/BlitzCanvasContent/Step9_ManagingGrowth/ContentBusinessGrowth.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CapitalDashboard/IpDialogue.dart';
 import 'package:iventure001/Screens/BusinessModelDashboard/CapitalDashboard/GrowthDialogue.dart';
 import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
+import 'package:iventure001/Screens/BusinessModelDashboard/CapitalDashboard/MonetizeDialogue.dart';
 
 class BcMoneyDashboard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
   final bool fromBufDashboard;
@@ -30,8 +32,15 @@ class BcMoneyDashboard extends StatefulWidget with ConceptDashboardStates, BufDa
   _BcMoneyDashboardState createState() => _BcMoneyDashboardState();
 }
 
+bool spinner = false;
+
 class _BcMoneyDashboardState extends State<BcMoneyDashboard> {
   final _firestore = Firestore.instance;
+  //======= What is our Primary Value Proposition? =======
+  String revenueStream = '';
+  List revenueList = [];
+  String revenueID;
+  List revenueIDList = [];
 
 //  void initState() {
 //    super.initState();
@@ -44,6 +53,38 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard> {
 
   void getDocuments() async {
     //======= Make Money =======
+    final documentProposition = await _firestore
+        .collection('$currentUser/Bc7_businessModelElements/addElements')
+        .getDocuments();
+    if (documentProposition != null) {
+      addingNewBusinessElement = [];
+      for (var message in documentProposition.documents) {
+        final elementTitle = message.data['elementTitle'];
+        final elementDescription = message.data['elementDescription'];
+        final elementChecked = message.data['elementChecked'];
+        final ID = message.documentID;
+
+        if (elementTitle == 'Revenue stream') {
+          revenueList.add(elementDescription);
+          revenueIDList.add(ID);
+          revenueID =revenueIDList[0];
+        }
+
+        final card = ContentBcElements(
+          elementTitle: elementTitle,
+          elementDescription: elementDescription,
+          elementChecked: elementChecked,
+          ID: ID,
+        );
+        addingNewBusinessElement.add(card);
+      }
+      setState(() {
+        spinner = false;
+        (addingNewBusinessElement.length != 0)
+            ? revenueStream = revenueList[0]
+            : revenueStream = 'Missing value';
+      });
+    }
 
     //======= IP Properties =======
     final documentIpProperties = await _firestore
@@ -143,8 +184,18 @@ class _BcMoneyDashboardState extends State<BcMoneyDashboard> {
             cardIcon: Icons.attach_money,
             cardTitle: 'How we make money.',
             cardNote:
-                'We plan to monetize this innovation via advertising. This strategy will be integrated into the early desings of the solution.',
+                'We plan to monetize this innovation via $revenueStream. This strategy will be integrated into the early desings of the solution.',
             onTap: () {},
+            onEditTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => MonetizeDialogue(
+                    fromBufDashboard: (widget.fromBufDashboard == true) ? true : false,
+                    revenueStream: revenueStream,
+                    revenueID: revenueID
+                ),
+              ).then((_) => setState(() {}));
+            },
           ),
         ),
         Padding(
