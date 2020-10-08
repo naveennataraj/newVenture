@@ -10,8 +10,9 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 class customerPainPointDialogue extends StatefulWidget {
   final String problem;
+  final bool inConceptDashboard;
 
-  const customerPainPointDialogue({this.problem});
+  const customerPainPointDialogue({this.problem, this.inConceptDashboard});
 
   @override
   _customerPainPointDialogueState createState() =>
@@ -180,8 +181,12 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
                               }
                             : () {
                                 (ProblemTextController.text != '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
+//                                    Navigator.pop(context)
                                     : {};
                                 _firestore
                                     .collection(
@@ -198,8 +203,7 @@ class _customerPainPointDialogueState extends State<customerPainPointDialogue> {
                       ),
                       CancelButtton(
                         OnTap: () {
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
+                          Navigator.pop(context);
                         },
                       ),
                     ],

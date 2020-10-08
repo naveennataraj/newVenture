@@ -11,8 +11,10 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 class parallelDialogue extends StatefulWidget {
   final String solutionName;
   final String solutionDescription;
+  final bool inConceptDashboard;
 
-  const parallelDialogue({this.solutionName, this.solutionDescription});
+  const parallelDialogue(
+      {this.solutionName, this.solutionDescription, this.inConceptDashboard});
 
   @override
   _parallelDialogueState createState() => _parallelDialogueState();
@@ -269,8 +271,12 @@ class _parallelDialogueState extends State<parallelDialogue> {
                                         SolutionDescriptionTextController
                                                 .text !=
                                             '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
+//                                    Navigator.pop(context)
                                     : {};
                                 _firestore
                                     .collection(

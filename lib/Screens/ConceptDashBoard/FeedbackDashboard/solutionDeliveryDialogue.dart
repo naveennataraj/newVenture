@@ -10,8 +10,9 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 class solutionDeliveryDialogue extends StatefulWidget {
   final String medium;
+  final bool inConceptDashboard;
 
-  const solutionDeliveryDialogue({this.medium});
+  const solutionDeliveryDialogue({this.medium, this.inConceptDashboard});
 
   @override
   _solutionDeliveryDialogueState createState() =>
@@ -180,8 +181,11 @@ class _solutionDeliveryDialogueState extends State<solutionDeliveryDialogue> {
                               }
                             : () {
                                 (mediumTextController.text != '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
                                     : {};
                                 _firestore
                                     .collection(

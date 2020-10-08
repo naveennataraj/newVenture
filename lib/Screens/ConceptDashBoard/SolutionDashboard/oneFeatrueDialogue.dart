@@ -10,8 +10,9 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 class oneFeatureDialogue extends StatefulWidget {
   final String featureName1;
+  final bool inConceptDashboard;
 
-  const oneFeatureDialogue({this.featureName1});
+  const oneFeatureDialogue({this.featureName1, this.inConceptDashboard});
 
   @override
   _oneFeatureDialogueState createState() => _oneFeatureDialogueState();
@@ -180,8 +181,12 @@ class _oneFeatureDialogueState extends State<oneFeatureDialogue> {
                               }
                             : () {
                                 (ProductFeatureTextController.text != '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
+//                                    Navigator.pop(context)
                                     : {};
                                 _firestore
                                     .collection(

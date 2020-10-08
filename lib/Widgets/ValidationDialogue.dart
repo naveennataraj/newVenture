@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 
-
 class ValidationDialogue extends StatefulWidget {
   final String contentDescription;
   const ValidationDialogue({this.contentDescription});
 
   @override
-  _ValidationDialogueState createState() => _ValidationDialogueState(contentDescription);
+  _ValidationDialogueState createState() =>
+      _ValidationDialogueState(contentDescription);
 }
 
 class _ValidationDialogueState extends State<ValidationDialogue> {
@@ -18,9 +18,13 @@ class _ValidationDialogueState extends State<ValidationDialogue> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: new Text(
-        "Notification", style: cardTitleTextStyle,
+        "Notification",
+        style: cardTitleTextStyle,
       ),
-      content: Text(contentDescription, style: cardBodyTextStyle,) ,
+      content: Text(
+        contentDescription,
+        style: cardBodyTextStyle,
+      ),
       actions: <Widget>[
         // usually buttons at the bottom of the dialog
 
@@ -29,8 +33,8 @@ class _ValidationDialogueState extends State<ValidationDialogue> {
             "CONTINUE",
             style: TextStyle(
                 color: Color(
-                  0XFFE95420,
-                )),
+              0XFFE95420,
+            )),
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -40,5 +44,3 @@ class _ValidationDialogueState extends State<ValidationDialogue> {
     );
   }
 }
-
-

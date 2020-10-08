@@ -7,6 +7,7 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addCompetingProduct.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionFormulation/addProductFeature.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/monetizeDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/oneFeatrueDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/twoFeatrueDialogue.dart';
@@ -17,20 +18,22 @@ import '../FeedbackDashboard/feedbackDashboard.dart';
 import '../OverviewDashboard/overViewDashboard.dart';
 import '../conceptDashboardNavigationBloc.dart';
 import 'competitionDialogue.dart';
-import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 
-class solutionDashBoard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
+class solutionDashBoard extends StatefulWidget
+    with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
   final double sizedboxheight;
+  final bool inConceptDashboard;
 
   const solutionDashBoard(
       {Key key,
       this.headingStyle,
       this.headingAlignment,
       this.sizedboxwidth,
-      this.sizedboxheight});
+      this.sizedboxheight,
+      this.inConceptDashboard});
 
   @override
   _solutionDashBoardState createState() => _solutionDashBoardState();
@@ -197,6 +200,7 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => competitionDialogue(
+                  inConceptDashboard: widget.inConceptDashboard,
                   features: features,
                   productName: productName,
                 ),
@@ -223,6 +227,7 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => twoFeatureDialogue(
+                        inConceptDashboard: widget.inConceptDashboard,
                         featureName1: featureName1,
                         featureName2: featureName2,
                       ),
@@ -248,6 +253,7 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => oneFeatureDialogue(
+                        inConceptDashboard: widget.inConceptDashboard,
                         featureName1: featureName1,
                       ),
                     ).then((_) => setState(() {}));
@@ -268,6 +274,7 @@ class _solutionDashBoardState extends State<solutionDashBoard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => monetizeDialogue(
+                  inConceptDashboard: widget.inConceptDashboard,
                   monetize: monetize,
                 ),
               ).then((_) => setState(() {}));

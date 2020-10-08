@@ -12,8 +12,10 @@ class needOfUsersDialogue extends StatefulWidget {
   final String Asa;
   final String IwantTo;
   final String SothatIcan;
+  final bool inConceptDashboard;
 
-  const needOfUsersDialogue({this.Asa, this.IwantTo, this.SothatIcan});
+  const needOfUsersDialogue(
+      {this.Asa, this.IwantTo, this.SothatIcan, this.inConceptDashboard});
 
   @override
   _needOfUsersDialogueState createState() => _needOfUsersDialogueState();
@@ -361,8 +363,11 @@ class _needOfUsersDialogueState extends State<needOfUsersDialogue> {
                                 (AsaTextController.text != '' &&
                                         SoThatTextController.text != '' &&
                                         IWantToTextController.text != '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
                                     : {};
                                 _firestore
                                     .collection(

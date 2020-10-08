@@ -10,8 +10,8 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 class quoteDialogue extends StatefulWidget {
   final String quote;
-
-  const quoteDialogue({this.quote});
+  final bool inConceptDashboard;
+  const quoteDialogue({this.quote, this.inConceptDashboard});
 
   @override
   _quoteDialogueState createState() => _quoteDialogueState();
@@ -177,8 +177,11 @@ class _quoteDialogueState extends State<quoteDialogue> {
                               }
                             : () {
                                 (QuoteTextController.text != '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
                                     : {};
                                 _firestore
                                     .collection(

@@ -7,25 +7,28 @@ import 'package:intl/intl.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/ManagingGrowth/addparallelinnovations.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/reviewcustomerrequirements.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/parallelDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/NextStepsDashboard/solutionFitDialogue.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
-import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 
 import '../conceptDashboardNavigationBloc.dart';
 
-class nextStepsDashBoard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
+class nextStepsDashBoard extends StatefulWidget
+    with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
   final double sizedboxheight;
+  final bool inConceptDashboard;
 
   const nextStepsDashBoard(
       {this.headingStyle,
       this.headingAlignment,
       this.sizedboxwidth,
-      this.sizedboxheight});
+      this.sizedboxheight,
+      this.inConceptDashboard});
   @override
   _nextStepsDashBoardState createState() => _nextStepsDashBoardState();
 }
@@ -149,6 +152,7 @@ class _nextStepsDashBoardState extends State<nextStepsDashBoard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => solutionFitDialogue(
+                  inConceptDashboard: widget.inConceptDashboard,
                   selectedDate: selectedDate,
                 ),
               ).then((_) => setState(() {}));
@@ -172,6 +176,7 @@ class _nextStepsDashBoardState extends State<nextStepsDashBoard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => parallelDialogue(
+                  inConceptDashboard: widget.inConceptDashboard,
                   solutionName: ppName,
                   solutionDescription: ppDescription,
                 ),

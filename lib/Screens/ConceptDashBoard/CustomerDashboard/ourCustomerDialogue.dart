@@ -12,8 +12,13 @@ class ourCustomerDialogue extends StatefulWidget {
   final int ageStart;
   final int ageEnd;
   final String problemDomain;
+  final bool inConceptDashboard;
 
-  const ourCustomerDialogue({this.ageStart, this.ageEnd, this.problemDomain});
+  const ourCustomerDialogue(
+      {this.ageStart,
+      this.ageEnd,
+      this.problemDomain,
+      this.inConceptDashboard});
 
   @override
   _ourCustomerDialogueState createState() => _ourCustomerDialogueState();
@@ -228,8 +233,11 @@ class _ourCustomerDialogueState extends State<ourCustomerDialogue> {
                             'AgeEnd': ageValues.end,
                             'ProblemDropdownValue': SelectedProblemDomain,
                           });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
+                          (widget.inConceptDashboard)
+                              ? Navigator.popAndPushNamed(
+                                  context, '/conceptDashboard')
+                              : Navigator.popAndPushNamed(
+                                  context, '/BUFDashboard');
                         },
                       ),
                       SizedBox(

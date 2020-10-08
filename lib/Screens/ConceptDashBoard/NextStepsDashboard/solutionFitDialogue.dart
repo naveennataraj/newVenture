@@ -10,8 +10,9 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 class solutionFitDialogue extends StatefulWidget {
   DateTime selectedDate;
+  final bool inConceptDashboard;
 
-  solutionFitDialogue({this.selectedDate});
+  solutionFitDialogue({this.selectedDate, this.inConceptDashboard});
 
   @override
   _solutionFitDialogueState createState() => _solutionFitDialogueState();
@@ -194,8 +195,12 @@ class _solutionFitDialogueState extends State<solutionFitDialogue> {
                               .updateData({
                             'ReviewDate': widget.selectedDate,
                           });
-                          Navigator.popAndPushNamed(
-                              context, '/conceptDashboard');
+                          (widget.inConceptDashboard)
+                              ? Navigator.popAndPushNamed(
+                                  context, '/conceptDashboard')
+                              : Navigator.popAndPushNamed(
+                                  context, '/BUFDashboard');
+//                                    Navigator.pop(context)
                         },
                       ),
                       SizedBox(

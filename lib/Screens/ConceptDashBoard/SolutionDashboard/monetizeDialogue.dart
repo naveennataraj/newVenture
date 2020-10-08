@@ -10,8 +10,9 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 class monetizeDialogue extends StatefulWidget {
   final String monetize;
+  final bool inConceptDashboard;
 
-  const monetizeDialogue({this.monetize});
+  const monetizeDialogue({this.monetize, this.inConceptDashboard});
 
   @override
   _monetizeDialogueState createState() => _monetizeDialogueState();
@@ -180,8 +181,12 @@ class _monetizeDialogueState extends State<monetizeDialogue> {
                               }
                             : () {
                                 (MonetizeTextController.text != '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
+//                                    Navigator.pop(context)
                                     : {};
                                 _firestore
                                     .collection(

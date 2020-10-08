@@ -215,6 +215,7 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
                       sizedboxwidth: 0,
                       headingStyle: sideHeadingTextStyle,
                       headingAlignment: CrossAxisAlignment.start,
+                      inConceptDashboard: true,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -228,6 +229,7 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
                       sizedboxwidth: 0,
                       headingStyle: sideHeadingTextStyle,
                       headingAlignment: CrossAxisAlignment.start,
+                      inConceptDashboard: true,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -241,6 +243,7 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
                       sizedboxwidth: 0,
                       headingStyle: sideHeadingTextStyle,
                       headingAlignment: CrossAxisAlignment.start,
+                      inConceptDashboard: true,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -254,6 +257,7 @@ class _overViewDashBoardState extends State<overViewDashBoard> {
                       sizedboxwidth: 0,
                       headingStyle: sideHeadingTextStyle,
                       headingAlignment: CrossAxisAlignment.start,
+                      inConceptDashboard: true,
                     ),
                   ],
                 ),

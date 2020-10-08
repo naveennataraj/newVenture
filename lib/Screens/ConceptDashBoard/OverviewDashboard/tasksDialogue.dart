@@ -10,8 +10,9 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 class tasksDialogue extends StatefulWidget {
   final String pvp;
+  final bool inConceptDashboard;
 
-  const tasksDialogue({this.pvp});
+  const tasksDialogue({this.pvp, this.inConceptDashboard});
 
   @override
   _tasksDialogueState createState() => _tasksDialogueState();
@@ -177,8 +178,11 @@ class _tasksDialogueState extends State<tasksDialogue> {
                               }
                             : () {
                                 (pvpTextController.text != '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
                                     : {};
                                 _firestore
                                     .collection(

@@ -15,6 +15,7 @@ import 'package:iventure001/Screens/BUFBlitzCanvas/Metrics/BifNorthStarMetric.da
 import 'package:iventure001/Screens/BUFBlitzCanvas/SellingProposition/Solution.dart';
 import 'package:iventure001/Screens/BUFBlitzCanvas/SellingProposition/TouchPoints.dart';
 import 'package:iventure001/Screens/BUFBlitzCanvas/Synergies/BifAddSynergies.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboard.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1AddFoundation.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step1/BcStep1CollectDetailsBusiness.dart';
 import 'package:iventure001/Screens/BlitzCanvas/Step10_Metrics/BcAddMoreMetrics.dart';
@@ -54,8 +55,6 @@ import 'package:iventure001/Screens/BlitzInnovationFramework/StudyingTheUser/add
 import 'package:iventure001/Screens/BusinessModelDashboard/BusinessModelDashboard.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/ConceptDashboard.dart';
 import 'package:iventure001/Screens/EditingScreen.dart';
-import 'package:iventure001/bifdashboard.dart';
-import 'package:iventure001/Screens/BUFDashboard/BufDashboard.dart';
 
 import 'Constants/TextFieldConstants.dart';
 import 'Screens/BlitzInnovationFramework/BIFHomeScreen.dart';
@@ -151,7 +150,7 @@ class _VueappState extends State<Vueapp> {
         '/Problemstudy': (context) => ProblemStudy(),
         '/addpainpoints': (context) => AddPainPoints(),
         //BIF Dashboard
-        '/bifdashboard': (context) => bifdashboard(),
+//        '/bifdashboard': (context) => bifdashboard(),
         '/editingScreen': (context) => Editingscreen(),
         //Studying the User
         '/adduserpersona': (context) => AddUserPersona(),

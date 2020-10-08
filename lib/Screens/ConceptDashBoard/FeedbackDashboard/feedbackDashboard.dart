@@ -7,29 +7,32 @@ import 'package:iventure001/Constants/TextFieldConstants.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/PreValidation/addDistributionMedium.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionValidation/addQuote.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/customerProblemDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/quoteDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/FeedbackDashboard/solutionDeliveryDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/SolutionDashboard/solutionDashboard.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
+
 import '../OverviewDashboard/overViewDashboard.dart';
 import '../conceptDashboardNavigationBloc.dart';
 
-import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
-
-class feedbackDashBoard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
+class feedbackDashBoard extends StatefulWidget
+    with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
   final double sizedboxheight;
+  final bool inConceptDashboard;
 
-  const feedbackDashBoard(
+  feedbackDashBoard(
       {Key key,
       this.headingStyle,
       this.headingAlignment,
       this.sizedboxwidth,
-      this.sizedboxheight});
+      this.sizedboxheight,
+      this.inConceptDashboard});
   @override
   _feedbackDashBoardState createState() => _feedbackDashBoardState();
 }
@@ -172,6 +175,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
                 context: context,
                 builder: (BuildContext context) => customerProblemDialogue(
                   event: event,
+                  inConceptDashboard: widget.inConceptDashboard,
                 ),
               ).then((value) => setState(() {}));
             },
@@ -196,6 +200,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
                 context: context,
                 builder: (BuildContext context) => solutionDeliveryDialogue(
                   medium: medium,
+                  inConceptDashboard: widget.inConceptDashboard,
                 ),
               ).then((_) => setState(() {}));
             },
@@ -226,6 +231,7 @@ class _feedbackDashBoardState extends State<feedbackDashBoard> {
                 context: context,
                 builder: (BuildContext context) => quoteDialogue(
                   quote: content,
+                  inConceptDashboard: widget.inConceptDashboard,
                 ),
               ).then((_) => setState(() {}));
             },

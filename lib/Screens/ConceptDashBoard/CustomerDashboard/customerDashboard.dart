@@ -4,29 +4,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iventure001/Constants/TextFieldConstants.dart';
+import 'package:iventure001/Data/BlitxInnovationFrameWork/SolutionIdeation/pickDetails.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheProblem/problemStudy.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserEnvironment.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserPersona.dart';
 import 'package:iventure001/Data/BlitxInnovationFrameWork/StudyTheUser/addUserStoriesData.dart';
+import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/customerPainPointDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/needOfUsersDialogue.dart';
 import 'package:iventure001/Screens/ConceptDashBoard/CustomerDashboard/ourCustomerDialogue.dart';
+import 'package:iventure001/Screens/ConceptDashBoard/OverviewDashboard/tasksDialogue.dart';
 import 'package:iventure001/Widgets/DashboardCard.dart';
 import 'package:iventure001/Widgets/DashboardLayout.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:iventure001/Screens/BUFDashboard/BufDashboardNavigationBloc.dart';
+
 import '../conceptDashboardNavigationBloc.dart';
 
-class customerDashBoard extends StatefulWidget with ConceptDashboardStates, BufDashboardStates {
+class customerDashBoard extends StatefulWidget
+    with ConceptDashboardStates, BufDashboardStates {
   final TextStyle headingStyle;
   final CrossAxisAlignment headingAlignment;
   final double sizedboxwidth;
   final double sizedboxheight;
+  final bool inConceptDashboard;
+
   customerDashBoard(
       {this.headingStyle,
       this.sizedboxwidth,
       this.headingAlignment,
-      this.sizedboxheight});
+      this.sizedboxheight,
+      this.inConceptDashboard});
 
   @override
   _customerDashBoardState createState() => _customerDashBoardState();
@@ -38,6 +45,7 @@ String problemDomain = '';
 String problem = '';
 String userStory = '';
 String personaLink = '';
+String pvp = '';
 bool customercard1spinner = false;
 
 class _customerDashBoardState extends State<customerDashBoard> {
@@ -53,6 +61,39 @@ class _customerDashBoardState extends State<customerDashBoard> {
 
   void getDocument() async {
     customercard1spinner = true;
+    final Detailsdocument = await _firestore
+        .collection('$currentUser/SolutionIdeation/pickDetails')
+        .getDocuments();
+//    print("GEt method called");
+
+    for (var Detailsmessage in Detailsdocument.documents) {
+      PickDetailsArray = [];
+      final checked = Detailsmessage.data['checked'];
+      final Event = Detailsmessage.data['Event'];
+      final Monetize = Detailsmessage.data['Monetize'];
+      final PVP = Detailsmessage.data['PVP'];
+      final Traits = Detailsmessage.data['Traits'];
+      final TopPick = Detailsmessage.data['TopPick'];
+      final ID = Detailsmessage.documentID;
+
+      final fields = pickDetails(
+          checked: checked,
+          Event: Event,
+          Monetize: Monetize,
+          PVP: PVP,
+          Traits: Traits,
+          TopPick: TopPick,
+          ID: ID);
+
+      PickDetailsArray.add(fields);
+    }
+    setState(() {
+      if (PickDetailsArray.length != 0) {
+//        monetize = PickDetailsArray[0].Monetize;
+        pvp = PickDetailsArray[0].PVP;
+//        event = PickDetailsArray[0].Event;
+      }
+    });
     final UserEnvironmentdocument = await _firestore
         .collection('$currentUser/StudyingTheUser/UserEnvironment')
         .getDocuments();
@@ -215,6 +256,7 @@ class _customerDashBoardState extends State<customerDashBoard> {
                     ageStart: ageStart,
                     ageEnd: ageEnd,
                     problemDomain: problemDomain,
+                    inConceptDashboard: widget.inConceptDashboard,
                   ),
                 ).then((_) => setState(() {}));
               },
@@ -237,6 +279,7 @@ class _customerDashBoardState extends State<customerDashBoard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => customerPainPointDialogue(
+                  inConceptDashboard: widget.inConceptDashboard,
                   problem: problem,
                 ),
               ).then((_) => setState(() {}));
@@ -259,6 +302,7 @@ class _customerDashBoardState extends State<customerDashBoard> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => needOfUsersDialogue(
+                  inConceptDashboard: widget.inConceptDashboard,
                   Asa: AddingNewUserStory[0].Asa,
                   IwantTo: AddingNewUserStory[0].IWantTo,
                   SothatIcan: AddingNewUserStory[0].SoThat,
@@ -267,6 +311,95 @@ class _customerDashBoardState extends State<customerDashBoard> {
             },
           ),
         ),
+        (widget.inConceptDashboard)
+            ? Container()
+            : Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Container(
+                    width: 800,
+                    color: Colors.white,
+                    child: Material(
+                      elevation: 20,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.card_giftcard),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      'Tasks using E-Method (Primary Solution Offering)',
+                                      style: cardTitleTextStyle,
+                                      //TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              tasksDialogue(
+                                            inConceptDashboard:
+                                                widget.inConceptDashboard,
+                                            pvp: pvp,
+                                          ),
+                                        ).then((value) => setState(() {}));
+                                      },
+                                      child: Icon(Icons.edit)),
+                                ],
+                              ),
+                            ),
+                            Flexible(
+                              child: SizedBox(
+                                height: 30,
+                              ),
+                            ),
+                            Text(
+                              pvp,
+                              style: cardBodyTextStyle,
+                              //TextStyle(fontSize: 18),
+                            ),
+                            Flexible(
+                              child: SizedBox(
+                                height: 30,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 20.0, bottom: 20),
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: Text(
+                                      'VIEW WIREFRAME',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0XFFE95420),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
       ],
     );
   }

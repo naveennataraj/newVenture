@@ -11,8 +11,10 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 class competitionDialogue extends StatefulWidget {
   final String productName;
   final String features;
+  final bool inConceptDashboard;
 
-  const competitionDialogue({this.productName, this.features});
+  const competitionDialogue(
+      {this.productName, this.features, this.inConceptDashboard});
 
   @override
   _competitionDialogueState createState() => _competitionDialogueState();
@@ -274,8 +276,12 @@ class _competitionDialogueState extends State<competitionDialogue> {
                                 (ProductNameTextController.text != '' &&
                                         CompetingOfferingTextController.text !=
                                             '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
+//                                    Navigator.pop(context)
                                     : {};
                                 _firestore
                                     .collection(

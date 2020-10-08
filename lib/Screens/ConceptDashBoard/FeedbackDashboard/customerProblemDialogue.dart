@@ -10,8 +10,9 @@ import 'package:iventure001/Widgets/SaveButton.dart';
 
 class customerProblemDialogue extends StatefulWidget {
   final String event;
+  final bool inConceptDashboard;
 
-  const customerProblemDialogue({this.event});
+  const customerProblemDialogue({this.event, this.inConceptDashboard});
 
   @override
   _customerProblemDialogueState createState() =>
@@ -175,8 +176,11 @@ class _customerProblemDialogueState extends State<customerProblemDialogue> {
                               }
                             : () {
                                 (eventTextController.text != '')
-                                    ? Navigator.popAndPushNamed(
-                                        context, '/conceptDashboard')
+                                    ? (widget.inConceptDashboard)
+                                        ? Navigator.popAndPushNamed(
+                                            context, '/conceptDashboard')
+                                        : Navigator.popAndPushNamed(
+                                            context, '/BUFDashboard')
                                     : {};
                                 _firestore
                                     .collection(
