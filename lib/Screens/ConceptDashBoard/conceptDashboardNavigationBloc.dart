@@ -28,16 +28,16 @@ class conceptDashboardNavigationBloc
         yield overViewDashBoard();
         break;
       case ConceptDashboardEvents.customerClicked:
-        yield customerDashBoard();
+        yield customerDashBoard(inConceptDashboard: true,);
         break;
       case ConceptDashboardEvents.solutionClicked:
-        yield solutionDashBoard();
+        yield solutionDashBoard(inConceptDashboard: true,);
         break;
       case ConceptDashboardEvents.feedbackClicked:
-        yield feedbackDashBoard();
+        yield feedbackDashBoard(inConceptDashboard: true,);
         break;
       case ConceptDashboardEvents.nextStepsClicked:
-        yield nextStepsDashBoard();
+        yield nextStepsDashBoard(inConceptDashboard: true,);
         break;
     }
   }

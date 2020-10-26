@@ -38,10 +38,10 @@ class BufDashboardNavigationBloc
         yield BufOverviewDashboard();
         break;
       case BufDashboardEvents.customerClicked:
-        yield customerDashBoard();
+        yield customerDashBoard(inConceptDashboard: false,);
         break;
       case BufDashboardEvents.solutionClicked:
-        yield solutionDashBoard();
+        yield solutionDashBoard(inConceptDashboard: false,);
         break;
       case BufDashboardEvents.productClicked:
         yield BufProductDashboard();
@@ -50,7 +50,7 @@ class BufDashboardNavigationBloc
         yield BUFMarketDashboard();
         break;
       case BufDashboardEvents.feedbackClicked:
-        yield feedbackDashBoard();
+        yield feedbackDashBoard(inConceptDashboard: false,);
         break;
       case BufDashboardEvents.moneyClicked:
         yield BcMoneyDashboard();
@@ -59,7 +59,7 @@ class BufDashboardNavigationBloc
         yield BcMetricsDashboard();
         break;
       case BufDashboardEvents.nextStepsClicked:
-        yield nextStepsDashBoard();
+        yield nextStepsDashBoard(inConceptDashboard: false,);
         break;
     }
   }
